@@ -47,48 +47,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProdCodeGenerator", "ProdCodeGenerator\ProdCodeGenerator.csproj", "{3E2EB5DE-FE2B-408D-95C3-CBCC9E95B809}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 11
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs31
-		SccProjectUniqueName0 = ProdEHLLAPI\\ProdEHLLAPI.csproj
-		SccProjectName0 = ProdEHLLAPI
-		SccLocalPath0 = ProdEHLLAPI
-		SccLocalPath1 = .
-		SccProjectUniqueName2 = ProdLoggers\\DebugLogger\\DebugLogger.csproj
-		SccProjectTopLevelParentUniqueName2 = ProdUISystem.sln
-		SccProjectName2 = ProdLoggers/DebugLogger
-		SccLocalPath2 = ProdLoggers\\DebugLogger
-		SccProjectUniqueName3 = ProdLoggers\\MboxLogger\\MboxLogger.csproj
-		SccProjectTopLevelParentUniqueName3 = ProdUISystem.sln
-		SccProjectName3 = ProdLoggers/MboxLogger
-		SccLocalPath3 = ProdLoggers\\MboxLogger
-		SccProjectUniqueName4 = ProdLoggers\\TextFileLogger\\TextFileLogger.csproj
-		SccProjectTopLevelParentUniqueName4 = ProdUISystem.sln
-		SccProjectName4 = ProdLoggers/TextFileLogger
-		SccLocalPath4 = ProdLoggers\\TextFileLogger
-		SccProjectUniqueName5 = ProdUI\\ProdUI.csproj
-		SccProjectName5 = ProdUI
-		SccLocalPath5 = ProdUI
-		SccProjectUniqueName6 = ProdUITools\\MapLib\\MapLib.csproj
-		SccProjectName6 = ProdUITools/MapLib
-		SccLocalPath6 = ProdUITools\\MapLib
-		SccProjectUniqueName7 = ProdUITools\\ProdSessionConfiguration\\ProdSessionConfiguration.csproj
-		SccProjectTopLevelParentUniqueName7 = ProdUISystem.sln
-		SccProjectName7 = ProdUITools/ProdSessionConfiguration
-		SccLocalPath7 = ProdUITools\\ProdSessionConfiguration
-		SccProjectUniqueName8 = ProdUITools\\ProdSpy\\ProdSpy.csproj
-		SccProjectTopLevelParentUniqueName8 = ProdUISystem.sln
-		SccProjectName8 = ProdUITools/ProdSpy
-		SccLocalPath8 = ProdUITools\\ProdSpy
-		SccProjectUniqueName9 = ProdUITools\\WinMap\\WinMap.csproj
-		SccProjectTopLevelParentUniqueName9 = ProdUISystem.sln
-		SccProjectName9 = ProdUITools/WinMap
-		SccLocalPath9 = ProdUITools\\WinMap
-		SccProjectUniqueName10 = ProdCodeGenerator\\ProdCodeGenerator.csproj
-		SccProjectName10 = ProdCodeGenerator
-		SccLocalPath10 = ProdCodeGenerator
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -412,6 +370,7 @@ Global
 		{6B1817AB-C03B-4FC9-91A9-C7528E26E7BC}.WinMapOnly|x86.ActiveCfg = WinMapOnly|x86
 		{6B1817AB-C03B-4FC9-91A9-C7528E26E7BC}.WinMapOnly|x86.Build.0 = WinMapOnly|x86
 		{3E2EB5DE-FE2B-408D-95C3-CBCC9E95B809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E2EB5DE-FE2B-408D-95C3-CBCC9E95B809}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E2EB5DE-FE2B-408D-95C3-CBCC9E95B809}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{3E2EB5DE-FE2B-408D-95C3-CBCC9E95B809}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{3E2EB5DE-FE2B-408D-95C3-CBCC9E95B809}.Debug|x86.ActiveCfg = Debug|Any CPU
