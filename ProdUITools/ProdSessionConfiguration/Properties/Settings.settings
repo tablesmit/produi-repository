@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ProdSessionConfiguration.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="TimeExample" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[10:12:32 AM]:</Value>
+    </Setting>
+    <Setting Name="TypeExample" Type="System.String" Scope="User">
+      <Value Profile="(Default)">*Prod*</Value>
+    </Setting>
+    <Setting Name="AdditionalExample" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Additional Information=Set Text: Hello World</Value>
+    </Setting>
+    <Setting Name="MethodExample" Type="System.String" Scope="User">
+      <Value Profile="(Default)">*Method=Click*</Value>
+    </Setting>
+    <Setting Name="MessageExample" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Button click verified</Value>
+    </Setting>
+    <Setting Name="MRU" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>
