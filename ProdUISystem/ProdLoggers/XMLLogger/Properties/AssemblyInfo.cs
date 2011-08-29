@@ -1,19 +1,16 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Resources;
-
-//[assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = false)]
-
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-
-[assembly: AssemblyTitle("MapLib")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("XMLLogger")]
+[assembly: AssemblyDescription("Logs output to an XML File")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ProdUI")]
-[assembly: AssemblyProduct("MapLib")]
+[assembly: AssemblyProduct("XMLLogger")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -21,12 +18,10 @@ using System.Resources;
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
-
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-
-[assembly: Guid("0051c2e6-c55f-486e-9e5f-ea8593685bb2")]
+[assembly: Guid("9bc8f391-e298-4855-a2f3-23208633ce7a")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -38,7 +33,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-
-[assembly: AssemblyVersion("0.0.21.1553")]
-[assembly: AssemblyFileVersion("0.0.21.1553")]
+[assembly: AssemblyVersion("0.0.1.0")]
+[assembly: AssemblyFileVersion("0.0.1.0")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]

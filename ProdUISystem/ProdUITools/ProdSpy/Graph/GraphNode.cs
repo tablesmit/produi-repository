@@ -83,16 +83,6 @@ namespace ProdSpy.Graph
             NodeCtrlHandle = NodeElement.Current.NativeWindowHandle.ToString(CultureInfo.CurrentCulture);
         }
 
-
-        #region Constructor
-
-        public GraphNode()
-        {
-        }
-
-        #endregion
-
-
         #region Deserialization Constructor
 
         protected GraphNode(SerializationInfo info, StreamingContext context)

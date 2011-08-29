@@ -147,6 +147,12 @@ namespace ProdUI.Controls
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is enabled.
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if this instance is enabled; otherwise, <c>false</c>.
+        /// </value>
         public bool IsEnabled
         {
             get

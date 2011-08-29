@@ -14,7 +14,9 @@ namespace ProdUI.Logging
     {
         private readonly LoggingLevels _logLevel;
 
-        /// <summary>Instantiates a ProdLoggingAttribute</summary>
+        /// <summary>
+        /// Instantiates a ProdLoggingAttribute
+        /// </summary>
         /// <param name="logLevel">The LoggingLevel of messages to output to the log</param>
         /// <example>
         /// Will specify that any messages sent from this function will be informational, with a verbosity of 'minimum'

@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ProdEHLLAPI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("H Roark")]
+[assembly: AssemblyCompany("ProdUI")]
 [assembly: AssemblyProduct("ProdEHLLAPI")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]

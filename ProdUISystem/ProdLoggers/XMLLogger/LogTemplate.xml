@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<log xmlns="http://tempuri.org/LogTemplate.xsd">
+  <entry>
+    <time>2011-12-11T12:12:12</time>
+    <message level="">Simple Message</message>
+    <callingMethod>ProdButton.Click()</callingMethod>
+    <extraInformation>Some extra info
+      usually from a list
+      </extraInformation>
+   </entry>
+</log>
