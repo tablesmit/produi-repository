@@ -9,7 +9,7 @@ namespace ProdEhllapi
         #region Nested type: EhllapiFunctionCode
 
         /// <summary>
-        ///   Function Name (Function Number) <see cref = "http://publib.boulder.ibm.com/infocenter/pcomhelp/v5r9/index.jsp?topic=/com.ibm.pcomm.doc/books/html/emulator_programming08.htm" />
+        /// Function Name (Function Number) <see ref="http://publib.boulder.ibm.com/infocenter/pcomhelp/v5r9/index.jsp?topic=/com.ibm.pcomm.doc/books/html/emulator_programming08.htm"/>
         /// </summary>
         internal enum EhllapiFunctionCode
         {

@@ -374,7 +374,7 @@ namespace ProdUI.Utility
         /// <param name = "pt">The point....</param>
         internal static void MoveMouseToPoint(Point pt)
         {
-            SendMouseInput(pt.X, pt.Y, 0, MOUSEEVENTFs.MouseeventfMove | MOUSEEVENTFs.MouseeventfAbsolute);
+            SendMouseInput(pt.X, pt.Y, 0, MOUSEEVENTF.MouseeventfMove | MOUSEEVENTF.MouseeventfAbsolute);
         }
 
         /// <summary>
@@ -395,13 +395,13 @@ namespace ProdUI.Utility
         /// <remarks>
         /// x, y are in pixels. If Absolute flag used, are relative to desktop origin.
         /// </remarks>
-        internal static void SendMouseInput(double x, double y, int data, MOUSEEVENTFs flags)
+        internal static void SendMouseInput(double x, double y, int data, MOUSEEVENTF flags)
         {
             int intflags = (int) flags;
 
             try
             {
-                if ((intflags & (int) MOUSEEVENTFs.MouseeventfAbsolute) != 0)
+                if ((intflags & (int) MOUSEEVENTF.MouseeventfAbsolute) != 0)
                 {
                     int vscreenWidth = NativeMethods.GetSystemMetrics((int) SystemMetric.SMCxvirtualscreen);
                     int vscreenHeight = NativeMethods.GetSystemMetrics((int) SystemMetric.SMCyvirtualscreen);
@@ -431,7 +431,7 @@ namespace ProdUI.Utility
                     x = ((x - vscreenLeft)*65536)/vscreenWidth + 65536/(vscreenWidth*2);
                     y = ((y - vscreenTop)*65536)/vscreenHeight + 65536/(vscreenHeight*2);
 
-                    intflags |= (int) MOUSEEVENTFs.MouseeventfVirtualdesk;
+                    intflags |= (int) MOUSEEVENTF.MouseeventfVirtualdesk;
                 }
 
 

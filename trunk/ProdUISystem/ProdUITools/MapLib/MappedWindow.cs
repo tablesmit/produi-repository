@@ -241,7 +241,7 @@ namespace MapLib
         {
             //todo: this path sucks
             string root = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string newpath = root + @"\Projects\ProdUI\trunk\ProdUISystem\Common\";
+            string newpath = root + @"\Projects\produi\ProdUISystem\Common\";
 
             Assembly prodAssembly = Assembly.LoadFrom(newpath + @"ProdUI.dll");
             ProdUiTypes = prodAssembly.GetTypes();

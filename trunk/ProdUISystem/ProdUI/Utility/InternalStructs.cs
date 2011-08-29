@@ -11,7 +11,7 @@ namespace ProdUI.Utility
     ///   Mouse event flags from From winuser.h
     /// </summary>
     [Flags]
-    internal enum MOUSEEVENTFs
+    internal enum MOUSEEVENTF
     {
         /// <summary>
         ///   mouse move
@@ -127,7 +127,7 @@ namespace ProdUI.Utility
         public int MouseData;
 
         /// <summary>
-        ///   <see cref = "MOUSEEVENTF" />
+        ///   <see cref="MOUSEEVENTF"/>
         /// </summary>
         [MarshalAs(UnmanagedType.I4)] 
         public int DWFlags;

@@ -62,11 +62,15 @@ namespace ProdUI.Controls
         /// <example>
         ///   <code>
         /// /* Assuming "Calculator" is running, this will press the "7" button */
-        /// ProdSession session = new ProdSession();
-        /// ProdWindow window = new ProdWindow("Calculator",session);
-        /// IntPtr hand = ProdFunctions.GetControlHandle(hWnd,"9");
-        /// ProdButton control = new ProdButton(window, hWnd);
-        /// ProdButton.Click();
+        /// ProdSession session = new ProdSession("test.ses");
+        /// ProdWindow window = new ProdWindow("Calculator", session.Loggers);
+        /// ProdButton ctrl = new ProdButton(window,"7");
+        /// ctrl.Click();
+        /// or
+        /// Statically:
+        /// ProdSession session = new ProdSession("test.ses");
+        /// ProdWindow window = new ProdWindow("Calculator", session.Loggers);
+        /// Prod.ButtonClick(window, "7");
         ///   </code>
         ///   </example>
         ///   
