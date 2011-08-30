@@ -84,18 +84,12 @@ namespace ProdUI.Controls
         #region List Instance Methods
 
         /// <summary>
-        ///   Gets the number of items in the List control
+        /// Gets the number of items in the List control
         /// </summary>
-        /// <returns>The number of items in the list</returns>
-        /// <example>
-        ///   <code>
-        ///     ProdSession session = new ProdSession();
-        ///     ProdWindow window = new ProdWindow("App Window Name", session);
-        ///     ProdComboBox control = new ProdComboBox(window, "CboName");
-        ///     int retVal = control.GetItemCount();
-        ///   </code>
-        /// </example>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <returns>
+        /// The number of items in the list
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public int GetItemCount()
         {
@@ -184,12 +178,12 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Selects the item.
+        /// Selects the item by its index.
         /// </summary>
-        /// <param name = "index">The index of the item to select.</param>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="index">The index of the item to select.</param>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void SetSelectedItem(int index)
+        public void SetSelectedIndex(int index)
         {
             try
             {

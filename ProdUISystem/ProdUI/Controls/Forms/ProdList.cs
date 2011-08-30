@@ -103,6 +103,26 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
+        /// Gets the number of items in the List control
+        /// </summary>
+        /// <returns>The number of items in the list</returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception> 
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
+        public int GetItemCount()
+        {
+            try
+            {
+                AutomationElementCollection convRet = SelectionPatternHelper.GetListItems(ThisElement);
+                return convRet.Count;
+            }
+            catch (ProdOperationException err)
+            {
+                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Determines whether this instance can select multiple item selection.
         /// </summary>
         /// <returns>
@@ -143,8 +163,8 @@ namespace ProdUI.Controls
                     AutomationElement[] element = SelectionPatternHelper.GetSelection(ThisElement);
                     int retVal = SelectionPatternHelper.FindIndexByItem(element[0]);
                     Logmessage = retVal.ToString(CultureInfo.CurrentCulture);
-                        LogEntry();
-                        return retVal;
+                    LogEntry();
+                    return retVal;
                 }
                 throw new ProdOperationException("Does not support single selection");
             }
@@ -182,14 +202,14 @@ namespace ProdUI.Controls
         /// <summary>Sets the selected list item.</summary>
         /// <param name="index">The zero-based index of the item to select.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void SetSelectedItem(int index)
+        public void SetSelectedIndex(int index)
         {
             Logmessage = "Index " + index;
 
             try
             {
                 SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent);
-                AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(ThisElement,index);
+                AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(ThisElement, index);
                 SelectionPatternHelper.Select(indexedItem);
             }
             catch (ProdOperationException err)
@@ -209,7 +229,7 @@ namespace ProdUI.Controls
             try
             {
                 SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent);
-                AutomationElement control = SelectionPatternHelper.FindItemByText(ThisElement,itemText);
+                AutomationElement control = SelectionPatternHelper.FindItemByText(ThisElement, itemText);
                 SelectionPatternHelper.Select(control);
             }
             catch (ProdOperationException err)
@@ -239,7 +259,7 @@ namespace ProdUI.Controls
             try
             {
                 SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
-                AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(ThisElement,index);
+                AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(ThisElement, index);
                 SelectionPatternHelper.AddToSelection(itemToSelect);
             }
             catch (ProdOperationException err)
@@ -265,7 +285,7 @@ namespace ProdUI.Controls
             try
             {
                 SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
-                AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(ThisElement,itemText);
+                AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(ThisElement, itemText);
                 SelectionPatternHelper.AddToSelection(itemToSelect);
             }
             catch (ProdOperationException err)
@@ -287,7 +307,7 @@ namespace ProdUI.Controls
 
 
             try
-            {           
+            {
                 AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(ThisElement);
                 ArrayList retList = new ArrayList(selectedItems);
 
@@ -313,7 +333,7 @@ namespace ProdUI.Controls
             {
                 throw new ProdOperationException(Name + " does not allow multiple selection");
             }
- 
+
             try
             {
                 AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(ThisElement);
