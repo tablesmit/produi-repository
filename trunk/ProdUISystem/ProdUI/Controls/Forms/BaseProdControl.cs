@@ -8,7 +8,9 @@ using System.Windows.Automation;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Utility;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("ProdUITests")]
 namespace ProdUI.Controls
 {
     delegate void ProdEventHandler();
@@ -27,6 +29,12 @@ namespace ProdUI.Controls
         internal AutomationElement ThisElement;
         internal string Logmessage = string.Empty;
         internal ArrayList VerboseInformation;
+
+        /// <summary>
+        /// This variable is here pretty much for unit testing.
+        /// it is set upon event confirm and cleared after handler has been removed
+        /// </summary>
+        internal bool eventTriggered;
 
 
 
@@ -226,7 +234,7 @@ namespace ProdUI.Controls
                 return;
             }
 
-
+            eventTriggered = true;
             LogEntry();
 
             RemoveHandler();
@@ -246,7 +254,7 @@ namespace ProdUI.Controls
             {
                 return;
             }
-
+            eventTriggered = true;
             LogEntry();
             RemovePropertyChangeHandler();
         }
@@ -302,11 +310,12 @@ namespace ProdUI.Controls
 
         internal void LogEntry()
         {
+            
             if (_currentMessage == null)
             {
                 CreateMessage();
             }
-                
+            eventTriggered = false;   
             ProdLogger.Log(_currentMessage, ParentWindow.AttachedLoggers);
         }
 
