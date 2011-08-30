@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using NUnit.Framework;
 using ProdUI.Controls;
 using ProdUI.Session;
@@ -16,11 +17,8 @@ namespace ProdUITesting
         public static void Init()
         {
             session = new ProdSession("test.ses");
-            window = new ProdWindow(WIN_TITLE, session.Loggers);
-           
+            window = new ProdWindow(WIN_TITLE, session.Loggers);         
         }
-
-
 
         [Test]
         public void ConstructorWithHandle()
@@ -45,29 +43,26 @@ namespace ProdUITesting
             Assert.Fail("Not implemented");
         }
 
-        [Test]
+
+        [Test, Description("Checking click event by verifying its effect on UI")]
         public void Click()
         {
             ProdButton button = new ProdButton(window, "button1");
             ProdButton button2 = new ProdButton(window, "button2");
 
             button.Click();
-
-            if (button2.IsEnabled)
-                Assert.Pass();
-            else
-            {
-                Assert.Fail();
-            }
+            
+            Assert.That(button2.IsEnabled, Is.True);
         }
 
-        [Test]
+        [Test, Description("Verifying the the UIA event was fired")]
         public void ClickEventNotification()
         {
             ProdButton button = new ProdButton(window, "button1");
-
             button.Click();
-           
+            
+            Thread.Sleep(2000);
+            Assert.That(button.eventTriggered,Is.True);     
         }
     }
 }
