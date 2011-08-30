@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\Users\dad\Documents\Projects\ProdUI\ProdUITests\ProdUITests\ProdUITests\bin\Debug\ProdUITests.nunit" total="1" errors="1" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2011-08-29" time="21:51:22">
+  <environment nunit-version="2.5.10.11092" clr-version="2.0.50727.5446" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\Program Files\NUnit 2.5.10\bin\net-2.0" machine-name="DADSCOMPUTER" user="dad" user-domain="DadsComputer" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="Project" name="C:\Users\dad\Documents\Projects\ProdUI\ProdUITests\ProdUITests\ProdUITests\bin\Debug\ProdUITests.nunit" executed="True" result="Failure" success="False" time="0.654" asserts="0">
+    <results>
+      <test-suite type="Assembly" name="C:\Users\dad\Documents\Projects\ProdUI\ProdUITests\ProdUITests\ProdUITests\bin\Debug\ProdUITests.dll" executed="True" result="Failure" success="False" time="0.654" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="ProdUITests" executed="True" result="Failure" success="False" time="0.654" asserts="0">
+            <results>
+              <test-suite type="TestFixture" name="ProdCheckBoxTest" executed="True" result="Failure" success="False" time="0.644" asserts="0">
+                <results>
+                  <test-case name="ProdUITests.ProdCheckBoxTest.GetCheckState" executed="True" result="Error" success="False" time="0.644" asserts="0">
+                    <failure>
+                      <message><![CDATA[SetUp : System.ArgumentException : hwnd cannot be IntPtr.Zero or null.]]></message>
+                      <stack-trace><![CDATA[at System.Windows.Automation.AutomationElement.FromHandle(IntPtr hwnd)
+at ProdUI.Controls.ProdWindow..ctor(String partialTitle, List`1 loggers) in C:\Users\dad\Documents\Projects\ProdUI\ProdUISystem\ProdUI\Controls\Forms\ProdWindow.cs:line 82
+at ProdUITests.ProdCheckBoxTest.Init() in C:\Users\dad\Documents\Projects\ProdUI\ProdUITests\ProdUITests\ProdUITests\ProdCheckBoxTest.cs:line 25
+]]></stack-trace>
+                    </failure>
+                  </test-case>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
