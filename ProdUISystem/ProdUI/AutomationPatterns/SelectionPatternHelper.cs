@@ -3,9 +3,11 @@
  */
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
 
+[assembly: InternalsVisibleTo("ProdUITests")] 
 namespace ProdUI.AutomationPatterns
 {
     internal static class SelectionPatternHelper
