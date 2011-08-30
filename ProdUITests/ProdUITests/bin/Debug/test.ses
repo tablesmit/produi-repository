@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<session xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="163a40cb461f4464bbf8a330049d0f53">
+  <sessionName>Tester</sessionName>
+  <eventTimeout>5</eventTimeout>
+  <loggers>
+    <logger type="DebugLogger" assemblyPath="DebugLogger.dll" name="OutLog">
+      <parameters />
+      <logFormat>LogTime,Message Level,Calling Function,Message Text</logFormat>
+      <logDateFormat>T</logDateFormat>
+      <logLevel>4</logLevel>
+      <logVerbosity>1</logVerbosity>
+    </logger>
+  </loggers>
+</session>
