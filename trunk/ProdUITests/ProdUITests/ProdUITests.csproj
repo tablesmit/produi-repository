@@ -55,6 +55,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -64,8 +65,12 @@
     <Reference Include="UIAutomationTypes" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProdButtonTest.cs" />
-    <Compile Include="ProdCheckBoxTest.cs" />
+    <Compile Include="ProdButtonTests.cs" />
+    <Compile Include="ProdCheckBoxTests.cs" />
+    <Compile Include="ProdComboBoxTests.cs" />
+    <Compile Include="ProdEditTests.cs" />
+    <Compile Include="ProdListTests.cs" />
+    <Compile Include="ProdRadioButtonTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
