@@ -177,7 +177,7 @@ namespace ProdUI.Controls
         /// <param name="eventType">The specific event type to monitor</param>
         public void SubscribeToEvent(AutomationEvent eventType)
         {
-
+            eventTriggered = false; 
             CreateMessage();
 
             if (eventType.Id == InvokePattern.InvokedEvent.Id)
@@ -195,6 +195,7 @@ namespace ProdUI.Controls
         /// <param name="property">The automation property to monitor for a state change</param>
         public void SubscribeToEvent(AutomationProperty property)
         {
+            eventTriggered = false; 
             CreateMessage();
             _propertyChangeHandler = new AutomationPropertyChangedEventHandler(OnPropertyChange);
             Automation.AddAutomationPropertyChangedEventHandler(ThisElement, TreeScope.Element, _propertyChangeHandler, property);
@@ -206,6 +207,7 @@ namespace ProdUI.Controls
         /// <param name="eventType">The specific event type to monitor</param>
         public void SubscribeToChildNotification(AutomationEvent eventType)
         {
+            eventTriggered = false; 
             _patternEventType = eventType;
             _eventHandler = new AutomationEventHandler(OnAutomationEvent);
             Automation.AddAutomationEventHandler(_patternEventType, ThisElement, TreeScope.Descendants, _eventHandler);
@@ -315,7 +317,7 @@ namespace ProdUI.Controls
             {
                 CreateMessage();
             }
-            eventTriggered = false;   
+             
             ProdLogger.Log(_currentMessage, ParentWindow.AttachedLoggers);
         }
 

@@ -56,7 +56,7 @@ namespace ProdUITests
             radio.Select();
 
             Thread.Sleep(2000);
-            Assert.That(radio.eventTriggered, Is.True);
+            Assert.That(radio.eventTriggered);
         }
     }
 }

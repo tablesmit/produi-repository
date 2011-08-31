@@ -92,7 +92,7 @@ namespace ProdUITests
             edit.Clear();
 
             Thread.Sleep(2000);
-            Assert.That(edit.eventTriggered, Is.True);
+            Assert.That(edit.eventTriggered);
         }
 
         [Test]
@@ -120,7 +120,7 @@ namespace ProdUITests
             edit.AppendText(testString);
 
             Thread.Sleep(2000);
-            Assert.That(edit.eventTriggered, Is.True);
+            Assert.That(edit.eventTriggered);
         }
 
         [Test]
@@ -166,7 +166,7 @@ namespace ProdUITests
             edit.InsertText(testString, len);
 
             Thread.Sleep(2000);
-            Assert.That(edit.eventTriggered, Is.True);
+            Assert.That(edit.eventTriggered);
 
         }
 

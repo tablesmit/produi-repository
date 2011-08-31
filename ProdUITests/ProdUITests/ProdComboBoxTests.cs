@@ -82,7 +82,7 @@ namespace ProdUITests
             combo.SetSelectedIndex(index);
 
             Thread.Sleep(2000);
-            Assert.That(combo.eventTriggered, Is.True);
+            Assert.That(combo.eventTriggered);
         }
 
         [Test]
@@ -204,7 +204,7 @@ namespace ProdUITests
             combo.SetText(testString);
 
             Thread.Sleep(2000);
-            Assert.That(combo.eventTriggered, Is.True);
+            Assert.That(combo.eventTriggered);
 
         }
 
@@ -236,7 +236,7 @@ namespace ProdUITests
             combo.Clear();
 
             Thread.Sleep(2000);
-            Assert.That(combo.eventTriggered, Is.True);
+            Assert.That(combo.eventTriggered);
         }
 
         [Test]
@@ -270,7 +270,7 @@ namespace ProdUITests
             combo.AppendText(testString);
 
             Thread.Sleep(2000);
-            Assert.That(combo.eventTriggered, Is.True);
+            Assert.That(combo.eventTriggered);
         }
 
         #endregion

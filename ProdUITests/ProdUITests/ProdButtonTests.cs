@@ -4,7 +4,7 @@ using NUnit.Framework;
 using ProdUI.Controls;
 using ProdUI.Session;
 
-namespace ProdUITesting
+namespace ProdUITests
 {
     [TestFixture]
     public class ProdButtonTest
@@ -62,7 +62,7 @@ namespace ProdUITesting
             button.Click();
             
             Thread.Sleep(2000);
-            Assert.That(button.eventTriggered,Is.True);     
+            Assert.That(button.eventTriggered);     
         }
     }
 }
