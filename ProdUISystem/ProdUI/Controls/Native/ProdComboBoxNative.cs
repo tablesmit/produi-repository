@@ -9,6 +9,7 @@ using System.Text;
 using ProdUI.Exceptions;
 using ProdUI.Session;
 using ProdUI.Utility;
+using System.Collections.Generic;
 
 namespace ProdUI.Controls.Native
 {
@@ -129,7 +130,7 @@ namespace ProdUI.Controls.Native
         /// </summary>
         /// <param name = "windowHandle">Handle to ComboBox</param>
         /// <returns>A string collection containing each item in the ComboBox</returns>
-        internal static ArrayList GetItemsNative(IntPtr windowHandle)
+        internal static List<object> GetItemsNative(IntPtr windowHandle)
         {
             try
             {
@@ -148,10 +149,10 @@ namespace ProdUI.Controls.Native
         /// <param name = "windowHandle">The window handle.</param>
         /// <param name = "itemCount">The item count.</param>
         /// <returns>A collection of all the items in the list</returns>
-        private static ArrayList GetAllItems(IntPtr windowHandle, int itemCount)
+        private static List<object> GetAllItems(IntPtr windowHandle, int itemCount)
         {
             StringBuilder sb = new StringBuilder();
-            ArrayList returnCollection = new ArrayList();
+            List<object> returnCollection = new List<object>();
 
             for (int i = 0; i < itemCount - 1; i++)
             {

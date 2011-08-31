@@ -4,11 +4,12 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Utility;
-using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("ProdUITests")]
 namespace ProdUI.Controls
@@ -28,7 +29,7 @@ namespace ProdUI.Controls
         internal ProdWindow ParentWindow;
         internal AutomationElement ThisElement;
         internal string Logmessage = string.Empty;
-        internal ArrayList VerboseInformation;
+        internal List<object> VerboseInformation;
 
         /// <summary>
         /// This variable is here pretty much for unit testing.
@@ -66,7 +67,7 @@ namespace ProdUI.Controls
             }
 
             ParentWindow = prodWindow;
-            VerboseInformation = new ArrayList();
+            VerboseInformation = new List<object>();
         }
 
         /// <summary>
@@ -86,7 +87,7 @@ namespace ProdUI.Controls
                 ControlTree tree = new ControlTree((IntPtr)prodWindow.Window.Current.NativeWindowHandle);
                 ThisElement = tree.FindElement(treePosition);
                 ParentWindow = prodWindow;
-                VerboseInformation = new ArrayList();
+                VerboseInformation = new List<object>();
             }
             catch (ElementNotAvailableException err)
             {
@@ -105,7 +106,7 @@ namespace ProdUI.Controls
             {
                 ThisElement = AutomationElement.FromHandle(controlHandle);
                 ParentWindow = prodWindow;
-                VerboseInformation = new ArrayList();
+                VerboseInformation = new List<object>();
             }
             catch (ElementNotAvailableException err)
             {

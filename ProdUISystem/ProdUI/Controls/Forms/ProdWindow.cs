@@ -24,7 +24,7 @@ namespace ProdUI.Controls
         private readonly CacheRequest _cacheRequest;
         private LogMessage _currentMessage;
         private string _logmessage = string.Empty;
-        private readonly ArrayList _verboseInformation;
+        private readonly List<object> _verboseInformation;
 
         internal AutomationElement Window;
 
@@ -57,7 +57,7 @@ namespace ProdUI.Controls
                     ProdLogger.LogException(err, AttachedLoggers);
                     throw new ProdOperationException(err);
                 }
-                _verboseInformation = new ArrayList();
+                _verboseInformation = new List<object>();
             }
             catch (ElementNotAvailableException ex)
             {
@@ -95,7 +95,7 @@ namespace ProdUI.Controls
                 ProdLogger.LogException(err, AttachedLoggers);
                 throw new ProdOperationException(err); 
             }
-            _verboseInformation = new ArrayList();
+            _verboseInformation = new List<object>();
         }
 
         #endregion

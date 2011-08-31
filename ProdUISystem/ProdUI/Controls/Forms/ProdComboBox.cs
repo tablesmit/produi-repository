@@ -11,6 +11,7 @@ using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Utility;
 using System.Globalization;
+using System.Collections.Generic;
 
 /* Notes
  * --ListBox Portion--
@@ -114,18 +115,12 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Gets the selected item
+        /// Gets the selected item
         /// </summary>
-        /// <returns>The currently selected item</returns>
-        /// <example>
-        ///   <code>
-        ///     ProdSession session = new ProdSession();
-        ///     ProdWindow window = new ProdWindow("App Window Name", session);
-        ///     ProdComboBox control = new ProdComboBox(window, "CboName");
-        ///     Object retVal = control.GetSelectedItem();
-        ///   </code>
-        /// </example>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <returns>
+        /// The currently selected item
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public AutomationElement GetSelectedItem()
         {
@@ -147,18 +142,12 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Gets the zero-based index of the currently selected item
+        /// Gets the zero-based index of the currently selected item
         /// </summary>
-        /// <returns>The zero based index of the selected item in the list</returns>
-        /// <example>
-        ///   <code>
-        ///     ProdSession session = new ProdSession();
-        ///     ProdWindow window = new ProdWindow("App Window Name", session);
-        ///     ProdComboBox control = new ProdComboBox(window, "CboName");
-        ///     int retVal = ProdComboBox.GetSelectedIndex();
-        ///   </code>
-        /// </example>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <returns>
+        /// The zero based index of the selected item in the list
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public int GetSelectedIndex()
         {
@@ -204,10 +193,10 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Selects the item.
+        /// Selects the item.
         /// </summary>
-        /// <param name = "itemText">The item text.</param>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="itemText">The item text.</param>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetSelectedItem(string itemText)
         {
@@ -230,13 +219,13 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Determines whether the specified index is selected.
+        /// Determines whether the specified index is selected.
         /// </summary>
-        /// <param name = "index">The index.</param>
+        /// <param name="index">The index.</param>
         /// <returns>
         ///   <c>true</c> if the specified index is selected; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         public bool IsSelected(int index)
         {
             try
@@ -256,13 +245,13 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Determines whether the specified item text is selected.
+        /// Determines whether the specified item text is selected.
         /// </summary>
-        /// <param name = "itemText">The item text.</param>
+        /// <param name="itemText">The item text.</param>
         /// <returns>
         ///   <c>true</c> if the specified item text is selected; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         public bool IsSelected(string itemText)
         {
             try
@@ -282,20 +271,14 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Get all items contained in the list control
+        /// Get all items contained in the list control
         /// </summary>
-        /// <returns>List containing text of all items in the list control</returns>
-        /// <example>
-        ///   <code><![CDATA[
-        /// ProdSession session = new ProdSession();
-        /// ProdWindow window = new ProdWindow("App Window Name", session);
-        /// ProdComboBox control = new ProdComboBox(window, "CboName");
-        /// collection;ltObject;gt retVal = control.GetItems();
-        /// ]]></code>
-        /// </example>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <returns>
+        /// List containing text of all items in the list control
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public ArrayList GetItems()
+        public List<object> GetItems()
         {
             try
             {
@@ -306,7 +289,7 @@ namespace ProdUI.Controls
                     return ProdComboBoxNative.GetItemsNative(Handle);
                 }
 
-                ArrayList retArr = InternalUtilities.AutomationCollToArrayList(retVal);
+                List<object> retArr = InternalUtilities.AutomationCollToObjectList(retVal);
                 Logmessage = "Items: ";
                 VerboseInformation = retArr;
                 LogEntry();
@@ -325,13 +308,15 @@ namespace ProdUI.Controls
         #region Textbox Instance Methods
 
         /// <summary>
-        ///   Gets the number of characters in textbox
+        /// Gets the number of characters in textbox
         /// </summary>
-        /// <returns>The length of the string in the TextBox (if supported)</returns>
-        /// <exception cref = "ProdOperationException">
-        ///   Thrown if element is no longer available
-        ///   Thrown if ComboBox doesn't support the value pattern
-        /// </exception>
+        /// <returns>
+        /// The length of the string in the TextBox (if supported)
+        /// </returns>
+        /// <exception cref="ProdOperationException">
+        /// Thrown if element is no longer available
+        /// Thrown if ComboBox doesn't support the value pattern
+        ///   </exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public int Length()
         {
@@ -365,13 +350,15 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Gets the text contained in the current TextBox
+        /// Gets the text contained in the current TextBox
         /// </summary>
-        /// <returns>The string in the Textbox (if supported)</returns>
-        /// <exception cref = "ProdOperationException">
-        ///   Thrown if element is no longer available
-        ///   Thrown if ComboBox doesn't support the value pattern
-        /// </exception>
+        /// <returns>
+        /// The string in the Textbox (if supported)
+        /// </returns>
+        /// <exception cref="ProdOperationException">
+        /// Thrown if element is no longer available
+        /// Thrown if ComboBox doesn't support the value pattern
+        ///   </exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public string GetText()
         {
@@ -401,13 +388,13 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Sets the text contained in the current TextBox
+        /// Sets the text contained in the current TextBox
         /// </summary>
-        /// <param name = "text">The text to set the TextBox to (if supported)</param>
-        /// <exception cref = "ProdOperationException">
-        ///   Thrown if element is no longer available
-        ///   Thrown if ComboBox doesn't support the value pattern
-        /// </exception>
+        /// <param name="text">The text to set the TextBox to (if supported)</param>
+        /// <exception cref="ProdOperationException">
+        /// Thrown if element is no longer available
+        /// Thrown if ComboBox doesn't support the value pattern
+        ///   </exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetText(string text)
         {
@@ -433,12 +420,12 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Set text area value to an empty string
+        /// Set text area value to an empty string
         /// </summary>
-        /// <exception cref = "ProdOperationException">
-        ///   Thrown if element is no longer available
-        ///   Thrown if ComboBox doesn't support the value pattern
-        /// </exception>
+        /// <exception cref="ProdOperationException">
+        /// Thrown if element is no longer available
+        /// Thrown if ComboBox doesn't support the value pattern
+        ///   </exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void Clear()
         {
@@ -463,13 +450,13 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Appends text to a text input control
+        /// Appends text to a text input control
         /// </summary>
-        /// <param name = "newText">Text To Append</param>
-        /// <exception cref = "ProdOperationException">
-        ///   Thrown if element is no longer available
-        ///   Thrown if ComboBox doesn't support the value pattern
-        /// </exception>
+        /// <param name="newText">Text To Append</param>
+        /// <exception cref="ProdOperationException">
+        /// Thrown if element is no longer available
+        /// Thrown if ComboBox doesn't support the value pattern
+        ///   </exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void AppendText(string newText)
         {

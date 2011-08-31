@@ -130,7 +130,7 @@ namespace ProdUI.AutomationPatterns
         internal static void Select(AutomationElement control)
         {
             SelectionItemPattern pat = (SelectionItemPattern)CommonPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
-
+            ExpandCollapseHelper.Expand(control);
             pat.Select();
         }
 
@@ -173,9 +173,13 @@ namespace ProdUI.AutomationPatterns
             }
         }
 
-        /// <summary>Utility to get all of the items in a List control</summary>
+        /// <summary>
+        /// Utility to get all of the items in a List control
+        /// </summary>
         /// <param name="control">The control.</param>
-        /// <returns>An AutomationElementCollection containing all list items</returns>
+        /// <returns>
+        /// An AutomationElementCollection containing all list items
+        /// </returns>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static AutomationElementCollection GetListCollectionUtility(AutomationElement control)
         {
@@ -196,10 +200,12 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Finds the index by item.
+        /// Finds the index by item.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <returns>The zero-based index of the supplied item</returns>
+        /// <param name="control">The UI Automation element</param>
+        /// <returns>
+        /// The zero-based index of the supplied item
+        /// </returns>
         internal static int FindIndexByItem(AutomationElement control)
         {
             try
@@ -222,12 +228,14 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Finds the item by zero-based index.
+        /// Finds the item by zero-based index.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "index">The zero-based index of the item to select.</param>
-        /// <returns>The item at the specified index</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="index">The zero-based index of the item to select.</param>
+        /// <returns>
+        /// The item at the specified index
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static AutomationElement FindItemByIndex(AutomationElement control, int index)
         {
             try
@@ -254,11 +262,13 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Gets the list items.
+        /// Gets the list items.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <returns>An <see cref = "AutomationElementCollection" /> of list items</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="control">The UI Automation element</param>
+        /// <returns>
+        /// An <see cref="AutomationElementCollection"/> of list items
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static AutomationElementCollection GetListItems(AutomationElement control)
         {
             try

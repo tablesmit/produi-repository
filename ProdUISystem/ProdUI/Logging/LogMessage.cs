@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace ProdUI.Logging
 {
@@ -34,7 +35,7 @@ namespace ProdUI.Logging
         /// <summary>Instantiates a new LogMessage</summary>
         /// <param name="message">A custom message to be written to the log</param>
         /// <param name="verboseInformation">String Collection to be used in verbose logging.</param>
-        public LogMessage(string message, ArrayList verboseInformation)
+        public LogMessage(string message, List<object> verboseInformation)
         {
             DateTime logTime = DateTime.Now;
             LogTime = logTime.ToString("T", CultureInfo.CurrentCulture);
@@ -65,7 +66,7 @@ namespace ProdUI.Logging
         /// <param name="message">The message.</param>
         /// <param name="verboseInformation">The verbose information.</param>
         /// <param name="messageLevel">The log level.</param>
-        public LogMessage(string message, ArrayList verboseInformation, LoggingLevels messageLevel)
+        public LogMessage(string message, List<object> verboseInformation, LoggingLevels messageLevel)
         {
             DateTime logTime = DateTime.Now;
             LogTime = logTime.ToString("T", CultureInfo.CurrentCulture);
@@ -105,7 +106,7 @@ namespace ProdUI.Logging
         /// <summary>
         ///   Gets the extra information to print to the log target if the user specifies verbose output.
         /// </summary>
-        public ArrayList VerboseInformation { get; private set; }
+        public List<object> VerboseInformation { get; private set; }
 
         #endregion
 

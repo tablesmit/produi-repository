@@ -9,6 +9,7 @@ using System.Windows.Automation.Text;
 using ProdUI.AutomationPatterns;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
+using System.Collections.Generic;
 
 /* Notes
  * Supported Patterns: 
@@ -94,7 +95,7 @@ namespace ProdUI.Controls
         /// <summary>Gets the selected text in a control that supports multiple, disjointed text selection</summary>
         /// <returns>List containing all selected TextRanges</returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public ArrayList GetMultiSelectedText()
+        public List<object> GetMultiSelectedText()
         {
             if (TextPatternHelper.GetSupportedTextSelection(ThisElement) == SupportedTextSelection.Single)
             {
@@ -104,7 +105,7 @@ namespace ProdUI.Controls
             try
             {
                 TextPatternRange[] selected = TextPatternHelper.GetSelection(ThisElement);
-                ArrayList retVal = new ArrayList(selected);
+                List<object> retVal = new List<object>(selected);
 
                 Logmessage = "Text";
                 VerboseInformation = retVal;

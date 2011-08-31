@@ -4,13 +4,14 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows.Automation;
 using ProdUI.AutomationPatterns;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Utility;
-using System.Globalization;
 
 /* Notes
  * Supported Patterns: 
@@ -81,13 +82,13 @@ namespace ProdUI.Controls
         /// <summary>Gets the items in a List control.</summary>
         /// <returns>an ArrayList containing the items in a List control</returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public ArrayList GetItems()
+        public List<object> GetItems()
         {
             try
             {
                 AutomationElementCollection convRet = SelectionPatternHelper.GetListItems(ThisElement);
 
-                ArrayList retVal = InternalUtilities.AutomationCollToArrayList(convRet);
+                List<object> retVal = InternalUtilities.AutomationCollToObjectList(convRet);
 
                 Logmessage = "Items:";
                 VerboseInformation = retVal;
@@ -298,7 +299,7 @@ namespace ProdUI.Controls
         /// <summary>Gets the selected indexes.</summary>
         /// <returns>An ArrayList of all the indexes of currently selected list items.</returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public ArrayList GetSelectedIndexes()
+        public List<object> GetSelectedIndexes()
         {
             if (!CanSelectMultiple())
             {
@@ -309,7 +310,7 @@ namespace ProdUI.Controls
             try
             {
                 AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(ThisElement);
-                ArrayList retList = new ArrayList(selectedItems);
+                List<object> retList = new List<object>{(selectedItems)};
 
                 Logmessage = "Index";
                 VerboseInformation = retList;
@@ -327,7 +328,7 @@ namespace ProdUI.Controls
         /// <summary>Gets the selected items.</summary>
         /// <returns>An ArrayList of all currently selected list items</returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public ArrayList GetSelectedItems()
+        public List<object> GetSelectedItems()
         {
             if (!CanSelectMultiple())
             {
@@ -337,7 +338,7 @@ namespace ProdUI.Controls
             try
             {
                 AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(ThisElement);
-                ArrayList retList = new ArrayList(selectedItems);
+                List<object> retList = new List<object>(){selectedItems};
 
                 Logmessage = "Items: ";
                 VerboseInformation = retList;
@@ -481,7 +482,7 @@ namespace ProdUI.Controls
                     AddToSelection(index);
                 }
 
-                ArrayList retList = new ArrayList(indexes);
+                List<object> retList = new List<object>(){indexes};
 
                 Logmessage = "Indexes";
                 VerboseInformation = retList;
@@ -506,7 +507,7 @@ namespace ProdUI.Controls
                     AddToSelection(item);
                 }
 
-                ArrayList retList = new ArrayList(items);
+                List<object> retList = new List<object>(items);
                 Logmessage = "Items";
                 VerboseInformation = retList;
                 LogEntry();

@@ -14,6 +14,7 @@ using System.Text;
 using System.Windows.Automation;
 using ProdUI.Controls;
 using ProdUI.Exceptions;
+using System.Collections.Generic;
 
 namespace ProdUI.Utility
 {
@@ -313,6 +314,22 @@ namespace ProdUI.Utility
             {
                 retColl.Add(item.Current.Name);
             }
+            return retColl;
+        }
+
+        /// <summary>
+        ///   Convenience method used to convert from an AutomationElementCollection to an object collection
+        /// </summary>
+        /// <param name = "ret">AutomationElementCollection to be converted</param>
+        /// <returns>converted collection</returns>
+        internal static List<object> AutomationCollToObjectList(AutomationElementCollection ret)
+        {
+            List<object> retColl = new List<object>() {ret};
+
+            //foreach (AutomationElement item in ret)
+            //{
+            //    retColl.Add(item.Current.Name);
+            //}
             return retColl;
         }
 

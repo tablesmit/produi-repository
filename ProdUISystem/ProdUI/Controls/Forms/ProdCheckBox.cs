@@ -56,11 +56,12 @@ namespace ProdUI.Controls
         #endregion
 
         /// <summary>
-        ///   Gets the currentToggleState
+        /// Gets the currentToggleState
         /// </summary>
         /// <returns></returns>
         /// <value>The state of the checkbox.</value>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        ///   
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public ToggleState GetCheckState()
         {         
@@ -85,9 +86,9 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Sets the current CheckBoxes state.
+        /// Sets the current CheckBoxes state.
         /// </summary>
-        /// <param name = "checkstate">The ProdCheckState.</param>
+        /// <param name="checkstate">The ProdCheckState.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetCheckState(ToggleState checkstate)
         {
@@ -109,10 +110,10 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Changes the CheckState of checkbox to next valid CheckState
+        /// Changes the CheckState of checkbox to next valid CheckState
         /// </summary>
-        /// <exception cref = "ProdVerificationException">Toggle event could not be confirmed</exception>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdVerificationException">Toggle event could not be confirmed</exception> 
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void ToggleCheckState()
         {

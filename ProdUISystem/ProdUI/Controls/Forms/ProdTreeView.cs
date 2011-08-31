@@ -10,6 +10,7 @@ using System.Windows.Automation;
 using ProdUI.AutomationPatterns;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
+using System.Collections.Generic;
 
 /* Notes
  * -Tree-
@@ -214,7 +215,7 @@ namespace ProdUI.Controls
         public void SelectNode(string[] nodePath)
         {
             Logmessage = "Node path";
-            VerboseInformation = new ArrayList(nodePath);
+            VerboseInformation = new List<object>(nodePath);
             LogEntry();
 
             foreach (string item in nodePath)
