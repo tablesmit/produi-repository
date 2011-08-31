@@ -47,7 +47,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DebugLogger">
-      <HintPath>..\..\..\ProdUISystem\Common\Loggers\DebugLogger.dll</HintPath>
+      <HintPath>..\..\ProdUISystem\Common\Loggers\DebugLogger.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="ProdUI, Version=0.1.7.829, Culture=neutral, processorArchitecture=MSIL">
@@ -66,13 +66,13 @@
     <Reference Include="UIAutomationTypes" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="ProdButtonTests.cs" />
     <Compile Include="ProdCheckBoxTests.cs" />
     <Compile Include="ProdComboBoxTests.cs" />
     <Compile Include="ProdEditTests.cs" />
     <Compile Include="ProdListTests.cs" />
     <Compile Include="ProdRadioButtonTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -96,9 +96,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

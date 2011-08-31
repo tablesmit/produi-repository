@@ -9,7 +9,7 @@ using ProdUI.Exceptions;
 namespace ProdUI.AutomationPatterns
 {
     /// <summary>
-    ///   Used for controls that support the DockPattern control pattern. implements IDockProvider
+    /// Used for controls that support the DockPattern control pattern. implements IDockProvider
     /// </summary>
     internal static class DockPatternHelper
     {
@@ -17,10 +17,12 @@ namespace ProdUI.AutomationPatterns
         #region DockProvider Implementations
 
         /// <summary>
-        ///   Gets the current DockPosition of the control within a docking container.
+        /// Gets the current DockPosition of the control within a docking container.
         /// </summary>
-        /// <param name = "control">The control.</param>
-        /// <returns><see cref = "DockPosition" /></returns>
+        /// <param name="control">The control.</param>
+        /// <returns>
+        ///   <see cref="DockPosition"/>
+        /// </returns>
         internal static DockPosition GetDockPosition(AutomationElement control)
         {
             try
@@ -39,10 +41,10 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Docks the control within a docking container.
+        /// Docks the control within a docking container.
         /// </summary>
-        /// <param name = "control">The control.</param>
-        /// <param name = "dockPosition">The <see cref = "DockPosition" />.</param>
+        /// <param name="control">The control.</param>
+        /// <param name="dockPosition">The <see cref="DockPosition"/>.</param>
         internal static void SetDockPosition(AutomationElement control, DockPosition dockPosition)
         {
             try

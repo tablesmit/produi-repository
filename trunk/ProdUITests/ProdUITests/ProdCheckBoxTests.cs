@@ -4,6 +4,7 @@ using NUnit.Framework;
 using ProdUI.AutomationPatterns;
 using ProdUI.Controls;
 using ProdUI.Session;
+using ProdUI.Exceptions;
 
 namespace ProdUITests
 {
@@ -85,14 +86,14 @@ namespace ProdUITests
         }
 
         [Test]
-        public void SetCheckStateIndeterminateUnsupported()//TODO SHould throw exception to pass
+        public void SetCheckStateIndeterminateUnsupported()
         {
             ProdCheckBox check = new ProdCheckBox(window, "testCheckBoxA");
             TogglePatternHelper.SetToggleState(check.ThisElement, ToggleState.Indeterminate);
 
             Thread.Sleep(1000);
 
-            Assert.That(check.GetCheckState(), Is.EqualTo(ToggleState.Indeterminate));
+            Assert.That(check.GetCheckState(), Is.Not.EqualTo(ToggleState.Indeterminate));
         }
 
         [Test, Description("Verifying the the UIA event was fired")]
@@ -121,7 +122,7 @@ namespace ProdUITests
         [Test, Description("Verifying the the UIA event was fired")]
         public void ToggleCheckStateEventNotification()//TODO SHould throw exception to IF UNSUPPORTED
         {
-            ProdCheckBox check = new ProdCheckBox(window, "testCheckBoxB");
+            ProdCheckBox check = new ProdCheckBox(window, "3StateCheckBox");
             check.ToggleCheckState();
 
             Thread.Sleep(2000);

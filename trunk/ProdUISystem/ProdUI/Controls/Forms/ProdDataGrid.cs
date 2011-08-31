@@ -9,6 +9,7 @@ using ProdUI.AutomationPatterns;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace ProdUI.Controls
 {
@@ -403,7 +404,7 @@ namespace ProdUI.Controls
                 if (CheckPatternSupport(TablePattern.Pattern, ThisElement))
                 {
                     AutomationElement[] retVal = TablePatternHelper.GetColumnHeaders(ThisElement);
-                    ArrayList retList = new ArrayList();
+                    List<object> retList = new List<object>();
                     foreach (AutomationElement item in retVal)
                     {
                         retList.Add(item);
@@ -435,7 +436,7 @@ namespace ProdUI.Controls
                 if (CheckPatternSupport(TablePattern.Pattern, ThisElement))
                 {
                     AutomationElement[] retVal = TablePatternHelper.GetRowHeaders(ThisElement);
-                    ArrayList retList = new ArrayList(retVal);
+                    List<object> retList = new List<object>(retVal);
 
                     Logmessage = "Row Headers";
                     VerboseInformation = retList;

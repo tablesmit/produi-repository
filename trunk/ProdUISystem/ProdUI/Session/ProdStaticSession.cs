@@ -81,7 +81,7 @@ namespace ProdUI.Session
         /// <param name="message">The message text.</param>
         /// <param name="additional">The additional information to write out if in verbose mode.</param>
         /// <param name="messageLevel">The message level.</param>
-        public static void Log(string message, ArrayList additional, LoggingLevels messageLevel = LoggingLevels.Info)
+        public static void Log(string message, List<object> additional, LoggingLevels messageLevel = LoggingLevels.Info)
         {
             if (_loggers == null) { throw new ProdOperationException("A static session has not been loaded"); }
 

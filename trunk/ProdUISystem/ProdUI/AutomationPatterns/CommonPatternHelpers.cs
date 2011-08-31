@@ -44,13 +44,15 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Gets UIAutomation target control ready for manipulation
+        /// Gets UIAutomation target control ready for manipulation
         /// </summary>
-        /// <param name = "prodwindow">The ProdWindow.</param>
-        /// <param name = "pattern"><see cref = "System.Windows.Automation.AutomationPattern" /> to be used</param>
-        /// <param name = "automationId">The automation id.</param>
-        /// <returns>UI Automation element</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="prodwindow">The ProdWindow.</param>
+        /// <param name="pattern"><see cref="System.Windows.Automation.AutomationPattern"/> to be used</param>
+        /// <param name="automationId">The automation id.</param>
+        /// <returns>
+        /// UI Automation element
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Error, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static AutomationElement Prologue(ProdWindow prodwindow, AutomationPattern pattern, string automationId)
         {
@@ -115,16 +117,20 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Attempts to bring control to the top of the z-order and set input focus
+        /// Attempts to bring control to the top of the z-order and set input focus
         /// </summary>
-        /// <param name = "control">UI Automation element to be worked with</param>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="control">UI Automation element to be worked with</param>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static void ControlSetFocus(AutomationElement control)
         {
             try
             {
                 if ((bool)control.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty))
                 {
+                    if ((bool)control.GetCurrentPropertyValue(AutomationElement.IsExpandCollapsePatternAvailableProperty))
+                    {
+                        ExpandCollapseHelper.Expand(control);
+                    }
                     control.SetFocus();
                 }
             }
@@ -135,14 +141,14 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Performs <see cref = "System.Windows.Automation.AutomationPattern" /> verification
+        /// Performs <see cref="System.Windows.Automation.AutomationPattern"/> verification
         /// </summary>
-        /// <param name = "pattern"><see cref = "System.Windows.Automation.AutomationPattern" /> to be used</param>
-        /// <param name = "control">UI Automation element to be worked with</param>
+        /// <param name="pattern"><see cref="System.Windows.Automation.AutomationPattern"/> to be used</param>
+        /// <param name="control">UI Automation element to be worked with</param>
         /// <returns>
         ///   <c>true</c> if pattern is supported by the control, <c>false</c> if not. a null value is returned in the event of a recoverable error
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static object CheckPatternSupport(AutomationPattern pattern, AutomationElement control)
         {
             object pat;
@@ -167,9 +173,9 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Gets the ReadOnly status of the control.
+        /// Gets the ReadOnly status of the control.
         /// </summary>
-        /// <param name = "control">The control.</param>
+        /// <param name="control">The control.</param>
         /// <returns>
         ///   <c>true</c> if control is in a ReadOnly state <c>false</c> otherwise
         /// </returns>

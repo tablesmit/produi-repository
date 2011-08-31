@@ -9,20 +9,20 @@ using ProdUI.Exceptions;
 namespace ProdUI.AutomationPatterns
 {
     /// <summary>
-    ///   Used for controls that support the ExpandCollapseHelper control pattern. implements IExpandCollapseProvider
+    /// Used for controls that support the ExpandCollapseHelper control pattern. implements IExpandCollapseProvider
     /// </summary>
     internal static class ExpandCollapseHelper
     {
         #region IExpandCollapsePattern Implementation
 
         /// <summary>
-        ///   Collapses the specified control.
+        /// Collapses the specified control.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
-        ///   0 if no problems encountered, -1 if InvalidOperationException is raised
+        /// 0 if no problems encountered, -1 if InvalidOperationException is raised
         /// </returns>
-        /// <exception cref = "ProdOperationException">The exception that is thrown when a control handle is not valid</exception>
+        /// <exception cref="ProdOperationException">The exception that is thrown when a control handle is not valid</exception>
         internal static int Collapse(AutomationElement control)
         {
             try
@@ -42,13 +42,13 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Expands the specified control.
+        /// Expands the specified control.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
-        ///   0 if no problems encountered, -1 if InvalidOperationException is raised
+        /// 0 if no problems encountered, -1 if InvalidOperationException is raised
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static int Expand(AutomationElement control)
         {
             try
@@ -67,9 +67,13 @@ namespace ProdUI.AutomationPatterns
             }
         }
 
-        /// <summary>Expands the state of the collapse.</summary>
+        /// <summary>
+        /// Expands the state of the collapse.
+        /// </summary>
         /// <param name="control">The control.</param>
-        /// <returns><see cref="ExpandCollapseState"/></returns>
+        /// <returns>
+        ///   <see cref="ExpandCollapseState"/>
+        /// </returns>
         internal static ExpandCollapseState ExpandCollapseState(AutomationElement control)
         {
             try

@@ -12,6 +12,7 @@ using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Session;
 using ProdUI.Utility;
+using System.Collections.Generic;
 
 namespace ProdUI.Controls
 {
@@ -59,12 +60,12 @@ namespace ProdUI.Controls
         /// Only valid for multiple selection list controls. Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public static ArrayList GetItems(IntPtr controlHandle)
+        public static List<object> GetItems(IntPtr controlHandle)
         {
             AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
             AutomationElementCollection convRet = SelectionPatternHelper.GetListItems(control);
 
-            ArrayList ret = InternalUtilities.AutomationCollToArrayList(convRet);
+            List<object> ret = InternalUtilities.AutomationCollToObjectList(convRet);
 
             if (ret == null)
             {
@@ -82,12 +83,12 @@ namespace ProdUI.Controls
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>Only valid for multiple selection list controls.</remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public static ArrayList GetItems(ProdWindow prodwindow, string automationId)
+        public static List<object> GetItems(ProdWindow prodwindow, string automationId)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
             AutomationElementCollection convRet = SelectionPatternHelper.GetListItems(control);
 
-            ArrayList ret = InternalUtilities.AutomationCollToArrayList(convRet);
+            List<object> ret = InternalUtilities.AutomationCollToObjectList(convRet);
 
             ProdStaticSession.Log("List items: ", ret);
             return ret;
@@ -586,7 +587,7 @@ namespace ProdUI.Controls
         ///   Only valid for multiple selection list controls. Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public static ArrayList GetSelectedItems(IntPtr controlHandle)
+        public static List<object> GetSelectedItems(IntPtr controlHandle)
         {
             if (!CanSelectMultiple(controlHandle))
             {
@@ -596,7 +597,7 @@ namespace ProdUI.Controls
             AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
             AutomationElementCollection convRet = SelectionPatternHelper.GetSelectionItems(control);
 
-            ArrayList ret = InternalUtilities.AutomationCollToArrayList(convRet);
+            List<object> ret = InternalUtilities.AutomationCollToObjectList(convRet);
             ProdStaticSession.Log("List selected items: ", ret);
 
             return ret;
@@ -612,7 +613,7 @@ namespace ProdUI.Controls
         ///   Only valid for multiple selection list controls. Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public static ArrayList GetSelectedIndexes(IntPtr controlHandle)
+        public static List<object> GetSelectedIndexes(IntPtr controlHandle)
         {
             if (!CanSelectMultiple(controlHandle))
             {
@@ -622,7 +623,7 @@ namespace ProdUI.Controls
             AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
        
             AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(control);
-            ArrayList retList = new ArrayList(selectedItems);
+            List<object> retList = new List<object>(selectedItems);
 
             ProdStaticSession.Log("List selected items: ", retList);
 
@@ -639,7 +640,7 @@ namespace ProdUI.Controls
         /// Only valid for multiple selection list controls. This is the WPF version
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public static ArrayList GetSelectedItems(ProdWindow prodwindow, string automationId)
+        public static List<object> GetSelectedItems(ProdWindow prodwindow, string automationId)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
             if (!CanSelectMultiple((IntPtr)control.Current.NativeWindowHandle))
@@ -649,7 +650,7 @@ namespace ProdUI.Controls
 
 
             AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(control);
-            ArrayList retList = new ArrayList(selectedItems);
+            List<object> retList = new List<object>(selectedItems);
 
             ProdStaticSession.Log("List selected items: ", retList);
 
@@ -667,7 +668,7 @@ namespace ProdUI.Controls
         ///   Only valid for multiple selection list controls. This is the WPF version
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public static ArrayList GetSelectedIndexes(ProdWindow prodwindow, string automationId)
+        public static List<object> GetSelectedIndexes(ProdWindow prodwindow, string automationId)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
             if (!CanSelectMultiple((IntPtr)control.Current.NativeWindowHandle))
@@ -677,7 +678,7 @@ namespace ProdUI.Controls
 
 
             AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(control);
-            ArrayList retList = new ArrayList(selectedItems);
+            List<object> retList = new List<object>(selectedItems);
 
             ProdStaticSession.Log("List selected items: ", retList);
             return retList;
@@ -704,7 +705,7 @@ namespace ProdUI.Controls
                     AddToSelection(controlHandle, item);
                 }
 
-                ArrayList retList = new ArrayList(items);
+                List<object> retList = new List<object>(items);
                 ProdStaticSession.Log("List items Selected: ", retList);
             }
             catch (InvalidOperationException)
@@ -748,7 +749,7 @@ namespace ProdUI.Controls
                     AddToSelection(controlHandle, index);
                 }
 
-                ArrayList retList = new ArrayList(indexes);
+                List<object> retList = new List<object>(){indexes};
                 ProdStaticSession.Log("List items Selected: ", retList);
             }
             catch (InvalidOperationException)
@@ -783,7 +784,7 @@ namespace ProdUI.Controls
                 AddToSelection(prodwindow, automationId, item);
             }
 
-            ArrayList retList = new ArrayList(items);
+            List<object> retList = new List<object>(items);
             ProdStaticSession.Log("List items Selected: ", retList);
         }
 
@@ -812,7 +813,7 @@ namespace ProdUI.Controls
                 AddToSelection(prodwindow, automationId, index);
             }
 
-            ArrayList retList = new ArrayList(indexes);
+            List<object> retList = new List<object>(){indexes};
             ProdStaticSession.Log("List items Selected: ", retList);
         }
 

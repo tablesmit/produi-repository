@@ -4,6 +4,7 @@ using NUnit.Framework;
 using ProdUI.AutomationPatterns;
 using ProdUI.Controls;
 using ProdUI.Session;
+using System.Collections;
 
 namespace ProdUITests
 {
@@ -22,7 +23,7 @@ namespace ProdUITests
         }
 
         [Test, Description("Verifies that there are 3 (hardcoded) items in the form")]
-        public void GetItemCount()//TODO: need to verify collection
+        public void GetItemCount()
         {
             /* there are currently 3 items in the test-forms ComboBox */
             ProdComboBox combo = new ProdComboBox(window, "comboBoxTest");
@@ -132,11 +133,12 @@ namespace ProdUITests
         }
 
         [Test]
-        public void GetItems()//TODO: Collection verification
+        public void GetItems()//Note: This is bordering on redundancy.
         {
+            ArrayList hardCodedItems = new ArrayList() { "New", "Old", "Used" };
+
             ProdComboBox combo = new ProdComboBox(window, "comboBoxTest");
-            AutomationElementCollection retVal = SelectionPatternHelper.GetListItems(combo.ThisElement);
-            combo.GetItems();
+            Assert.AreEqual(hardCodedItems, combo.GetItems());
         }
 
         #region Textbox Methods

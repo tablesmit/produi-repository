@@ -11,6 +11,7 @@ using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Utility;
 using System.Globalization;
+using System.Collections.Generic;
 
 /* Notes
  * Supported Patterns: 
@@ -96,18 +97,18 @@ namespace ProdUI.Controls
         /// <returns>list containing all items</returns>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public ArrayList GetItems()
+        public List<object> GetItems()
         {
             try
             {
                 AutomationElementCollection aec = SelectionPatternHelper.GetListItems(ThisElement);
-                ArrayList retList = InternalUtilities.AutomationCollToArrayList(aec);
+                List<object> retList = InternalUtilities.AutomationCollToObjectList(aec);
 
                 Logmessage = "Items: ";
                 VerboseInformation = retList;
                 LogEntry();
 
-                return InternalUtilities.AutomationCollToArrayList(aec);
+                return InternalUtilities.AutomationCollToObjectList(aec);
             }
             catch (ProdOperationException err)
             {
