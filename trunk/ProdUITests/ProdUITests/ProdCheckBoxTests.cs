@@ -44,7 +44,7 @@ namespace ProdUITests
 
         public void GetCheckStateWhenIndeterminate()
         {
-            ProdCheckBox check = new ProdCheckBox(window, "testCheckBoxC");
+            ProdCheckBox check = new ProdCheckBox(window, "3StateCheckBox");
             TogglePatternHelper.SetToggleState(check.ThisElement, ToggleState.Indeterminate);
             ToggleState ret = TogglePatternHelper.GetToggleState(check.ThisElement);
 
@@ -76,7 +76,7 @@ namespace ProdUITests
         [Test]
         public void SetCheckStateIndeterminate()
         {
-            ProdCheckBox check = new ProdCheckBox(window, "testCheckBoxC");
+            ProdCheckBox check = new ProdCheckBox(window, "3StateCheckBox");
             TogglePatternHelper.SetToggleState(check.ThisElement, ToggleState.Indeterminate);
 
             Thread.Sleep(1000);
@@ -85,7 +85,7 @@ namespace ProdUITests
         }
 
         [Test]
-        public void SetCheckStateIndeterminateUnsupported()
+        public void SetCheckStateIndeterminateUnsupported()//TODO SHould throw exception to pass
         {
             ProdCheckBox check = new ProdCheckBox(window, "testCheckBoxA");
             TogglePatternHelper.SetToggleState(check.ThisElement, ToggleState.Indeterminate);
@@ -99,35 +99,33 @@ namespace ProdUITests
         public void SetCheckStateEventNotification()
         {
             ProdCheckBox check = new ProdCheckBox(window, "testCheckBoxB");
-            TogglePatternHelper.SetToggleState(check.ThisElement, ToggleState.Off);
+           check.SetCheckState((ToggleState.On));
 
             Thread.Sleep(2000);
-            Assert.That(check.eventTriggered,Is.True);
+            Assert.That(check.eventTriggered);
         }
 
         [Test, Description("Checking Toggle event by verifying its effect on UI")]
         public void ToggleCheckState()
         {
-            ProdCheckBox check = new ProdCheckBox(window, "testCheckBoxC");
+            ProdCheckBox check = new ProdCheckBox(window, "3StateCheckBox");
 
             ToggleState origState = check.GetCheckState();
             TogglePatternHelper.Toggle(check.ThisElement);
             ToggleState currentState = check.GetCheckState();
 
-            Assert.AreEqual(origState, currentState);
+            Assert.AreNotEqual(origState, currentState);
 
         }
 
         [Test, Description("Verifying the the UIA event was fired")]
-        public void ToggleCheckStateEventNotification()
+        public void ToggleCheckStateEventNotification()//TODO SHould throw exception to IF UNSUPPORTED
         {
-            ProdCheckBox check = new ProdCheckBox(window, "testCheckBoxC");
-
-            ToggleState origState = check.GetCheckState();
-            TogglePatternHelper.Toggle(check.ThisElement);
+            ProdCheckBox check = new ProdCheckBox(window, "testCheckBoxB");
+            check.ToggleCheckState();
 
             Thread.Sleep(2000);
-            Assert.That(check.eventTriggered, Is.True);
+            Assert.That(check.eventTriggered);
 
         }
     }
