@@ -14,13 +14,13 @@ namespace ProdUI.AutomationPatterns
     internal static class InvokePatternHelper
     {
         /// <summary>
-        ///   Ensures the window pattern is supported, then invokes
+        /// Ensures the window pattern is supported, then invokes
         /// </summary>
-        /// <param name = "control">The UI Automation element to invoke</param>
+        /// <param name="control">The UI Automation element to invoke</param>
         /// <returns>
-        ///   0 if no problems encountered, -1 if InvalidOperationException is raised
+        /// 0 if no problems encountered, -1 if InvalidOperationException is raised
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static int Invoke(AutomationElement control)
         {
             try

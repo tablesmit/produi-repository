@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -14,7 +15,6 @@ using System.Text;
 using System.Windows.Automation;
 using ProdUI.Controls;
 using ProdUI.Exceptions;
-using System.Collections.Generic;
 
 namespace ProdUI.Utility
 {
@@ -24,12 +24,12 @@ namespace ProdUI.Utility
         #region Fields
 
         /// <summary>
-        ///   key = handle (IntPtr) ; value = title (string)
+        /// key = handle (IntPtr) ; value = title (string)
         /// </summary>
         internal static Hashtable WindowList;
 
         /// <summary>
-        ///   List of all child windows and their handles
+        /// List of all child windows and their handles
         /// </summary>
         internal static Hashtable ChildList;
 
@@ -38,14 +38,14 @@ namespace ProdUI.Utility
         #region Callbacks
 
         /// <summary>
-        ///   An application-defined callback function used with the EnumWindows or EnumDesktopWindows function.
-        ///   It receives top-level window handles
+        /// An application-defined callback function used with the EnumWindows or EnumDesktopWindows function.
+        /// It receives top-level window handles
         /// </summary>
-        /// <param name = "windowHandle">A handle to a top-level window.</param>
-        /// <param name = "lParam">nothing in this case</param>
+        /// <param name="windowHandle">A handle to a top-level window.</param>
+        /// <param name="lParam">nothing in this case</param>
         /// <returns>
-        ///   To continue enumeration, the callback function must return TRUE;
-        ///   to stop enumeration, it must return FALSE
+        /// To continue enumeration, the callback function must return TRUE;
+        /// to stop enumeration, it must return FALSE
         /// </returns>
         internal static bool EnumWindowsProc(IntPtr windowHandle, int lParam)
         {
@@ -67,12 +67,12 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///   Used with the EnumChildWindows function. It receives the child window handles.
+        /// Used with the EnumChildWindows function. It receives the child window handles.
         /// </summary>
-        /// <param name = "windowHandle">A handle to a child window of the parent window specified in EnumChildWindows</param>
-        /// <param name = "lParam">The application-defined value given in EnumChildWindows</param>
+        /// <param name="windowHandle">A handle to a child window of the parent window specified in EnumChildWindows</param>
+        /// <param name="lParam">The application-defined value given in EnumChildWindows</param>
         /// <returns>
-        ///   to continue enumeration, the callback function must return TRUE; to stop enumeration, it must return FALSE
+        /// to continue enumeration, the callback function must return TRUE; to stop enumeration, it must return FALSE
         /// </returns>
         internal static bool EnumChildProc(IntPtr windowHandle, int lParam)
         {
@@ -111,7 +111,7 @@ namespace ProdUI.Utility
                 {
                     if (de.Value.ToString().Contains(thePartialTitle))
                     {
-                        return (IntPtr) de.Key;
+                        return (IntPtr)de.Key;
                     }
                 }
                 return IntPtr.Zero;
@@ -156,7 +156,7 @@ namespace ProdUI.Utility
             {
                 if (de.Value.ToString().Contains(thePartialTitle))
                 {
-                    return (IntPtr) de.Key;
+                    return (IntPtr)de.Key;
                 }
             }
 
@@ -176,7 +176,7 @@ namespace ProdUI.Utility
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" /></exception>
         internal static IntPtr GetChildWindow(IntPtr theParentHandle, string theChildTitle)
         {
-            if ((int) theParentHandle == 0)
+            if ((int)theParentHandle == 0)
             {
                 throw new ProdOperationException("Handle Not found", new ElementNotAvailableException());
             }
@@ -202,7 +202,7 @@ namespace ProdUI.Utility
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" /></exception>
         public static IntPtr GetChildHandle(IntPtr theParentHandle, int controlId)
         {
-            if ((int) theParentHandle == 0)
+            if ((int)theParentHandle == 0)
             {
                 throw new ProdOperationException("Handle Not found", new ElementNotAvailableException());
             }
@@ -211,7 +211,7 @@ namespace ProdUI.Utility
             NativeMethods.EnumChildWindows(theParentHandle, EnumChildProc, IntPtr.Zero);
             foreach (DictionaryEntry item in ChildList)
             {
-                inp = NativeMethods.GetDlgItem(NativeMethods.GetParent((IntPtr) item.Key), controlId);
+                inp = NativeMethods.GetDlgItem(NativeMethods.GetParent((IntPtr)item.Key), controlId);
                 if (inp != IntPtr.Zero)
                 {
                     break;
@@ -231,7 +231,7 @@ namespace ProdUI.Utility
         {
             AutomationElement control;
 
-            if ((int) theParentHandle == 0)
+            if ((int)theParentHandle == 0)
             {
                 throw new ProdOperationException("Handle Not found", new ElementNotAvailableException());
             }
@@ -263,7 +263,7 @@ namespace ProdUI.Utility
                     return ptr;
                 }
 
-                return (IntPtr) retVal;
+                return (IntPtr)retVal;
             }
             catch (InvalidOperationException err)
             {
@@ -285,7 +285,7 @@ namespace ProdUI.Utility
                 {
                     if (de.Value.ToString().Contains(theChildTitle))
                     {
-                        return (IntPtr) de.Key;
+                        return (IntPtr)de.Key;
                     }
                 }
             }
@@ -302,10 +302,12 @@ namespace ProdUI.Utility
         #region Conversion Methods
 
         /// <summary>
-        ///   Convenience method used to convert from an AutomationElementCollection to an object collection
+        /// Convenience method used to convert from an AutomationElementCollection to an ArrayList
         /// </summary>
-        /// <param name = "ret">AutomationElementCollection to be converted</param>
-        /// <returns>converted collection</returns>
+        /// <param name="ret">AutomationElementCollection to be converted</param>
+        /// <returns>
+        /// converted ArrayList
+        /// </returns>
         internal static ArrayList AutomationCollToArrayList(AutomationElementCollection ret)
         {
             ArrayList retColl = new ArrayList();
@@ -318,25 +320,27 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///   Convenience method used to convert from an AutomationElementCollection to an object collection
+        /// Convenience method used to convert from an AutomationElementCollection to an object collection
         /// </summary>
-        /// <param name = "ret">AutomationElementCollection to be converted</param>
-        /// <returns>converted collection</returns>
+        /// <param name="ret">AutomationElementCollection to be converted</param>
+        /// <returns>
+        /// converted collection
+        /// </returns>
         internal static List<object> AutomationCollToObjectList(AutomationElementCollection ret)
         {
-            List<object> retColl = new List<object>() {ret};
+            List<object> retColl = new List<object>() { ret };
 
-            //foreach (AutomationElement item in ret)
-            //{
-            //    retColl.Add(item.Current.Name);
-            //}
             return retColl;
         }
 
-        /// <summary>Converts the string to send key.</summary>
-        /// <param name="keys">The keys.</param>
-        /// <returns></returns>
-        /// <remarks>Converts from format of "Shift+CTRL+Y" into "+^(Y)"</remarks>
+        /// <summary>
+        /// Converts the string to send key.
+        /// </summary>
+        /// <param name="keys">The keys to be sent.</param>
+        /// <returns>The final key sequence to use in SendKeys</returns>
+        /// <remarks>
+        /// Converts from format of "Shift+CTRL+Y" into "+^(Y)"
+        /// </remarks>
         internal static string ConvertStringToSendKey(string keys)
         {
             string[] accel = keys.Split('+');
@@ -346,7 +350,7 @@ namespace ProdUI.Utility
             {
                 if (t == "SHIFT")
                 {
-                    finalAccel+=  "+";
+                    finalAccel += "+";
                     continue;
                 }
                 if (t == "CTRL")
@@ -369,10 +373,12 @@ namespace ProdUI.Utility
         #endregion
 
         /// <summary>
-        ///   Gets the stack trace and converts it into a string collection
+        /// Gets the stack trace and converts it into a string collection
         /// </summary>
-        /// <param name = "frames">The frames.</param>
-        /// <returns>A string collection of the frames content</returns>
+        /// <param name="frames">The frames currently on the execution stack.</param>
+        /// <returns>
+        /// A string collection of the frames content
+        /// </returns>
         internal static Collection<string> GetStackTrace(StackFrame[] frames)
         {
             Collection<string> retColl = new Collection<string>();
@@ -386,16 +392,19 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///   Moves the mouse to the specified point.
+        /// Moves the mouse to the specified point.
         /// </summary>
-        /// <param name = "pt">The point....</param>
+        /// <param name="pt">The point....</param>
         internal static void MoveMouseToPoint(Point pt)
         {
             SendMouseInput(pt.X, pt.Y, 0, MOUSEEVENTF.MouseeventfMove | MOUSEEVENTF.MouseeventfAbsolute);
         }
 
+        /**************************************************************************************************************************/
+        /* Credit where credit is due: SendMouseInput shamelessley taken from UI Verify - http://uiautomationverify.codeplex.com/ */
+        /**************************************************************************************************************************/
         /// <summary>
-        /// Inject pointer input into the system - Shamelessley taken from UI Verify - http://uiautomationverify.codeplex.com/
+        /// Inject pointer input into the system
         /// </summary>
         /// <param name="x">x coordinate of pointer, if Move flag specified</param>
         /// <param name="y">y coordinate of pointer, if Move flag specified</param>
@@ -414,16 +423,16 @@ namespace ProdUI.Utility
         /// </remarks>
         internal static void SendMouseInput(double x, double y, int data, MOUSEEVENTF flags)
         {
-            int intflags = (int) flags;
+            int intflags = (int)flags;
 
             try
             {
-                if ((intflags & (int) MOUSEEVENTF.MouseeventfAbsolute) != 0)
+                if ((intflags & (int)MOUSEEVENTF.MouseeventfAbsolute) != 0)
                 {
-                    int vscreenWidth = NativeMethods.GetSystemMetrics((int) SystemMetric.SMCxvirtualscreen);
-                    int vscreenHeight = NativeMethods.GetSystemMetrics((int) SystemMetric.SMCyvirtualscreen);
-                    int vscreenLeft = NativeMethods.GetSystemMetrics((int) SystemMetric.SMXvirtualscreen);
-                    int vscreenTop = NativeMethods.GetSystemMetrics((int) SystemMetric.SMYvirtualscreen);
+                    int vscreenWidth = NativeMethods.GetSystemMetrics((int)SystemMetric.SMCxvirtualscreen);
+                    int vscreenHeight = NativeMethods.GetSystemMetrics((int)SystemMetric.SMCyvirtualscreen);
+                    int vscreenLeft = NativeMethods.GetSystemMetrics((int)SystemMetric.SMXvirtualscreen);
+                    int vscreenTop = NativeMethods.GetSystemMetrics((int)SystemMetric.SMYvirtualscreen);
 
                     // Absolute input requires that input is in 'normalized' coords - with the entire
                     // desktop being (0,0)...(65535,65536). Need to convert input x,y coords to this
@@ -445,16 +454,16 @@ namespace ProdUI.Utility
                     // The key ting here is that unlike points in coordinate geometry, pixels take up
                     // space, so are often better treated like rectangles - and if you want to target
                     // a particular pixel, target its rectangle's midpoint, not its edge.
-                    x = ((x - vscreenLeft)*65536)/vscreenWidth + 65536/(vscreenWidth*2);
-                    y = ((y - vscreenTop)*65536)/vscreenHeight + 65536/(vscreenHeight*2);
+                    x = ((x - vscreenLeft) * 65536) / vscreenWidth + 65536 / (vscreenWidth * 2);
+                    y = ((y - vscreenTop) * 65536) / vscreenHeight + 65536 / (vscreenHeight * 2);
 
-                    intflags |= (int) MOUSEEVENTF.MouseeventfVirtualdesk;
+                    intflags |= (int)MOUSEEVENTF.MouseeventfVirtualdesk;
                 }
 
 
-                NPUT mi = new NPUT {Type = (int) InputStructType.InputMouse};
-                mi.Union.MouseInput.DX = (int) x;
-                mi.Union.MouseInput.DY = (int) y;
+                NPUT mi = new NPUT { Type = (int)InputStructType.InputMouse };
+                mi.Union.MouseInput.DX = (int)x;
+                mi.Union.MouseInput.DY = (int)y;
                 mi.Union.MouseInput.MouseData = data;
                 mi.Union.MouseInput.DWFlags = intflags;
                 mi.Union.MouseInput.Time = 0;
@@ -470,11 +479,13 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///   Gets an AutomationElement based on its container window.
+        /// Gets an AutomationElement based on its container window.
         /// </summary>
-        /// <param name = "prodWindow">The prod window.</param>
-        /// <param name = "automationId">The automation id.</param>
-        /// <returns>Corresponding element if successful, null if not</returns>
+        /// <param name="prodWindow">The containing ProdWindow.</param>
+        /// <param name="automationId">The automation id.</param>
+        /// <returns>
+        /// Corresponding element if successful, null if not
+        /// </returns>
         internal static AutomationElement GetHandlelessElement(ProdWindow prodWindow, string automationId)
         {
             Condition cond = new PropertyCondition(AutomationElement.AutomationIdProperty, automationId);

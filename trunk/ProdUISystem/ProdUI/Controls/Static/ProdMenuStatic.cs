@@ -4,10 +4,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Automation;
 using ProdUI.AutomationPatterns;
 using ProdUI.Exceptions;
-using System.Globalization;
 
 namespace ProdUI.Controls
 {
@@ -16,20 +16,12 @@ namespace ProdUI.Controls
         #region Static Methods
 
         /// <summary>
-        ///   Selects the menu item.
+        /// Selects the menu item.
         /// </summary>
-        /// <param name = "parentWindowHandle">The parent window handle.</param>
-        /// <param name = "itemPath">The item path.</param>
-        /// <example>
-        ///   <code>
-        ///     /* Assuming "WordPad" is open */
-        ///     IntPtr hWnd = ProdFunctions.GetWindowHandle("Document");
-        ///     ProdMenu.SelectMenuItem(hWnd,new string[]{"File","open..."});
-        ///   </code>
-        ///   string[] items = { "File", "Open" } would specify the File->Open menu item be activated
-        /// </example>
+        /// <param name="parentWindowHandle">The parent window handle.</param>
+        /// <param name="itemPath">The 'path' to the menu item.</param>
         /// <remarks>
-        ///   Menu item text MUST be exact (but not case-sensitive). 'Open' will not match an item 'Open...' but will match 'open'
+        /// Menu item text MUST be exact (but not case-sensitive). 'Open' will not match an item 'Open...' but will match 'open'
         /// </remarks>
         public static void SelectMenuItem(IntPtr parentWindowHandle, List<string> itemPath)
         {
@@ -50,10 +42,10 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Finds the item.
+        /// Finds an AutomationElement in a list.
         /// </summary>
-        /// <param name = "item">The item.</param>
-        /// <param name = "itemPath">The item path.</param>
+        /// <param name="item">The item to search for.</param>
+        /// <param name="itemPath">The 'path' to the menu item.</param>
         private static void FindItemStatic(AutomationElement item, IList<string> itemPath)
         {
             /* Loop through supplied menu path */
@@ -81,10 +73,10 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Selects the menu item.
+        /// Selects the menu item.
         /// </summary>
-        /// <param name = "menuItems">The menu items.</param>
-        /// <param name = "itemPath">The item path.</param>
+        /// <param name="menuItems">The menu items.</param>
+        /// <param name="itemPath">The 'path' to the menu item.</param>
         private static void SelectMenuItemStatic(AutomationElementCollection menuItems, IList<string> itemPath)
         {
             foreach (AutomationElement item in menuItems)
@@ -115,10 +107,12 @@ namespace ProdUI.Controls
         #endregion
 
         /// <summary>
-        ///   Gets the main menu bar.
+        /// Gets the main menu bar attached to the target window.
         /// </summary>
-        /// <param name = "window">The window.</param>
-        /// <returns></returns>
+        /// <param name="window">The target window.</param>
+        /// <returns>
+        /// The main menu bar as an AutomationElement
+        /// </returns>
         private static AutomationElement GetMainMenuBar(AutomationElement window)
         {
             AutomationElementCollection menuBars = GetMenuBars(window);
@@ -131,10 +125,12 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Gets the menu bars.
+        /// Gets all the MenuBars attached to a window.
         /// </summary>
-        /// <param name = "window">The window.</param>
-        /// <returns></returns>
+        /// <param name="window">The target window.</param>
+        /// <returns>
+        /// The menubars as an AutomationElementCollection
+        /// </returns>
         private static AutomationElementCollection GetMenuBars(AutomationElement window)
         {
             try
@@ -153,10 +149,12 @@ namespace ProdUI.Controls
 
 
         /// <summary>
-        ///   Gets the menu items.
+        /// Gets the all of menu items attached to a MenuBar.
         /// </summary>
-        /// <param name = "menubar">The menu bar.</param>
-        /// <returns></returns>
+        /// <param name="menubar">The menu bar that contains the items.</param>
+        /// <returns>
+        /// All of menu items
+        /// </returns>
         private static AutomationElementCollection GetMenuItems(AutomationElement menubar)
         {
             try

@@ -7,12 +7,12 @@ using System;
 namespace ProdUI.Logging
 {
     /// <summary>
-    ///   Determines which messages are logged and which are filtered out.
-    ///   "OR ing" values allows multiple message types
+    /// Determines which messages are logged and which are filtered out.
+    /// "OR ing" values allows multiple message types
     /// </summary>
     /// <example>
-    ///   Setting level to: <code>LoggingLevel.Error | LoggingLevel.Prod</code> would only log prods and errors, ignoring the rest
-    /// </example>
+    /// Setting level to: <code>LoggingLevel.Error | LoggingLevel.Prod</code> would only log prods and errors, ignoring the rest
+    ///   </example>
     [Flags]
     public enum LoggingLevels
     {
@@ -25,7 +25,7 @@ namespace ProdUI.Logging
         /// </summary>
         Warn = 2,
         /// <summary>
-        ///   Log any informational messages from ProdUI. Designed for use by developers to assign any custom messages
+        /// Log any informational messages from ProdUI. Designed for use by developers to assign any custom messages
         /// </summary>
         Info = 4,
         /// <summary>
@@ -43,16 +43,16 @@ namespace ProdUI.Logging
     }
 
     /// <summary>
-    ///   Determines how much information to log
+    /// Determines how much information to log
     /// </summary>
     public enum LoggingVerbosity
     {
         /// <summary>
-        ///   Default. shows errors and actions
+        /// Default. shows errors and actions
         /// </summary>
         Minimum = 1,
         /// <summary>
-        ///   This will include a dump of returned items when a "GetItems" call is made
+        /// This will include a dump of returned items when a "GetItems" call is made
         /// </summary>
         Maximum = 2,
     }

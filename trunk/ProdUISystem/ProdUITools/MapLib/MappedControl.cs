@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 namespace MapLib
 {
     /// <summary>
-    ///   Represents a window control that has been mapped
+    /// Represents a window control that has been mapped
     /// </summary>
     public class MappedControl
     {

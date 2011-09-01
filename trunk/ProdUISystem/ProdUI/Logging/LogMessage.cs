@@ -3,15 +3,14 @@
  */
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Collections.Generic;
 
 namespace ProdUI.Logging
 {
     /// <summary>
-    ///   Encapsulates a message to be passed to the Logger
+    /// Encapsulates a message to be passed to the logging system
     /// </summary>
     public sealed class LogMessage
     {
@@ -20,7 +19,9 @@ namespace ProdUI.Logging
 
         #region Constructors
 
-        /// <summary>Instantiates a new LogMessage</summary>
+        /// <summary>
+        /// Instantiates a new LogMessage
+        /// </summary>
         /// <param name="message">A custom message to be written to the log</param>
         public LogMessage(string message)
         {
@@ -32,7 +33,9 @@ namespace ProdUI.Logging
             SetMessageParams();
         }
 
-        /// <summary>Instantiates a new LogMessage</summary>
+        /// <summary>
+        /// Instantiates a new LogMessage
+        /// </summary>
         /// <param name="message">A custom message to be written to the log</param>
         /// <param name="verboseInformation">String Collection to be used in verbose logging.</param>
         public LogMessage(string message, List<object> verboseInformation)
@@ -48,8 +51,8 @@ namespace ProdUI.Logging
         /// <summary>
         /// Initializes a new instance of the <see cref="LogMessage"/> class.
         /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="messageLevel">The message level.</param>
+        /// <param name="message">The message text.</param>
+        /// <param name="messageLevel">The messages LoggingLevel.</param>
         public LogMessage(string message, LoggingLevels messageLevel)
         {
             DateTime logTime = DateTime.Now;
@@ -63,9 +66,9 @@ namespace ProdUI.Logging
         /// <summary>
         /// Initializes a new instance of the <see cref="LogMessage"/> class.
         /// </summary>
-        /// <param name="message">The message.</param>
+        /// <param name="message">The message text.</param>
         /// <param name="verboseInformation">The verbose information.</param>
-        /// <param name="messageLevel">The log level.</param>
+        /// <param name="messageLevel">The messages LoggingLevel.</param>
         public LogMessage(string message, List<object> verboseInformation, LoggingLevels messageLevel)
         {
             DateTime logTime = DateTime.Now;
@@ -81,30 +84,32 @@ namespace ProdUI.Logging
         #region Properties
 
         /// <summary>
-        ///   Gets the name of the Prod method that sent the log request
+        /// Gets the name of the Prod method that sent the log request
         /// </summary>
         public string CallingMethod { get; private set; }
 
-        /// <summary>Gets time of event</summary>
+        /// <summary>
+        /// Gets time of event
+        /// </summary>
         public string LogTime { get; internal set; }
 
         /// <summary>
-        ///   Gets message text to be written to log
+        /// Gets message text to be written to log
         /// </summary>
         public string Message { get; private set; }
 
         /// <summary>
-        ///   Gets the type of LoggingLevel this message is categorized as
+        /// Gets the type of LoggingLevel this message is categorized as
         /// </summary>
         public LoggingLevels MessageLevel { get; private set; }
 
         /// <summary>
-        ///   Gets the verbosity attribute of the method
+        /// Gets the verbosity attribute of the method
         /// </summary>
         public LoggingVerbosity Verbosity { get; private set; }
 
         /// <summary>
-        ///   Gets the extra information to print to the log target if the user specifies verbose output.
+        /// Gets the extra information to print to the log target if the user specifies verbose output.
         /// </summary>
         public List<object> VerboseInformation { get; private set; }
 
@@ -112,7 +117,7 @@ namespace ProdUI.Logging
 
 
         /// <summary>
-        ///   Sets the message parameters for verbosity and log level
+        /// Sets the message parameters for verbosity and log level
         /// </summary>
         private void SetMessageParams()
         {
@@ -146,9 +151,9 @@ namespace ProdUI.Logging
         }
 
         /// <summary>
-        ///   Sets the message parameters for verbosity and log level
+        /// Sets the message parameters for verbosity and log level
         /// </summary>
-        /// <param name = "logLevel">The log level.</param>
+        /// <param name="logLevel">The messages LoggingLevel.</param>
         private void SetMessageParams(LoggingLevels logLevel)
         {
             /* get last call */
@@ -184,7 +189,9 @@ namespace ProdUI.Logging
         /// <summary>
         /// Returns a <see cref="System.String"/> that represents this instance.
         /// </summary>
-        /// <returns>A <see cref="System.String"/> that represents this instance.</returns>
+        /// <returns>
+        /// A <see cref="System.String"/> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return OutputString;

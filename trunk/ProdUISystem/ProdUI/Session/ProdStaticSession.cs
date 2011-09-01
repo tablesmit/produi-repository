@@ -3,11 +3,10 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
-using System.Globalization;
 
 namespace ProdUI.Session
 {
@@ -28,22 +27,34 @@ namespace ProdUI.Session
         /// <summary>
         /// The number of seconds to wait for a event to be raised before notification
         /// </summary>
-        /// <value>The event timeout in seconds.</value>
+        /// <value>
+        /// The event timeout in seconds.
+        /// </value>
         public static int EventTimeout { get; set; }
 
-        /// <summary>The unique ID of this session</summary>
+        /// <summary>
+        /// The unique ID of this session
+        /// </summary>
         public static string SessionId { get; private set; }
 
-        /// <summary>The 'friendly' name of the session</summary>
-        /// <value>The name of the session.</value>
+        /// <summary>
+        /// The 'friendly' name of the session
+        /// </summary>
+        /// <value>
+        /// The name of the session.
+        /// </value>
         public static string SessionName { get; set; }
 
         #endregion
 
 
-        /// <summary>Loads an instance of a ProdStaticSession.</summary>
+        /// <summary>
+        /// Loads an instance of a ProdStaticSession.
+        /// </summary>
         /// <param name="loggers">The List of loggers  to use during the session.</param>
-        /// <returns>An instance of the ProdStaticSession</returns>
+        /// <returns>
+        /// An instance of the ProdStaticSession
+        /// </returns>
         public static ProdStaticSession Load(List<ProdLogger> loggers)
         {
             ProdStaticSession session = new ProdStaticSession();
@@ -58,7 +69,9 @@ namespace ProdUI.Session
         /// </summary>
         /// <param name="configFile">The path to the configuration file</param>
         /// <param name="loggers">The List of loggers  to use during the session.</param>
-        /// <returns>An instance of the ProdStaticSession</returns>
+        /// <returns>
+        /// An instance of the ProdStaticSession
+        /// </returns>
         public static ProdStaticSession Load(string configFile, List<ProdLogger> loggers)
         {
             ProdStaticSession session = new ProdStaticSession();
@@ -67,7 +80,9 @@ namespace ProdUI.Session
             return session;
         }
 
-        /// <summary>Logs the specified message.</summary>
+        /// <summary>
+        /// Logs the specified message.
+        /// </summary>
         /// <param name="message">The message text.</param>
         /// <param name="messageLevel">The message level.</param>
         public static void Log(string message, LoggingLevels messageLevel = LoggingLevels.Info)
@@ -77,7 +92,9 @@ namespace ProdUI.Session
             ProdLogger.Log(new LogMessage(message, messageLevel), _loggers);
         }
 
-        /// <summary>Logs the specified message.</summary>
+        /// <summary>
+        /// Logs the specified message.
+        /// </summary>
         /// <param name="message">The message text.</param>
         /// <param name="additional">The additional information to write out if in verbose mode.</param>
         /// <param name="messageLevel">The message level.</param>
@@ -107,7 +124,9 @@ namespace ProdUI.Session
             EventTimeout = 12;
         }
 
-        /// <summary>Loads a configuration file for a ProdSession</summary>
+        /// <summary>
+        /// Loads a configuration file for a ProdSession
+        /// </summary>
         /// <param name="configFile">The configuration file.</param>
         private static void Setup(string configFile)
         {

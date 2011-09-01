@@ -147,6 +147,7 @@ namespace ProdSessionConfiguration
         private void TsNewSession_Click(object sender, EventArgs e)
         {
             ResetUI();
+            ResetFileDefaults();
         }
 
         /// <summary>

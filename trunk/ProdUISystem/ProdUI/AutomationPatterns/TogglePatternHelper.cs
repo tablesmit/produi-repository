@@ -19,15 +19,15 @@ namespace ProdUI.AutomationPatterns
         #region IToggleProvider Implementation
 
         /// <summary>
-        ///   Cycles through the toggle states of an AutomationElement.
+        /// Cycles through the toggle states of an AutomationElement.
         /// </summary>
-        /// <param name = "control">Toggle element to cycle</param>
+        /// <param name="control">Toggle element to cycle</param>
         /// <returns>
-        ///   0 if no problems encountered, -1 if InvalidOperationException is raised
+        /// 0 if no problems encountered, -1 if InvalidOperationException is raised
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        ///   A control will cycle through its ToggleState in this order: On, Off and, if supported, Indeterminate.
+        /// A control will cycle through its ToggleState in this order: On, Off and, if supported, Indeterminate.
         /// </remarks>
         internal static int Toggle(AutomationElement control)
         {
@@ -48,15 +48,15 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Retrieves the ToggleState of specified control
+        /// Retrieves the ToggleState of specified control
         /// </summary>
-        /// <param name = "control">The control to be manipulated</param>
+        /// <param name="control">The control to be manipulated</param>
         /// <returns>
-        ///   The current <see cref = "System.Windows.Automation.ToggleState" />ToggleState or null if there is a recoverable error
+        /// The current <see cref="System.Windows.Automation.ToggleState"/>ToggleState or null if there is a recoverable error
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        ///   the InvalidOperationException or HandleNotFoundException will be caught and thrown in the InternalUtilities.Prologue function
+        /// the InvalidOperationException or HandleNotFoundException will be caught and thrown in the InternalUtilities.Prologue function
         /// </remarks>
         internal static ToggleState GetToggleState(AutomationElement control)
         {
@@ -80,14 +80,16 @@ namespace ProdUI.AutomationPatterns
         #region Custom functions
 
         /// <summary>
-        ///   Sets state of toggle control
+        /// Sets state of toggle control
         /// </summary>
-        /// <param name = "control">The control to be manipulated</param>
-        /// <param name = "toggleState">The current <see cref = "System.Windows.Automation.ToggleState" />ToggleState</param>
-        /// <returns></returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="control">The control to be manipulated</param>
+        /// <param name="toggleState">The current <see cref="System.Windows.Automation.ToggleState"/>ToggleState</param>
+        /// <returns>
+        /// -1 if Automation error
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        ///   the InvalidOperationException or HandleNotFoundException will be caught and thrown in the InternalUtilities.Prologue function
+        /// the InvalidOperationException or HandleNotFoundException will be caught and thrown in the InternalUtilities.Prologue function
         /// </remarks>
         internal static int SetToggleState(AutomationElement control, ToggleState toggleState)
         {
@@ -118,33 +120,15 @@ namespace ProdUI.AutomationPatterns
             }
         }
 
-        ///// <summary>
-        ///// Converts <see cref="ToggleState"/> to a <see cref="ProdCheckState"/>
-        ///// </summary>
-        ///// <param name="toggleState">the ProdCheckState equivalent</param>
-        ///// <returns></returns>
-        //internal static ToggleState ToggleStateToProdCheckstate(ToggleState toggleState)
-        //{
-        //    switch (toggleState)
-        //    {
-        //        case ToggleState.Indeterminate:
-        //            return ProdCheckState.Indeterminate;
-        //        case ToggleState.Off:
-        //            return ProdCheckState.Off;
-        //        case ToggleState.On:
-        //            return ProdCheckState.On;
-        //        default:
-        //            return ProdCheckState.Err;
-        //    }
-        //}
-
         /// <summary>
-        ///   Verifies the toggle state.
+        /// Verifies the toggle state.
         /// </summary>
-        /// <param name = "control">The control.</param>
-        /// <param name = "toggleState">Desired toggleState</param>
-        /// <returns>True if verified, false if failure</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="control">The control to verify.</param>
+        /// <param name="toggleState">Desired toggleState</param>
+        /// <returns>
+        ///   <c>true</c> if verified, <c>false</c> if failure
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         private static bool VerifyCheckState(AutomationElement control, ToggleState toggleState)
         {
             /* now verify toggle */

@@ -14,12 +14,14 @@ namespace ProdUI.Controls
     public static partial class Prod
     {
         /// <summary>
-        ///   Gets the ReadOnly status of the Textbox
+        /// Gets the ReadOnly status of the Textbox
         /// </summary>
-        /// <param name = "controlHandle">Handle to the  control</param>
-        /// <returns>True if control is ReadOnly, False otherwise</returns>
+        /// <param name="controlHandle">Handle to the  control</param>
+        /// <returns>
+        /// <c>true</c> if control is ReadOnly, <c>false</c> otherwise
+        /// </returns>
         /// <remarks>
-        ///   This overload is invalid for WPF controls
+        /// This overload is invalid for WPF controls
         /// </remarks>
         public static bool GetReadOnly(IntPtr controlHandle)
         {
@@ -35,11 +37,13 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Gets the ReadOnly status of the Textbox
+        /// Gets the ReadOnly status of the Textbox
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow.</param>
-        /// <param name = "automationId">The automation id (or caption).</param>
-        /// <returns>True if control is ReadOnly, False otherwise</returns>
+        /// <param name="prodwindow">The containing ProdWindow.</param>
+        /// <param name="automationId">The automation id (or caption).</param>
+        /// <returns>
+        ///   <c>true</c> if control is ReadOnly, <c>false</c> otherwise
+        /// </returns>
         public static bool GetReadOnly(ProdWindow prodwindow, string automationId)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
@@ -47,10 +51,10 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Set text area value to an empty string
+        /// Set text area value to an empty string
         /// </summary>
-        /// <param name = "controlHandle">Handle to the  control</param>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="controlHandle">Handle to the target control</param>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         public static void ClearText(IntPtr controlHandle)
         {
             if (GetReadOnly(controlHandle))
@@ -68,10 +72,10 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Set text area value to an empty string
+        /// Set text area value to an empty string
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow.</param>
-        /// <param name = "automationId">The automation id (or caption).</param>
+        /// <param name="prodwindow">The containing ProdWindow.</param>
+        /// <param name="automationId">The automation id (or caption).</param>
         public static void ClearText(ProdWindow prodwindow, string automationId)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
@@ -87,12 +91,14 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Gets the text currently contained in a text area
+        /// Gets the text currently contained in a text area
         /// </summary>
-        /// <param name = "controlHandle">Handle to the  control</param>
-        /// <returns>Text contained in text area</returns>
+        /// <param name="controlHandle">Handle to the target control</param>
+        /// <returns>
+        /// Text contained in text area
+        /// </returns>
         /// <remarks>
-        ///   This overload is invalid for WPF controls
+        /// This overload is invalid for WPF controls
         /// </remarks>
         public static string GetText(IntPtr controlHandle)
         {
@@ -110,11 +116,13 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Gets the text currently contained in a text area
+        /// Gets the text currently contained in a text area
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow.</param>
-        /// <param name = "automationId">The automation id (or caption).</param>
-        /// <returns>Text contained in text area</returns>
+        /// <param name="prodwindow">The containing ProdWindow.</param>
+        /// <param name="automationId">The automation id (or caption).</param>
+        /// <returns>
+        /// Text contained in text area
+        /// </returns>
         public static string GetText(ProdWindow prodwindow, string automationId)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
@@ -123,11 +131,11 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Set text area value
+        /// Set text area value
         /// </summary>
-        /// <param name = "controlHandle">Handle to the  control</param>
-        /// <param name = "newText">Desired text</param>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="controlHandle">Handle to the target control</param>
+        /// <param name="newText">Desired text</param>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         public static void SetText(IntPtr controlHandle, string newText)
         {
             if (GetReadOnly(controlHandle))
@@ -152,11 +160,11 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Set text area value
+        /// Set text area value
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow.</param>
-        /// <param name = "automationId">The automation id (or caption).</param>
-        /// <param name = "newText">Desired text</param>
+        /// <param name="prodwindow">The containing ProdWindow.</param>
+        /// <param name="automationId">The automation id (or caption).</param>
+        /// <param name="newText">Desired text</param>
         public static void SetText(ProdWindow prodwindow, string automationId, string newText)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
@@ -170,8 +178,10 @@ namespace ProdUI.Controls
                 ValuePatternHelper.SendKeysSetText(control, newText);
         }
 
-        /// <summary>Appends text to a .Net text input control</summary>
-        /// <param name="controlHandle">Handle to the  control</param>
+        /// <summary>
+        /// Appends text to a .Net text input control
+        /// </summary>
+        /// <param name="controlHandle">Handle to the target control</param>
         /// <param name="newText">Text To Append</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         public static void AppendText(IntPtr controlHandle, string newText)
@@ -195,7 +205,9 @@ namespace ProdUI.Controls
             ValuePatternHelper.SendKeysAppendText(AutomationElement.FromHandle(controlHandle), newText);
         }
 
-        /// <summary>Appends text to a .Net text input control</summary>
+        /// <summary>
+        /// Appends text to a .Net text input control
+        /// </summary>
         /// <param name="prodwindow">The containing ProdWindow.</param>
         /// <param name="automationId">The automation id (or caption).</param>
         /// <param name="newText">Text To Append</param>
@@ -224,7 +236,9 @@ namespace ProdUI.Controls
             ValuePatternHelper.SendKeysAppendText(control, newText);
         }
 
-        /// <summary>Inserts the supplied string into the existing textBox text</summary>
+        /// <summary>
+        /// Inserts the supplied string into the existing textBox text
+        /// </summary>
         /// <param name="controlHandle">The control to be worked with</param>
         /// <param name="newText">Text to append to TextBox value</param>
         /// <param name="insertIndex">Zero based index of string to insert text into</param>
@@ -246,8 +260,10 @@ namespace ProdUI.Controls
             NativeTextProds.InsertTextNative(controlHandle, newText, insertIndex);
         }
 
-        /// <summary>Inserts the supplied string into the existing textBox text</summary>
-        /// <param name="prodwindow">The prodwindow.</param>
+        /// <summary>
+        /// Inserts the supplied string into the existing textBox text
+        /// </summary>
+        /// <param name="prodwindow">The containing prodwindow.</param>
         /// <param name="automationId">The automation id.</param>
         /// <param name="newText">Text to append to TextBox value</param>
         /// <param name="insertIndex">Zero based index of string to insert text into</param>

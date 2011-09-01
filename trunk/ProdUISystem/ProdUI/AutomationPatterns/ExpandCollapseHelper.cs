@@ -68,9 +68,9 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        /// Expands the state of the collapse.
+        /// Gets the current ExpandCollapseState of the supplied element
         /// </summary>
-        /// <param name="control">The control.</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
         ///   <see cref="ExpandCollapseState"/>
         /// </returns>

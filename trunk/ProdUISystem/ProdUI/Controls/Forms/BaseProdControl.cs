@@ -3,7 +3,6 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Windows.Automation;
@@ -42,12 +41,12 @@ namespace ProdUI.Controls
         #region Constructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "BaseProdControl" /> class.
+        /// Initializes a new instance of the <see cref="BaseProdControl"/> class.
         /// </summary>
-        /// <param name = "prodWindow">The prodWindow.</param>
-        /// <param name = "automationId">The automation id.</param>
+        /// <param name="prodWindow">The prodWindow.</param>
+        /// <param name="automationId">The automation id.</param>
         /// <remarks>
-        ///   Will attempt to match AutomationId, then Name
+        /// Will attempt to match AutomationId, then Name
         /// </remarks>
         public BaseProdControl(ProdWindow prodWindow, string automationId)
         {
@@ -71,10 +70,10 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "BaseProdControl" /> class.
+        /// Initializes a new instance of the <see cref="BaseProdControl"/> class.
         /// </summary>
-        /// <param name = "prodWindow">The prod window.</param>
-        /// <param name = "treePosition">The tree position.</param>
+        /// <param name="prodWindow">The prod window.</param>
+        /// <param name="treePosition">The tree position.</param>
         public BaseProdControl(ProdWindow prodWindow, int treePosition)
         {
             if (prodWindow == null)
@@ -96,10 +95,10 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Initializes a new instance of the ProdUI.Controls class using the supplied handle
+        /// Initializes a new instance of the ProdUI.Controls class using the supplied handle
         /// </summary>
-        /// <param name = "prodWindow">The prod window.</param>
-        /// <param name = "controlHandle">Window handle of the control</param>
+        /// <param name="prodWindow">The prod window.</param>
+        /// <param name="controlHandle">Window handle of the control</param>
         internal BaseProdControl(ProdWindow prodWindow, IntPtr controlHandle)
         {
             try
@@ -119,9 +118,9 @@ namespace ProdUI.Controls
         #region Properties
 
         /// <summary>
-        ///   The window handle for the component
+        /// Gets the window handle for the component
         /// </summary>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         public IntPtr Handle
         {
             get
@@ -138,9 +137,9 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Gets the name of the control at the time it was initialized
+        /// Gets the name of the control at the time it was initialized
         /// </summary>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         public string Name
         {
             get
@@ -174,7 +173,9 @@ namespace ProdUI.Controls
 
         #region Events
 
-        /// <summary>Registers a method that handles UI Automation events</summary>
+        /// <summary>
+        /// Registers a method that handles UI Automation events
+        /// </summary>
         /// <param name="eventType">The specific event type to monitor</param>
         public void SubscribeToEvent(AutomationEvent eventType)
         {
@@ -192,7 +193,9 @@ namespace ProdUI.Controls
             SubscribeToChildNotification(eventType);
         }
 
-        /// <summary>Registers a method that will handle property-changed events</summary>
+        /// <summary>
+        /// Registers a method that will handle property-changed events
+        /// </summary>
         /// <param name="property">The automation property to monitor for a state change</param>
         public void SubscribeToEvent(AutomationProperty property)
         {
@@ -216,9 +219,9 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        /// Called when [automation event].
+        /// Automation Event handler
         /// </summary>
-        /// <param name="src">The SRC.</param>
+        /// <param name="src">The source of the event.</param>
         /// <param name="e">The <see cref="System.Windows.Automation.AutomationEventArgs"/> instance containing the event data.</param>
         private void OnAutomationEvent(object src, AutomationEventArgs e)
         {
@@ -243,7 +246,9 @@ namespace ProdUI.Controls
             RemoveHandler();
         }
 
-        /// <summary>Handler for property change events</summary>
+        /// <summary>
+        /// Handler for property change events
+        /// </summary>
         /// <param name="src">The source whose properties changed.</param>
         /// <param name="e">Event arguments.</param>
         private void OnPropertyChange(object src, AutomationPropertyChangedEventArgs e)
@@ -278,6 +283,14 @@ namespace ProdUI.Controls
         #endregion
 
 
+        /// <summary>
+        /// Checks the pattern support for a given control.
+        /// </summary>
+        /// <param name="pattern">The automation pattern to check for</param>
+        /// <param name="control">The target control.</param>
+        /// <returns>
+        ///   <c>true</c> if control supports the pattern, <c>false</c> otherwise
+        /// </returns>
         internal static bool CheckPatternSupport(AutomationPattern pattern, AutomationElement control)
         {
             try
@@ -299,18 +312,9 @@ namespace ProdUI.Controls
             }
         }
 
-        private void CreateMessage()
-        {
-            if (VerboseInformation.Count == 0)
-            {
-                _currentMessage = new LogMessage(Logmessage);
-            }
-            else
-            {
-                _currentMessage = new LogMessage(Logmessage, VerboseInformation);
-            }
-        }
-
+        /// <summary>
+        /// Central location to send any log messages up the log pipe
+        /// </summary>
         internal void LogEntry()
         {
             
@@ -322,5 +326,20 @@ namespace ProdUI.Controls
             ProdLogger.Log(_currentMessage, ParentWindow.AttachedLoggers);
         }
 
+
+        /// <summary>
+        /// Creates the proper LogMessage.
+        /// </summary>
+        private void CreateMessage()
+        {
+            if (VerboseInformation.Count == 0)
+            {
+                _currentMessage = new LogMessage(Logmessage);
+            }
+            else
+            {
+                _currentMessage = new LogMessage(Logmessage, VerboseInformation);
+            }
+        }
     }
 }

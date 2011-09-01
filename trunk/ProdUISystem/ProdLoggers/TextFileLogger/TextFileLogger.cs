@@ -1,12 +1,13 @@
 ﻿/* License Rider:
  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
  */
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Session;
-using System;
 
 
 /// <summary>
@@ -25,8 +26,8 @@ public sealed class TextFileLogger : ILogTarget
     /// <summary>
     /// Writes the specified message.
     /// </summary>
-    /// <param name="message">The message.</param>
-    /// <param name="inputParameters">The input parameters.</param>
+    /// <param name="message">The message to be written to the file.</param>
+    /// <param name="inputParameters">Any extra input parameters (verbosity).</param>
     public void Write(LogMessage message, List<LoggerParameters> inputParameters)
     {
 
@@ -41,6 +42,10 @@ public sealed class TextFileLogger : ILogTarget
 
     }
 
+    /// <summary>
+    /// Writes the line to the designated file.   //todo:possible deadlocking or racing
+    /// </summary>
+    /// <param name="message">The message to be written to the file</param>
     private void WriteToFile(LogMessage message)
     {
         StreamWriter sw = null;
@@ -81,7 +86,9 @@ public sealed class TextFileLogger : ILogTarget
     /// <summary>
     /// Calls the parameter form to get the output file path.
     /// </summary>
-    /// <returns>1 on success</returns>
+    /// <returns>
+    /// 1 on success
+    /// </returns>
     public int CallParameterForm()
     {
         ParameterForm frm = new ParameterForm();
