@@ -16,11 +16,13 @@ namespace ProdUI.AutomationPatterns
         #region IWindowProvider Implentation
 
         /// <summary>
-        ///   Closes the window.
+        /// Closes the window.
         /// </summary>
-        /// <param name = "control">The UI Automation element.</param>
-        /// <returns>0 if no problems, -1 if InvalidOperationException</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="control">The UI Automation element.</param>
+        /// <returns>
+        /// 0 if no problems, -1 if InvalidOperationException
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static int CloseWindow(AutomationElement control)
         {
             try
@@ -40,11 +42,13 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Gets the interaction state of the window
+        /// Gets the interaction state of the window
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <returns>The current <see cref = "WindowInteractionState" /></returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="control">The UI Automation element</param>
+        /// <returns>
+        /// The current <see cref="WindowInteractionState"/>
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static WindowInteractionState GetInteractionState(AutomationElement control)
         {
             try
@@ -67,11 +71,13 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Gets whether the window is modal or not
+        /// Gets whether the window is modal or not
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <returns>true if modal, false otherwise</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="control">The UI Automation element</param>
+        /// <returns>
+        /// <c>true</c> if modal, <c>false</c> otherwise
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static bool? GetIsModal(AutomationElement control)
         {
             try
@@ -94,11 +100,13 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Gets whether the window is topmost.
+        /// Gets whether the window is topmost.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <returns>true if Topmost, false otherwise</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="control">The UI Automation element</param>
+        /// <returns>
+        /// <c>true</c> if Topmost, <c>false</c> otherwise
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static bool? GetIsTopmost(AutomationElement control)
         {
             try
@@ -121,12 +129,14 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Sets the visual state of the window
+        /// Sets the visual state of the window
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "state">The <see cref = "WindowVisualState" /> of the current window</param>
-        /// <returns>-1 if in error</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="state">The <see cref="WindowVisualState"/> of the current window</param>
+        /// <returns>
+        /// -1 if in error
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static int SetVisualState(AutomationElement control, WindowVisualState state)
         {
             try
@@ -150,11 +160,13 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Gets the visual state of the current window
+        /// Gets the visual state of the current window
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <returns>The <see cref = "WindowVisualState" /> of the current window</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="control">The UI Automation element</param>
+        /// <returns>
+        /// The <see cref="WindowVisualState"/> of the current window
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static WindowVisualState GetVisualState(AutomationElement control)
         {
             try
@@ -173,12 +185,12 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Waits until the specified process has finished processing its initial input and is waiting for user input with no input pending, or until the time-out interval has elapsed
+        /// Waits until the specified process has finished processing its initial input and is waiting for user input with no input pending, or until the time-out interval has elapsed
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "delay">The time-out interval, in milliseconds</param>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="delay">The time-out interval, in milliseconds</param>
         /// <returns>
-        ///   true if the window has entered the idle state; false if the timeout occurred
+        ///   <c>true</c> if the window has entered the idle state; <c>false</c> if the timeout occurred
         /// </returns>
         internal static bool? WaitForInputIdle(AutomationElement control, int delay)
         {
@@ -202,10 +214,10 @@ namespace ProdUI.AutomationPatterns
         #region Custom Functions
 
         /// <summary>
-        ///   Sets the state of the window
+        /// Sets the state of the window
         /// </summary>
-        /// <param name = "state">The <see cref = "WindowVisualState" /> of the current window</param>
-        /// <param name = "wp">The WindowPattern of the target window.</param>
+        /// <param name="state">The <see cref="WindowVisualState"/> of the current window</param>
+        /// <param name="wp">The WindowPattern of the target window.</param>
         private static void SetState(WindowVisualState state, WindowPattern wp)
         {
             switch (state)
@@ -234,15 +246,13 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Verifies the window is closed.
+        /// Verifies the window is closed.
         /// </summary>
-        /// <returns>0 if ok, -1 if error</returns>
-        /// <summary>
-        ///   Verifies the state of the window.
-        /// </summary>
-        /// <param name = "pattern">The WindowPattern of the current control</param>
-        /// <param name = "state">The desired <see cref = "WindowVisualState" /></param>
-        /// <returns>0 if ok, -1 if error</returns>
+        /// <param name="pattern">The WindowPattern of the current control</param>
+        /// <param name="state">The desired <see cref="WindowVisualState"/></param>
+        /// <returns>
+        /// 0 if ok, -1 if error
+        /// </returns>
         private static int VerifyState(WindowPattern pattern, WindowVisualState state)
         {
             try

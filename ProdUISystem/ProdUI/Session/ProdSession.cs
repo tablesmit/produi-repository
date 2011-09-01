@@ -4,11 +4,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Runtime.Remoting;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
-using System.Globalization;
 
 namespace ProdUI.Session
 {
@@ -28,6 +28,9 @@ namespace ProdUI.Session
         /// </value>
         public List<ProdLogger> Loggers { get; set; }
 
+        /// <summary>
+        /// Gets the current ProdSessionConfig.
+        /// </summary>
         public ProdSessionConfig Configuration
         {
             get
@@ -50,7 +53,7 @@ namespace ProdUI.Session
             Loggers = new List<ProdLogger>();
 
             _cfg = ProdSessionConfig.LoadConfig(configFile);
-            
+
             /* Process any loggers from config file */
             GetLoggers();
 
@@ -82,7 +85,9 @@ namespace ProdUI.Session
             ProdStaticSession.Load(Loggers);
         }
 
-        /// <summary>Instantiates and adds loggers from the configuration file.</summary>
+        /// <summary>
+        /// Instantiates and adds loggers from the configuration file.
+        /// </summary>
         private void GetLoggers()
         {
             if (_cfg.Loggers == null || _cfg.Loggers[0].AssemblyPath == null)
@@ -108,10 +113,14 @@ namespace ProdUI.Session
             }
         }
 
-        /// <summary>Creates an instance of the logger type</summary>
+        /// <summary>
+        /// Creates an instance of the logger type
+        /// </summary>
         /// <param name="dllPath">The path to the dll that contains the ProdLogger .</param>
         /// <param name="loggerType">The ILogTarget from the config file</param>
-        /// <returns>An unwrapped and casted ProdLogger</returns>
+        /// <returns>
+        /// An unwrapped and casted ProdLogger
+        /// </returns>
         private static ILogTarget InitializeLogger(string dllPath, string loggerType)
         {
             try

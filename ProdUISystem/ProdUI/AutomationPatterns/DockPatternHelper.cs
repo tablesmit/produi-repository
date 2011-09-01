@@ -19,7 +19,7 @@ namespace ProdUI.AutomationPatterns
         /// <summary>
         /// Gets the current DockPosition of the control within a docking container.
         /// </summary>
-        /// <param name="control">The control.</param>
+        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
         /// <returns>
         ///   <see cref="DockPosition"/>
         /// </returns>
@@ -43,7 +43,7 @@ namespace ProdUI.AutomationPatterns
         /// <summary>
         /// Docks the control within a docking container.
         /// </summary>
-        /// <param name="control">The control.</param>
+        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
         /// <param name="dockPosition">The <see cref="DockPosition"/>.</param>
         internal static void SetDockPosition(AutomationElement control, DockPosition dockPosition)
         {

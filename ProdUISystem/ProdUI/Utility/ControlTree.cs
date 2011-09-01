@@ -9,15 +9,15 @@ using ProdUI.Exceptions;
 
 namespace ProdUI.Utility
 {
-    internal class ControlTree : IDisposable
+    internal class ControlTree
     {
         private readonly Collection<AutomationElement> _controls;
         private readonly IntPtr _rootHandle;
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "ControlTree" /> class.
+        /// Initializes a new instance of the <see cref="ControlTree"/> class.
         /// </summary>
-        /// <param name = "controlHandle">The control handle to the main window.</param>
+        /// <param name="controlHandle">The control handle to the main window.</param>
         internal ControlTree(IntPtr controlHandle)
         {
             /* break over to process */
@@ -27,10 +27,12 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///   Finds the specified control position.
+        /// Finds the specified control position.
         /// </summary>
-        /// <param name = "controlPosition">The control position.</param>
-        /// <returns>the corresponding controls window handle</returns>
+        /// <param name="controlPosition">The control position.</param>
+        /// <returns>
+        /// the corresponding controls window handle
+        /// </returns>
         internal int Find(int controlPosition)
         {
             try
@@ -44,21 +46,23 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///   Finds the element based on its index in the UI Control tree.
+        /// Finds the element based on its index in the UI Control tree.
         /// </summary>
-        /// <param name = "controlPosition">The control position in the tree.</param>
-        /// <returns>The specified element</returns>
+        /// <param name="controlPosition">The control position in the tree.</param>
+        /// <returns>
+        /// The specified element
+        /// </returns>
         internal AutomationElement FindElement(int controlPosition)
         {
             return _controls[controlPosition];
         }
 
         /// <summary>
-        ///   Loads the control tree.
+        /// Loads the control tree.
         /// </summary>
         private void LoadControlTree()
         {
-            if ((int) _rootHandle == 0)
+            if ((int)_rootHandle == 0)
             {
                 return;
             }
@@ -68,9 +72,9 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///   Enumerates the elements in the UI Control Tree.
+        /// Enumerates the elements in the UI Control Tree.
         /// </summary>
-        /// <param name = "aeRoot">The root element.</param>
+        /// <param name="aeRoot">The root AutomationElement.</param>
         private void EnumControlElements(AutomationElement aeRoot)
         {
             AutomationElement aeNode = TreeWalker.ControlViewWalker.GetFirstChild(aeRoot);
@@ -82,48 +86,5 @@ namespace ProdUI.Utility
                 aeNode = TreeWalker.ControlViewWalker.GetNextSibling(aeNode);
             }
         }
-
-        #region IDisposable Implementation
-
-        protected bool Disposed/* = false*/;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            lock (this)
-            {
-                // Do nothing if the object has already been disposed of.
-                if (Disposed)
-                    return;
-
-                if (disposing)
-                {
-                    // Release disposable objects used by this instance here.
-
-                }
-
-                // Release unmanaged resources here. Don't access reference type fields.
-
-                // Remember that the object has been disposed of.
-                Disposed = true;
-            }
-        }
-
-        public virtual void Dispose()
-        {
-            Dispose(true);
-            // Unregister object for finalization.
-            GC.SuppressFinalize(this);
-        }
-
-        #endregion
-
-        #region Destructor
-
-        ~ControlTree()
-        {
-            Dispose(false);
-        }
-
-        #endregion
     }
 }

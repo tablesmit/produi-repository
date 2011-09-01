@@ -13,11 +13,11 @@ namespace ProdUI.Controls
     public static partial class Prod
     {
         /// <summary>
-        ///   Performs a "Click" on the specified static ProdButton
+        /// Performs a "Click" on the specified static ProdButton
         /// </summary>
-        /// <param name = "controlHandle">Handle of the control</param>
+        /// <param name="controlHandle">Handle of the target control</param>
         /// <remarks>
-        ///   This overload is invalid for WPF controls
+        /// This overload is invalid for WPF controls
         /// </remarks>
         public static void ButtonClick(IntPtr controlHandle)
         {
@@ -34,20 +34,20 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Clicks this ProdButton.
+        /// Clicks this ProdButton.
         /// </summary>
-        /// <param name = "prodwindow">The ProdWindow that contains this control..</param>
-        /// <param name = "automationId">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="prodwindow">The ProdWindow that contains this control..</param>
+        /// <param name="automationId">The UI Automation identifier (ID) for the element.</param>
         /// <remarks>
-        ///   The program will also attempt to identify using the Name property if the AutomationId fails
+        /// The program will also attempt to identify using the Name property if the AutomationId fails
         /// </remarks>
         public static void ButtonClick(ProdWindow prodwindow, string automationId)
         {
             AutomationElement control = CommonPatternHelpers.Prologue(prodwindow, InvokePatternIdentifiers.Pattern, automationId);
-           
+
             StaticEvents.SubscribeToEvent(InvokePattern.InvokedEvent, control);
             InvokePatternHelper.Invoke(control);
-         
+
             ProdStaticSession.Log("button clicked");
         }
     }

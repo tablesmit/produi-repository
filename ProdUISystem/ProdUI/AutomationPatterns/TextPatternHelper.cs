@@ -31,7 +31,9 @@ namespace ProdUI.AutomationPatterns
 
         #region ITextProvider Implementation
 
-        /// <summary>gets the Document range.</summary>
+        /// <summary>
+        /// gets the Document range.
+        /// </summary>
         /// <param name="control">The control.</param>
         /// <returns></returns>
         internal static TextPatternRange GetDocumentRange(AutomationElement control)
@@ -82,11 +84,15 @@ namespace ProdUI.AutomationPatterns
 
         }
 
-        /// <summary>Returns the plain text of the text range.</summary>
+        /// <summary>
+        /// Returns the plain text of the text range.
+        /// </summary>
         /// <param name="control">The control.</param>
         /// <param name="targetRange">The target range.</param>
         /// <param name="maxLength">The maximum length of the string to return. Use -1 if no limit is required.</param>
-        /// <returns>The plain text of the text range, possibly truncated at the specified maxLength</returns>
+        /// <returns>
+        /// The plain text of the text range, possibly truncated at the specified maxLength
+        /// </returns>
         internal static string GetText(AutomationElement control, TextPatternRange targetRange, int maxLength)
         {
             try
@@ -133,7 +139,9 @@ namespace ProdUI.AutomationPatterns
         /// Retrieves a text range enclosing a child element such as an image, hyperlink, Microsoft Excel spreadsheet, or other embedded object
         /// </summary>
         /// <param name="control">The enclosed object</param>
-        /// <returns>A range that spans the child element</returns>
+        /// <returns>
+        /// A range that spans the child element
+        /// </returns>
         internal static TextPatternRange GetRangeFromChild(AutomationElement control)
         {
             try
@@ -156,7 +164,9 @@ namespace ProdUI.AutomationPatterns
         /// </summary>
         /// <param name="control">The control.</param>
         /// <param name="screenLocation">The location in screen coordinates</param>
-        /// <returns>A degenerate range nearest the specified location</returns>
+        /// <returns>
+        /// A degenerate range nearest the specified location
+        /// </returns>
         internal static TextPatternRange GetRangeFromPoint(AutomationElement control, Point screenLocation)
         {
             try

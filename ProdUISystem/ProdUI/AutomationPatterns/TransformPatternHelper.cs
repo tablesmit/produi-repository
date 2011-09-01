@@ -17,13 +17,13 @@ namespace ProdUI.AutomationPatterns
         #region ITransformProvider Implementation
 
         /// <summary>
-        ///   Determines whether this instance can be moved
+        /// Determines whether this instance can be moved
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
-        ///   Whether the control can be moved, null if InvalidOperationException is raised
+        /// Whether the control can be moved, null if InvalidOperationException is raised
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static bool? CanMove(AutomationElement control)
         {
             try
@@ -42,13 +42,13 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Determines whether this instance can be resized
+        /// Determines whether this instance can be resized
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
-        ///   Whether the control can be resized, null if InvalidOperationException is raised
+        /// Whether the control can be resized, null if InvalidOperationException is raised
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static bool? CanResize(AutomationElement control)
         {
             try
@@ -67,13 +67,13 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Determines whether this instance can rotate
+        /// Determines whether this instance can rotate
         /// </summary>
-        /// <param name = "control">The UI Automation element.</param>
+        /// <param name="control">The UI Automation element.</param>
         /// <returns>
-        ///   Whether control can be rotated, null if InvalidOperationException is raised
+        /// Whether control can be rotated, null if InvalidOperationException is raised
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static bool? CanRotate(AutomationElement control)
         {
             try
@@ -92,15 +92,15 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Moves the control to the specified location.
+        /// Moves the control to the specified location.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "x">The top left corner</param>
-        /// <param name = "y">The right</param>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="x">The top left corner</param>
+        /// <param name="y">The right</param>
         /// <returns>
-        ///   0 if no problems encountered, -1 if InvalidOperationException is raised
+        /// 0 if no problems encountered, -1 if InvalidOperationException is raised
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static int Move(AutomationElement control, double x, double y)
         {
             try
@@ -124,15 +124,15 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Resizes the control.
+        /// Resizes the control.
         /// </summary>
-        /// <param name = "control">The control to resize</param>
-        /// <param name = "width">desired width in pixels</param>
-        /// <param name = "height">the desired height in pixels</param>
+        /// <param name="control">The control to resize</param>
+        /// <param name="width">desired width in pixels</param>
+        /// <param name="height">the desired height in pixels</param>
         /// <returns>
-        ///   0 if no problems encountered, -1 if InvalidOperationException is raised
+        /// 0 if no problems encountered, -1 if InvalidOperationException is raised
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static int Resize(AutomationElement control, double width, double height)
         {
             try
@@ -156,14 +156,14 @@ namespace ProdUI.AutomationPatterns
         }
 
         /// <summary>
-        ///   Rotates the specified control.
+        /// Rotates the specified control.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "degrees">The degrees to rotate. use a negative number to rotate counter-clockwise</param>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="degrees">The degrees to rotate. use a negative number to rotate counter-clockwise</param>
         /// <returns>
-        ///   0 if no problems encountered, -1 if InvalidOperationException is raised
+        /// 0 if no problems encountered, -1 if InvalidOperationException is raised
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static int Rotate(AutomationElement control, double degrees)
         {
             try

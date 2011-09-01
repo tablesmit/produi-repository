@@ -4,7 +4,7 @@
 namespace ProdUI.Utility
 {
     /// <summary>
-    ///   Denotes which mouse button was clicked for sending events
+    /// Denotes which mouse button was clicked for sending events
     /// </summary>
     public enum MouseClick
     {
@@ -23,7 +23,7 @@ namespace ProdUI.Utility
     }
 
     /// <summary>
-    ///   Indicates the status of a ProdWindow
+    /// Indicates the status of a ProdWindow
     /// </summary>
     public enum WindowState
     {

@@ -15,12 +15,12 @@ namespace ProdUI.Controls
     public static partial class Prod
     {
         /// <summary>
-        ///   Sets the value of the spinner control.
+        /// Sets the value of the spinner control.
         /// </summary>
-        /// <param name = "controlHandle">The control handle.</param>
-        /// <param name = "value">The desired value.</param>
+        /// <param name="controlHandle">The target controls handle.</param>
+        /// <param name="value">The desired value.</param>
         /// <remarks>
-        ///   Invalid for WPF controls
+        /// Invalid for WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SpinnerSetValue(IntPtr controlHandle, double value)
@@ -39,11 +39,11 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Sets the value of the spinner control.
+        /// Sets the value of the spinner control.
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow.</param>
-        /// <param name = "automationId">The automation id (or caption).</param>
-        /// <param name = "value">The desired value.</param>
+        /// <param name="prodwindow">The containing ProdWindow.</param>
+        /// <param name="automationId">The automation id (or caption).</param>
+        /// <param name="value">The desired value.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SpinnerSetValue(ProdWindow prodwindow, string automationId, double value)
         {
@@ -53,7 +53,7 @@ namespace ProdUI.Controls
             int ret = RangeValuePatternHelper.SetValue(control, value);
             if (ret == -1 && control.Current.NativeWindowHandle != 0)
             {
-                ProdSpinnerNative.SetValueNative((IntPtr) control.Current.NativeWindowHandle, value);
+                ProdSpinnerNative.SetValueNative((IntPtr)control.Current.NativeWindowHandle, value);
             }
 
             string logmessage = "Control Text: " + control.Current.Name + " Value to set: " + value;
@@ -61,10 +61,12 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Gets the value of the spinner control.
+        /// Gets the value of the spinner control.
         /// </summary>
-        /// <param name = "controlHandle">The control handle.</param>
-        /// <returns>The current value</returns>
+        /// <param name="controlHandle">The target controls handle.</param>
+        /// <returns>
+        /// The current value of the spinner
+        /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static double SpinnerGetValue(IntPtr controlHandle)
         {
@@ -84,11 +86,13 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Gets the value of the spinner control.
+        /// Gets the value of the spinner control.
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow.</param>
-        /// <param name = "automationId">The automation id (or caption).</param>
-        /// <returns>The current value</returns>
+        /// <param name="prodwindow">The containing ProdWindow.</param>
+        /// <param name="automationId">The automation id (or caption).</param>
+        /// <returns>
+        /// The current value of the target spinner
+        /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static double SpinnerGetValue(ProdWindow prodwindow, string automationId)
         {
@@ -97,7 +101,7 @@ namespace ProdUI.Controls
 
             if (retVal == -1 && control.Current.NativeWindowHandle != 0)
             {
-                ProdSpinnerNative.GetValueNative((IntPtr) control.Current.NativeWindowHandle);
+                ProdSpinnerNative.GetValueNative((IntPtr)control.Current.NativeWindowHandle);
             }
 
             string logmessage = "Control Text: " + control.Current.Name + " Value: " + retVal;
@@ -107,10 +111,12 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Gets the max value the spinner can have.
+        /// Gets the max value the spinner can have.
         /// </summary>
-        /// <param name = "controlHandle">The control handle.</param>
-        /// <returns>Max value the spinner can have</returns>
+        /// <param name="controlHandle">The target controls handle.</param>
+        /// <returns>
+        /// Max value the spinner can have
+        /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static double SpinnerGetMaxValue(IntPtr controlHandle)
         {
@@ -129,11 +135,13 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Gets the max value the spinner can have.
+        /// Gets the max value the spinner can have.
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow.</param>
-        /// <param name = "automationId">The automation id (or caption).</param>
-        /// <returns>Max value the spinner can have</returns>
+        /// <param name="prodwindow">The containing ProdWindow.</param>
+        /// <param name="automationId">The automation id (or caption).</param>
+        /// <returns>
+        /// Max value the spinner can have
+        /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static double SpinnerGetMaxValue(ProdWindow prodwindow, string automationId)
         {
@@ -142,7 +150,7 @@ namespace ProdUI.Controls
 
             if (retVal == -1 && control.Current.NativeWindowHandle != 0)
             {
-                ProdSpinnerNative.GetMaximumNative((IntPtr) control.Current.NativeWindowHandle);
+                ProdSpinnerNative.GetMaximumNative((IntPtr)control.Current.NativeWindowHandle);
             }
 
             string logmessage = "Control Text: " + control.Current.Name + " value: " + retVal;
@@ -152,10 +160,12 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Gets the minimum value the spinner can have.
+        /// Gets the minimum value the spinner can have.
         /// </summary>
-        /// <param name = "controlHandle">The control handle.</param>
-        /// <returns>Min value the spinner can have</returns>
+        /// <param name="controlHandle">The target controls handle.</param>
+        /// <returns>
+        /// Minimum value the spinner can have
+        /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static double SpinnerGetMinValue(IntPtr controlHandle)
         {
@@ -174,11 +184,13 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Gets the minimum value the spinner can have.
+        /// Gets the minimum value the spinner can have.
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow.</param>
-        /// <param name = "automationId">The automation id (or caption).</param>
-        /// <returns>Min value the spinner can have</returns>
+        /// <param name="prodwindow">The containing ProdWindow.</param>
+        /// <param name="automationId">The automation id (or caption).</param>
+        /// <returns>
+        /// Minimumvalue the spinner can have
+        /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static double SpinnerGetMinValue(ProdWindow prodwindow, string automationId)
         {
@@ -187,7 +199,7 @@ namespace ProdUI.Controls
 
             if (retVal == -1 && control.Current.NativeWindowHandle != 0)
             {
-                ProdSpinnerNative.GetMinimumNative((IntPtr) control.Current.NativeWindowHandle);
+                ProdSpinnerNative.GetMinimumNative((IntPtr)control.Current.NativeWindowHandle);
             }
 
             string logmessage = "Control Text: " + control.Current.Name + " value: " + retVal;

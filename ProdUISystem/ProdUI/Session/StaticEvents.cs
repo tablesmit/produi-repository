@@ -14,7 +14,9 @@ namespace ProdUI.Session
         private static AutomationEvent _patternEventType;
         private static AutomationElement _control;
 
-        /// <summary>Registers a method that handles UI Automation events</summary>
+        /// <summary>
+        /// Registers a method that handles UI Automation events
+        /// </summary>
         /// <param name="eventType">The specific event type to monitor</param>
         /// <param name="control">The control to monitor for events.</param>
         public static void SubscribeToEvent(AutomationEvent eventType, AutomationElement control)
@@ -32,7 +34,9 @@ namespace ProdUI.Session
             SubscribeToChildNotification(eventType, control);
         }
 
-        /// <summary>Registers a method that will handle property-changed events</summary>
+        /// <summary>
+        /// Registers a method that will handle property-changed events
+        /// </summary>
         /// <param name="property">The automation property to monitor for a state change</param>
         /// <param name="control">The control to monitor for events.</param>
         public static void SubscribeToEvent(AutomationProperty property, AutomationElement control)
@@ -55,7 +59,9 @@ namespace ProdUI.Session
             Automation.AddAutomationEventHandler(_patternEventType, control, TreeScope.Descendants, _eventHandler);
         }
 
-        /// <summary>Called when a subscribed automation event fires.</summary>
+        /// <summary>
+        /// Called when a subscribed automation event fires.
+        /// </summary>
         /// <param name="src">The source of the event.</param>
         /// <param name="e">The <see cref="System.Windows.Automation.AutomationEventArgs"/> instance containing the event data.</param>
         private static void OnAutomationEvent(object src, AutomationEventArgs e)
@@ -79,7 +85,9 @@ namespace ProdUI.Session
             RemoveHandler();
         }
 
-        /// <summary>Handler for property change events</summary>
+        /// <summary>
+        /// Handler for property change events
+        /// </summary>
         /// <param name="src">The source of the event.</param>
         /// <param name="e">The <see cref="System.Windows.Automation.AutomationPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void OnPropertyChange(object src, AutomationPropertyChangedEventArgs e)
@@ -98,14 +106,18 @@ namespace ProdUI.Session
             RemovePropertyChangeHandler();
         }
 
-        /// <summary>Removes the calling AutomationEventHandle.</summary>
+        /// <summary>
+        /// Removes the calling AutomationEventHandle.
+        /// </summary>
         private static void RemoveHandler()
         {
             Automation.RemoveAutomationEventHandler(_patternEventType, _control, _eventHandler);
             _eventHandler = null;
         }
 
-        /// <summary>Removes the calling property change handler.</summary>
+        /// <summary>
+        /// Removes the calling property change handler.
+        /// </summary>
         private static void RemovePropertyChangeHandler()
         {
             Automation.RemoveAutomationPropertyChangedEventHandler(_control, _propertyChangeHandler);

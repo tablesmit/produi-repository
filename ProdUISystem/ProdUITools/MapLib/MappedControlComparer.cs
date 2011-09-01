@@ -63,8 +63,12 @@ namespace MapLib
         /// </summary>
         /// <param name="currentControl">The current control.</param>
         /// <param name="loadedMap">The loaded map.</param>
-        /// <returns><c>true</c> if passed <c>false</c> otherwise</returns>
-        /// <remarks>If this fails, the whole control fails</remarks>
+        /// <returns>
+        ///   <c>true</c> if passed <c>false</c> otherwise
+        /// </returns>
+        /// <remarks>
+        /// If this fails, the whole control fails
+        /// </remarks>
         private static bool CompareClasses(MappedControl currentControl, MappedControl loadedMap)
         {
             /* 5's */

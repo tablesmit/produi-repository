@@ -278,27 +278,27 @@
             // TsNewSession
             // 
             this.TsNewSession.Name = "TsNewSession";
-            this.TsNewSession.Size = new System.Drawing.Size(143, 22);
+            this.TsNewSession.Size = new System.Drawing.Size(152, 22);
             this.TsNewSession.Text = "New";
             this.TsNewSession.Click += new System.EventHandler(this.TsNewSession_Click);
             // 
             // TsOpen
             // 
             this.TsOpen.Name = "TsOpen";
-            this.TsOpen.Size = new System.Drawing.Size(143, 22);
+            this.TsOpen.Size = new System.Drawing.Size(152, 22);
             this.TsOpen.Text = "Open";
             this.TsOpen.Click += new System.EventHandler(this.TsOpen_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(140, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
             // 
             // TsSave
             // 
             this.TsSave.Enabled = false;
             this.TsSave.Name = "TsSave";
-            this.TsSave.Size = new System.Drawing.Size(143, 22);
+            this.TsSave.Size = new System.Drawing.Size(152, 22);
             this.TsSave.Text = "Save";
             this.TsSave.Click += new System.EventHandler(this.TsSave_Click);
             // 
@@ -306,30 +306,30 @@
             // 
             this.TsSaveAs.Enabled = false;
             this.TsSaveAs.Name = "TsSaveAs";
-            this.TsSaveAs.Size = new System.Drawing.Size(143, 22);
+            this.TsSaveAs.Size = new System.Drawing.Size(152, 22);
             this.TsSaveAs.Text = "Save As...";
             this.TsSaveAs.Click += new System.EventHandler(this.TsSaveAs_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(140, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // TsRecentFiles
             // 
             this.TsRecentFiles.Name = "TsRecentFiles";
-            this.TsRecentFiles.Size = new System.Drawing.Size(143, 22);
+            this.TsRecentFiles.Size = new System.Drawing.Size(152, 22);
             this.TsRecentFiles.Text = "Recent Files";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(140, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(149, 6);
             // 
             // TsExit
             // 
             this.TsExit.Name = "TsExit";
-            this.TsExit.Size = new System.Drawing.Size(143, 22);
+            this.TsExit.Size = new System.Drawing.Size(152, 22);
             this.TsExit.Text = "Exit";
             this.TsExit.Click += new System.EventHandler(this.TsExit_Click);
             // 
@@ -376,6 +376,7 @@
             // TxtId
             // 
             this.TxtId.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.TxtId.ContextMenuStrip = this.CtxId;
             this.TxtId.Location = new System.Drawing.Point(90, 6);
             this.TxtId.Name = "TxtId";
             this.TxtId.Size = new System.Drawing.Size(234, 20);

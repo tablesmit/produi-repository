@@ -15,7 +15,7 @@ using System.Xml.Serialization;
 namespace MapLib
 {
     /// <summary>
-    ///   Stores the target windows control tree
+    /// Stores the target windows control tree
     /// </summary>
     [XmlRoot("MappedWindow")]
     public class MappedWindow
@@ -55,7 +55,7 @@ namespace MapLib
         #region Grid Properties
 
         /// <summary>
-        /// Gets or sets the parent window title.
+        /// Gets the parent window title.
         /// </summary>
         /// <value>
         /// The parent window title.
@@ -194,9 +194,9 @@ namespace MapLib
         }
 
         /// <summary>
-        /// Enums the control elements.
+        /// Enumerates the control elements.
         /// </summary>
-        /// <param name="aeRoot">The ae root.</param>
+        /// <param name="aeRoot">The root AutomationElement.</param>
         private void EnumControlElements(AutomationElement aeRoot)
         {
             AutomationElement aeNode = TreeWalker.ControlViewWalker.GetFirstChild(aeRoot);
@@ -216,7 +216,7 @@ namespace MapLib
         /// <summary>
         /// Gets the current process information.
         /// </summary>
-        /// <param name="control">The control.</param>
+        /// <param name="control">The target control.</param>
         private void GetProcessInformation(AutomationElement control)
         {
             ProcessId = control.Current.ProcessId;

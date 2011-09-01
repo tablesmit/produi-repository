@@ -11,17 +11,19 @@ using ProdUI.Logging;
 namespace ProdUI.AutomationPatterns
 {
     /// <summary>
-    ///   Provides methods common across all pattern helpers. mostly to determine support
+    /// Provides methods common across all pattern helpers. mostly to determine support
     /// </summary>
     internal static class CommonPatternHelpers
     {
         /// <summary>
-        ///   Gets UIAutomation target control ready for manipulation
+        /// Gets UIAutomation target control ready for manipulation
         /// </summary>
-        /// <param name = "pattern"><see cref = "System.Windows.Automation.AutomationPattern" /> to be used</param>
-        /// <param name = "controlHandle">Handle to control to be worked with</param>
-        /// <returns>UI Automation element</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="pattern"><see cref="System.Windows.Automation.AutomationPattern"/> to be used</param>
+        /// <param name="controlHandle">Handle to control to be worked with</param>
+        /// <returns>
+        /// UI Automation element
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Error, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static AutomationElement Prologue(AutomationPattern pattern, IntPtr controlHandle)
         {
@@ -81,6 +83,13 @@ namespace ProdUI.AutomationPatterns
             return control;
         }
 
+        /// <summary>
+        /// Verifies the support of the supplied pattern.
+        /// </summary>
+        /// <param name="pattern">The pattern.</param>
+        /// <param name="control">The UI Automation identifier (ID) for the element to check</param>
+        /// <param name="controls">The controls.</param>
+        /// <returns>A valid elelment</returns>
         private static AutomationElement VerifyByPattern(AutomationPattern pattern, AutomationElement control, AutomationElementCollection controls)
         {
             /* we have some items that match the criteria, but some wpf apps name the parent the same as the child
@@ -100,6 +109,12 @@ namespace ProdUI.AutomationPatterns
             return control;
         }
 
+        /// <summary>
+        /// Gets the controls with matching automationId inside a ProdWindow
+        /// </summary>
+        /// <param name="prodwindow">The ProdWindow.</param>
+        /// <param name="automationId">The automation id.</param>
+        /// <returns>A list of matching elements/returns>
         private static AutomationElementCollection GetControlId(ProdWindow prodwindow, string automationId)
         {
             /* first, try using the Automation ID */
@@ -146,7 +161,7 @@ namespace ProdUI.AutomationPatterns
         /// <param name="pattern"><see cref="System.Windows.Automation.AutomationPattern"/> to be used</param>
         /// <param name="control">UI Automation element to be worked with</param>
         /// <returns>
-        ///   <c>true</c> if pattern is supported by the control, <c>false</c> if not. a null value is returned in the event of a recoverable error
+        ///   <c>true</c> if pattern is supported by the control, <c>false</c> if not. a <c>null</c> value is returned in the event of a recoverable error
         /// </returns>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static object CheckPatternSupport(AutomationPattern pattern, AutomationElement control)
@@ -175,7 +190,7 @@ namespace ProdUI.AutomationPatterns
         /// <summary>
         /// Gets the ReadOnly status of the control.
         /// </summary>
-        /// <param name="control">The control.</param>
+        /// <param name="control">The UI Automation identifier (ID) for the element</param>
         /// <returns>
         ///   <c>true</c> if control is in a ReadOnly state <c>false</c> otherwise
         /// </returns>

@@ -14,8 +14,8 @@ public sealed class DebugLogger : ILogTarget
     /// <summary>
     /// Writes the specified message.
     /// </summary>
-    /// <param name="message">The message.</param>
-    /// <param name="parameters">The parameters.</param>
+    /// <param name="message">The message object to log</param>
+    /// <param name="parameters">Any additional verbose information</param>
     public void Write(LogMessage message, List<ProdUI.Session.LoggerParameters> parameters)
     {
 
@@ -51,7 +51,9 @@ public sealed class DebugLogger : ILogTarget
     /// <value>
     /// The return parameters.
     /// </value>
-    /// <remarks>Not used in this logger</remarks>
+    /// <remarks>
+    /// Not used in this logger
+    /// </remarks>
     public List<ProdUI.Session.LoggerParameters> ReturnParameters
     {
         get

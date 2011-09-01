@@ -16,11 +16,13 @@ namespace ProdUI.Controls
     public static partial class Prod
     {
         /// <summary>
-        ///   Determines whether specified RadioButton is selected
+        /// Determines whether specified RadioButton is selected
         /// </summary>
-        /// <param name = "controlHandle">Handle to the control</param>
-        /// <returns>True if selected, false if not</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="controlHandle">Handle to the target control</param>
+        /// <returns>
+        /// True if selected, false if not
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static bool GetRadioState(IntPtr controlHandle)
         {
@@ -32,10 +34,10 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Selects the specified RadioButton
+        /// Selects the specified RadioButton
         /// </summary>
-        /// <param name = "controlHandle">Handle to the control</param>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="controlHandle">Handle to the target control</param>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SelectRadio(IntPtr controlHandle)
         {
@@ -56,12 +58,14 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Determines whether specified RadioButton is selected
+        /// Determines whether specified RadioButton is selected
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow.</param>
-        /// <param name = "automationId">The automation id (or caption).</param>
-        /// <returns>True if selected, false if not</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="prodwindow">The containing ProdWindow.</param>
+        /// <param name="automationId">The automation id (or caption).</param>
+        /// <returns>
+        /// True if selected, false if not
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static bool GetRadioState(ProdWindow prodwindow, string automationId)
         {
@@ -75,11 +79,11 @@ namespace ProdUI.Controls
         }
 
         /// <summary>
-        ///   Selects the specified RadioButton
+        /// Selects the specified RadioButton
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow.</param>
-        /// <param name = "automationId">The automation id (or caption).</param>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="prodwindow">The containing ProdWindow.</param>
+        /// <param name="automationId">The automation id (or caption).</param>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SelectRadio(ProdWindow prodwindow, string automationId)
         {
