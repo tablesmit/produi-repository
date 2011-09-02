@@ -73,6 +73,8 @@
     <Compile Include="ProdListTests.cs" />
     <Compile Include="ProdRadioButtonTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProdSpinnerTests.cs" />
+    <Compile Include="TabControlTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

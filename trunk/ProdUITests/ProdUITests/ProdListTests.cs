@@ -1,10 +1,10 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Windows.Automation;
 using NUnit.Framework;
 using ProdUI.AutomationPatterns;
 using ProdUI.Controls;
 using ProdUI.Session;
-using System.Collections.Generic;
 using ProdUI.Utility;
 
 namespace ProdUITests
