@@ -92,6 +92,7 @@ namespace ProdUI.Controls
             Logmessage = "Selection verified";
             try
             {
+               
                 SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent);
                 SelectionPatternHelper.Select(ThisElement);
             }

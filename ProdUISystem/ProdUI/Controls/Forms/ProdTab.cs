@@ -239,7 +239,7 @@ namespace ProdUI.Controls
                 AutomationElementCollection aec = SelectionPatternHelper.GetListItems(ThisElement);
 
                 /* When using the GetListItems() methods, item index 0 is the tab control itself, so add on to get to correct tabitem */
-                int adjustedIndex = index + 1;
+                int adjustedIndex = index;// +1;
 
                 string itemText = aec[adjustedIndex].Current.Name;
                 SelectionPatternHelper.Select(SelectionPatternHelper.FindItemByText(ThisElement, itemText));

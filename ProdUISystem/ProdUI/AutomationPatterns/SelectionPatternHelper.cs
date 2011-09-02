@@ -168,7 +168,7 @@ namespace ProdUI.AutomationPatterns
         internal static void Select(AutomationElement control)
         {
             SelectionItemPattern pat = (SelectionItemPattern)CommonPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
-            ExpandCollapseHelper.Expand(control);
+            //ExpandCollapseHelper.Expand(control);
             pat.Select();
         }
 

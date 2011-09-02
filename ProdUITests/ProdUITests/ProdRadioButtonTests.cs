@@ -34,9 +34,9 @@ namespace ProdUITests
         {
             ProdRadioButton radio = new ProdRadioButton(window, "radioButtonTestA");
             ProdRadioButton radioB = new ProdRadioButton(window, "radioButtonTestB");
-            SelectionPatternHelper.Select(radio.ThisElement);
+            radio.Select();
 
-            Assert.That(radio.GetChecked(), Is.EqualTo(false));
+            Assert.That(!radioB.GetChecked());
         }
 
 

@@ -100,7 +100,7 @@ namespace ProdUITests
         public void SetCheckStateEventNotification()
         {
             ProdCheckBox check = new ProdCheckBox(window, "testCheckBoxB");
-           check.SetCheckState((ToggleState.On));
+            check.SetCheckState((ToggleState.On));
 
             Thread.Sleep(2000);
             Assert.That(check.eventTriggered);
