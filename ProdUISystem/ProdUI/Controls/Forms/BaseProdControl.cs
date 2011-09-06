@@ -210,12 +210,11 @@ namespace ProdUI.Controls
         /// </summary>
         /// <param name="eventType">The specific event type to monitor</param>
         public void SubscribeToChildNotification(AutomationEvent eventType)
-        {
-            eventTriggered = false; 
-            _patternEventType = eventType;
+        {          
             _eventHandler = new AutomationEventHandler(OnAutomationEvent);
-            Automation.AddAutomationEventHandler(_patternEventType, ThisElement, TreeScope.Descendants, _eventHandler);
-
+            _patternEventType = eventType;
+            Automation.AddAutomationEventHandler(_patternEventType, ThisElement, TreeScope.Parent, _eventHandler);
+            
         }
 
         /// <summary>

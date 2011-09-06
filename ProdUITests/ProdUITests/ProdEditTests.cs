@@ -7,7 +7,7 @@ using ProdUI.Session;
 
 namespace ProdUITests
 {
-    [TestFixture]
+    [TestFixture,RequiresSTA]
     class ProdEditTests
     {
         const string WIN_TITLE = "WPF Test Form";
@@ -25,7 +25,7 @@ namespace ProdUITests
         public void GetLength()
         {
             const string testString = "Random Text";
-            ProdEdit edit = new ProdEdit(window, "textBoxTest");
+            ProdEdit edit = new ProdEdit(window, "textBoxText");
 
             ValuePatternHelper.SetValue(edit.ThisElement, testString);
             string result = edit.GetText();
@@ -37,7 +37,7 @@ namespace ProdUITests
         public void GetText()
         {
             const string testString = "Random Text";
-            ProdEdit edit = new ProdEdit(window, "textBoxTest");
+            ProdEdit edit = new ProdEdit(window, "textBoxText");
 
             ValuePatternHelper.SetValue(edit.ThisElement, testString);
 
@@ -49,7 +49,7 @@ namespace ProdUITests
         public void SetText()
         {
             const string testString = "Random Text three";
-            ProdEdit edit = new ProdEdit(window, "textBoxTest");
+            ProdEdit edit = new ProdEdit(window, "textBoxText");
 
             edit.SetText(testString);
 
@@ -63,7 +63,7 @@ namespace ProdUITests
         public void SetTextEventNotification()
         {
             const string testString = "Random Text three";
-            ProdEdit edit = new ProdEdit(window, "textBoxTest");
+            ProdEdit edit = new ProdEdit(window, "textBoxText");
 
             edit.SetText(testString);
 
@@ -75,7 +75,7 @@ namespace ProdUITests
         [Test]
         public void Clear()
         {
-            ProdEdit edit = new ProdEdit(window, "textBoxTest");
+            ProdEdit edit = new ProdEdit(window, "textBoxText");
 
             edit.Clear();
 
@@ -84,11 +84,12 @@ namespace ProdUITests
             Assert.That(result.Length, Is.EqualTo(0));
         }
 
-        [Test, Description("Verifying the the UIA event was fired")]
+        [Test]
         public void ClearEventNotification()
         {
-            ProdEdit edit = new ProdEdit(window, "textBoxTest");
-
+            ProdEdit edit = new ProdEdit(window, "textBoxText");
+            Thread.Sleep(500);
+            edit.SetText("targetstring");
             edit.Clear();
 
             Thread.Sleep(2000);
@@ -100,14 +101,17 @@ namespace ProdUITests
         {
             const string testString = " Appended";
 
-            ProdEdit edit = new ProdEdit(window, "textBoxTest");
+            ProdEdit edit = new ProdEdit(window, "textBoxText");
 
             string original = ValuePatternHelper.GetValue(edit.ThisElement);
+            int len = original.Length;
+
             edit.AppendText(testString);
 
             string newString = ValuePatternHelper.GetValue(edit.ThisElement);
+            int newlen = len + 9;
 
-            Assert.That(newString, Is.EqualTo(original + testString));
+            Assert.That(newString.Length == newlen);
         }
 
         [Test, Description("Verifying the the UIA event was fired")]
@@ -115,7 +119,7 @@ namespace ProdUITests
         {
             const string testString = " Appended";
 
-            ProdEdit edit = new ProdEdit(window, "textBoxTest");
+            ProdEdit edit = new ProdEdit(window, "textBoxText");
 
             edit.AppendText(testString);
 
@@ -127,29 +131,30 @@ namespace ProdUITests
         public void InsertText()
         {
             const string testString = " Inserted ";
-            const string targetstring = "Here is some Inserted base text";
-            ProdEdit edit = new ProdEdit(window, "textBoxTest");
+            const string targetstring = "Here is some base text";
+            
+            ProdEdit edit = new ProdEdit(window, "textBoxText");
 
-            edit.SetText("Here is some base text");
+            edit.SetText(targetstring);
             int len = edit.GetLength();
+
             edit.InsertText(testString, len - 9);
-
-            Assert.That(edit.GetText(), Is.EqualTo(targetstring));
-
+            int newL = edit.GetText().Length;
+            int t = newL - testString.Length;
+            Assert.That(t == len);
         }
 
         [Test]
+        [ExpectedException("System.ArgumentOutOfRangeException")]
         public void InsertTextFail()
         {
             const string testString = " Inserted ";
             const string targetstring = "Here is";
-            ProdEdit edit = new ProdEdit(window, "textBoxTest");
+            ProdEdit edit = new ProdEdit(window, "textBoxText");
 
             edit.SetText("Here is");
             int len = edit.GetLength();
             edit.InsertText(testString, len - 9);
-
-            Assert.That(edit.GetText(), Is.EqualTo(targetstring));
 
         }
 
@@ -159,10 +164,10 @@ namespace ProdUITests
             const string testString = " Inserted ";
             const string targetstring = "Here is some Inserted base text";
 
-            ProdEdit edit = new ProdEdit(window, "textBoxTest");
+            ProdEdit edit = new ProdEdit(window, "textBoxText");
             edit.SetText(targetstring);
             int len = edit.GetLength();
-
+            Thread.Sleep(500);
             edit.InsertText(testString, len);
 
             Thread.Sleep(2000);
@@ -175,7 +180,7 @@ namespace ProdUITests
         {
             const string cptxt = "Clipboard Text";
             Clipboard.SetText(cptxt);
-            ProdEdit edit = new ProdEdit(window, "textBoxTest");
+            ProdEdit edit = new ProdEdit(window, "textBoxText");
 
             edit.SetText(Clipboard.GetText());
 
@@ -185,8 +190,7 @@ namespace ProdUITests
         [Test]
         public void PasteFromClipboardInvalidDataType()
         {
-
-            ProdEdit edit = new ProdEdit(window, "textBoxTest");
+            ProdEdit edit = new ProdEdit(window, "textBoxText");
             Clipboard.SetDataObject(edit);
 
             edit.SetText(Clipboard.GetText());
