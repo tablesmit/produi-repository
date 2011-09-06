@@ -3,15 +3,14 @@
  */
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Automation;
 using ProdUI.AutomationPatterns;
 using ProdUI.Controls.Native;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Utility;
-using System.Globalization;
-using System.Collections.Generic;
 
 /* Notes
  * Supported Patterns: 

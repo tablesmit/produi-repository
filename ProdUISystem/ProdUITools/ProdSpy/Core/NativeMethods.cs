@@ -5,7 +5,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace ProdSpy
+namespace ProdSpy.Core
 {
     internal static class NativeMethods
     {

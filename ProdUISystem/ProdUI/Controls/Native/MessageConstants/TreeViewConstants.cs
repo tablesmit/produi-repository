@@ -23,9 +23,9 @@ namespace ProdUI.Enums
         /// </summary>
         TVMDeleteitem = TVFirst + 1,
         /// <summary>
-        ///   The TVM_EXPAND message expands or collapses the list of child items associated with the specified parent item, if any
-        ///   wParam = Action flag <see cref = "TreeViewExpandArgs" />
-        ///   lParam = Handle to the parent item to expand or collapse
+        /// The TVM_EXPAND message expands or collapses the list of child items associated with the specified parent item, if any
+        /// wParam = Action flag "TreeViewExpandArgs"
+        /// lParam = Handle to the parent item to expand or collapse
         /// </summary>
         TVMExpand = TVFirst + 2,
         /// <summary>

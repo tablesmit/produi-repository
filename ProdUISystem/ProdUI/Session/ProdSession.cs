@@ -17,7 +17,6 @@ namespace ProdUI.Session
     /// </summary>
     public class ProdSession
     {
-        private readonly ProdSessionConfig _cfg;
         private ProdLogger _tempLogger;
 
         /// <summary>
@@ -31,17 +30,7 @@ namespace ProdUI.Session
         /// <summary>
         /// Gets the current ProdSessionConfig.
         /// </summary>
-        public ProdSessionConfig Configuration
-        {
-            get
-            {
-                return _cfg;
-            }
-            private set
-            {
-                Configuration = _cfg;
-            }
-        }
+        public ProdSessionConfig Configuration { get; private set; }
 
 
         /// <summary>
@@ -52,7 +41,7 @@ namespace ProdUI.Session
         {
             Loggers = new List<ProdLogger>();
 
-            _cfg = ProdSessionConfig.LoadConfig(configFile);
+            Configuration = ProdSessionConfig.LoadConfig(configFile);
 
             /* Process any loggers from config file */
             GetLoggers();
@@ -72,11 +61,11 @@ namespace ProdUI.Session
             Loggers = new List<ProdLogger>();
 
             /* There's a read only .ses file containing some default values */
-            _cfg = ProdSessionConfig.LoadDummyConfig();
+            Configuration = ProdSessionConfig.LoadDummyConfig();
 
             /* use the Guid */
-            _cfg.SessionId = defaultId;
-            _cfg.SessionName = defaultId;
+            Configuration.SessionId = defaultId;
+            Configuration.SessionName = defaultId;
 
             /* Process any loggers from config file */
             GetLoggers();
@@ -90,12 +79,12 @@ namespace ProdUI.Session
         /// </summary>
         private void GetLoggers()
         {
-            if (_cfg.Loggers == null || _cfg.Loggers[0].AssemblyPath == null)
+            if (Configuration.Loggers == null || Configuration.Loggers[0].AssemblyPath == null)
             {
                 return;
             }
 
-            foreach (SessionLoggerConfig item in _cfg.Loggers)
+            foreach (SessionLoggerConfig item in Configuration.Loggers)
             {
                 /* needs to be a valid ProdLogger that implements ILogger */
                 string tempPath = item.AssemblyPath;
@@ -108,7 +97,7 @@ namespace ProdUI.Session
                 ILogTarget tst = InitializeLogger(tempPath, item.LoggerType);
 
                 /* Set the params, then add it to list of loggers */
-                _tempLogger = ProdLogger.CreateLogger(_cfg, tst);
+                _tempLogger = ProdLogger.CreateLogger(Configuration, tst);
                 Loggers.Add(_tempLogger);
             }
         }

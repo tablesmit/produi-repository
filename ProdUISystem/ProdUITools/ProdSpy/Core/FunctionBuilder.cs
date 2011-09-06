@@ -12,8 +12,7 @@ using ProdUI.Controls;
 using ProdUI.Exceptions;
 using ProdUI.Session;
 
-
-namespace ProdSpy
+namespace ProdSpy.Core
 {
     /// <summary>
     /// Builds the functions from reflection for use with the Activator

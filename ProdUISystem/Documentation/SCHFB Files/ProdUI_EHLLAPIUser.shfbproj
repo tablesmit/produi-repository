@@ -52,7 +52,7 @@
           <!-- Logo image file (optional).  Filename is required. The height,
                  width, altText, placement, and alignment attributes are
                  optional. -->
-          <logoFile filename="C:\Documents and Settings\PRP9434\My Documents\Projects\ProdUI\ProdUI.png" height="0" width="0" altText="" placement="left" alignment="left" />
+          <logoFile filename="C:\Users\dad\Documents\Projects\ProdUI\ProdUISystem\Documentation\ProdUI.png" height="0" width="0" altText="" placement="left" alignment="left" />
         </component>
       </ComponentConfig>
       <ComponentConfig id="Cached MSDN URL References" enabled="True">
@@ -113,15 +113,6 @@
     <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
     <PlugInConfigurations />
     <ApiFilter>
-      <Filter entryType="Namespace" fullName="ProdUI.Controls.WinForms" isExposed="False" xmlns="" />
-      <Filter entryType="Namespace" fullName="ProdUI.Logging" isExposed="True" xmlns="">
-        <Filter entryType="Interface" fullName="ProdUI.Logging.ILogTarget" filterName="ILogTarget" isExposed="False" />
-      </Filter>
-      <Filter entryType="Namespace" fullName="ProdUI.Session" isExposed="True" xmlns="">
-        <Filter entryType="Class" fullName="ProdUI.Session.ProdSessionConfig" filterName="ProdSessionConfig" isExposed="True">
-          <Filter entryType="Method" fullName="ProdUI.Session.ProdSessionConfig.LoadDummyConfig" filterName="LoadDummyConfig" isExposed="False" />
-        </Filter>
-      </Filter>
     </ApiFilter>
     <BuildLogFile />
     <HtmlHelp1xCompilerPath />

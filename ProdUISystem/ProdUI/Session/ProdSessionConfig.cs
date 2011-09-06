@@ -85,14 +85,17 @@ namespace ProdUI.Session
         /// <returns>a ProdSessionConfig with default settings</returns>
         public static ProdSessionConfig LoadDummyConfig()
         {
-            ProdSessionConfig defaults = new ProdSessionConfig();
-            defaults.Loggers = new List<SessionLoggerConfig>();
-            SessionLoggerConfig slc = new SessionLoggerConfig();
+            ProdSessionConfig defaults = new ProdSessionConfig {
+                                                                   Loggers = new List<SessionLoggerConfig>()
+                                                               };
 
-            slc.LogLevel = 13;
-            slc.LoggerName = "default";
-            slc.LogFormat = "LogTime,Message Level,Calling Function,Message Text";
-            slc.LogDateFormat = "T";
+            SessionLoggerConfig slc = new SessionLoggerConfig {
+                                                                  LogLevel = 13,
+                                                                  LoggerName = "default",
+                                                                  LogFormat = "LogTime,Message Level,Calling Function,Message Text",
+                                                                  LogDateFormat = "T"
+                                                              };
+
             slc.LogLevel = 16;
             defaults.Loggers.Add(slc);
 
@@ -170,7 +173,7 @@ namespace ProdUI.Session
         /// The format string to use with the date.
         /// </value>
         /// <remarks>
-        ///   <seealso cref="http://msdn.microsoft.com/en-us/library/az4se3k1.aspx"/>
+        ///   <see cref="http://msdn.microsoft.com/en-us/library/az4se3k1.aspx"/>
         /// </remarks>
         [XmlElement(ElementName = "logDateFormat")]
         public string LogDateFormat { get; set; }

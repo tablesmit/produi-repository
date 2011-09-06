@@ -18,12 +18,36 @@ namespace ProdSpy
 
         Lazy<List<RadioButton>> _buttons;
 
+        /// <summary>
+        /// Gets or sets the name of the needed parameter.
+        /// </summary>
+        /// <value>
+        /// The name of the parameter.
+        /// </value>
         public string ParamName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the value of the needed parameter.
+        /// </summary>
+        /// <value>
+        /// The parameter value.
+        /// </value>
         public object ParamValue { get; set; }
 
+        /// <summary>
+        /// Gets or sets the any extra choices of the needed parameter.
+        /// </summary>
+        /// <value>
+        /// The parameter choices.
+        /// </value>
         public string[] ParamChoices { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Type of the parameter.
+        /// </summary>
+        /// <value>
+        /// The type of the parameter.
+        /// </value>
         public Type ParamType { get; set; }
 
         #endregion

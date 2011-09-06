@@ -8,7 +8,7 @@ using System.Windows.Automation;
 using System.Windows.Forms;
 using ProdSpy.Properties;
 
-namespace ProdSpy
+namespace ProdSpy.Core
 {
     /// <summary>
     /// Handles drawing various graphics on a target application

@@ -328,7 +328,7 @@ namespace ProdUI.Utility
         /// </returns>
         internal static List<object> AutomationCollToObjectList(AutomationElementCollection ret)
         {
-            List<object> retColl = new List<object>() { ret };
+            List<object> retColl = new List<object> { ret };
 
             return retColl;
         }

@@ -3,7 +3,6 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -338,7 +337,7 @@ namespace ProdUI.Controls
             try
             {
                 AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(ThisElement);
-                List<object> retList = new List<object>(){selectedItems};
+                List<object> retList = new List<object> {selectedItems};
 
                 Logmessage = "Items: ";
                 VerboseInformation = retList;
@@ -482,7 +481,7 @@ namespace ProdUI.Controls
                     AddToSelection(index);
                 }
 
-                List<object> retList = new List<object>(){indexes};
+                List<object> retList = new List<object> {indexes};
 
                 Logmessage = "Indexes";
                 VerboseInformation = retList;

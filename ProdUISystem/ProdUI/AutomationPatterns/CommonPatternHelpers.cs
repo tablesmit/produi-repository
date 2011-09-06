@@ -89,7 +89,7 @@ namespace ProdUI.AutomationPatterns
         /// <param name="pattern">The pattern.</param>
         /// <param name="control">The UI Automation identifier (ID) for the element to check</param>
         /// <param name="controls">The controls.</param>
-        /// <returns>A valid elelment</returns>
+        /// <returns>A valid element</returns>
         private static AutomationElement VerifyByPattern(AutomationPattern pattern, AutomationElement control, AutomationElementCollection controls)
         {
             /* we have some items that match the criteria, but some wpf apps name the parent the same as the child
@@ -114,7 +114,7 @@ namespace ProdUI.AutomationPatterns
         /// </summary>
         /// <param name="prodwindow">The ProdWindow.</param>
         /// <param name="automationId">The automation id.</param>
-        /// <returns>A list of matching elements/returns>
+        /// <returns>A list of matching elements/returns></returns>
         private static AutomationElementCollection GetControlId(ProdWindow prodwindow, string automationId)
         {
             /* first, try using the Automation ID */
@@ -166,9 +166,9 @@ namespace ProdUI.AutomationPatterns
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static object CheckPatternSupport(AutomationPattern pattern, AutomationElement control)
         {
-            object pat;
             try
             {
+                object pat;
                 control.TryGetCurrentPattern(pattern, out pat);
                 ControlSetFocus(control);
                 return pat;

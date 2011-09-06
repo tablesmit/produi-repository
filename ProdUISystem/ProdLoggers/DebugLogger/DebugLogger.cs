@@ -61,8 +61,6 @@ public sealed class DebugLogger : ILogTarget
             return null;
         }
         set
-        {
-            ;
-        }
+        { }
     }
 }

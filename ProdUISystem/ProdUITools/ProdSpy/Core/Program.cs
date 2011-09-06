@@ -4,7 +4,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace ProdSpy
+namespace ProdSpy.Core
 {
     internal static class Program
     {
