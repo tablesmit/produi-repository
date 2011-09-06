@@ -84,11 +84,12 @@ namespace ProdUI.Controls
                     {
                         return;
                     }
-
+                    else
+                        /* If it doesn't have one, send keys, then */
+                        ValuePatternHelper.SendKeysAppendText(ThisElement, newText); 
                 }
 
-                /* If it doesn't have one, send keys, then */
-                ValuePatternHelper.SendKeysAppendText(ThisElement, newText);             
+            
 
             }
             catch (ProdOperationException err)
@@ -127,7 +128,7 @@ namespace ProdUI.Controls
                 }
 
                 /* If it doesn't have one, send keys, then */
-                ValuePatternHelper.SendKeysSetText(ThisElement, string.Empty);              
+                ValuePatternHelper.SendKeysSetText(ThisElement, "");              
             }
             catch (ProdOperationException err)
             {
@@ -218,7 +219,7 @@ namespace ProdUI.Controls
                 }
 
 
-                if (ValuePatternHelper.InsertValue(AutomationElement.FromHandle(Handle), newText, insertIndex) == 0)
+                if (ValuePatternHelper.InsertValue(ThisElement, newText, insertIndex) == 0)
                 {
                     return;
                 }

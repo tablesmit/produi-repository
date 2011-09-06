@@ -134,12 +134,13 @@ namespace ProdUI.AutomationPatterns
                 /* If index is out of range, defer to ProdErrorManager */
                 if (baseText != null)
                 {
-                    baseText.Insert(index, newText);
+                    string insString = baseText.Insert(index, newText);
+                    SetValue(control, insString);
                 }
 
 
                 /* Time to verify */
-                return VerifyText(control, baseText + newText);
+                return VerifyText(control, GetValue(control));
             }
             catch (InvalidOperationException)
             {
@@ -169,6 +170,10 @@ namespace ProdUI.AutomationPatterns
                 ValuePattern pat = (ValuePattern)CommonPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
                 string currentText = pat.Current.Value;
 
+                if (text.Length ==0 || currentText.Length == 0)
+                {
+                    return 0;
+                }
                 if (String.Compare(text, currentText, StringComparison.Ordinal) == 0)
                     return 0;
                 throw new ProdVerificationException(control);
