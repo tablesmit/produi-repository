@@ -10,9 +10,10 @@ using ProdUI.Logging;
 using ProdUI.Session;
 using ProdUI.Exceptions;
 
-namespace XMLLogger
-{
-    public class XMLLogger : ILogTarget
+    /// <summary>
+    /// Provides for logging to an XML file
+    /// </summary>
+    public sealed class XMLLogger : ILogTarget
     {
         /* Stuff for writing output */
         private string _outfile;
@@ -23,7 +24,7 @@ namespace XMLLogger
         /// <value>
         /// The return parameters.
         /// </value>
-        public List<ProdUI.Session.LoggerParameters> ReturnParameters { get; set; }
+        public List<LoggerParameters> ReturnParameters { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XMLLogger"/> class.
@@ -36,7 +37,9 @@ namespace XMLLogger
         /// <summary>
         /// Calls the form to get the output path.
         /// </summary>
-        /// <returns>1 for success</returns>
+        /// <returns>
+        /// 1 for success
+        /// </returns>
         public int CallParameterForm()
         {
             ParameterForm frm = new ParameterForm();
@@ -57,9 +60,9 @@ namespace XMLLogger
         /// <summary>
         /// Puts together data to be written out as an XMLEntry, then calls serialize.
         /// </summary>
-        /// <param name="message">The LogMessage.</param>
-        /// <param name="parameters">The parameters.</param>
-        public void Write(LogMessage message, List<ProdUI.Session.LoggerParameters> inputParameters)
+        /// <param name="message">The message to be written to the file</param>
+        /// <param name="inputParameters">The input parameters.</param>
+        public void Write(LogMessage message, List<LoggerParameters> inputParameters)
         {
             /* make sure we have a filename */
             if (inputParameters == null || (inputParameters[0].ParamName != null && String.IsNullOrEmpty(inputParameters[0].ParamName)))
@@ -73,14 +76,19 @@ namespace XMLLogger
             WriteXML(message);
         }
 
+        /// <summary>
+        /// Writes the XML file entry.
+        /// </summary>
+        /// <param name="message">The message to be written to the file.</param>
         private void WriteXML(LogMessage message)
         {
             /* Make a new entry */
-            XMLEntry ent = new XMLEntry();
-            ent.LogTime = message.LogTime;
-            ent.Message = message.Message;
-            ent.MessageLevel = message.MessageLevel.ToString();
-            ent.CallingMethod = message.CallingMethod;
+            XMLEntry ent = new XMLEntry {
+                                            LogTime = message.LogTime,
+                                            Message = message.Message,
+                                            MessageLevel = message.MessageLevel.ToString(),
+                                            CallingMethod = message.CallingMethod
+                                        };
 
             /* if we have verbose info, write it, otherwise, forget it */
             if (message.VerboseInformation.Count > 0)
@@ -120,7 +128,6 @@ namespace XMLLogger
             }
         }
     }
-}
 
 /* Example of XML log output
 <?xml version="1.0" encoding="utf-8" ?>

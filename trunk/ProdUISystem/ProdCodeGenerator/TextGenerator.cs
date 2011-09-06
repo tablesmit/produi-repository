@@ -38,7 +38,7 @@ namespace ProdCodeGenerator
         /// <summary>
         /// Generates the prod code.
         /// </summary>
-        /// <param name="template">The template to use in generatin.</param>
+        /// <param name="template">The template to use in generating.</param>
         /// <param name="language">The language to generate.</param>
         /// <returns>The generated code</returns>
         public string GenerateProd(ProdTextTemplate template, OutputLanguage language)
@@ -67,9 +67,10 @@ namespace ProdCodeGenerator
         /// <returns>The generated code</returns>
         private static string csGenerateProd(ProdTextTemplate template)
         {
-            csProd cs = new csProd();
+            csProd cs = new csProd {
+                                       Session = new Microsoft.VisualStudio.TextTemplating.TextTemplatingSession()
+                                   };
 
-            cs.Session = new Microsoft.VisualStudio.TextTemplating.TextTemplatingSession();
             cs.Session[Properties.Resources.WINDOW_NAME] = template.WindowName;
             cs.Session[Properties.Resources.CONTROL_TYPE] = template.ControlType;
             cs.Session[Properties.Resources.CONTROL_NAME] = template.ControlName;

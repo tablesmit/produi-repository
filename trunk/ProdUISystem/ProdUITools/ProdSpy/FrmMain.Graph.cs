@@ -1,9 +1,10 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.Windows.Automation;
 using System.Windows.Forms;
+using ProdSpy.Core;
 using ProdSpy.Graph;
 using ProdSpy.Properties;
 
@@ -22,7 +23,7 @@ namespace ProdSpy
         /// <param name = "e">The <see cref = "System.Windows.Forms.TreeViewEventArgs" /> instance containing the event data.</param>
         private void TvGraph_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            _node = (GraphNode)TvGraph.SelectedNode;
+            _node = (GraphNode) TvGraph.SelectedNode;
 
             RtbTip.Text = _node.ToString();
 
@@ -89,7 +90,11 @@ namespace ProdSpy
 
             string showString = rootElement.Current.LocalizedControlType + " [ " + rootElement.Current.AutomationId + " ]";
 
-            GraphNode tn = new GraphNode(rootElement) { Text = showString, Tag = rootElement.Current.NativeWindowHandle, ImageIndex = 2 };
+            GraphNode tn = new GraphNode(rootElement) {
+                                                          Text = showString,
+                                                          Tag = rootElement.Current.NativeWindowHandle,
+                                                          ImageIndex = 2
+                                                      };
 
             WalkControlElements(rootElement, tn);
             TvGraph.Nodes.Add(tn);
@@ -108,7 +113,10 @@ namespace ProdSpy
             while (aeNode != null)
             {
                 string showString = aeNode.Current.LocalizedControlType + " [ " + aeNode.Current.AutomationId + " ]";
-                GraphNode childTreeNode = new GraphNode(aeNode) { Text = showString, Tag = aeNode.Current.NativeWindowHandle };
+                GraphNode childTreeNode = new GraphNode(aeNode) {
+                                                                    Text = showString,
+                                                                    Tag = aeNode.Current.NativeWindowHandle
+                                                                };
 
                 treeNode.Nodes.Add(childTreeNode);
 
@@ -130,7 +138,7 @@ namespace ProdSpy
         /// <param name = "e">The <see cref = "System.EventArgs" /> instance containing the event data.</param>
         private void CtxHighlight_Click(object sender, EventArgs e)
         {
-            GraphNode gn = (GraphNode)TvGraph.SelectedNode;
+            GraphNode gn = (GraphNode) TvGraph.SelectedNode;
             Painter.HighlightFocus(gn.NodeElement, _focusedApplicationHandle);
         }
 
@@ -141,13 +149,16 @@ namespace ProdSpy
         /// <param name = "e">The <see cref = "System.EventArgs" /> instance containing the event data.</param>
         private void CtxTextReport_Click(object sender, EventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog { Title = Resources.SaveReportTitle, Filter = @"Text files (*.txt)|*.txt|All files (*.*)|*.* " };
+            SaveFileDialog sfd = new SaveFileDialog {
+                                                        Title = Resources.SaveReportTitle,
+                                                        Filter = @"Text files (*.txt)|*.txt|All files (*.*)|*.* "
+                                                    };
             sfd.ShowDialog();
             if (sfd.FileName.Length == 0)
             {
                 return;
             }
-            GraphNode gn = (GraphNode)TvGraph.Nodes[0];
+            GraphNode gn = (GraphNode) TvGraph.Nodes[0];
             TextReport report = new TextReport(gn, sfd.FileName);
             report.Create();
         }
@@ -159,7 +170,7 @@ namespace ProdSpy
         /// <param name = "e">The <see cref = "System.EventArgs" /> instance containing the event data.</param>
         private void CtxExcelReport_Click(object sender, EventArgs e)
         {
-            GraphNode gn = (GraphNode)TvGraph.Nodes[0];
+            GraphNode gn = (GraphNode) TvGraph.Nodes[0];
             ExcelReport report = new ExcelReport(gn);
             report.Create();
         }
@@ -171,22 +182,26 @@ namespace ProdSpy
         /// <param name = "e">The <see cref = "System.EventArgs" /> instance containing the event data.</param>
         private void CtxHTMLReport_Click(object sender, EventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog { Title = Resources.SaveReportTitle, Filter = @"HTML files (*.htm)|*.htm|All files (*.*)|*.* " };
+            SaveFileDialog sfd = new SaveFileDialog {
+                                                        Title = Resources.SaveReportTitle,
+                                                        Filter = @"HTML files (*.htm)|*.htm|All files (*.*)|*.* "
+                                                    };
             sfd.ShowDialog();
             if (sfd.FileName.Length == 0)
             {
                 return;
             }
-            GraphNode gn = (GraphNode)TvGraph.Nodes[0];
+            GraphNode gn = (GraphNode) TvGraph.Nodes[0];
             HtmlReport report = new HtmlReport(gn, sfd.FileName);
             report.Create();
         }
 
         /// <summary>
-        /// Toes the string.	
+        ///   Toes the string.
         /// </summary>
         /// <returns></returns>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         public override string ToString()
         {
             return _node.NodeCtrlId + " \nName: " + _node.NodeCtrlCaption + "\nType: " + _node.NodeCtrlType + "\nClass: " + _node.NodeCtrlClass + " \nHandle: " + _node.NodeCtrlHandle;

@@ -49,7 +49,7 @@ namespace ProdSessionConfiguration
         /// <summary>
         /// Indicates if form is in a state for editing an existing Logger
         /// </summary>
-        private bool inLogEdit;
+        private bool _inLogEdit;
 
         #endregion
 
@@ -203,7 +203,7 @@ namespace ProdSessionConfiguration
                 return;
             }
 
-            if (inLogEdit)
+            if (_inLogEdit)
                 CmdRemoveLogger_Click(null, null);
 
             SaveConfig(_currentFilename, true);
@@ -331,7 +331,7 @@ namespace ProdSessionConfiguration
         private void CmdAddLogger_Click(object sender, EventArgs e)
         {
 
-            if (CmdAddLogger.Text == "Add")
+            if (CmdAddLogger.Text == @"Add")
             {
                 EditLogger();
             }
@@ -347,14 +347,12 @@ namespace ProdSessionConfiguration
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void CmdEditLogger_Click(object sender, EventArgs e)
         {
-            if (CmdEditLogger.Text == Resources.CmdEdit_Caption)
-            {
-                inLogEdit = true;
-                PnlLogOptions.Enabled = true;
-                CmdAddLogger.Enabled = false;
-                CmdEditLogger.Text = Resources.CmdEdit_Caption_Cancel;
-                return;
-            }
+            if (CmdEditLogger.Text != Resources.CmdEdit_Caption) return;
+            _inLogEdit = true;
+            PnlLogOptions.Enabled = true;
+            CmdAddLogger.Enabled = false;
+            CmdEditLogger.Text = Resources.CmdEdit_Caption_Cancel;
+            return;
         }
 
         /// <summary>Handles the Click event of the CmdRemoveLog control.</summary>
@@ -518,9 +516,9 @@ namespace ProdSessionConfiguration
         /// <summary>Handles the TextChanged event of the TxtDateFormat control.</summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        /// <see cref="http://msdn.microsoft.com/en-us/library/az4se3k1.aspx"/>
         /// <remarks>
-        /// Provides real-time feedback for any changes to the DataTime format string
+        /// Provides real-time feedback for any changes to the DataTime format string.
+        /// <see cref="http://msdn.microsoft.com/en-us/library/az4se3k1.aspx"/>
         /// </remarks>
         private void TxtDateFormat_TextChanged(object sender, EventArgs e)
         {
@@ -853,8 +851,8 @@ namespace ProdSessionConfiguration
         /// <param name="outputFormat">The output format.</param>
         private void LoadUncheckedLogEntryItems(ICollection<string> outputFormat)
         {
-            List<string> Messages = new List<string>(new[] { "LogTime", "Message Level", "Calling Function", "Message Text" });
-            foreach (string item in Messages)
+            List<string> messages = new List<string>(new[] { "LogTime", "Message Level", "Calling Function", "Message Text" });
+            foreach (string item in messages)
             {
                 if (!outputFormat.Contains(item))
                 {
@@ -925,7 +923,7 @@ namespace ProdSessionConfiguration
             ResetLoggerArea();
             ResetLogEntryFormatArea();
             PnlLogOptions.Enabled = true;
-            CmdAddLogger.Text = "Add";
+            CmdAddLogger.Text = @"Add";
         }
 
         private void EditLogger()
@@ -938,7 +936,7 @@ namespace ProdSessionConfiguration
             PnlLogOptions.Enabled = false;
             _isDirty = false;
             /* Reset the text to indicate ability to add new logger */
-            CmdAddLogger.Text = "New";
+            CmdAddLogger.Text = @"New";
         }
 
         private void RemoveLogger()
@@ -1055,7 +1053,7 @@ namespace ProdSessionConfiguration
         /// </summary>
         private void DisableLoggerPanel()
         {
-            inLogEdit = false;
+            _inLogEdit = false;
             CmdEditLogger.Text = Resources.CmdEdit_Caption;
             CmdAddLogger.Enabled = true;
             PnlLogOptions.Enabled = false;
@@ -1083,7 +1081,7 @@ namespace ProdSessionConfiguration
                 }
 
 
-                for (int i = 0; i < iface.Length; i++)
+                foreach (Type t in iface)
                 {
                     if (iface[0] != typeof(ILogTarget)) continue;
 
@@ -1194,7 +1192,7 @@ namespace ProdSessionConfiguration
         private void SetFormClean()
         {
             _isDirty = false;
-            inLogEdit = false;
+            _inLogEdit = false;
             TsStatusLabel.Text = string.Empty;
         }
 

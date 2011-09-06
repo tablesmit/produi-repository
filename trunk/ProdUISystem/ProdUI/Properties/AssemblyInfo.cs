@@ -37,6 +37,6 @@ using System.Runtime.InteropServices;
 //      Revision
 //
 
-[assembly: AssemblyVersion("0.1.7.0829")]
+[assembly: AssemblyVersion("0.3.9.0901")]
 [assembly: AssemblyFileVersion("0.0.6.2")]
 [assembly: NeutralResourcesLanguage("en-US")]

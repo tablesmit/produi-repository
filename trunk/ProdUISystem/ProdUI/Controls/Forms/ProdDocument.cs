@@ -3,7 +3,6 @@
  */
 
 using System;
-using System.Collections;
 using System.Windows.Automation;
 using System.Windows.Automation.Text;
 using ProdUI.AutomationPatterns;

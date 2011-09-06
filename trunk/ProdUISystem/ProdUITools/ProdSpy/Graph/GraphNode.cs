@@ -85,6 +85,11 @@ namespace ProdSpy.Graph
 
         #region Deserialization Constructor
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GraphNode"/> class.
+        /// </summary>
+        /// <param name="info">The information needed to serialize node.</param>
+        /// <param name="context">The context.</param>
         protected GraphNode(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

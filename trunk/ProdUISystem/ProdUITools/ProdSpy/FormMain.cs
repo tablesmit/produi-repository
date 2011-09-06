@@ -10,6 +10,7 @@ using System.Windows.Automation;
 using System.Windows.Forms;
 using MapLib;
 using ProdCodeGenerator;
+using ProdSpy.Core;
 using ProdSpy.Graph;
 using ProdSpy.Properties;
 using Point = System.Windows.Point;
@@ -325,12 +326,10 @@ namespace ProdSpy
 
             foreach (MappedControl item in _thisWindow.AllFormsControls)
             {
-                if (Automation.Compare(item.AutoElement, focusedElement))
-                {
-                    PropControls.SelectedObject = item;
-                    _selectedControl = item;
-                    break;
-                }
+                if (!Automation.Compare(item.AutoElement, focusedElement)) continue;
+                PropControls.SelectedObject = item;
+                _selectedControl = item;
+                break;
             }
 
             Painter.PaintTarget(focusedElement, _focusedApplicationHandle);

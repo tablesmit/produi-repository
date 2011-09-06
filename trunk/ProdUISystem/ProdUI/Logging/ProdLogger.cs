@@ -60,7 +60,7 @@ namespace ProdUI.Logging
         {
             _thisLogger = new ProdLogger
             {
-                _logLevel = (LoggingLevels)logLevel,
+                _logLevel = logLevel,
                 _loggerParams = null,
                 _logFormat = logFormat,
                 _logDateFormat = logDateFormat,

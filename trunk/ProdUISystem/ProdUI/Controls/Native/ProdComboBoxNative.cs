@@ -3,13 +3,12 @@
  */
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using ProdUI.Exceptions;
 using ProdUI.Session;
 using ProdUI.Utility;
-using System.Collections.Generic;
 
 namespace ProdUI.Controls.Native
 {

@@ -203,7 +203,7 @@ namespace ProdUI.Controls
         /// <summary>
         /// Copies an object in the specified format to the windows Clipboard.
         /// </summary>
-        /// <param name="format">The <see cref="System.Windows.Forms.DataFormat"/></param>
+        /// <param name="format">The <see cref="System.Windows.Forms.DataFormats"/></param>
         /// <param name="item">The object to place on the Clipboard buffer.</param>
         public static void CopyToCltargetipBoard(DataFormats format, object item)
         {

@@ -18,6 +18,9 @@ public sealed class TextFileLogger : ILogTarget
     /* Stuff for writing output */
     private string _outfile;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TextFileLogger"/> class.
+    /// </summary>
     public TextFileLogger()
     {
         ReturnParameters = new List<LoggerParameters>();

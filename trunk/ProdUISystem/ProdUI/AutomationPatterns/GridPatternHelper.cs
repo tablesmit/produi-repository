@@ -22,9 +22,9 @@ namespace ProdUI.AutomationPatterns
         /// </returns>
         private static GridItemPattern GetGridItemPattern(AutomationElement control)
         {
-            object pat;
             try
             {
+                object pat;
                 control.TryGetCurrentPattern(GridItemPattern.Pattern, out pat);
                 return (GridItemPattern)pat;
             }

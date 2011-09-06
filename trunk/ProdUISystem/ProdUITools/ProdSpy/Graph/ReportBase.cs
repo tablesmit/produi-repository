@@ -10,6 +10,12 @@ namespace ProdSpy.Graph
     /// </summary>
     public abstract class ReportBase : IDisposable
     {
+        /// <summary>
+        /// Gets or sets the graph node.
+        /// </summary>
+        /// <value>
+        /// The graph node.
+        /// </value>
         protected GraphNode GraphNode { get; set; }
 
         /// <summary>
