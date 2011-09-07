@@ -39,7 +39,7 @@
                         <CheckBox Content="3StateCheckBox" Height="16" HorizontalAlignment="Left" Margin="61,50,0,0" Name="testCheckBoxC" VerticalAlignment="Top" IsThreeState="True" IsChecked="{x:Null}" />
                     </Grid>
                     <Label Content="Slider" Height="28" HorizontalAlignment="Left" Margin="301,307,0,0" Name="label6" VerticalAlignment="Top" FontWeight="Bold" />
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="57,0,0,85" Name="comboBoxTest" SelectedIndex="0" VerticalAlignment="Bottom" Width="120">
+                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="57,0,0,85" Name="comboBoxTest" SelectedIndex="0" VerticalAlignment="Bottom" Width="120" IsManipulationEnabled="True" IsEditable="True">
                         <ComboBoxItem Content="New" />
                         <ComboBoxItem ClipToBounds="False" Content="Old" />
                         <ComboBoxItem Content="Used" />

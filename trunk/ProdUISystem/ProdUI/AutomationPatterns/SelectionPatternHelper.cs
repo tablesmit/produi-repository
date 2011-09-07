@@ -112,7 +112,19 @@ namespace ProdUI.AutomationPatterns
         /// Adds to selection in a multi-select list.
         /// </summary>
         /// <param name="control">The control.</param>
-        internal static void AddToSelection(AutomationElement control)
+        internal static void AddToSelection(AutomationElement control, int index)
+        {
+           //SelectionPattern pat = (SelectionPattern)CommonPatternHelpers.CheckPatternSupport(SelectionPattern.Pattern, control); 
+            //if (!pat.Current.CanSelectMultiple)
+            //{
+            //    return;
+            //}
+            
+            SelectionItemPattern sip = (SelectionItemPattern)CommonPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
+            sip.AddToSelection();
+        }
+
+        internal static void AddToSelection(AutomationElement control, string itemText)
         {
             SelectionItemPattern pat = (SelectionItemPattern)CommonPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
             if (!CanSelectMultiple(control))
@@ -256,15 +268,15 @@ namespace ProdUI.AutomationPatterns
         /// <returns>
         /// The zero-based index of the supplied item
         /// </returns>
-        internal static int FindIndexByItem(AutomationElement control)
+        internal static int FindIndexByItem(AutomationElement control,string matchString)
         {
             try
             {
                 AutomationElementCollection aec = GetListCollectionUtility(control);
 
-                for (int i = 0; i < aec.Count - 1; i++)
+                for (int i = 0; i < aec.Count; i++)
                 {
-                    if (control.Current.Name == aec[i].Current.Name)
+                    if (matchString == aec[i].Current.Name)
                     {
                         return i;
                     }
