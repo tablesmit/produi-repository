@@ -67,7 +67,7 @@ namespace ProdUITests
         public void GetSelectedItem([Values("Red", "Blue", "Black")] string itemText)
         {
             /* Initially, the selected Items text is "New" (index 0) */
-            ProdComboBox combo = new ProdComboBox(window, "listBoxSingleTest");
+            ProdList combo = new ProdList(window, "listBoxSingleTest");
             combo.SetSelectedItem(itemText);
 
             AutomationElement[] retVal = SelectionPatternHelper.GetSelection(combo.ThisElement);
@@ -78,7 +78,7 @@ namespace ProdUITests
         [Test]
         public void GetSelectedIndex([Values(1, 2, 0)] int index)
         {
-            ProdComboBox combo = new ProdComboBox(window, "listBoxSingleTest");
+            ProdList combo = new ProdList(window, "listBoxSingleTest");
             combo.GetSelectedIndex();
 
             AutomationElement[] element = SelectionPatternHelper.GetSelection(combo.ThisElement);
@@ -90,7 +90,7 @@ namespace ProdUITests
         [Test]
         public void SetSelectedIndex([Values(1, 2, 0)] int index)
         {
-            ProdComboBox combo = new ProdComboBox(window, "listBoxSingleTest");
+            ProdList combo = new ProdList(window, "listBoxSingleTest");
             AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(combo.ThisElement, index);
             SelectionPatternHelper.Select(indexedItem);
 
@@ -101,7 +101,7 @@ namespace ProdUITests
         [Test, Description("Tests to see if invalid indexes will throw")]
         public void SetSelectedIndexFail([Values(-1, 3)] int index)
         {
-            ProdComboBox combo = new ProdComboBox(window, "listBoxSingleTest");
+            ProdList combo = new ProdList(window, "listBoxSingleTest");
             AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(combo.ThisElement, index);
             SelectionPatternHelper.Select(indexedItem);
 
@@ -112,7 +112,7 @@ namespace ProdUITests
         [Test, Description("Verifying the the UIA event was fired")]
         public void SetSelectedIndexEventNotification([Values(1, 2, 0)] int index)
         {
-            ProdComboBox combo = new ProdComboBox(window, "listBoxSingleTest");
+            ProdList combo = new ProdList(window, "listBoxSingleTest");
             AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(combo.ThisElement, index);
             SelectionPatternHelper.Select(indexedItem);
 
@@ -123,7 +123,7 @@ namespace ProdUITests
         [Test]
         public void SetSelectedItem([Values("Red", "Blue", "Black")] string itemText)
         {
-            ProdComboBox combo = new ProdComboBox(window, "listBoxSingleTest");
+            ProdList combo = new ProdList(window, "listBoxSingleTest");
             AutomationElement control = SelectionPatternHelper.FindItemByText(combo.ThisElement, itemText);
             SelectionPatternHelper.Select(control);
 
@@ -133,7 +133,7 @@ namespace ProdUITests
         [Test, Description("Checks to see selection of item in list")]
         public void SetSelectedItemFail([Values("Nuts")] string itemText)
         {
-            ProdComboBox combo = new ProdComboBox(window, "listBoxSingleTest");
+            ProdList combo = new ProdList(window, "listBoxSingleTest");
             AutomationElement control = SelectionPatternHelper.FindItemByText(combo.ThisElement, itemText);
             SelectionPatternHelper.Select(control);
 
@@ -143,7 +143,7 @@ namespace ProdUITests
         [Test, Description("Verifying the the UIA event was fired")]
         public void SetSelectedItemEventNotification([Values("Red", "Blue", "Black")] string itemText)
         {
-            ProdComboBox combo = new ProdComboBox(window, "listBoxSingleTest");
+            ProdList combo = new ProdList(window, "listBoxSingleTest");
             AutomationElement control = SelectionPatternHelper.FindItemByText(combo.ThisElement, itemText);
             SelectionPatternHelper.Select(control);
 
