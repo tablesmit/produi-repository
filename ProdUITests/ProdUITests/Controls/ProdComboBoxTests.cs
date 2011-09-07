@@ -1,10 +1,10 @@
-﻿using System.Threading;
+﻿using System.Collections;
+using System.Threading;
 using System.Windows.Automation;
 using NUnit.Framework;
 using ProdUI.AutomationPatterns;
 using ProdUI.Controls;
 using ProdUI.Session;
-using System.Collections;
 
 namespace ProdUITests
 {
@@ -22,7 +22,7 @@ namespace ProdUITests
             window = new ProdWindow(WIN_TITLE, session.Loggers);
         }
 
-        [Test, Description("Verifies that there are 3 (hardcoded) items in the form")]
+        [Test]
         public void GetItemCount()
         {
             /* there are currently 3 items in the test-forms ComboBox */
@@ -51,7 +51,7 @@ namespace ProdUITests
             combo.SetSelectedIndex(index);
 
             AutomationElement[] element = SelectionPatternHelper.GetSelection(combo.ThisElement);
-            int retVal = SelectionPatternHelper.FindIndexByItem(element[0]);
+            int retVal = SelectionPatternHelper.FindIndexByItem(combo.ThisElement, element[0].Current.Name);
 
             Assert.That(retVal, Is.EqualTo(index));
         }
