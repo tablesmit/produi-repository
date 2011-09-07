@@ -66,15 +66,26 @@
     <Reference Include="UIAutomationTypes" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProdButtonTests.cs" />
-    <Compile Include="ProdCheckBoxTests.cs" />
-    <Compile Include="ProdComboBoxTests.cs" />
-    <Compile Include="ProdEditTests.cs" />
-    <Compile Include="ProdListTests.cs" />
-    <Compile Include="ProdRadioButtonTests.cs" />
+    <Compile Include="Controls\ProdButtonTests.cs" />
+    <Compile Include="Controls\ProdCalendarTests.cs" />
+    <Compile Include="Controls\ProdCheckBoxTests.cs" />
+    <Compile Include="Controls\ProdComboBoxTests.cs" />
+    <Compile Include="Controls\ProdDataGridTests.cs" />
+    <Compile Include="Controls\ProdDocumentTests.cs" />
+    <Compile Include="Controls\ProdEditTests.cs" />
+    <Compile Include="Controls\ProdListTests.cs" />
+    <Compile Include="Controls\ProdMenuItemTests.cs" />
+    <Compile Include="Controls\ProdRadioButtonTests.cs" />
+    <Compile Include="Controls\ProdSliderTests.cs" />
+    <Compile Include="Controls\ProdTreeViewTests.cs" />
+    <Compile Include="Controls\ProdWindowTests.cs" />
+    <Compile Include="PatternHelpers\ValuePatternHelperTest.cs" />
+    <Compile Include="PatternHelpers\WindowPatternHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProdSpinnerTests.cs" />
-    <Compile Include="TabControlTests.cs" />
+    <Compile Include="Controls\ProdSpinnerTests.cs" />
+    <Compile Include="Controls\StaticProdsTests.cs" />
+    <Compile Include="Controls\TabControlTests.cs" />
+    <Compile Include="UtilityFunctions.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

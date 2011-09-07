@@ -52,7 +52,10 @@ namespace ProdUITests
         [Test]
         public void SelectEventNotification()
         {
+            ProdRadioButton radio = new ProdRadioButton(window, "radioButtonTestA");
             ProdRadioButton radioB = new ProdRadioButton(window, "radioButtonTestB");
+            radio.Select();
+            Thread.Sleep(200);
             radioB.Select();
 
             Thread.Sleep(2000);
