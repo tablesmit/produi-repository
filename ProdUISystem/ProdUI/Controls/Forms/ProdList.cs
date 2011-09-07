@@ -161,7 +161,7 @@ namespace ProdUI.Controls
                 if (!CanSelectMultiple())
                 {
                     AutomationElement[] element = SelectionPatternHelper.GetSelection(ThisElement);
-                    int retVal = SelectionPatternHelper.FindIndexByItem(element[0]);
+                    int retVal = SelectionPatternHelper.FindIndexByItem(ThisElement, element[0].Current.Name);
                     Logmessage = retVal.ToString(CultureInfo.CurrentCulture);
                     LogEntry();
                     return retVal;
@@ -259,8 +259,8 @@ namespace ProdUI.Controls
             try
             {
                 SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
-                AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(ThisElement, index);
-                SelectionPatternHelper.AddToSelection(itemToSelect);
+               // AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(ThisElement, index);
+                SelectionPatternHelper.AddToSelection(ThisElement, index);
             }
             catch (ProdOperationException err)
             {
@@ -285,8 +285,8 @@ namespace ProdUI.Controls
             try
             {
                 SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
-                AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(ThisElement, itemText);
-                SelectionPatternHelper.AddToSelection(itemToSelect);
+                //AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(ThisElement, itemText);
+                SelectionPatternHelper.AddToSelection(ThisElement, itemText);
             }
             catch (ProdOperationException err)
             {

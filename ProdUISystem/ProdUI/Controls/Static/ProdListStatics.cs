@@ -182,7 +182,7 @@ namespace ProdUI.Controls
         {
             AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
             AutomationElement[] element = SelectionPatternHelper.GetSelection(control);
-            int ret = SelectionPatternHelper.FindIndexByItem(element[0]);
+            int ret = SelectionPatternHelper.FindIndexByItem(control, element[0].Current.Name);
             if (ret == -1)
             {
                 /* Call native function */
@@ -209,7 +209,7 @@ namespace ProdUI.Controls
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
             AutomationElement[] element = SelectionPatternHelper.GetSelection(control);
-            int ret = SelectionPatternHelper.FindIndexByItem(element[0]);
+            int ret = SelectionPatternHelper.FindIndexByItem(control, element[0].Current.Name);
 
             ProdStaticSession.Log("Selected List item index: " + ret);
             return ret;
@@ -384,7 +384,7 @@ namespace ProdUI.Controls
                 AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(control, index);
 
                 StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
-                SelectionPatternHelper.AddToSelection(itemToSelect);
+                SelectionPatternHelper.AddToSelection(control, index);
 
                 ProdStaticSession.Log("List Item selected: " + index);
             }
@@ -414,7 +414,7 @@ namespace ProdUI.Controls
                 AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(control, itemText);
 
                 StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
-                SelectionPatternHelper.AddToSelection(itemToSelect);
+                SelectionPatternHelper.AddToSelection(control, itemText);
 
                 ProdStaticSession.Log("List Item selected: " + itemText);
             }
@@ -444,7 +444,7 @@ namespace ProdUI.Controls
             AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(control, index);
 
             StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
-            SelectionPatternHelper.AddToSelection(itemToSelect);
+            SelectionPatternHelper.AddToSelection(control,index);
 
             ProdStaticSession.Log("List Item selected: " + index);
         }
@@ -466,7 +466,7 @@ namespace ProdUI.Controls
             AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(control, itemText);
 
             StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
-            SelectionPatternHelper.AddToSelection(itemToSelect);
+            SelectionPatternHelper.AddToSelection(control,itemText);
 
             ProdStaticSession.Log("List Item selected: " + itemText);
         }

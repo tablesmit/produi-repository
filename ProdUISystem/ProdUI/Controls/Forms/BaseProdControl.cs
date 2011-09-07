@@ -213,7 +213,7 @@ namespace ProdUI.Controls
         {          
             _eventHandler = new AutomationEventHandler(OnAutomationEvent);
             _patternEventType = eventType;
-            Automation.AddAutomationEventHandler(_patternEventType, ThisElement, TreeScope.Parent, _eventHandler);
+            Automation.AddAutomationEventHandler(_patternEventType, ThisElement, TreeScope.Subtree, _eventHandler);
             
         }
 

@@ -123,7 +123,7 @@ namespace ProdUI.Controls
             try
             {
                 AutomationElement[] element = SelectionPatternHelper.GetSelection(ThisElement);
-                int retVal = SelectionPatternHelper.FindIndexByItem(element[0]);
+                int retVal = SelectionPatternHelper.FindIndexByItem(ThisElement, element[0].Current.Name);
 
                 Logmessage = retVal.ToString(CultureInfo.CurrentCulture);
                 LogEntry();

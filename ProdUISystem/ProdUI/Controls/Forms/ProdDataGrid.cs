@@ -348,7 +348,7 @@ namespace ProdUI.Controls
                 Logmessage = "Item: " + dataItem.Current.AutomationId;
                 SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
 
-                SelectionPatternHelper.AddToSelection(dataItem);
+                //SelectionPatternHelper.AddToSelection(dataItem);
             }
             catch (ProdOperationException err)
             {
@@ -378,7 +378,7 @@ namespace ProdUI.Controls
 
 
                 SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
-                SelectionPatternHelper.AddToSelection(dataItem);
+                //SelectionPatternHelper.AddToSelection(dataItem);
             }
             catch (ProdOperationException err)
             {
