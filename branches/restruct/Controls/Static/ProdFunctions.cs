@@ -8,14 +8,15 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Automation;
 using System.Windows.Forms;
-using ProdUI.AutomationPatterns;
-using ProdUI.Enums;
+using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
+using ProdUI.Interaction.Native;
+using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 using ProdUI.Session;
 using ProdUI.Utility;
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Static
 {
     /// <summary>
     ///   Functions that are available to most UI Elements
@@ -87,7 +88,7 @@ namespace ProdUI.Controls
             {
                 control.GetCurrentPattern(InvokePattern.Pattern);
 
-                StaticEvents.SubscribeToEvent(InvokePattern.InvokedEvent, control);
+                StaticEvents.RegisterEvent(InvokePattern.InvokedEvent, control);
                 InvokePatternHelper.Invoke(control);
 
                 ProdStaticSession.Log("Clicked");
@@ -98,7 +99,7 @@ namespace ProdUI.Controls
                 {
                     control.GetCurrentPattern(TogglePattern.Pattern);
 
-                    StaticEvents.SubscribeToEvent(TogglePatternIdentifiers.ToggleStateProperty, control);
+                    StaticEvents.RegisterEvent(TogglePatternIdentifiers.ToggleStateProperty, control);
 
                     ProdStaticSession.Log("Clicked");
                 }
@@ -151,7 +152,7 @@ namespace ProdUI.Controls
             {
                 control.GetCurrentPattern(InvokePattern.Pattern);
 
-                StaticEvents.SubscribeToEvent(InvokePattern.InvokedEvent, control);
+                StaticEvents.RegisterEvent(InvokePattern.InvokedEvent, control);
                 InvokePatternHelper.Invoke(control);
 
                 ProdStaticSession.Log("Clicked");
@@ -162,7 +163,7 @@ namespace ProdUI.Controls
                 {
                     control.GetCurrentPattern(TogglePattern.Pattern);
 
-                    StaticEvents.SubscribeToEvent(TogglePatternIdentifiers.ToggleStateProperty, control);
+                    StaticEvents.RegisterEvent(TogglePatternIdentifiers.ToggleStateProperty, control);
 
                     ProdStaticSession.Log("Clicked");
                 }

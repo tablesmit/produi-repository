@@ -4,12 +4,12 @@
 
 using System;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls.Native;
 using ProdUI.Exceptions;
 using ProdUI.Utility;
+using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Controls.Windows;
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Static
 {
     public static partial class Prod
     {
@@ -28,7 +28,7 @@ namespace ProdUI.Controls
             try
             {
                 AutomationElement control = AutomationElement.FromHandle(controlHandle);
-                return CommonPatternHelpers.ReadOnly(control);
+                return CommonUIAPatternHelpers.ReadOnly(control);
             }
             catch (InvalidOperationException err)
             {
@@ -47,7 +47,7 @@ namespace ProdUI.Controls
         public static bool GetReadOnly(ProdWindow prodwindow, string automationId)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            return CommonPatternHelpers.ReadOnly(control);
+            return CommonUIAPatternHelpers.ReadOnly(control);
         }
 
         /// <summary>

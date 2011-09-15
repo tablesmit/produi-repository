@@ -4,13 +4,14 @@
 
 using System;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls.Native;
+using ProdUI.Interaction.Native;
+using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 using ProdUI.Session;
 using ProdUI.Utility;
+using ProdUI.Controls.Windows;
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Static
 {
     public static partial class Prod
     {
@@ -25,8 +26,8 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SpinnerSetValue(IntPtr controlHandle, double value)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
-            StaticEvents.SubscribeToEvent(RangeValuePattern.ValueProperty, control);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
+            StaticEvents.RegisterEvent(RangeValuePattern.ValueProperty, control);
 
             int ret = RangeValuePatternHelper.SetValue(control, value);
             if (ret == -1)
@@ -48,7 +49,7 @@ namespace ProdUI.Controls
         public static void SpinnerSetValue(ProdWindow prodwindow, string automationId, double value)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            StaticEvents.SubscribeToEvent(RangeValuePattern.ValueProperty, control);
+            StaticEvents.RegisterEvent(RangeValuePattern.ValueProperty, control);
 
             int ret = RangeValuePatternHelper.SetValue(control, value);
             if (ret == -1 && control.Current.NativeWindowHandle != 0)
@@ -70,8 +71,8 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static double SpinnerGetValue(IntPtr controlHandle)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
-            StaticEvents.SubscribeToEvent(RangeValuePattern.ValueProperty, control);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
+            StaticEvents.RegisterEvent(RangeValuePattern.ValueProperty, control);
             double retVal = RangeValuePatternHelper.GetValue(control);
 
             if (retVal == -1)
@@ -120,7 +121,7 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static double SpinnerGetMaxValue(IntPtr controlHandle)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
             double retVal = RangeValuePatternHelper.GetMaximum(control);
 
             if (retVal == -1)
@@ -169,7 +170,7 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static double SpinnerGetMinValue(IntPtr controlHandle)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
             double retVal = RangeValuePatternHelper.GetMinimum(control);
 
             if (retVal == -1)

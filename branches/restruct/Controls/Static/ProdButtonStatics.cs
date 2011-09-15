@@ -4,11 +4,11 @@
 
 using System;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls.Native;
 using ProdUI.Session;
+using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Controls.Windows;
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Static
 {
     public static partial class Prod
     {
@@ -21,8 +21,8 @@ namespace ProdUI.Controls
         /// </remarks>
         public static void ButtonClick(IntPtr controlHandle)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(InvokePattern.Pattern, controlHandle);
-            StaticEvents.SubscribeToEvent(InvokePattern.InvokedEvent, control);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(InvokePattern.Pattern, controlHandle);
+            StaticEvents.RegisterEvent(InvokePattern.InvokedEvent, control);
 
             int ret = InvokePatternHelper.Invoke(control);
             if (ret == -1)
@@ -43,9 +43,9 @@ namespace ProdUI.Controls
         /// </remarks>
         public static void ButtonClick(ProdWindow prodwindow, string automationId)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(prodwindow, InvokePatternIdentifiers.Pattern, automationId);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(prodwindow, InvokePatternIdentifiers.Pattern, automationId);
 
-            StaticEvents.SubscribeToEvent(InvokePattern.InvokedEvent, control);
+            StaticEvents.RegisterEvent(InvokePattern.InvokedEvent, control);
             InvokePatternHelper.Invoke(control);
 
             ProdStaticSession.Log("button clicked");

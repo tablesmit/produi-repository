@@ -5,14 +5,13 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls.Native;
-using ProdUI.Enums;
 using ProdUI.Exceptions;
+using ProdUI.Interaction.Native;
+using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 using ProdUI.Utility;
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Static
 {
     public static partial class Prod
     {

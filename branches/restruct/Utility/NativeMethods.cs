@@ -5,6 +5,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using ProdUI.Interaction.Native;
 
 namespace ProdUI.Utility
 {

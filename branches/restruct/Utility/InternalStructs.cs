@@ -5,7 +5,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace ProdUI.Utility
+namespace ProdUI.Interaction.Native
 {
     /// <summary>
     /// Mouse event flags from From winuser.h

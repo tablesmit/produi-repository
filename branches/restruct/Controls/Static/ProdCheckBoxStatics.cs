@@ -4,14 +4,14 @@
 
 using System;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls.Native;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Session;
 using ProdUI.Utility;
+using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Controls.Windows;
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Static
 {
     public static partial class Prod
     {
@@ -29,8 +29,8 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static ToggleState GetCheckState(IntPtr controlHandle)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(TogglePattern.Pattern, controlHandle);
-            StaticEvents.SubscribeToEvent(TogglePattern.ToggleStateProperty, control);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(TogglePattern.Pattern, controlHandle);
+            StaticEvents.RegisterEvent(TogglePattern.ToggleStateProperty, control);
 
             ToggleState ret = TogglePatternHelper.GetToggleState(control);
             if (ret == ToggleState.Indeterminate)
@@ -60,7 +60,7 @@ namespace ProdUI.Controls
         public static ToggleState GetCheckState(ProdWindow prodwindow, string automationId)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            StaticEvents.SubscribeToEvent(TogglePattern.ToggleStateProperty, control);
+            StaticEvents.RegisterEvent(TogglePattern.ToggleStateProperty, control);
 
             ToggleState ret = TogglePatternHelper.GetToggleState(control);
 
@@ -83,8 +83,8 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SetCheckState(IntPtr controlHandle, ToggleState isChecked)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(TogglePattern.Pattern, controlHandle);
-            StaticEvents.SubscribeToEvent(TogglePattern.ToggleStateProperty, control);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(TogglePattern.Pattern, controlHandle);
+            StaticEvents.RegisterEvent(TogglePattern.ToggleStateProperty, control);
 
             int ret = TogglePatternHelper.SetToggleState(control, isChecked);
             if (ret == -1)
@@ -109,7 +109,7 @@ namespace ProdUI.Controls
         public static void SetCheckState(ProdWindow prodwindow, string automationId, ToggleState isChecked)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            StaticEvents.SubscribeToEvent(TogglePattern.ToggleStateProperty, control);
+            StaticEvents.RegisterEvent(TogglePattern.ToggleStateProperty, control);
 
             TogglePatternHelper.SetToggleState(control, isChecked);
 
@@ -129,8 +129,8 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void ToggleCheckState(IntPtr controlHandle)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(TogglePattern.Pattern, controlHandle);
-            StaticEvents.SubscribeToEvent(TogglePattern.ToggleStateProperty, control);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(TogglePattern.Pattern, controlHandle);
+            StaticEvents.RegisterEvent(TogglePattern.ToggleStateProperty, control);
 
             TogglePatternHelper.Toggle(AutomationElement.FromHandle(controlHandle));
 
@@ -150,7 +150,7 @@ namespace ProdUI.Controls
         public static void ToggleCheckState(ProdWindow prodwindow, string automationId)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            StaticEvents.SubscribeToEvent(TogglePattern.ToggleStateProperty, control);
+            StaticEvents.RegisterEvent(TogglePattern.ToggleStateProperty, control);
 
             TogglePatternHelper.Toggle(control);
 
@@ -164,8 +164,8 @@ namespace ProdUI.Controls
         /// <param name="controlHandle">The target controls handle.</param>
         internal static void CheckBoxClick(IntPtr controlHandle)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(TogglePattern.Pattern, controlHandle);
-            StaticEvents.SubscribeToEvent(TogglePattern.ToggleStateProperty, control);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(TogglePattern.Pattern, controlHandle);
+            StaticEvents.RegisterEvent(TogglePattern.ToggleStateProperty, control);
 
             int ret = TogglePatternHelper.Toggle(control);
             if (ret == -1)
@@ -188,7 +188,7 @@ namespace ProdUI.Controls
         internal static void CheckBoxClick(ProdWindow prodwindow, string automationId)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            StaticEvents.SubscribeToEvent(TogglePattern.ToggleStateProperty, control);
+            StaticEvents.RegisterEvent(TogglePattern.ToggleStateProperty, control);
 
             TogglePatternHelper.Toggle(control);
 

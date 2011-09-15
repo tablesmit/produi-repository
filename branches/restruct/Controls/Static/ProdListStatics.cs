@@ -6,14 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls.Native;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Session;
 using ProdUI.Utility;
+using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Controls.Windows;
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Static
 {
     /// <summary>
     /// Provides access to controls using static methods
@@ -35,7 +35,7 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static bool CanSelectMultiple(IntPtr controlHandle)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
             return SelectionPatternHelper.CanSelectMultiple(control);
         }
 
@@ -71,7 +71,7 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public static List<object> GetItems(IntPtr controlHandle)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
             AutomationElementCollection convRet = SelectionPatternHelper.GetListItems(control);
 
             List<object> ret = InternalUtilities.AutomationCollToObjectList(convRet);
@@ -123,7 +123,7 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static int GetItemCount(IntPtr controlHandle)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
             AutomationElementCollection aec = SelectionPatternHelper.GetListCollectionUtility(control);
             int ret = aec.Count;
 
@@ -180,7 +180,7 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static int GetSelectedIndex(IntPtr controlHandle)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
             AutomationElement[] element = SelectionPatternHelper.GetSelection(control);
             int ret = SelectionPatternHelper.FindIndexByItem(control, element[0].Current.Name);
             if (ret == -1)
@@ -229,7 +229,7 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static AutomationElement GetSelectedItem(IntPtr controlHandle)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
             AutomationElement[] retVal = SelectionPatternHelper.GetSelection(control);
 
             AutomationElement ret = retVal[0];
@@ -281,8 +281,8 @@ namespace ProdUI.Controls
         {
             try
             {
-                AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-                StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent, control);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
 
                 AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(control, index);
                 SelectionPatternHelper.Select(indexedItem);
@@ -309,8 +309,8 @@ namespace ProdUI.Controls
         {
             try
             {
-                AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-                StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent, control);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
 
                 AutomationElement indexedItem = SelectionPatternHelper.FindItemByText(control, itemText);
                 SelectionPatternHelper.Select(indexedItem);
@@ -334,7 +334,7 @@ namespace ProdUI.Controls
         public static void SetSelectedItem(ProdWindow prodwindow, string automationId, int index)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent, control);
+            StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
 
             AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(control, index);
             SelectionPatternHelper.Select(indexedItem);
@@ -353,7 +353,7 @@ namespace ProdUI.Controls
         public static void SetSelectedItem(ProdWindow prodwindow, string automationId, string itemText)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent, control);
+            StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
 
             AutomationElement indexedItem = SelectionPatternHelper.FindItemByText(control, itemText);
             SelectionPatternHelper.Select(indexedItem);
@@ -380,10 +380,10 @@ namespace ProdUI.Controls
         {
             try
             {
-                AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
                 AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(control, index);
 
-                StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
+                StaticEvents.RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
                 SelectionPatternHelper.AddToSelection(control, index);
 
                 ProdStaticSession.Log("List Item selected: " + index);
@@ -410,10 +410,10 @@ namespace ProdUI.Controls
         {
             try
             {
-                AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
                 AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(control, itemText);
 
-                StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
+                StaticEvents.RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
                 SelectionPatternHelper.AddToSelection(control, itemText);
 
                 ProdStaticSession.Log("List Item selected: " + itemText);
@@ -443,7 +443,7 @@ namespace ProdUI.Controls
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
             AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(control, index);
 
-            StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
+            StaticEvents.RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
             SelectionPatternHelper.AddToSelection(control,index);
 
             ProdStaticSession.Log("List Item selected: " + index);
@@ -465,7 +465,7 @@ namespace ProdUI.Controls
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
             AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(control, itemText);
 
-            StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
+            StaticEvents.RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
             SelectionPatternHelper.AddToSelection(control,itemText);
 
             ProdStaticSession.Log("List Item selected: " + itemText);
@@ -485,10 +485,10 @@ namespace ProdUI.Controls
         {
             try
             {
-                AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
                 AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(control, index);
 
-                StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent, control);
+                StaticEvents.RegisterEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent, control);
                 SelectionPatternHelper.RemoveFromSelection(itemToSelect);
 
                 ProdStaticSession.Log("List Item deselected: " + index);
@@ -514,10 +514,10 @@ namespace ProdUI.Controls
         {
             try
             {
-                AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
                 AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(control, itemText);
 
-                StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent, control);
+                StaticEvents.RegisterEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent, control);
                 SelectionPatternHelper.RemoveFromSelection(itemToSelect);
 
                 ProdStaticSession.Log("List Item deselected: " + itemText);
@@ -544,7 +544,7 @@ namespace ProdUI.Controls
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
             AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(control, index);
 
-            StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent, control);
+            StaticEvents.RegisterEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent, control);
             SelectionPatternHelper.RemoveFromSelection(itemToSelect);
 
             ProdStaticSession.Log("List Item deselected: " + index);
@@ -565,7 +565,7 @@ namespace ProdUI.Controls
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
             AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(control, itemText);
 
-            StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent, control);
+            StaticEvents.RegisterEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent, control);
             SelectionPatternHelper.RemoveFromSelection(itemToSelect);
 
             ProdStaticSession.Log("List Item deselected: " + itemText);
@@ -585,7 +585,7 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static int SelectedItemCount(IntPtr controlHandle)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
             if (!SelectionPatternHelper.CanSelectMultiple(control))
             {
                 return -1;
@@ -647,7 +647,7 @@ namespace ProdUI.Controls
                 return null;
             }
 
-            AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
             AutomationElementCollection convRet = SelectionPatternHelper.GetSelectionItems(control);
 
             List<object> ret = InternalUtilities.AutomationCollToObjectList(convRet);
@@ -675,7 +675,7 @@ namespace ProdUI.Controls
                 return null;
             }
 
-            AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
        
             AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(control);
             List<object> retList = new List<object>(selectedItems);
@@ -756,7 +756,7 @@ namespace ProdUI.Controls
         {
             try
             {
-                CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
                 if (!CanSelectMultiple(controlHandle))
                 {
                     return;
@@ -802,7 +802,7 @@ namespace ProdUI.Controls
 
             try
             {
-                AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
                 if (!CanSelectMultiple((IntPtr)control.Current.NativeWindowHandle))
                 {
                     return;

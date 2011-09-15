@@ -15,6 +15,8 @@ using System.Text;
 using System.Windows.Automation;
 using ProdUI.Controls;
 using ProdUI.Exceptions;
+using ProdUI.Controls.Windows;
+using ProdUI.Interaction.Native;
 
 namespace ProdUI.Utility
 {

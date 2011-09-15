@@ -4,14 +4,15 @@
 
 using System;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls.Native;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Session;
 using ProdUI.Utility;
+using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Controls.Windows;
+using ProdUI.Interaction.Native;
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Static
 {
     public static partial class Prod
     {
@@ -26,7 +27,7 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static bool GetRadioState(IntPtr controlHandle)
         {
-            AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+            AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
             bool ret = SelectionPatternHelper.IsSelected(control);
             string logmessage = "RadioButton state: " + ret;
             ProdStaticSession.Log(logmessage);
@@ -43,8 +44,8 @@ namespace ProdUI.Controls
         {
             try
             {
-                AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-                StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent, control);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
 
                 SelectionPatternHelper.Select(control);
 
@@ -88,7 +89,7 @@ namespace ProdUI.Controls
         public static void SelectRadio(ProdWindow prodwindow, string automationId)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent, control);
+            StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
 
             SelectionPatternHelper.Select(control);
 

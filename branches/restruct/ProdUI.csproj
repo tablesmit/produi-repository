@@ -111,26 +111,27 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutomationEventVerifier.cs" />
-    <Compile Include="AutomationPatterns\DockPatternHelper.cs" />
-    <Compile Include="AutomationPatterns\GridPatternHelper.cs" />
-    <Compile Include="AutomationPatterns\ScrollPatternHelper.cs" />
-    <Compile Include="AutomationPatterns\SelectionPatternHelper.cs" />
-    <Compile Include="AutomationPatterns\TextPatternHelper.cs" />
-    <Compile Include="Controls\Native\MessageConstants\WindowConstants.cs" />
+    <Compile Include="InteractionBridge.cs" />
+    <Compile Include="Interaction\Native\EditNative.cs" />
+    <Compile Include="Verification\AutomationEventVerifier.cs" />
+    <Compile Include="Interaction\UIAPatterns\DockPatternHelper.cs" />
+    <Compile Include="Interaction\UIAPatterns\GridPatternHelper.cs" />
+    <Compile Include="Interaction\UIAPatterns\ScrollPatternHelper.cs" />
+    <Compile Include="Interaction\UIAPatterns\SelectionPatternHelper.cs" />
+    <Compile Include="Interaction\UIAPatterns\TextPatternHelper.cs" />
+    <Compile Include="Interaction\Native\MessageConstants\WindowConstants.cs" />
     <Compile Include="Controls\Static\ProdButtonStatics.cs" />
-    <Compile Include="Controls\Forms\BaseProdControl.cs" />
-    <Compile Include="Controls\Forms\ProdText.cs" />
-    <Compile Include="EventListenerRegistration.cs" />
-    <Compile Include="EventRegistrationBase.cs" />
-    <Compile Include="PropertyChangeRegistration.cs" />
+    <Compile Include="Controls\Windows\BaseProdControl.cs" />
+    <Compile Include="Controls\Windows\ProdText.cs" />
+    <Compile Include="Verification\EventListener.cs" />
+    <Compile Include="Verification\EventRegistrationMessage.cs" />
     <Compile Include="Utility\ControlEnumerations.cs" />
-    <Compile Include="Controls\Native\MessageConstants\MessageConstants.cs" />
-    <Compile Include="Controls\Native\ProdSpinnerNative.cs" />
-    <Compile Include="Controls\Native\ProdTabNative.cs" />
-    <Compile Include="Controls\Native\ProdTreeViewNative.cs" />
-    <Compile Include="Controls\Native\MessageConstants\SpinnerConstants.cs" />
-    <Compile Include="Controls\Native\MessageConstants\TreeViewConstants.cs" />
+    <Compile Include="Interaction\Native\MessageConstants\MessageConstants.cs" />
+    <Compile Include="Interaction\Native\ProdSpinnerNative.cs" />
+    <Compile Include="Interaction\Native\ProdTabNative.cs" />
+    <Compile Include="Interaction\Native\ProdTreeViewNative.cs" />
+    <Compile Include="Interaction\Native\MessageConstants\SpinnerConstants.cs" />
+    <Compile Include="Interaction\Native\MessageConstants\TreeViewConstants.cs" />
     <Compile Include="Controls\Static\ProdCheckBoxStatics.cs" />
     <Compile Include="Controls\Static\ProdListStatics.cs" />
     <Compile Include="Controls\Static\ProdMenuStatic.cs" />
@@ -142,59 +143,54 @@
     <Compile Include="Controls\Static\WindowPatternsStatics.cs" />
     <Compile Include="Session\ProdSession.cs" />
     <Compile Include="Session\StaticEvents.cs" />
-    <Compile Include="Controls\Forms\ProdCalendar.cs" />
-    <Compile Include="Controls\Forms\ProdDataGrid.cs" />
-    <Compile Include="Controls\Forms\ProdRibbonElement.cs" />
-    <Compile Include="Controls\Forms\ProdSpinner.cs" />
-    <Compile Include="Controls\Forms\ProdTab.cs" />
-    <Compile Include="Controls\Forms\ProdDocument.cs" />
-    <Compile Include="Controls\Forms\ProdToolBar.cs" />
-    <Compile Include="Controls\Forms\ProdTreeView.cs" />
+    <Compile Include="Controls\Windows\ProdCalendar.cs" />
+    <Compile Include="Controls\Windows\ProdDataGrid.cs" />
+    <Compile Include="Controls\Windows\ProdRibbonElement.cs" />
+    <Compile Include="Controls\Windows\ProdSpinner.cs" />
+    <Compile Include="Controls\Windows\ProdTab.cs" />
+    <Compile Include="Controls\Windows\ProdDocument.cs" />
+    <Compile Include="Controls\Windows\ProdToolBar.cs" />
+    <Compile Include="Controls\Windows\ProdTreeView.cs" />
     <Compile Include="Exceptions\ProdVerificationException.cs" />
-    <Compile Include="Controls\Native\MessageConstants\TrackbarConstants.cs" />
+    <Compile Include="Interaction\Native\MessageConstants\TrackbarConstants.cs" />
     <Compile Include="Session\ProdStaticSession.cs" />
     <Compile Include="Session\ProdSessionConfig.cs" />
-    <Compile Include="Controls\Forms\ProdButton.cs" />
-    <Compile Include="Controls\Forms\ProdCheckBox.cs" />
-    <Compile Include="Controls\Forms\ProdComboBox.cs" />
+    <Compile Include="Controls\Windows\ProdButton.cs" />
+    <Compile Include="Controls\Windows\ProdCheckBox.cs" />
+    <Compile Include="Controls\Windows\ProdComboBox.cs" />
     <Compile Include="Controls\Static\ProdFunctions.cs" />
-    <Compile Include="Controls\Forms\ProdList.cs" />
-    <Compile Include="Controls\Forms\ProdMenuItem.cs" />
-    <Compile Include="Controls\Forms\ProdRadioButton.cs" />
-    <Compile Include="Controls\Forms\ProdSlider.cs" />
-    <Compile Include="Controls\Forms\ProdEdit.cs" />
-    <Compile Include="Controls\Forms\ProdWindow.cs" />
+    <Compile Include="Controls\Windows\ProdList.cs" />
+    <Compile Include="Controls\Windows\ProdMenuItem.cs" />
+    <Compile Include="Controls\Windows\ProdRadioButton.cs" />
+    <Compile Include="Controls\Windows\ProdSlider.cs" />
+    <Compile Include="Controls\Windows\ProdEdit.cs" />
+    <Compile Include="Controls\Windows\ProdWindow.cs" />
     <Compile Include="Logging\LoggingEnums.cs" />
     <Compile Include="Logging\LogMessage.cs" />
     <Compile Include="Logging\ProdLogger.cs" />
     <Compile Include="Logging\ProdLoggingAttribute.cs" />
-    <Compile Include="Controls\Native\ProdButtonNative.cs" />
-    <Compile Include="Controls\Native\ProdCheckBoxNative.cs" />
-    <Compile Include="Controls\Native\ProdComboBoxNative.cs" />
-    <Compile Include="Controls\Native\ProdListBoxNative.cs" />
-    <Compile Include="Controls\Native\ProdRadioButtonNative.cs" />
-    <Compile Include="Controls\Native\ProdSliderNative.cs" />
-    <Compile Include="Controls\Native\NativeTextProds.cs" />
-    <Compile Include="Controls\Native\ProdWindowNative.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
+    <Compile Include="Interaction\Native\ProdButtonNative.cs" />
+    <Compile Include="Interaction\Native\ProdCheckBoxNative.cs" />
+    <Compile Include="Interaction\Native\ProdComboBoxNative.cs" />
+    <Compile Include="Interaction\Native\ProdListBoxNative.cs" />
+    <Compile Include="Interaction\Native\ProdRadioButtonNative.cs" />
+    <Compile Include="Interaction\Native\ProdSliderNative.cs" />
+    <Compile Include="Interaction\Native\NativeTextProds.cs" />
+    <Compile Include="Interaction\Native\ProdWindowNative.cs" />
     <Compile Include="Logging\ILogTarget.cs" />
-    <Compile Include="AutomationPatterns\ExpandCollapseHelper.cs" />
-    <Compile Include="AutomationPatterns\CommonPatternHelpers.cs" />
-    <Compile Include="AutomationPatterns\RangeValuePatternHelper.cs" />
-    <Compile Include="AutomationPatterns\TablePatternHelper.cs" />
-    <Compile Include="AutomationPatterns\TransformPatternHelper.cs" />
-    <Compile Include="AutomationPatterns\WindowPatternHelper.cs" />
+    <Compile Include="Interaction\UIAPatterns\ExpandCollapseHelper.cs" />
+    <Compile Include="Interaction\UIAPatterns\CommonUIAPatternHelpers.cs" />
+    <Compile Include="Interaction\UIAPatterns\RangeValuePatternHelper.cs" />
+    <Compile Include="Interaction\UIAPatterns\TablePatternHelper.cs" />
+    <Compile Include="Interaction\UIAPatterns\TransformPatternHelper.cs" />
+    <Compile Include="Interaction\UIAPatterns\WindowPatternHelper.cs" />
     <Compile Include="Utility\ControlTree.cs" />
     <Compile Include="Utility\InternalStructs.cs" />
     <Compile Include="Utility\NativeMethods.cs" />
     <Compile Include="Utility\SendMessageOverloads.cs" />
-    <Compile Include="AutomationPatterns\InvokePatternHelper.cs" />
-    <Compile Include="AutomationPatterns\TogglePatternHelper.cs" />
-    <Compile Include="AutomationPatterns\ValuePatternHelper.cs" />
+    <Compile Include="Interaction\UIAPatterns\InvokePatternHelper.cs" />
+    <Compile Include="Interaction\UIAPatterns\TogglePatternHelper.cs" />
+    <Compile Include="Interaction\UIAPatterns\ValuePatternHelper.cs" />
     <Compile Include="Utility\InternalUtilities.cs" />
     <Compile Include="Exceptions\ProdOperationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -220,12 +216,11 @@
     <Folder Include="obj\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ProdUI.cd" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
+    <None Include="Controls.cd" />
+    <None Include="Data Structures.cd" />
+    <None Include="Interaction Layer.cd" />
+    <None Include="Verification and Exceptions.cd" />
+    <None Include="ProdUIPlanning.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -243,7 +238,7 @@ REM Create all the sancastle stuff
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="Build" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_IncrementBeforeBuild="False" />
+      <UserProperties BuildVersion_IncrementBeforeBuild="False" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_BuildAction="Build" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

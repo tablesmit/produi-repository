@@ -19,7 +19,7 @@ namespace ProdUI.Session
         /// </summary>
         /// <param name="eventType">The specific event type to monitor</param>
         /// <param name="control">The control to monitor for events.</param>
-        public static void SubscribeToEvent(AutomationEvent eventType, AutomationElement control)
+        public static void RegisterEvent(AutomationEvent eventType, AutomationElement control)
         {
             _control = control;
 
@@ -39,7 +39,7 @@ namespace ProdUI.Session
         /// </summary>
         /// <param name="property">The automation property to monitor for a state change</param>
         /// <param name="control">The control to monitor for events.</param>
-        public static void SubscribeToEvent(AutomationProperty property, AutomationElement control)
+        public static void RegisterEvent(AutomationProperty property, AutomationElement control)
         {
             _control = control;
             _propertyChangeHandler = new AutomationPropertyChangedEventHandler(OnPropertyChange);

@@ -5,14 +5,15 @@
 using System;
 using System.Collections;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls.Native;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Session;
 using ProdUI.Utility;
+using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Controls.Windows;
+using ProdUI.Interaction.Native;
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Static
 {
     public static partial class Prod
     {
@@ -28,7 +29,7 @@ namespace ProdUI.Controls
         {
             try
             {
-                AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
                 AutomationElementCollection aec = SelectionPatternHelper.GetListItems(control);
                 return InternalUtilities.AutomationCollToArrayList(aec);
             }
@@ -82,7 +83,7 @@ namespace ProdUI.Controls
         {
             try
             {
-                AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
                 bool ret = SelectionPatternHelper.IsSelected(SelectionPatternHelper.FindItemByIndex(control, index));
                 return ret;
             }
@@ -110,7 +111,7 @@ namespace ProdUI.Controls
         {
             try
             {
-                AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
                 bool ret = SelectionPatternHelper.IsSelected(SelectionPatternHelper.FindItemByText(control, itemText));
                 return ret;
             }
@@ -192,7 +193,7 @@ namespace ProdUI.Controls
         {
             try
             {
-                AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
                 AutomationElementCollection aec = SelectionPatternHelper.GetListCollectionUtility(control);
                 int retVal = aec.Count;
 
@@ -253,7 +254,7 @@ namespace ProdUI.Controls
         {
             try
             {
-                AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
                 AutomationElement[] retVal = SelectionPatternHelper.GetSelection(control);
                 return retVal[0];
             }
@@ -305,14 +306,14 @@ namespace ProdUI.Controls
         {
             try
             {
-                AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
                 AutomationElementCollection aec = SelectionPatternHelper.GetListItems(control);
 
                 /* When using the GetListItems() methods, item index 0 is the tab control itself, so add on to get to correct TabItem */
                 int adjustedIndex = index + 1;
                 string itemText = aec[adjustedIndex].Current.Name;
 
-                StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent, control);
+                StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
                 SelectionPatternHelper.Select(SelectionPatternHelper.FindItemByText(control, itemText));
 
                 string logmessage = "Control Text: " + control.Current.Name + " Selection verified";
@@ -336,9 +337,9 @@ namespace ProdUI.Controls
         {
             try
             {
-                AutomationElement control = CommonPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
 
-                StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent, control);
+                StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
                 SelectionPatternHelper.Select(SelectionPatternHelper.FindItemByText(control, itemText));
 
                 string logmessage = "Control Text: " + control.Current.Name + " Selection verified";
@@ -373,7 +374,7 @@ namespace ProdUI.Controls
                 int adjustedIndex = index + 1;
                 string itemText = aec[adjustedIndex].Current.Name;
 
-                StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent, control);
+                StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
                 SelectionPatternHelper.Select(SelectionPatternHelper.FindItemByText(control, itemText));
 
                 string logmessage = "Control Text: " + control.Current.Name + " Selection verified";
@@ -403,7 +404,7 @@ namespace ProdUI.Controls
             {
                 AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
 
-                StaticEvents.SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent, control);
+                StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
                 SelectionPatternHelper.Select(SelectionPatternHelper.FindItemByText(control, itemText));
 
                 string logmessage = "Control Text: " + control.Current.Name + " Selection verified";

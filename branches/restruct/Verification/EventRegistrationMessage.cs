@@ -1,38 +1,38 @@
 ﻿using System.Windows.Automation;
+using ProdUI.Controls;
+using ProdUI.Controls.Windows;
 
 namespace ProdUI.Verification
 {
-    internal class EventRegistration
+    internal class EventRegistrationMessage
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventRegistration"/> class.
+        /// Initializes a new instance of the <see cref="EventRegistrationMessage"/> class.
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="property">The property.</param>
-        public EventRegistration(AutomationElement source, AutomationProperty property)
+        public EventRegistrationMessage(BaseProdControl source, AutomationProperty property)
         {
             Source = source;
             Property = property;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventRegistration"/> class.
+        /// Initializes a new instance of the <see cref="EventRegistrationMessage"/> class.
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="eventType">Type of the event.</param>
-        public EventRegistration(AutomationElement source, AutomationEvent eventType)
+        public EventRegistrationMessage(BaseProdControl source, AutomationEvent eventType)
         {
             Source = source;
             EventType = eventType;
         }
 
-        internal AutomationElement Source;
-
         internal AutomationProperty Property;
 
         internal AutomationEvent EventType;
 
-        internal bool EventTriggered;
+        internal BaseProdControl Source;
 
     }
 }

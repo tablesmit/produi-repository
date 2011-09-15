@@ -6,10 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
 using ProdUI.Exceptions;
+using ProdUI.Interaction.UIAPatterns;
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Static
 {
     public static partial class Prod
     {
