@@ -1,0 +1,5 @@
+C:\Users\dad\Desktop\p\ProdUI\bin\Debug\ProdUI.dll
+C:\Users\dad\Desktop\p\ProdUI\bin\Debug\ProdUI.pdb
+C:\Users\dad\Desktop\p\ProdUI\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\dad\Desktop\p\ProdUI\obj\Debug\ProdUI.dll
+C:\Users\dad\Desktop\p\ProdUI\obj\Debug\ProdUI.pdb

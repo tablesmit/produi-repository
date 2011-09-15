@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Sends a EventRegistration to event verifier">
+    <Position X="6.031" Y="1.115" Height="0.448" Width="1.7" />
+  </Comment>
+  <Comment CommentText="Sends a LogMessage to Logger">
+    <Position X="3.594" Y="2.74" Height="0.448" Width="1.7" />
+  </Comment>
+  <Class Name="ProdUI.Controls.BaseProdControl">
+    <Position X="1" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EIAAACAAgAAAABAAAgAAAAABAAEAAICAACAAAAAAAAI=</HashCode>
+      <FileName>Controls\Forms\BaseProdControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.ProdButton" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAgA=</HashCode>
+      <FileName>Controls\Forms\ProdButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Logging.ProdLogger" Collapsed="true">
+    <Position X="5.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAACCAAiAAAAAAAABAAAAAgCAEAAAAAgAAAQAAE=</HashCode>
+      <FileName>Logging\ProdLogger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Logging.LogMessage" Collapsed="true">
+    <Position X="5.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAGAAABACAAAAAgAAAAAgAAIAAAAAI=</HashCode>
+      <FileName>Logging\LogMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Verification.EventRegistration">
+    <Position X="8.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAEgAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>EventRegistrationBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Verification.AutomationEventVerifier">
+    <Position X="12" Y="0.5" Width="2" />
+    <NestedTypes>
+      <Delegate Name="ProdUI.Verification.AutomationEventVerifier.ProdEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>AutomationEventVerifier.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACADACAAAAAAABgAAABgAIAAAAAAAAAAAA=</HashCode>
+      <FileName>AutomationEventVerifier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="ProdUI.Logging.ILogTarget" Collapsed="true">
+    <Position X="5.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAEAAgA=</HashCode>
+      <FileName>Logging\ILogTarget.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
