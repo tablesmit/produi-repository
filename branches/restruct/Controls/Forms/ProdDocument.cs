@@ -3,12 +3,12 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Automation;
 using System.Windows.Automation.Text;
-using ProdUI.AutomationPatterns;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
-using System.Collections.Generic;
+using ProdUI.Interaction.UIAPatterns;
 
 /* Notes
  * Supported Patterns: 
@@ -23,7 +23,7 @@ using System.Collections.Generic;
 
 //TODO: In Progress
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Windows
 {
     /// <summary>
     ///   Methods to work with Text (Label) controls using the UI Automation framework
@@ -79,8 +79,8 @@ namespace ProdUI.Controls
             try
             {
                 string retVal = TextPatternHelper.GetText(UIAElement, -1);
-                Logmessage = "Text: " + retVal;
-                CreateMessage();
+                LogText = "Text: " + retVal;
+                LogMessage();
 
                 return retVal;
             }
@@ -106,9 +106,9 @@ namespace ProdUI.Controls
                 TextPatternRange[] selected = TextPatternHelper.GetSelection(UIAElement);
                 List<object> retVal = new List<object>(selected);
 
-                Logmessage = "Text";
+                LogText = "Text";
                 VerboseInformation = retVal;
-                CreateMessage();
+                LogMessage();
 
                 return retVal;
             }
@@ -130,8 +130,8 @@ namespace ProdUI.Controls
                 TextPatternRange[] selected = TextPatternHelper.GetSelection(UIAElement);
 
                 string retVal = selected[0].GetText(-1);
-                Logmessage = "Text: " + retVal;
-                CreateMessage();
+                LogText = "Text: " + retVal;
+                LogMessage();
 
                 return retVal;
             }

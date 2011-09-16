@@ -3,9 +3,9 @@
  */
 
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
+using ProdUI.Interaction.UIAPatterns;
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Windows
 {
     /// <summary>
     ///   Provides methods for working with Ribbon control elements
@@ -36,9 +36,9 @@ namespace ProdUI.Controls
         /// </summary>
         public void Click()
         {
-            Logmessage = "Click Verified";
+            LogText = "Click Verified";
 
-            SubscribeToEvent(InvokePattern.InvokedEvent);
+            RegisterEvent(InvokePattern.InvokedEvent);
             InvokePatternHelper.Invoke(UIAElement);            
         }
     }

@@ -6,11 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls.Native;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Utility;
+using ProdUI.Interaction.UIAPatterns;
 
 /* Notes
  * --ListBox Portion--
@@ -37,7 +36,7 @@ using ProdUI.Utility;
  * cleartext
  */
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Windows
 {
     /// <summary>
     ///   Methods to work with ComboBox controls using the UI Automation framework
@@ -101,8 +100,8 @@ namespace ProdUI.Controls
                 {
                     ProdComboBoxNative.GetItemCountNative(Handle);
                 }
-                Logmessage = "Count: " + retVal;
-                CreateMessage();
+                LogText = "Count: " + retVal;
+                LogMessage();
 
                 return retVal;
             }
@@ -127,8 +126,8 @@ namespace ProdUI.Controls
             {
                 AutomationElement[] retVal = SelectionPatternHelper.GetSelection(UIAElement);
 
-                Logmessage = "Count: " + retVal[0].Current.AutomationId;
-                CreateMessage();
+                LogText = "Count: " + retVal[0].Current.AutomationId;
+                LogMessage();
 
                 return retVal[0];
 
@@ -154,8 +153,8 @@ namespace ProdUI.Controls
             {
                 AutomationElement[] element = SelectionPatternHelper.GetSelection(UIAElement);
                 int retVal = SelectionPatternHelper.FindIndexByItem(UIAElement, element[0].Current.Name);
-                Logmessage = "Index " + retVal;
-                CreateMessage();
+                LogText = "Index " + retVal;
+                LogMessage();
                 return retVal;
             }
             catch (ProdOperationException err)
@@ -175,8 +174,8 @@ namespace ProdUI.Controls
         {
             try
             {
-                Logmessage = "Index " + index;
-                SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent);
+                LogText = "Index " + index;
+                RegisterEvent(SelectionItemPattern.ElementSelectedEvent);
                 AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(UIAElement, index);
                 SelectionPatternHelper.Select(indexedItem);               
             }
@@ -201,8 +200,8 @@ namespace ProdUI.Controls
         {
             try
             {
-                Logmessage = "Item " + itemText;
-                SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent);
+                LogText = "Item " + itemText;
+                RegisterEvent(SelectionItemPattern.ElementSelectedEvent);
                 AutomationElement control = SelectionPatternHelper.FindItemByText(UIAElement, itemText);
                 SelectionPatternHelper.Select(control);
             }
@@ -231,8 +230,8 @@ namespace ProdUI.Controls
             {
                 bool retVal = SelectionPatternHelper.IsSelected(SelectionPatternHelper.FindItemByIndex(UIAElement, index));
 
-                Logmessage = retVal.ToString(CultureInfo.CurrentCulture);
-                CreateMessage();
+                LogText = retVal.ToString(CultureInfo.CurrentCulture);
+                LogMessage();
 
                 return retVal;
             }
@@ -257,8 +256,8 @@ namespace ProdUI.Controls
             {
                 bool retVal = SelectionPatternHelper.IsSelected(SelectionPatternHelper.FindItemByText(UIAElement, itemText));
 
-                Logmessage = retVal.ToString(CultureInfo.CurrentCulture);
-                CreateMessage();
+                LogText = retVal.ToString(CultureInfo.CurrentCulture);
+                LogMessage();
 
                 return retVal;
             }
@@ -289,9 +288,9 @@ namespace ProdUI.Controls
                 }
 
                 List<object> retArr = InternalUtilities.AutomationCollToObjectList(retVal);
-                Logmessage = "Items: ";
+                LogText = "Items: ";
                 VerboseInformation = retArr;
-                CreateMessage();
+                LogMessage();
 
                 return retArr;
             }
@@ -333,8 +332,8 @@ namespace ProdUI.Controls
                     {
                         int len = retVal.Length;
 
-                        Logmessage = "Length: " + len;
-                        CreateMessage();
+                        LogText = "Length: " + len;
+                        LogMessage();
 
                         return len;
                     }
@@ -372,8 +371,8 @@ namespace ProdUI.Controls
                         return NativeTextProds.GetTextNative(Handle);
                     }
 
-                    Logmessage = "Control Text: " + retVal;
-                    CreateMessage();
+                    LogText = "Control Text: " + retVal;
+                    LogMessage();
 
                     return retVal;
                 }
@@ -401,8 +400,8 @@ namespace ProdUI.Controls
             {
                 if (CheckPatternSupport(ValuePattern.Pattern, UIAElement))
                 {
-                    Logmessage = "Text: " + text;
-                    SubscribeToEvent(ValuePattern.ValueProperty);
+                    LogText = "Text: " + text;
+                    RegisterEvent(ValuePattern.ValueProperty);
                     int ret = ValuePatternHelper.SetValue(UIAElement, text);
 
                     if (ret == -1 && Handle != IntPtr.Zero)
@@ -432,7 +431,7 @@ namespace ProdUI.Controls
             {
                 if (CheckPatternSupport(ValuePattern.Pattern, UIAElement))
                 {
-                    SubscribeToEvent(ValuePattern.ValueProperty);
+                    RegisterEvent(ValuePattern.ValueProperty);
                     int ret = ValuePatternHelper.SetValue(UIAElement, string.Empty);
 
                     if (ret == -1 && Handle != IntPtr.Zero)
@@ -461,7 +460,7 @@ namespace ProdUI.Controls
         {
             try
             {
-                SubscribeToEvent(ValuePattern.ValueProperty);
+                RegisterEvent(ValuePattern.ValueProperty);
                 if (CheckPatternSupport(ValuePattern.Pattern, UIAElement))
                 {
                     int ret = ValuePatternHelper.AppendValue(UIAElement, newText);
@@ -471,8 +470,8 @@ namespace ProdUI.Controls
                         NativeTextProds.AppendTextNative(Handle, newText);
                     }
 
-                    Logmessage = "Appended: " + newText;
-                    CreateMessage();
+                    LogText = "Appended: " + newText;
+                    LogMessage();
                 }
                 throw new ProdOperationException("This control does not support ValuePattern");
             }

@@ -4,13 +4,13 @@
 
 using System;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls.Native;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
+using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Interaction.Native;
 
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Windows
 {
     /// <summary>
     ///   Methods to work with Slider (or Track Bar) controls using the UI Automation framework
@@ -60,10 +60,10 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetValue(double value)
         {
-            Logmessage = "Value: " + value;
+            LogText = "Value: " + value;
             try
             {
-                SubscribeToEvent(RangeValuePattern.ValueProperty);
+                RegisterEvent(RangeValuePattern.ValueProperty);
                 int ret = RangeValuePatternHelper.SetValue(UIAElement, value);
 
                 if (ret == -1 && Handle != IntPtr.Zero)
@@ -94,8 +94,8 @@ namespace ProdUI.Controls
                    retVal = ProdSliderNative.GetMaximumNative(Handle);
                 }
 
-                Logmessage = "Value: " + retVal;
-                CreateMessage();
+                LogText = "Value: " + retVal;
+                LogMessage();
 
                 return retVal;
             }
@@ -117,8 +117,8 @@ namespace ProdUI.Controls
             {
                 double retVal = RangeValuePatternHelper.GetLargeChange(UIAElement);
 
-                Logmessage = "Value: " + retVal;
-                CreateMessage();
+                LogText = "Value: " + retVal;
+                LogMessage();
 
                 return retVal;
             }
@@ -145,8 +145,8 @@ namespace ProdUI.Controls
                     ProdSliderNative.GetMaximumNative(Handle);
                 }
 
-                Logmessage = "Value: " + retVal;
-                CreateMessage();
+                LogText = "Value: " + retVal;
+                LogMessage();
 
                 return retVal;
             }
@@ -173,8 +173,8 @@ namespace ProdUI.Controls
                     ProdSliderNative.GetMinimumNative(Handle);
                 }
 
-                Logmessage = "Value: " + retVal;
-                CreateMessage();
+                LogText = "Value: " + retVal;
+                LogMessage();
 
                 return retVal;
             }
@@ -196,8 +196,8 @@ namespace ProdUI.Controls
             {
                 double retVal = RangeValuePatternHelper.GetSmallChange(UIAElement);
 
-                Logmessage = "Value: " + retVal;
-                CreateMessage();
+                LogText = "Value: " + retVal;
+                LogMessage();
 
                 return retVal;
             }

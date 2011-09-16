@@ -3,15 +3,14 @@
  */
 
 using System;
+using System.Globalization;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls.Native;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
-using System.Globalization;
+using ProdUI.Interaction.UIAPatterns;
 
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Windows
 {
     /// <summary>
     ///   Methods to work with Radio Button controls using the UI Automation framework
@@ -68,8 +67,8 @@ namespace ProdUI.Controls
             {
                 bool retVal = SelectionPatternHelper.IsSelected(UIAElement);
 
-                Logmessage = retVal.ToString(CultureInfo.CurrentCulture);
-                CreateMessage();
+                LogText = retVal.ToString(CultureInfo.CurrentCulture);
+                LogMessage();
 
                 return retVal;
             }
@@ -89,11 +88,11 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void Select()
         {
-            Logmessage = "Selection verified";
+            LogText = "Selection verified";
             try
             {
                
-                SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent);
+                RegisterEvent(SelectionItemPattern.ElementSelectedEvent);
                 SelectionPatternHelper.Select(UIAElement);
             }
             catch (InvalidOperationException)

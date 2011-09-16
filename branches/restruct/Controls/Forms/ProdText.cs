@@ -4,12 +4,11 @@
 
 using System;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls.Native;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
+using ProdUI.Interaction.UIAPatterns;
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Windows
 {
     /// <summary>
     /// This handles items with ControlType.Text (labels)
@@ -56,12 +55,12 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void Clear()
         {
-            Logmessage = "Cleared";
+            LogText = "Cleared";
 
             try
             {
-                SubscribeToEvent(ValuePattern.ValueProperty);
-                if (CommonPatternHelpers.ReadOnly(UIAElement))
+                RegisterEvent(ValuePattern.ValueProperty);
+                if (CommonUIAPatternHelpers.ReadOnly(UIAElement))
                 {
                     throw new ProdOperationException("Text Control is Read Only");
                 }
@@ -104,8 +103,8 @@ namespace ProdUI.Controls
                 }
 
                 int retVal = txt.Length;
-                Logmessage = "Length: " + retVal;
-                CreateMessage();
+                LogText = "Length: " + retVal;
+                LogMessage();
 
                 return retVal;
             }
@@ -129,8 +128,8 @@ namespace ProdUI.Controls
                 ret = NativeTextProds.GetTextNative(Handle);
             }
 
-            Logmessage = "Text: " + ret;
-            CreateMessage();
+            LogText = "Text: " + ret;
+            LogMessage();
 
             return ret;
         }
@@ -143,13 +142,13 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetText(string text)
         {
-            Logmessage = "Text: " + text;
+            LogText = "Text: " + text;
 
             try
             {
-                SubscribeToEvent(ValuePattern.ValueProperty);
+                RegisterEvent(ValuePattern.ValueProperty);
 
-                if (CommonPatternHelpers.ReadOnly(UIAElement))
+                if (CommonUIAPatternHelpers.ReadOnly(UIAElement))
                 {
                     throw new ProdOperationException("Text Control is Read Only");
                 }

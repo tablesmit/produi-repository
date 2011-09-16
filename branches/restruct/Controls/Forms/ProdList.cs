@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Utility;
+using ProdUI.Interaction.UIAPatterns;
 
 /* Notes
  * Supported Patterns: 
@@ -33,7 +33,7 @@ using ProdUI.Utility;
  * ListBoxes can support non-text items
  */
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Windows
 {
     /// <summary>
     ///   Methods to work with ListBox controls using the UI Automation framework
@@ -89,9 +89,9 @@ namespace ProdUI.Controls
 
                 List<object> retVal = InternalUtilities.AutomationCollToObjectList(convRet);
 
-                Logmessage = "Items:";
+                LogText = "Items:";
                 VerboseInformation = retVal;
-                CreateMessage();
+                LogMessage();
 
                 return retVal;
             }
@@ -135,8 +135,8 @@ namespace ProdUI.Controls
             {
                 bool retVal = SelectionPatternHelper.CanSelectMultiple(UIAElement);
 
-                Logmessage = "Value " + retVal;
-                CreateMessage();
+                LogText = "Value " + retVal;
+                LogMessage();
 
                 return retVal;
             }
@@ -162,8 +162,8 @@ namespace ProdUI.Controls
                 {
                     AutomationElement[] element = SelectionPatternHelper.GetSelection(UIAElement);
                     int retVal = SelectionPatternHelper.FindIndexByItem(UIAElement, element[0].Current.Name);
-                    Logmessage = retVal.ToString(CultureInfo.CurrentCulture);
-                    CreateMessage();
+                    LogText = retVal.ToString(CultureInfo.CurrentCulture);
+                    LogMessage();
                     return retVal;
                 }
                 throw new ProdOperationException("Does not support single selection");
@@ -186,8 +186,8 @@ namespace ProdUI.Controls
             try
             {
                 AutomationElement[] retVal = SelectionPatternHelper.GetSelection(UIAElement);
-                Logmessage = "Item " + retVal[0];
-                CreateMessage();
+                LogText = "Item " + retVal[0];
+                LogMessage();
 
                 return retVal[0];
             }
@@ -204,11 +204,11 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetSelectedIndex(int index)
         {
-            Logmessage = "Index " + index;
+            LogText = "Index " + index;
 
             try
             {
-                SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent);
+                RegisterEvent(SelectionItemPattern.ElementSelectedEvent);
                 AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(UIAElement, index);
                 SelectionPatternHelper.Select(indexedItem);
             }
@@ -225,10 +225,10 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetSelectedItem(string itemText)
         {
-            Logmessage = "Item " + itemText;
+            LogText = "Item " + itemText;
             try
             {
-                SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent);
+                RegisterEvent(SelectionItemPattern.ElementSelectedEvent);
                 AutomationElement control = SelectionPatternHelper.FindItemByText(UIAElement, itemText);
                 SelectionPatternHelper.Select(control);
             }
@@ -254,11 +254,11 @@ namespace ProdUI.Controls
             }
 
 
-            Logmessage = "Index " + index;
+            LogText = "Index " + index;
 
             try
             {
-                SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
+                RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
                // AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(UIAElement, index);
                 SelectionPatternHelper.AddToSelection(UIAElement, index);
             }
@@ -280,11 +280,11 @@ namespace ProdUI.Controls
             }
 
 
-            Logmessage = "Item " + itemText;
+            LogText = "Item " + itemText;
 
             try
             {
-                SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
+                RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
                 //AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(UIAElement, itemText);
                 SelectionPatternHelper.AddToSelection(UIAElement, itemText);
             }
@@ -311,9 +311,9 @@ namespace ProdUI.Controls
                 AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(UIAElement);
                 List<object> retList = new List<object>{(selectedItems)};
 
-                Logmessage = "Index";
+                LogText = "Index";
                 VerboseInformation = retList;
-                CreateMessage();
+                LogMessage();
 
                 return retList;
             }
@@ -339,9 +339,9 @@ namespace ProdUI.Controls
                 AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(UIAElement);
                 List<object> retList = new List<object> {selectedItems};
 
-                Logmessage = "Items: ";
+                LogText = "Items: ";
                 VerboseInformation = retList;
-                CreateMessage();
+                LogMessage();
 
                 return retList;
             }
@@ -365,8 +365,8 @@ namespace ProdUI.Controls
             {
                 AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(UIAElement);
 
-                Logmessage = "Count: " + selectedItems.Length;
-                CreateMessage();
+                LogText = "Count: " + selectedItems.Length;
+                LogMessage();
 
                 return selectedItems.Length;
             }
@@ -392,12 +392,12 @@ namespace ProdUI.Controls
 
             try
             {
-                SubscribeToEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent);
+                RegisterEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent);
                 AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(UIAElement, index);
                 SelectionPatternHelper.RemoveFromSelection(itemToSelect);
 
-                Logmessage = "Index: " + index;
-                CreateMessage();
+                LogText = "Index: " + index;
+                LogMessage();
             }
             catch (ProdOperationException err)
             {
@@ -419,12 +419,12 @@ namespace ProdUI.Controls
                 }
 
 
-                SubscribeToEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent);
+                RegisterEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent);
                 AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(UIAElement, itemText);
                 SelectionPatternHelper.RemoveFromSelection(itemToSelect);
 
-                Logmessage = "Item: " + itemText;
-                CreateMessage();
+                LogText = "Item: " + itemText;
+                LogMessage();
             }
             catch (ProdOperationException err)
             {
@@ -444,8 +444,8 @@ namespace ProdUI.Controls
                     return;
                 }
 
-                Logmessage = "Select All";
-                CreateMessage();
+                LogText = "Select All";
+                LogMessage();
 
                 foreach (AutomationElement item in SelectionPatternHelper.GetListCollectionUtility(UIAElement))
                 {
@@ -483,9 +483,9 @@ namespace ProdUI.Controls
 
                 List<object> retList = new List<object> {indexes};
 
-                Logmessage = "Indexes";
+                LogText = "Indexes";
                 VerboseInformation = retList;
-                CreateMessage();
+                LogMessage();
             }
             catch (ProdOperationException err)
             {
@@ -507,9 +507,9 @@ namespace ProdUI.Controls
                 }
 
                 List<object> retList = new List<object>(items);
-                Logmessage = "Items";
+                LogText = "Items";
                 VerboseInformation = retList;
-                CreateMessage();
+                LogMessage();
             }
             catch (ProdOperationException err)
             {

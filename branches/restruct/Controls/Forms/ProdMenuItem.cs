@@ -5,11 +5,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
 using ProdUI.Exceptions;
 using ProdUI.Utility;
-using System.Globalization;
+using ProdUI.Interaction.UIAPatterns;
 
 /* Notes
  * -MenuBar-
@@ -21,7 +21,7 @@ using System.Globalization;
  * CheckItem - if menu item supports checkstate
  */
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Windows
 {
     /// <summary>
     ///   Handles the MenuItem Control Type

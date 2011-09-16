@@ -6,11 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
+using ProdUI.Controls;
+using ProdUI.Interaction.UIAPatterns;
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Windows
 {
     internal sealed class ProdDataGrid : BaseProdControl
     {
@@ -63,7 +64,7 @@ namespace ProdUI.Controls
                 {
                     int retVal = GridPatternHelper.GetColumnCount(UIAElement);
 
-                    CreateMessage();
+                    LogMessage();
 
                     return retVal;
                 }
@@ -89,7 +90,7 @@ namespace ProdUI.Controls
                 {
                     int retVal = GridPatternHelper.GetRowCount(UIAElement);
 
-                    CreateMessage();
+                    LogMessage();
 
                     return retVal;
                 }
@@ -117,7 +118,7 @@ namespace ProdUI.Controls
                 {
                     AutomationElement retVal = GridPatternHelper.GetItem(UIAElement, row, column);
 
-                    CreateMessage();
+                    LogMessage();
 
                     return retVal;
                 }
@@ -144,7 +145,7 @@ namespace ProdUI.Controls
                 {
                     int retVal = GridPatternHelper.GetColumnSpan(dataItem);
 
-                    CreateMessage();
+                    LogMessage();
 
                     return retVal;
                 }
@@ -171,7 +172,7 @@ namespace ProdUI.Controls
                 {
                     int retVal = GridPatternHelper.GetRowSpan(dataItem);
 
-                    CreateMessage();
+                    LogMessage();
 
                     return retVal;
                 }
@@ -195,16 +196,16 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SelectItem(AutomationElement dataItem)
         { 
-            Logmessage = "Item: " + dataItem.Current.AutomationId;
+            LogText = "Item: " + dataItem.Current.AutomationId;
 
             try
             {
                 if (CheckPatternSupport(SelectionItemPattern.Pattern, UIAElement))
                 {
-                    SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
+                    RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
                     SelectionPatternHelper.Select(dataItem);
                    
-                    CreateMessage();
+                    LogMessage();
                 }
                 throw new ProdOperationException("This control does not support GridPattern");
             }
@@ -229,8 +230,8 @@ namespace ProdUI.Controls
                 {
                     AutomationElement dataItem = GetItem(row, column);
 
-                    Logmessage = "Item: " + dataItem.Current.AutomationId;
-                    SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
+                    LogText = "Item: " + dataItem.Current.AutomationId;
+                    RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
 
                     SelectionPatternHelper.Select(dataItem);          
                 }
@@ -253,8 +254,8 @@ namespace ProdUI.Controls
             {
                 bool retVal = SelectionPatternHelper.CanSelectMultiple(UIAElement);
 
-                Logmessage = retVal.ToString(CultureInfo.CurrentCulture);
-                CreateMessage();
+                LogText = retVal.ToString(CultureInfo.CurrentCulture);
+                LogMessage();
 
                 return retVal;
             }
@@ -287,8 +288,8 @@ namespace ProdUI.Controls
 
                 AutomationElement dataItem = GetItem(row, column);
 
-                Logmessage = "Item: " + dataItem.Current.AutomationId;
-                SubscribeToEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent);
+                LogText = "Item: " + dataItem.Current.AutomationId;
+                RegisterEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent);
 
                 SelectionPatternHelper.RemoveFromSelection(dataItem);
             }
@@ -310,10 +311,10 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void RemoveFromSelection(AutomationElement dataItem)
         {
-            Logmessage = "Item: " + dataItem.Current.AutomationId;
+            LogText = "Item: " + dataItem.Current.AutomationId;
             try
             {
-                SubscribeToEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent);
+                RegisterEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent);
                 SelectionPatternHelper.RemoveFromSelection(dataItem);
             }
             catch (ProdOperationException err)
@@ -345,8 +346,8 @@ namespace ProdUI.Controls
 
                 AutomationElement dataItem = GetItem(row, column);
 
-                Logmessage = "Item: " + dataItem.Current.AutomationId;
-                SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
+                LogText = "Item: " + dataItem.Current.AutomationId;
+                RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
 
                 //SelectionPatternHelper.AddToSelection(dataItem);
             }
@@ -368,7 +369,7 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void AddToSelection(AutomationElement dataItem)
         {
-            Logmessage = "Item: " + dataItem.Current.AutomationId;
+            LogText = "Item: " + dataItem.Current.AutomationId;
             try
             {
                 if (!CanSelectMultiple())
@@ -377,7 +378,7 @@ namespace ProdUI.Controls
                 }
 
 
-                SubscribeToEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
+                RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
                 //SelectionPatternHelper.AddToSelection(dataItem);
             }
             catch (ProdOperationException err)
@@ -408,9 +409,9 @@ namespace ProdUI.Controls
                     {
                         retList.Add(item);
                     }
-                    Logmessage = "Column Headers";
+                    LogText = "Column Headers";
                     VerboseInformation = retList;
-                    CreateMessage();
+                    LogMessage();
 
                     return retVal;
                 }
@@ -437,9 +438,9 @@ namespace ProdUI.Controls
                     AutomationElement[] retVal = TablePatternHelper.GetRowHeaders(UIAElement);
                     List<object> retList = new List<object>(retVal);
 
-                    Logmessage = "Row Headers";
+                    LogText = "Row Headers";
                     VerboseInformation = retList;
-                    CreateMessage();
+                    LogMessage();
 
                     return retVal;
                 }
@@ -465,8 +466,8 @@ namespace ProdUI.Controls
                 {
                     RowOrColumnMajor retVal = TablePatternHelper.GetRowOrColumnMajor(UIAElement);
 
-                    Logmessage = "Row Or Column Major: " + retVal;
-                    CreateMessage();
+                    LogText = "Row Or Column Major: " + retVal;
+                    LogMessage();
 
                     return retVal;
                 }

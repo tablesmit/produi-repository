@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
+using ProdUI.Interaction.UIAPatterns;
 
 /* Notes
  * -Tree-
@@ -28,7 +28,7 @@ using ProdUI.Logging;
 
 
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Windows
 {
     /// <summary>
     ///   Methods to work with TreeView controls using the UI Automation framework
@@ -125,8 +125,8 @@ namespace ProdUI.Controls
                 AutomationElement[] element = SelectionPatternHelper.GetSelection(UIAElement);
                 int retVal = SelectionPatternHelper.FindIndexByItem(UIAElement, element[0].Current.Name);
 
-                Logmessage = retVal.ToString(CultureInfo.CurrentCulture);
-                CreateMessage();
+                LogText = retVal.ToString(CultureInfo.CurrentCulture);
+                LogMessage();
 
                 return retVal;
             }
@@ -153,8 +153,8 @@ namespace ProdUI.Controls
             {
                 AutomationElement[] retVal = SelectionPatternHelper.GetSelection(UIAElement);
 
-                Logmessage = retVal[0].Current.AutomationId;
-                CreateMessage();
+                LogText = retVal[0].Current.AutomationId;
+                LogMessage();
 
                 return retVal[0];
             }
@@ -172,11 +172,11 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SelectNode(int index)
         {
-            Logmessage = "Index: " + index;
+            LogText = "Index: " + index;
 
             try
             {
-                SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent);
+                RegisterEvent(SelectionItemPattern.ElementSelectedEvent);
                 AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(UIAElement, index);
                 SelectionPatternHelper.Select(indexedItem);
 
@@ -193,11 +193,11 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SelectNode(string itemText)
         {
-            Logmessage = "Item: " + itemText;
+            LogText = "Item: " + itemText;
 
             try
             {
-                SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent);
+                RegisterEvent(SelectionItemPattern.ElementSelectedEvent);
                 AutomationElement control = SelectionPatternHelper.FindItemByText(UIAElement, itemText);
                 SelectionPatternHelper.Select(control);
             }
@@ -213,9 +213,9 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public void SelectNode(string[] nodePath)
         {
-            Logmessage = "Node path";
+            LogText = "Node path";
             VerboseInformation = new List<object>(nodePath);
-            CreateMessage();
+            LogMessage();
 
             foreach (string item in nodePath)
             {
@@ -233,10 +233,10 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void CollapseNode(int index)
         {
-            Logmessage = "Index: " + index;
+            LogText = "Index: " + index;
             try
             {
-                SubscribeToEvent(ExpandCollapsePattern.ExpandCollapseStateProperty);
+                RegisterEvent(ExpandCollapsePattern.ExpandCollapseStateProperty);
                 SelectNode(index);
                 AutomationElement retVal = GetSelectedNode();
                 ExpandCollapseHelper.Collapse(retVal);
@@ -253,11 +253,11 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void CollapseNode(string itemText)
         {
-            Logmessage = "Item: " + itemText;
+            LogText = "Item: " + itemText;
 
             try
             {
-                SubscribeToEvent(ExpandCollapsePattern.ExpandCollapseStateProperty);
+                RegisterEvent(ExpandCollapsePattern.ExpandCollapseStateProperty);
                 SelectNode(itemText);
                 AutomationElement retVal = GetSelectedNode();
                 ExpandCollapseHelper.Collapse(retVal);
@@ -274,11 +274,11 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void ExpandNode(int index)
         {
-            Logmessage = "Index: " + index;
+            LogText = "Index: " + index;
 
             try
             {
-                SubscribeToEvent(ExpandCollapsePattern.ExpandCollapseStateProperty);
+                RegisterEvent(ExpandCollapsePattern.ExpandCollapseStateProperty);
                 SelectNode(index);
                 AutomationElement retVal = GetSelectedNode();
                 ExpandCollapseHelper.Expand(retVal);
@@ -295,11 +295,11 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void ExpandNode(string itemText)
         {
-            Logmessage = "Item: " + itemText;
+            LogText = "Item: " + itemText;
 
             try
             {
-                SubscribeToEvent(ExpandCollapsePattern.ExpandCollapseStateProperty);
+                RegisterEvent(ExpandCollapsePattern.ExpandCollapseStateProperty);
                 SelectNode(itemText);
                 AutomationElement retVal = GetSelectedNode();
                 ExpandCollapseHelper.Expand(retVal);
@@ -324,8 +324,8 @@ namespace ProdUI.Controls
             {
                 int retVal = AllNodes.Count;
 
-                Logmessage = "Count: " + retVal;
-                CreateMessage();
+                LogText = "Count: " + retVal;
+                LogMessage();
 
                 return retVal;
             }

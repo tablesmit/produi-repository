@@ -4,10 +4,9 @@
 
 using System;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls.Native;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
+using ProdUI.Interaction.UIAPatterns;
 
 /* Notes
  * Supported Patterns: 
@@ -15,7 +14,7 @@ using ProdUI.Logging;
  * (IToggleProvider) -> ToggleButton
  */
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Windows
 {
     /// <summary>
     ///   Methods to work with Button controls using the UI Automation framework
@@ -56,35 +55,10 @@ namespace ProdUI.Controls
 
         #endregion
 
-        public string Text
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
 
         /// <summary>
         /// Performs a "Click" on the current ProdButton
         /// </summary>
-        /// <example>
-        ///   <code>
-        /// /* Assuming "Calculator" is running, this will press the "7" button */
-        /// ProdSession session = new ProdSession("test.ses");
-        /// ProdWindow window = new ProdWindow("Calculator", session.Loggers);
-        /// ProdButton ctrl = new ProdButton(window,"7");
-        /// ctrl.Click();
-        /// or
-        /// Statically:
-        /// ProdSession session = new ProdSession("test.ses");
-        /// ProdWindow window = new ProdWindow("Calculator", session.Loggers);
-        /// Prod.ButtonClick(window, "7");
-        ///   </code>
-        ///   </example>
-        ///   
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void Click()
@@ -95,11 +69,12 @@ namespace ProdUI.Controls
             {
                 /* subscribe to any invokes that happen to this control */
                 RegisterEvent(InvokePattern.InvokedEvent);
-                int ret = InvokePatternHelper.Invoke(UIAElement);
-                if (ret == -1 && Handle != IntPtr.Zero)
-                {
-                    ProdButtonNative.Click(Handle);
-                }
+                InvokePatternHelper.Invoke(UIAElement);
+            }
+            catch (InvalidOperationException)
+            {
+                if (UIAElement.Current.NativeWindowHandle == 0) return;
+                ProdUI.Interaction.Native.ProdButtonNative.Click((IntPtr)UIAElement.Current.NativeWindowHandle);
             }
             catch (ProdOperationException err)
             {

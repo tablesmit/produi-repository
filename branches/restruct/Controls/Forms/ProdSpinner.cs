@@ -4,9 +4,9 @@
 
 using System;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls.Native;
 using ProdUI.Exceptions;
+using ProdUI.Interaction.Native;
+using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 
 /* Notes
@@ -22,7 +22,7 @@ using ProdUI.Logging;
  * GetRadix (supports base 10 and 16)
  */
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Windows
 {
     /// <summary>
     ///   Methods to work with Spinner (or numeric up/down) controls using the UI Automation framework
@@ -70,10 +70,10 @@ namespace ProdUI.Controls
         /// <param name = "value">The value.</param>
         public void SetValue(double value)
         {
-            Logmessage = "Value: " + value;
+            LogText = "Value: " + value;
             try
             {
-                SubscribeToEvent(RangeValuePattern.ValueProperty);
+                RegisterEvent(RangeValuePattern.ValueProperty);
                 int ret = RangeValuePatternHelper.SetValue(UIAElement, value);
 
                 if (ret == -1 && Handle != IntPtr.Zero)
@@ -103,8 +103,8 @@ namespace ProdUI.Controls
                     ProdSliderNative.GetValueNative(Handle);
                 }
 
-                Logmessage = "Value: " + retVal;
-                CreateMessage();
+                LogText = "Value: " + retVal;
+                LogMessage();
 
                 return retVal;
             }
@@ -130,8 +130,8 @@ namespace ProdUI.Controls
                     ProdSpinnerNative.GetMaximumNative(Handle);
                 }
 
-                Logmessage = "Value: " + retVal;
-                CreateMessage();
+                LogText = "Value: " + retVal;
+                LogMessage();
 
                 return retVal;
             }
@@ -157,8 +157,8 @@ namespace ProdUI.Controls
                     ProdSpinnerNative.GetMinimumNative(Handle);
                 }
 
-                Logmessage = "Value: " + retVal;
-                CreateMessage();
+                LogText = "Value: " + retVal;
+                LogMessage();
 
                 return retVal;
             }

@@ -4,17 +4,16 @@
 
 using System;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls.Native;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
+using ProdUI.Interaction.UIAPatterns;
 
 /* Notes
  * Supported Patterns: 
  * IToggleProvider
  */
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Windows
 {
     /// <summary>
     ///   Methods to work with CheckBox controls using the UI Automation framework
@@ -73,8 +72,8 @@ namespace ProdUI.Controls
                     /* Otherwise, retry with native method */
                     ret = ProdCheckBoxNative.GetCheckStateNative((IntPtr)UIAElement.Current.NativeWindowHandle);
                 }
-                Logmessage = "CheckState " + ret;
-                CreateMessage();
+                LogText = "CheckState " + ret;
+                LogMessage();
 
                 return ret;
             }
@@ -92,11 +91,11 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetCheckState(ToggleState checkstate)
         {
-            Logmessage = "Check change verified";           
+            LogText = "Check change verified";           
 
             try
             {
-                SubscribeToEvent(TogglePatternIdentifiers.ToggleStateProperty);
+                RegisterEvent(TogglePatternIdentifiers.ToggleStateProperty);
                 int ret = TogglePatternHelper.SetToggleState(UIAElement, checkstate);
                 if (ret == -1 && Handle != IntPtr.Zero)
                 {
@@ -117,11 +116,11 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void ToggleCheckState()
         {
-            Logmessage = "Toggle verified";
+            LogText = "Toggle verified";
 
             try
             {
-                SubscribeToEvent(TogglePatternIdentifiers.ToggleStateProperty);
+                RegisterEvent(TogglePatternIdentifiers.ToggleStateProperty);
                 TogglePatternHelper.Toggle(UIAElement);
             }
             catch (ProdVerificationException err)

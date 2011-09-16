@@ -6,7 +6,7 @@ using System;
 
 //TODO: Not Implemented
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Windows
 {
     internal sealed class ProdCalendar : BaseProdControl
     {

@@ -12,18 +12,18 @@ using ProdUI.Utility;
 using ProdUI.Verification;
 
 [assembly: InternalsVisibleTo("ProdUITests")]
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Windows
 {
-
 
     /// <summary>
     ///   Provides a base for all ProdUI elements
     /// </summary>
     public class BaseProdControl
     {
-
+        internal bool EventVerified;
         internal ProdWindow ParentWindow;
         internal AutomationElement UIAElement;
+        internal List<AutomationProperty> SupportedProperties;
         protected List<object> VerboseInformation;
         protected string LogText;
 
@@ -32,6 +32,7 @@ namespace ProdUI.Controls
         /// it is set upon event confirm and cleared after handler has been removed
         /// </summary>
         internal bool eventTriggered;
+
 
         #region Constructors
 
@@ -61,7 +62,12 @@ namespace ProdUI.Controls
             }
 
             ParentWindow = prodWindow;
+
             VerboseInformation = new List<object>();
+
+            AutomationProperty[] supported = UIAElement.GetSupportedProperties();
+            SupportedProperties = new List<AutomationProperty>(supported);
+
         }
 
         /// <summary>
@@ -82,6 +88,8 @@ namespace ProdUI.Controls
                 UIAElement = tree.FindElement(treePosition);
                 ParentWindow = prodWindow;
                 VerboseInformation = new List<object>();
+                AutomationProperty[] supported = UIAElement.GetSupportedProperties();
+                SupportedProperties = new List<AutomationProperty>(supported);
             }
             catch (ElementNotAvailableException err)
             {
@@ -101,6 +109,8 @@ namespace ProdUI.Controls
                 UIAElement = AutomationElement.FromHandle(controlHandle);
                 ParentWindow = prodWindow;
                 VerboseInformation = new List<object>();
+                AutomationProperty[] supported = UIAElement.GetSupportedProperties();
+                SupportedProperties = new List<AutomationProperty>(supported);
             }
             catch (ElementNotAvailableException err)
             {
@@ -110,45 +120,82 @@ namespace ProdUI.Controls
 
         #endregion
 
-        public void GetProperty()
+        /// <summary>
+        /// specifies whether the user interface (UI) item referenced by the AutomationElement is enabled
+        /// </summary>
+        public bool IsEnabled
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                return (bool)UIAElement.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty);
+            }
         }
 
         public void SetFocus()
         {
-            throw new System.NotImplementedException();
+            if (UIAElement != null)
+                UIAElement.SetFocus();
         }
 
-        public void WaitForControlEnabled()
+        public void WaitForControlEnabled(int waitSeconds = -1)
         {
-            throw new System.NotImplementedException();
+            int ctr = 0;
+            int limit = waitSeconds * 1000;
+
+            while (ctr <= limit)
+            {
+                if ((bool)UIAElement.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty)) { return; }
+                ctr += 1000;
+            }
+
+            throw new ProdOperationException("Timer expired");
         }
 
-        public void WaitForControlExist()
+        internal object GetUIAPropertyValue(AutomationProperty property)
         {
-            throw new System.NotImplementedException();
+            if (SupportedProperties.Contains(property)) return 0;
+
+            return UIAElement.GetCurrentPropertyValue(property);
+
         }
 
-        public void SetProperty()
-        {
-            throw new System.NotImplementedException();
-        }
+        #region Events
 
+        /// <summary>
+        /// Registers an action event event.
+        /// </summary>
+        /// <param name="eventType">Type of the event.</param>
         internal void RegisterEvent(AutomationEvent eventType)
         {
-            EventRegistration eventRegistration = new EventRegistration(UIAElement, eventType);
+            AutomationEventVerifier.Register(new EventRegistrationMessage(this, eventType));
         }
 
+        /// <summary>
+        /// Registers a property change event.
+        /// </summary>
+        /// <param name="property">The property to monitor.</param>
         internal void RegisterEvent(AutomationProperty property)
         {
-            EventRegistration eventRegistration = new EventRegistration(UIAElement, property);
+            /* create message to pass */
+            AutomationEventVerifier.Register(new EventRegistrationMessage(this, property));
         }
+
+        /// <summary>
+        /// Receives the event notification message.
+        /// </summary>
+        /// <param name="eventTriggered">if set to <c>true</c> event triggered.</param>
+        internal void ReceiveEventNotification(bool eventTriggered)
+        {
+            EventVerified = eventTriggered;
+        }
+
+        #endregion
+
 
         /// <summary>
         /// Creates the proper LogMessage.
         /// </summary>
-        private void CreateMessage()
+        protected void LogMessage()
         {
             LogMessage message;
             if (VerboseInformation.Count == 0)
@@ -159,6 +206,10 @@ namespace ProdUI.Controls
             {
                 message = new LogMessage(LogText, VerboseInformation);
             }
+
+            ProdLogger.Log(message, ParentWindow.AttachedLoggers);
         }
+
+
     }
 }

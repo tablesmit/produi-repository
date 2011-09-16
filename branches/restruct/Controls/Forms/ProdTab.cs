@@ -6,9 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Automation;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls.Native;
 using ProdUI.Exceptions;
+using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 using ProdUI.Utility;
 
@@ -24,7 +23,7 @@ using ProdUI.Utility;
  * determine if tab is selected (?) This might be useless....
  */
 
-namespace ProdUI.Controls
+namespace ProdUI.Controls.Windows
 {
     /// <summary>
     ///   Methods to work with Tab controls using the UI Automation framework
@@ -79,8 +78,8 @@ namespace ProdUI.Controls
                 AutomationElementCollection aec = SelectionPatternHelper.GetListCollectionUtility(UIAElement);
                 int retVal = aec.Count;
                 
-                Logmessage = "Length: " + retVal;
-                CreateMessage();
+                LogText = "Length: " + retVal;
+                LogMessage();
 
                 return retVal;
             }
@@ -103,9 +102,9 @@ namespace ProdUI.Controls
                 AutomationElementCollection aec = SelectionPatternHelper.GetListItems(UIAElement);
                 List<object> retList = InternalUtilities.AutomationCollToObjectList(aec);
 
-                Logmessage = "Items: ";
+                LogText = "Items: ";
                 VerboseInformation = retList;
-                CreateMessage();
+                LogMessage();
 
                 return InternalUtilities.AutomationCollToObjectList(aec);
             }
@@ -131,8 +130,8 @@ namespace ProdUI.Controls
             {
                 bool ret = SelectionPatternHelper.IsSelected(SelectionPatternHelper.FindItemByIndex(UIAElement, index));
 
-                Logmessage = ret.ToString(CultureInfo.CurrentCulture);
-                CreateMessage();
+                LogText = ret.ToString(CultureInfo.CurrentCulture);
+                LogMessage();
 
                 return ret;
             }
@@ -157,8 +156,8 @@ namespace ProdUI.Controls
             {
                 bool ret = SelectionPatternHelper.IsSelected(SelectionPatternHelper.FindItemByText(UIAElement, itemText));
 
-                Logmessage = ret.ToString(CultureInfo.CurrentCulture);
-                CreateMessage();
+                LogText = ret.ToString(CultureInfo.CurrentCulture);
+                LogMessage();
 
                 return ret;
             }
@@ -186,8 +185,8 @@ namespace ProdUI.Controls
                     retVal = ProdTabNative.GetTabCount(Handle);
                 }
 
-                Logmessage = retVal.ToString(CultureInfo.CurrentCulture);
-                CreateMessage();
+                LogText = retVal.ToString(CultureInfo.CurrentCulture);
+                LogMessage();
 
                 return retVal;
             }
@@ -210,8 +209,8 @@ namespace ProdUI.Controls
             {
                 AutomationElement[] retVal = SelectionPatternHelper.GetSelection(UIAElement);
 
-                Logmessage = "Tab: " + retVal[0].Current.AutomationId;
-                CreateMessage();
+                LogText = "Tab: " + retVal[0].Current.AutomationId;
+                LogMessage();
 
                 return retVal[0];
             }
@@ -230,11 +229,11 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SelectTab(int index)
         {
-            Logmessage = "Index: " + index;
+            LogText = "Index: " + index;
 
             try
             {
-                SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent);
+                RegisterEvent(SelectionItemPattern.ElementSelectedEvent);
                 AutomationElementCollection aec = SelectionPatternHelper.GetListItems(UIAElement);
 
                 /* When using the GetListItems() methods, item index 0 is the tab control itself, so add on to get to correct tabitem */
@@ -258,11 +257,11 @@ namespace ProdUI.Controls
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SelectTab(string itemText)
         {
-            Logmessage = "Item: " + itemText;
+            LogText = "Item: " + itemText;
 
             try
             {
-                SubscribeToEvent(SelectionItemPattern.ElementSelectedEvent);
+                RegisterEvent(SelectionItemPattern.ElementSelectedEvent);
                 SelectionPatternHelper.Select(SelectionPatternHelper.FindItemByText(UIAElement, itemText));
             }
             catch (ProdOperationException err)
