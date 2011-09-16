@@ -5,7 +5,7 @@
 using System;
 using System.ComponentModel;
 using ProdUI.Exceptions;
-using ProdUI.Session;
+using ProdUI.Configuration;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
@@ -18,7 +18,7 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///   Uses SendMessage to click the button
         /// </summary>
-        /// <param name = "windowHandle">Handle to the button to send message to</param>
+        /// <param name = "windowHandle">NativeWindowHandle to the button to send message to</param>
         internal static void Click(IntPtr windowHandle)
         {
             try

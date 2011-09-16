@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Text;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.Native;
-using ProdUI.Session;
+using ProdUI.Configuration;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
@@ -17,7 +17,7 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///   Close the specified window using the supplied window handle
         /// </summary>
-        /// <param name = "windowHandle">Handle to the target window</param>
+        /// <param name = "windowHandle">NativeWindowHandle to the target window</param>
         /// <returns>
         ///   If the function succeeds, the return value is true, otherwise, false
         /// </returns>
@@ -25,11 +25,11 @@ namespace ProdUI.Interaction.Native
         {
             if ((int) windowHandle == 0)
             {
-                throw new ProdOperationException("Handle not found.");
+                throw new ProdOperationException("NativeWindowHandle not found.");
             }
             try
             {
-                NativeMethods.SendMessage(windowHandle, (int) WindowMessage.WM_CLOSE, 0, 0);
+                NativeMethods.SendMessage(windowHandle, (int) WindowMessages.WM_CLOSE, 0, 0);
 
                 const string logmessage = "CloseWindow using SendMessage";
 
@@ -54,12 +54,12 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///   Maximizes specified window
         /// </summary>
-        /// <param name = "windowHandle">Handle to the target window</param>
+        /// <param name = "windowHandle">NativeWindowHandle to the target window</param>
         internal static void MaximizeWindow(IntPtr windowHandle)
         {
             if ((int) windowHandle == 0)
             {
-                throw new ProdOperationException("Handle not found.");
+                throw new ProdOperationException("NativeWindowHandle not found.");
             }
             try
             {
@@ -81,13 +81,13 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///   Minimizes specified window
         /// </summary>
-        /// <param name = "windowHandle">Handle to the target window</param>
+        /// <param name = "windowHandle">NativeWindowHandle to the target window</param>
         /// <exception cref = "ProdOperationException"></exception>
         internal static void MinimizeWindow(IntPtr windowHandle)
         {
             if ((int) windowHandle == 0)
             {
-                throw new ProdOperationException("Handle not found.");
+                throw new ProdOperationException("NativeWindowHandle not found.");
             }
             NativeMethods.ShowWindowAsync(windowHandle, (int) ShowWindowCommand.SW_SHOWMINNOACTIVE);
 
@@ -100,12 +100,12 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///   Shows a window in its "normal" state.
         /// </summary>
-        /// <param name = "windowHandle">Handle to the target window</param>
+        /// <param name = "windowHandle">NativeWindowHandle to the target window</param>
         internal static void ShowWindow(IntPtr windowHandle)
         {
             if ((int) windowHandle == 0)
             {
-                throw new ProdOperationException("Handle not found.");
+                throw new ProdOperationException("NativeWindowHandle not found.");
             }
             NativeMethods.ShowWindowAsync(windowHandle, (int) ShowWindowCommand.SW_SHOWDEFAULT);
 
@@ -118,7 +118,7 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///   Retrieves the specified windows title
         /// </summary>
-        /// <param name = "windowHandle">Handle to the target window</param>
+        /// <param name = "windowHandle">NativeWindowHandle to the target window</param>
         /// <returns>Title of the specified window, null if failure</returns>
         internal static string GetWindowTitle(IntPtr windowHandle)
         {
@@ -127,7 +127,7 @@ namespace ProdUI.Interaction.Native
                 StringBuilder sb = new StringBuilder();
                 if (NativeMethods.GetWindowText(windowHandle, sb, sb.Capacity) == 0)
                 {
-                    throw new ProdOperationException("Handle not found.");
+                    throw new ProdOperationException("NativeWindowHandle not found.");
                 }
 
                 const string logmessage = "GetWindowTitle using SendMessage";
@@ -146,7 +146,7 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///   sets the title of the specified window
         /// </summary>
-        /// <param name = "windowHandle">Handle to the window</param>
+        /// <param name = "windowHandle">NativeWindowHandle to the window</param>
         /// <param name = "newTitle">Text to be used as the new title</param>
         internal static void SetWindowTitle(IntPtr windowHandle, string newTitle)
         {
@@ -154,7 +154,7 @@ namespace ProdUI.Interaction.Native
             {
                 if ((int) windowHandle == 0)
                 {
-                    throw new ProdOperationException("Handle not found.");
+                    throw new ProdOperationException("NativeWindowHandle not found.");
                 }
                 NativeMethods.SetWindowText(windowHandle, newTitle);
 

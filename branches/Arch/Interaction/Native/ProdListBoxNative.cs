@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Text;
 using ProdUI.Exceptions;
-using ProdUI.Session;
+using ProdUI.Configuration;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
@@ -23,7 +23,7 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///   Uses SendMessage to get # of items in ListBox
         /// </summary>
-        /// <param name = "windowHandle">Handle to the control</param>
+        /// <param name = "windowHandle">NativeWindowHandle to the control</param>
         /// <returns>Number of items in the list box</returns>
         internal static int GetItemCountNative(IntPtr windowHandle)
         {
@@ -70,7 +70,7 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///   Uses SendMessage to get a collection of all items in a ListBox
         /// </summary>
-        /// <param name = "windowHandle">Handle to ListBox</param>
+        /// <param name = "windowHandle">NativeWindowHandle to ListBox</param>
         /// <returns>A string collection containing each item in the ListBox</returns>
         internal static Collection<object> GetItemsNative(IntPtr windowHandle)
         {

@@ -10,6 +10,7 @@ using System.Windows.Automation;
 using ProdUI.Exceptions;
 using ProdUI.Utility;
 using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Controls.Static;
 
 /* Notes
  * -MenuBar-
@@ -90,7 +91,7 @@ namespace ProdUI.Controls.Windows
         {         
             string cleaned = InternalUtilities.ConvertStringToSendKey(keyCombonation);
             ParentWindow.Activate();
-            Prod.SendKeysTo((IntPtr)ParentWindow.Window.Current.NativeWindowHandle,cleaned);
+            Prod.SendKeysTo((IntPtr)ParentWindow.UIAElement.Current.NativeWindowHandle,cleaned);
 
         }
 
@@ -105,7 +106,7 @@ namespace ProdUI.Controls.Windows
 
             string cleaned = InternalUtilities.ConvertStringToSendKey(control.Current.AcceleratorKey);
             ParentWindow.Activate();
-            Prod.SendKeysTo((IntPtr)ParentWindow.Window.Current.NativeWindowHandle, cleaned);
+            Prod.SendKeysTo((IntPtr)ParentWindow.UIAElement.Current.NativeWindowHandle, cleaned);
 
         }
 
@@ -119,7 +120,7 @@ namespace ProdUI.Controls.Windows
             }
 
             ParentWindow.Activate();
-            Prod.SendKeysTo((IntPtr)ParentWindow.Window.Current.NativeWindowHandle, control.Current.AccessKey);
+            Prod.SendKeysTo((IntPtr)ParentWindow.UIAElement.Current.NativeWindowHandle, control.Current.AccessKey);
         }
 
 

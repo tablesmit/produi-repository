@@ -7,6 +7,7 @@ using System.Windows.Automation;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Interaction.Native;
 
 /* Notes
  * Supported Patterns: 
@@ -67,7 +68,7 @@ namespace ProdUI.Controls.Windows
             try
             {
                 ToggleState ret = TogglePatternHelper.GetToggleState(UIAElement);
-                if (ret == ToggleState.Indeterminate && Handle != IntPtr.Zero)
+                if (ret == ToggleState.Indeterminate && NativeWindowHandle != IntPtr.Zero)
                 {
                     /* Otherwise, retry with native method */
                     ret = ProdCheckBoxNative.GetCheckStateNative((IntPtr)UIAElement.Current.NativeWindowHandle);
@@ -79,7 +80,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -97,14 +97,14 @@ namespace ProdUI.Controls.Windows
             {
                 RegisterEvent(TogglePatternIdentifiers.ToggleStateProperty);
                 int ret = TogglePatternHelper.SetToggleState(UIAElement, checkstate);
-                if (ret == -1 && Handle != IntPtr.Zero)
+                if (ret == -1 && NativeWindowHandle != IntPtr.Zero)
                 {
-                    ProdCheckBoxNative.SetCheckStateNative(Handle, checkstate);
+                    ProdCheckBoxNative.SetCheckStateNative(NativeWindowHandle, checkstate);
                 }
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
             }
         }
 
@@ -125,11 +125,11 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdVerificationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
             }
         }
     }

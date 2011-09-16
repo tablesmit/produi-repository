@@ -8,7 +8,7 @@ using System.Globalization;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 
-namespace ProdUI.Session
+namespace ProdUI.Configuration
 {
     /// <summary>
     /// Provided to allow event monitoring and logging of any statically invoked Prods
@@ -89,7 +89,8 @@ namespace ProdUI.Session
         {
             if (_loggers == null){ throw new ProdOperationException("A static session has not been loaded"); }
 
-            ProdLogger.Log(new LogMessage(message, messageLevel), _loggers);
+            //TODO Static Logging 
+            //ProdLogger.Log(new LogMessage(message, messageLevel), _loggers);
         }
 
         /// <summary>
@@ -104,11 +105,13 @@ namespace ProdUI.Session
 
             if (additional.Count == 0)
             {
-                ProdLogger.Log(new LogMessage(message),_loggers);
+                //TODO Static Logging
+                //ProdLogger.Log(new LogMessage(message),_loggers);
             }
             else
             {
-                ProdLogger.Log(new LogMessage(message, additional, messageLevel),_loggers);
+                //TODO Static Logging
+                //ProdLogger.Log(new LogMessage(message, additional, messageLevel),_loggers);
             }
 
         }

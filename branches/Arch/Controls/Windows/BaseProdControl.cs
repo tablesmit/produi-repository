@@ -24,15 +24,12 @@ namespace ProdUI.Controls.Windows
         internal ProdWindow ParentWindow;
         internal AutomationElement UIAElement;
         internal List<AutomationProperty> SupportedProperties;
+        internal LogController sessionLoggers;
+        internal IntPtr NativeWindowHandle;
+
         protected List<object> VerboseInformation;
         protected string LogText;
-
-        /// <summary>
-        /// This variable is here pretty much for unit testing.
-        /// it is set upon event confirm and cleared after handler has been removed
-        /// </summary>
-        internal bool eventTriggered;
-
+        
 
         #region Constructors
 
@@ -50,23 +47,30 @@ namespace ProdUI.Controls.Windows
             {
                 throw new ProdOperationException("ProdWindow cannot be null");
             }
-            Condition cond = new PropertyCondition(AutomationElement.AutomationIdProperty, automationId);
-            UIAElement = prodWindow.Window.FindFirst(TreeScope.Descendants, cond);
 
-            /* then we'll try the name...who knows? */
-            if (UIAElement == null)
+            try
             {
-                /* try the name */
-                Condition condName = new PropertyCondition(AutomationElement.NameProperty, automationId, PropertyConditionFlags.IgnoreCase);
-                UIAElement = prodWindow.Window.FindFirst(TreeScope.Descendants, condName);
+                /* get the element using automationID*/
+                Condition cond = new PropertyCondition(AutomationElement.AutomationIdProperty, automationId);
+                UIAElement = prodWindow.UIAElement.FindFirst(TreeScope.Descendants, cond);
+
+                /* then we'll try the name...who knows? */
+                if (UIAElement == null)
+                {
+                    /* try the name */
+                    Condition condName = new PropertyCondition(AutomationElement.NameProperty, automationId, PropertyConditionFlags.IgnoreCase);
+                    UIAElement = prodWindow.UIAElement.FindFirst(TreeScope.Descendants, condName);
+                }
+
+                ParentWindow = prodWindow;
+                sessionLoggers = ParentWindow.AttachedSession.logController;
+                GetSupportedProperties();
+                NativeWindowHandle = (IntPtr)UIAElement.Current.NativeWindowHandle;
             }
-
-            ParentWindow = prodWindow;
-
-            VerboseInformation = new List<object>();
-
-            AutomationProperty[] supported = UIAElement.GetSupportedProperties();
-            SupportedProperties = new List<AutomationProperty>(supported);
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
 
         }
 
@@ -84,12 +88,12 @@ namespace ProdUI.Controls.Windows
 
             try
             {
-                ControlTree tree = new ControlTree((IntPtr)prodWindow.Window.Current.NativeWindowHandle);
+                ControlTree tree = new ControlTree((IntPtr)prodWindow.UIAElement.Current.NativeWindowHandle);
                 UIAElement = tree.FindElement(treePosition);
                 ParentWindow = prodWindow;
-                VerboseInformation = new List<object>();
-                AutomationProperty[] supported = UIAElement.GetSupportedProperties();
-                SupportedProperties = new List<AutomationProperty>(supported);
+                sessionLoggers = ParentWindow.AttachedSession.logController;
+                GetSupportedProperties();
+                NativeWindowHandle = (IntPtr)UIAElement.Current.NativeWindowHandle;
             }
             catch (ElementNotAvailableException err)
             {
@@ -108,14 +112,19 @@ namespace ProdUI.Controls.Windows
             {
                 UIAElement = AutomationElement.FromHandle(controlHandle);
                 ParentWindow = prodWindow;
-                VerboseInformation = new List<object>();
-                AutomationProperty[] supported = UIAElement.GetSupportedProperties();
-                SupportedProperties = new List<AutomationProperty>(supported);
+                sessionLoggers = ParentWindow.AttachedSession.logController;
+                GetSupportedProperties();
+                NativeWindowHandle = (IntPtr)UIAElement.Current.NativeWindowHandle;
             }
             catch (ElementNotAvailableException err)
             {
                 throw new ProdOperationException(err.Message, err);
             }
+        }
+
+        private void GetSupportedProperties()
+        {
+            SupportedProperties = new List<AutomationProperty>(UIAElement.GetSupportedProperties());
         }
 
         #endregion
@@ -193,7 +202,7 @@ namespace ProdUI.Controls.Windows
 
 
         /// <summary>
-        /// Creates the proper LogMessage.
+        /// Creates and sends the proper LogMessage.
         /// </summary>
         protected void LogMessage()
         {
@@ -204,10 +213,12 @@ namespace ProdUI.Controls.Windows
             }
             else
             {
+                VerboseInformation = new List<object>();
                 message = new LogMessage(LogText, VerboseInformation);
             }
 
-            ProdLogger.Log(message, ParentWindow.AttachedLoggers);
+            sessionLoggers.ReceiveLogMessage(message);
+
         }
 
 

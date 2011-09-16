@@ -10,6 +10,7 @@ using ProdUI.Exceptions;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 using ProdUI.Utility;
+using ProdUI.Interaction.Native;
 
 /* Notes
  * Supported Patterns: 
@@ -110,7 +111,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -137,7 +137,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -163,7 +162,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -182,7 +180,7 @@ namespace ProdUI.Controls.Windows
 
                 if (retVal == -1)
                 {
-                    retVal = ProdTabNative.GetTabCount(Handle);
+                    retVal = ProdTabNative.GetTabCount(NativeWindowHandle);
                 }
 
                 LogText = retVal.ToString(CultureInfo.CurrentCulture);
@@ -192,7 +190,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -216,7 +213,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -244,7 +240,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -266,7 +261,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }

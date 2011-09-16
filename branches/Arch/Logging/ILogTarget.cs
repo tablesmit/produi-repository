@@ -3,7 +3,7 @@
  */
 
 using System.Collections.Generic;
-using ProdUI.Session;
+using ProdUI.Configuration;
 
 namespace ProdUI.Logging
 {

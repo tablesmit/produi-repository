@@ -7,6 +7,7 @@ using System.Windows.Automation;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Interaction.Native;
 
 namespace ProdUI.Controls.Windows
 {
@@ -50,6 +51,16 @@ namespace ProdUI.Controls.Windows
 
         #endregion
 
+
+        public bool ReadOnly 
+        { 
+            get
+            {
+                TextPattern tp = (TextPattern)UIAElement.GetCurrentPattern(TextPattern.Pattern);
+                return (bool)tp.DocumentRange.GetAttributeValue(TextPattern.IsReadOnlyAttribute);
+            }
+        }
+
         /// <summary>Set label text to an empty string</summary>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
@@ -60,7 +71,7 @@ namespace ProdUI.Controls.Windows
             try
             {
                 RegisterEvent(ValuePattern.ValueProperty);
-                if (CommonUIAPatternHelpers.ReadOnly(UIAElement))
+                if (ReadOnly)
                 {
                     throw new ProdOperationException("Text Control is Read Only");
                 }
@@ -71,9 +82,9 @@ namespace ProdUI.Controls.Windows
                 }
 
 
-                if (Handle != IntPtr.Zero)
+                if (NativeWindowHandle != IntPtr.Zero)
                 {
-                    NativeTextProds.ClearTextNative(Handle);
+                    NativeTextProds.ClearTextNative(NativeWindowHandle);
                     return;
                 }
 
@@ -82,7 +93,7 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
             }
         }
 
@@ -97,9 +108,9 @@ namespace ProdUI.Controls.Windows
             try
             {
                 string txt = GetText();
-                if (txt != null && Handle != IntPtr.Zero)
+                if (txt != null && NativeWindowHandle != IntPtr.Zero)
                 {
-                    txt = NativeTextProds.GetTextNative(Handle);
+                    txt = NativeTextProds.GetTextNative(NativeWindowHandle);
                 }
 
                 int retVal = txt.Length;
@@ -110,7 +121,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -125,7 +135,7 @@ namespace ProdUI.Controls.Windows
 
             if (ret == null && UIAElement.Current.NativeWindowHandle != 0)
             {
-                ret = NativeTextProds.GetTextNative(Handle);
+                ret = NativeTextProds.GetTextNative(NativeWindowHandle);
             }
 
             LogText = "Text: " + ret;
@@ -148,7 +158,7 @@ namespace ProdUI.Controls.Windows
             {
                 RegisterEvent(ValuePattern.ValueProperty);
 
-                if (CommonUIAPatternHelpers.ReadOnly(UIAElement))
+                if (ReadOnly)
                 {
                     throw new ProdOperationException("Text Control is Read Only");
                 }
@@ -162,7 +172,7 @@ namespace ProdUI.Controls.Windows
                 /* If control has a handle, use native method */
                 if (UIAElement.Current.NativeWindowHandle != 0)
                 {
-                    if (NativeTextProds.SetTextNative(Handle, text))
+                    if (NativeTextProds.SetTextNative(NativeWindowHandle, text))
                     {
                         return;
                     }
@@ -175,7 +185,7 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
             }
         }
     }

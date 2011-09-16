@@ -10,6 +10,7 @@ using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Utility;
 using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Interaction.Native;
 
 /* Notes
  * --ListBox Portion--
@@ -96,9 +97,9 @@ namespace ProdUI.Controls.Windows
             {
                 AutomationElementCollection aec = SelectionPatternHelper.GetListCollectionUtility(UIAElement);
                 int retVal = aec.Count;
-                if (retVal == -1 && Handle != IntPtr.Zero)
+                if (retVal == -1 && NativeWindowHandle != IntPtr.Zero)
                 {
-                    ProdComboBoxNative.GetItemCountNative(Handle);
+                    ProdComboBoxNative.GetItemCountNative(NativeWindowHandle);
                 }
                 LogText = "Count: " + retVal;
                 LogMessage();
@@ -107,7 +108,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -134,7 +134,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 return null;
             }
         }
@@ -159,7 +158,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 return -1;
             }
         }
@@ -177,16 +175,16 @@ namespace ProdUI.Controls.Windows
                 LogText = "Index " + index;
                 RegisterEvent(SelectionItemPattern.ElementSelectedEvent);
                 AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(UIAElement, index);
-                SelectionPatternHelper.Select(indexedItem);               
+                SelectionPatternHelper.Select(indexedItem);
             }
             catch (InvalidOperationException)
             {
                 /* Call native function */
-                ProdComboBoxNative.SelectItemNative(Handle, index);
+                ProdComboBoxNative.SelectItemNative(NativeWindowHandle, index);
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
             }
         }
 
@@ -208,11 +206,11 @@ namespace ProdUI.Controls.Windows
             catch (InvalidOperationException)
             {
                 /* Call native function */
-                ProdComboBoxNative.SelectItemNative(Handle, itemText);
+                ProdComboBoxNative.SelectItemNative(NativeWindowHandle, itemText);
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
             }
         }
 
@@ -237,8 +235,7 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
-                return false;
+                throw;
             }
         }
 
@@ -263,8 +260,7 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
-                return false;
+                throw;
             }
         }
 
@@ -282,9 +278,9 @@ namespace ProdUI.Controls.Windows
             {
                 AutomationElementCollection retVal = SelectionPatternHelper.GetListItems(UIAElement);
 
-                if (retVal == null && Handle != IntPtr.Zero)
+                if (retVal == null && NativeWindowHandle != IntPtr.Zero)
                 {
-                    return ProdComboBoxNative.GetItemsNative(Handle);
+                    return ProdComboBoxNative.GetItemsNative(NativeWindowHandle);
                 }
 
                 List<object> retArr = InternalUtilities.AutomationCollToObjectList(retVal);
@@ -296,8 +292,7 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
-                return null;
+                throw;
             }
         }
 
@@ -320,13 +315,11 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                if (CheckPatternSupport(ValuePattern.Pattern, UIAElement))
-                {
                     string retVal = ValuePatternHelper.GetValue(UIAElement);
 
-                    if (retVal == null && Handle != IntPtr.Zero)
+                    if (retVal == null && NativeWindowHandle != IntPtr.Zero)
                     {
-                        retVal = NativeTextProds.GetTextNative(Handle);
+                        retVal = NativeTextProds.GetTextNative(NativeWindowHandle);
                     }
                     if (retVal != null)
                     {
@@ -337,13 +330,11 @@ namespace ProdUI.Controls.Windows
 
                         return len;
                     }
-                }
-                throw new ProdOperationException("This control does not support ValuePattern");
+                    return -1;
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
-                return -1;
+                throw;
             }
         }
 
@@ -362,26 +353,21 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                if (CheckPatternSupport(ValuePattern.Pattern, UIAElement))
-                {
                     string retVal = ValuePatternHelper.GetValue(UIAElement);
 
-                    if (retVal == null && Handle != IntPtr.Zero)
+                    if (retVal == null && NativeWindowHandle != IntPtr.Zero)
                     {
-                        return NativeTextProds.GetTextNative(Handle);
+                        return NativeTextProds.GetTextNative(NativeWindowHandle);
                     }
 
                     LogText = "Control Text: " + retVal;
                     LogMessage();
 
                     return retVal;
-                }
-                throw new ProdOperationException("This control does not support ValuePattern");
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
-                return string.Empty;
+                throw;
             }
         }
 
@@ -398,22 +384,18 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                if (CheckPatternSupport(ValuePattern.Pattern, UIAElement))
-                {
                     LogText = "Text: " + text;
                     RegisterEvent(ValuePattern.ValueProperty);
                     int ret = ValuePatternHelper.SetValue(UIAElement, text);
 
-                    if (ret == -1 && Handle != IntPtr.Zero)
+                    if (ret == -1 && NativeWindowHandle != IntPtr.Zero)
                     {
-                        NativeTextProds.SetTextNative(Handle, text);
+                        NativeTextProds.SetTextNative(NativeWindowHandle, text);
                     }
-                }
-                throw new ProdOperationException("This control does not support ValuePattern");
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
             }
         }
 
@@ -429,21 +411,18 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                if (CheckPatternSupport(ValuePattern.Pattern, UIAElement))
-                {
                     RegisterEvent(ValuePattern.ValueProperty);
                     int ret = ValuePatternHelper.SetValue(UIAElement, string.Empty);
 
-                    if (ret == -1 && Handle != IntPtr.Zero)
+                    if (ret == -1 && NativeWindowHandle != IntPtr.Zero)
                     {
-                        NativeTextProds.SetTextNative(Handle, String.Empty);
+                        NativeTextProds.SetTextNative(NativeWindowHandle, String.Empty);
                     }
-                }
                 throw new ProdOperationException("This control does not support ValuePattern");
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
             }
         }
 
@@ -461,23 +440,19 @@ namespace ProdUI.Controls.Windows
             try
             {
                 RegisterEvent(ValuePattern.ValueProperty);
-                if (CheckPatternSupport(ValuePattern.Pattern, UIAElement))
+                int ret = ValuePatternHelper.AppendValue(UIAElement, newText);
+
+                if (ret == -1 && NativeWindowHandle != IntPtr.Zero)
                 {
-                    int ret = ValuePatternHelper.AppendValue(UIAElement, newText);
-
-                    if (ret == -1 && Handle != IntPtr.Zero)
-                    {
-                        NativeTextProds.AppendTextNative(Handle, newText);
-                    }
-
-                    LogText = "Appended: " + newText;
-                    LogMessage();
+                    NativeTextProds.AppendTextNative(NativeWindowHandle, newText);
                 }
-                throw new ProdOperationException("This control does not support ValuePattern");
+
+                LogText = "Appended: " + newText;
+                LogMessage();
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
             }
         }
 

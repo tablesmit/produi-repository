@@ -43,7 +43,7 @@ namespace ProdUI.Utility
         /// to each child window, in turn, to an application-defined callback function. EnumChildWindows
         /// continues until the last child window is enumerated or the callback function returns FALSE
         /// </summary>
-        /// <param name="windowHandleParent">A Handle to the window containing the control whose child windows are to be enumerated.
+        /// <param name="windowHandleParent">A NativeWindowHandle to the window containing the control whose child windows are to be enumerated.
         /// If this parameter is NULL, this function is equivalent to EnumWindows</param>
         /// <param name="lpEnumFunc">A pointer to an application-defined callback function</param>
         /// <param name="lParam">An application-defined value to be passed to the callback function</param>
@@ -108,7 +108,7 @@ namespace ProdUI.Utility
         /// </summary>
         /// <param name="windowHandle">A handle to the window whose parent window handle is to be retrieved</param>
         /// <returns>
-        /// If the window is a child window, the return value is a Handle to the window containing the control.
+        /// If the window is a child window, the return value is a NativeWindowHandle to the window containing the control.
         /// If the window is a top-level window with the WS_POPUP style, the return value is a handle to
         /// the owner window
         /// </returns>
@@ -154,7 +154,7 @@ namespace ProdUI.Utility
         /// If the window handle identifies an existing window, the return value is nonzero
         /// </returns>
         /// <remarks>
-        /// Handle Recycling: http://blogs.msdn.com/b/oldnewthing/archive/2007/07/17/3903614.aspx
+        /// NativeWindowHandle Recycling: http://blogs.msdn.com/b/oldnewthing/archive/2007/07/17/3903614.aspx
         /// </remarks>
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]

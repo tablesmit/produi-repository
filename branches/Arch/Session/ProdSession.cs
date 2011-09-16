@@ -10,7 +10,7 @@ using System.Runtime.Remoting;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 
-namespace ProdUI.Session
+namespace ProdUI.Configuration
 {
     /// <summary>
     /// Represents a ProdSession
@@ -18,19 +18,12 @@ namespace ProdUI.Session
     public class ProdSession
     {
         private ProdLogger _tempLogger;
-
-        /// <summary>
-        /// Gets or sets the list of active ProdLoggers.
-        /// </summary>
-        /// <value>
-        /// A ProdLogger.
-        /// </value>
-        public List<ProdLogger> Loggers { get; set; }
+        internal LogController logController;
 
         /// <summary>
         /// Gets the current ProdSessionConfig.
         /// </summary>
-        public ProdSessionConfig Configuration { get; private set; }
+        internal ProdSessionConfig Configuration { get; private set; }
 
 
         /// <summary>
@@ -39,15 +32,14 @@ namespace ProdUI.Session
         /// <param name="configFile">The path to the .ses file that contains the sessions parameters.</param>
         public ProdSession(string configFile)
         {
-            Loggers = new List<ProdLogger>();
-
             Configuration = ProdSessionConfig.LoadConfig(configFile);
 
             /* Process any loggers from config file */
-            GetLoggers();
+            logController = LogController.Create(GetLoggers());
+            
 
             /* Set up the loggers for the static Prods */
-            ProdStaticSession.Load(Loggers);
+            ProdStaticSession.Load(logController.GetActiveLoggers());
         }
 
         /// <summary>
@@ -58,8 +50,6 @@ namespace ProdUI.Session
             /* Create the id and name using a Guid */
             string defaultId = Guid.NewGuid().ToString("N", CultureInfo.CurrentCulture);
 
-            Loggers = new List<ProdLogger>();
-
             /* There's a read only .ses file containing some default values */
             Configuration = ProdSessionConfig.LoadDummyConfig();
 
@@ -68,20 +58,23 @@ namespace ProdUI.Session
             Configuration.SessionName = defaultId;
 
             /* Process any loggers from config file */
-            GetLoggers();
+            logController = LogController.Create(GetLoggers());
 
             /* Set up the loggers for the static Prods */
-            ProdStaticSession.Load(Loggers);
+            ProdStaticSession.Load(logController.GetActiveLoggers());
         }
 
         /// <summary>
         /// Instantiates and adds loggers from the configuration file.
         /// </summary>
-        private void GetLoggers()
+        /// <returns>A List of all of the sessions loggers</returns>
+        private List<ProdLogger> GetLoggers()
         {
+            List<ProdLogger> Loggers = new List<ProdLogger>();
+
             if (Configuration.Loggers == null || Configuration.Loggers[0].AssemblyPath == null)
             {
-                return;
+                return Loggers;
             }
 
             foreach (SessionLoggerConfig item in Configuration.Loggers)
@@ -90,23 +83,25 @@ namespace ProdUI.Session
                 string tempPath = item.AssemblyPath;
                 if (tempPath == null)
                 {
-                    throw new ProdOperationException("Config file error: No logger assembly specified");
+                    throw new ProdOperationException("Configuration file error: No logger assembly specified");
                 }
 
                 /* try to grab a logger */
                 ILogTarget tst = InitializeLogger(tempPath, item.LoggerType);
 
-                /* Set the params, then add it to list of loggers */
-                _tempLogger = ProdLogger.Create(Configuration, tst);
+                /* Set the parameters, then add it to list of loggers */
+                _tempLogger = new ProdLogger(Configuration, tst);
                 Loggers.Add(_tempLogger);
             }
+
+            return Loggers;
         }
 
         /// <summary>
         /// Creates an instance of the logger type
         /// </summary>
         /// <param name="dllPath">The path to the dll that contains the ProdLogger .</param>
-        /// <param name="loggerType">The ILogTarget from the config file</param>
+        /// <param name="loggerType">The ILogTarget from the configuration file</param>
         /// <returns>
         /// An unwrapped and casted ProdLogger
         /// </returns>

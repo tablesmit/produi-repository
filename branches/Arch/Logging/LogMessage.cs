@@ -86,32 +86,32 @@ namespace ProdUI.Logging
         /// <summary>
         /// Gets the name of the Prod method that sent the log request
         /// </summary>
-        public string CallingMethod { get; private set; }
+        internal string CallingMethod { get;  set; }
 
         /// <summary>
         /// Gets time of event
         /// </summary>
-        public string LogTime { get; internal set; }
+        internal string LogTime { get; set; }
 
         /// <summary>
         /// Gets message text to be written to log
         /// </summary>
-        public string Message { get; private set; }
+        internal string Message { get;  set; }
 
         /// <summary>
         /// Gets the type of LoggingLevel this message is categorized as
         /// </summary>
-        public LoggingLevels MessageLevel { get; private set; }
+        internal LoggingLevels MessageLevel { get;  set; }
 
         /// <summary>
         /// Gets the verbosity attribute of the method
         /// </summary>
-        public LoggingVerbosity Verbosity { get; private set; }
+        internal LoggingVerbosity Verbosity { get;  set; }
 
         /// <summary>
         /// Gets the extra information to print to the log target if the user specifies verbose output.
         /// </summary>
-        public List<object> VerboseInformation { get; private set; }
+        internal List<object> VerboseInformation { get; set; }
 
         #endregion
 

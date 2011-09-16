@@ -12,7 +12,6 @@ namespace ProdUI.Logging
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Constructor)]
     public sealed class ProdLoggingAttribute : Attribute
     {
-        private readonly LoggingLevels _logLevel;
 
         /// <summary>
         /// Instantiates a ProdLoggingAttribute
@@ -23,16 +22,13 @@ namespace ProdUI.Logging
         /// </remarks>
         public ProdLoggingAttribute(LoggingLevels logLevel)
         {
-            _logLevel = logLevel;
+            LogLevel = logLevel;
         }
 
         /// <summary>
         /// The <see cref="LoggingLevels"/> of messages to output to the log
         /// </summary>
-        public LoggingLevels LogLevel
-        {
-            get { return _logLevel; }
-        }
+        public  LoggingLevels LogLevel { get; set; }
 
         /// <summary>
         /// A <see cref="LoggingVerbosity"/> indicating how detailed the information written to the log can be

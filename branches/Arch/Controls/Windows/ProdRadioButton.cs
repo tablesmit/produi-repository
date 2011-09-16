@@ -8,6 +8,7 @@ using System.Windows.Automation;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Interaction.Native;
 
 
 namespace ProdUI.Controls.Windows
@@ -74,11 +75,10 @@ namespace ProdUI.Controls.Windows
             }
             catch (InvalidOperationException)
             {
-                return ProdRadioButtonNative.GetCheckStateNative(Handle);
+                return ProdRadioButtonNative.GetCheckStateNative(NativeWindowHandle);
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -97,11 +97,10 @@ namespace ProdUI.Controls.Windows
             }
             catch (InvalidOperationException)
             {
-                ProdRadioButtonNative.SetCheckStateNative(Handle);
+                ProdRadioButtonNative.SetCheckStateNative(NativeWindowHandle);
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }

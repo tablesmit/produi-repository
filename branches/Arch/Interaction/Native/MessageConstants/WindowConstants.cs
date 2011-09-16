@@ -4,7 +4,7 @@
 
 namespace ProdUI.Interaction.Native
 {
-    internal enum WindowMessage : uint
+    internal enum WindowMessages : uint
     {
         WM_NULL = 0x0000,
         WM_CREATE = 0x0001,

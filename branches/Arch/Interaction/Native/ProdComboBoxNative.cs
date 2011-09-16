@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using ProdUI.Exceptions;
-using ProdUI.Session;
+using ProdUI.Configuration;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
@@ -43,7 +43,7 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///   Uses SendMessage to select an item in the ComboBox, deselecting all other items
         /// </summary>
-        /// <param name = "windowHandle">Handle to ComboBox</param>
+        /// <param name = "windowHandle">NativeWindowHandle to ComboBox</param>
         /// <param name = "index">Zero based index of item to select</param>
         internal static void SelectItemNative(IntPtr windowHandle, int index)
         {
@@ -72,7 +72,7 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///   Uses SendMessage to select an item in the ComboBox, deselecting all other items
         /// </summary>
-        /// <param name = "windowHandle">Handle to ComboBox</param>
+        /// <param name = "windowHandle">NativeWindowHandle to ComboBox</param>
         /// <param name = "itemText">String to search ComboBox for. Case insensitive</param>
         internal static void SelectItemNative(IntPtr windowHandle, string itemText)
         {
@@ -127,7 +127,7 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///   Uses SendMessage to get a collection of all items in a ComboBox
         /// </summary>
-        /// <param name = "windowHandle">Handle to ComboBox</param>
+        /// <param name = "windowHandle">NativeWindowHandle to ComboBox</param>
         /// <returns>A string collection containing each item in the ComboBox</returns>
         internal static List<object> GetItemsNative(IntPtr windowHandle)
         {
@@ -172,7 +172,7 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///   Uses SendMessage to get # of items in ComboBox
         /// </summary>
-        /// <param name = "windowHandle">Handle to the control</param>
+        /// <param name = "windowHandle">NativeWindowHandle to the control</param>
         /// <returns>Number of items in the ComboBox</returns>
         internal static int GetItemCountNative(IntPtr windowHandle)
         {

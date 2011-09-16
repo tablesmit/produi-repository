@@ -4,7 +4,7 @@
 
 using System;
 using System.Windows.Automation;
-using ProdUI.Session;
+using ProdUI.Configuration;
 using ProdUI.Utility;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Interaction.Native;
@@ -17,7 +17,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Set value of control
         /// </summary>
-        /// <param name="controlHandle">Handle to the target control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target control</param>
         /// <param name="value">The value to set the slider to.</param>
         /// <remarks>
         /// Invalid for WPF controls
@@ -64,7 +64,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets the value of the current slider control
         /// </summary>
-        /// <param name="controlHandle">Handle to the target control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target control</param>
         /// <returns>
         /// Value of the control
         /// </returns>

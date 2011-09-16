@@ -60,20 +60,15 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                if (CheckPatternSupport(GridPattern.Pattern, UIAElement))
-                {
                     int retVal = GridPatternHelper.GetColumnCount(UIAElement);
 
                     LogMessage();
 
                     return retVal;
-                }
-                throw new ProdOperationException("This control does not support GridPattern");
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
-                return -1;
+                throw;
             }
         }
 
@@ -86,20 +81,16 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                if (CheckPatternSupport(GridPattern.Pattern, UIAElement))
-                {
+
                     int retVal = GridPatternHelper.GetRowCount(UIAElement);
 
                     LogMessage();
 
                     return retVal;
-                }
-                throw new ProdOperationException("This control does not support GridPattern");
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
-                return -1;
+                throw;
             }
         }
 
@@ -114,20 +105,16 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                if (CheckPatternSupport(GridPattern.Pattern, UIAElement))
-                {
                     AutomationElement retVal = GridPatternHelper.GetItem(UIAElement, row, column);
 
                     LogMessage();
 
                     return retVal;
-                }
-                throw new ProdOperationException("This control does not support GridPattern");
+
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
-                return null;
+                throw;
             }
         }
 
@@ -141,20 +128,17 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                if (CheckPatternSupport(GridItemPattern.Pattern, dataItem))
-                {
+
                     int retVal = GridPatternHelper.GetColumnSpan(dataItem);
 
                     LogMessage();
 
                     return retVal;
-                }
-                throw new ProdOperationException("This control does not support GridItemPattern");
+
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
-                return -1;
+                throw;
             }
         }
 
@@ -168,20 +152,15 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                if (CheckPatternSupport(GridItemPattern.Pattern, dataItem))
-                {
                     int retVal = GridPatternHelper.GetRowSpan(dataItem);
 
                     LogMessage();
 
                     return retVal;
-                }
-                throw new ProdOperationException("This control does not support GridItemPattern");
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
-                return -1;
+                throw;
             }
         }
 
@@ -200,18 +179,16 @@ namespace ProdUI.Controls.Windows
 
             try
             {
-                if (CheckPatternSupport(SelectionItemPattern.Pattern, UIAElement))
-                {
+
                     RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
                     SelectionPatternHelper.Select(dataItem);
                    
                     LogMessage();
-                }
-                throw new ProdOperationException("This control does not support GridPattern");
+
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
             }
         }
 
@@ -226,20 +203,17 @@ namespace ProdUI.Controls.Windows
 
             try
             {
-                if (CheckPatternSupport(SelectionItemPattern.Pattern, UIAElement))
-                {
                     AutomationElement dataItem = GetItem(row, column);
 
                     LogText = "Item: " + dataItem.Current.AutomationId;
                     RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
 
                     SelectionPatternHelper.Select(dataItem);          
-                }
-                throw new ProdOperationException("This control does not support GridPattern");
+
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
             }
         }
 
@@ -261,7 +235,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -295,7 +268,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -319,7 +291,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -353,7 +324,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -383,7 +353,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -401,8 +370,7 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                if (CheckPatternSupport(TablePattern.Pattern, UIAElement))
-                {
+
                     AutomationElement[] retVal = TablePatternHelper.GetColumnHeaders(UIAElement);
                     List<object> retList = new List<object>();
                     foreach (AutomationElement item in retVal)
@@ -414,13 +382,10 @@ namespace ProdUI.Controls.Windows
                     LogMessage();
 
                     return retVal;
-                }
-                throw new ProdOperationException("This control does not support TablePattern");
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
-                return null;
+                throw;
             }
         }
 
@@ -433,8 +398,7 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                if (CheckPatternSupport(TablePattern.Pattern, UIAElement))
-                {
+
                     AutomationElement[] retVal = TablePatternHelper.GetRowHeaders(UIAElement);
                     List<object> retList = new List<object>(retVal);
 
@@ -443,13 +407,11 @@ namespace ProdUI.Controls.Windows
                     LogMessage();
 
                     return retVal;
-                }
-                throw new ProdOperationException("This control does not support TablePattern");
+
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
-                return null;
+                throw;
             }
         }
 
@@ -462,26 +424,21 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                if (CheckPatternSupport(TablePattern.Pattern, UIAElement))
-                {
+
                     RowOrColumnMajor retVal = TablePatternHelper.GetRowOrColumnMajor(UIAElement);
 
                     LogText = "Row Or Column Major: " + retVal;
                     LogMessage();
 
                     return retVal;
-                }
-                throw new ProdOperationException("This control does not support TablePattern");
             }
             catch (InvalidOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
-                throw new ProdOperationException(err.Message, err);
+                throw;
             }
             catch (ElementNotAvailableException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
-                throw new ProdOperationException(err.Message, err);
+                throw;
             }
         }
 

@@ -20,7 +20,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// Gets UIAutomation target control ready for manipulation
         /// </summary>
         /// <param name="pattern"><see cref="System.Windows.Automation.AutomationPattern"/> to be used</param>
-        /// <param name="controlHandle">Handle to control to be worked with</param>
+        /// <param name="controlHandle">NativeWindowHandle to control to be worked with</param>
         /// <returns>
         /// UI Automation element
         /// </returns>
@@ -29,7 +29,7 @@ namespace ProdUI.Interaction.UIAPatterns
         internal static AutomationElement Prologue(AutomationPattern pattern, IntPtr controlHandle)
         {
             AutomationElement control = AutomationElement.FromHandle(controlHandle);
-            ControlSetFocus(control);
+            control.SetFocus();
 
             try
             {
@@ -59,56 +59,33 @@ namespace ProdUI.Interaction.UIAPatterns
         [ProdLogging(LoggingLevels.Error, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static AutomationElement Prologue(ProdWindow prodwindow, AutomationPattern pattern, string automationId)
         {
-            AutomationElement control = null;
 
-            AutomationElementCollection controls = GetControlId(prodwindow, automationId);
+            AutomationElement control = GetControl(prodwindow, automationId);
+            /* control found...proceed */
+            control.SetFocus();
 
             /* Nothing. bail */
-            if (controls.Count == 0)
-            {
-                throw new ProdOperationException("Cannot find control");
-            }
-
-
-            control = VerifyByPattern(pattern, control, controls);
-
             if (control == null)
             {
                 throw new ProdOperationException("Cannot find control");
             }
 
-
-            /* control found...proceed */
-            ControlSetFocus(control);
-
-            return control;
-        }
-
-        /// <summary>
-        /// Verifies the support of the supplied pattern.
-        /// </summary>
-        /// <param name="pattern">The pattern.</param>
-        /// <param name="control">The UI Automation identifier (ID) for the element to check</param>
-        /// <param name="controls">The controls.</param>
-        /// <returns>A valid element</returns>
-        private static AutomationElement VerifyByPattern(AutomationPattern pattern, AutomationElement control, AutomationElementCollection controls)
-        {
-            /* we have some items that match the criteria, but some wpf apps name the parent the same as the child
-             * so, we need to loop through to make sure they support the desired pattern*/
-            foreach (AutomationElement item in controls)
+            try
             {
-                try
-                {
-                    item.GetCurrentPattern(pattern);
-                    control = item;
-                }
-                catch (InvalidOperationException)
-                {
-                    continue;
-                }
+                CheckPatternSupport(pattern, control);
             }
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+
             return control;
         }
+
 
         /// <summary>
         /// Gets the controls with matching automationId inside a ProdWindow
@@ -116,45 +93,22 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name="prodwindow">The ProdWindow.</param>
         /// <param name="automationId">The automation id.</param>
         /// <returns>A list of matching elements/returns></returns>
-        private static AutomationElementCollection GetControlId(ProdWindow prodwindow, string automationId)
+        private static AutomationElement GetControl(ProdWindow prodwindow, string automationId)
         {
             /* first, try using the Automation ID */
             Condition condId = new PropertyCondition(AutomationElement.AutomationIdProperty, automationId);
-            AutomationElementCollection controls = prodwindow.Window.FindAll(TreeScope.Descendants, condId);
+            AutomationElement control = prodwindow.UIAElement.FindFirst(TreeScope.Descendants, condId);
 
             /* then we'll try the name...who knows? */
-            if (controls.Count == 0)
+            if (control == null)
             {
                 /* try the name */
                 Condition condName = new PropertyCondition(AutomationElement.NameProperty, automationId);
-                controls = prodwindow.Window.FindAll(TreeScope.Descendants, condName);
+                control = prodwindow.UIAElement.FindFirst(TreeScope.Descendants, condName);
             }
-            return controls;
+            return control;
         }
 
-        /// <summary>
-        /// Attempts to bring control to the top of the z-order and set input focus
-        /// </summary>
-        /// <param name="control">UI Automation element to be worked with</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
-        internal static void ControlSetFocus(AutomationElement control)
-        {
-            try
-            {
-                if ((bool)control.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty))
-                {
-                    if ((bool)control.GetCurrentPropertyValue(AutomationElement.IsExpandCollapsePatternAvailableProperty))
-                    {
-                        ExpandCollapseHelper.Expand(control);
-                    }
-                    control.SetFocus();
-                }
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
-        }
 
         /// <summary>
         /// Performs <see cref="System.Windows.Automation.AutomationPattern"/> verification
@@ -171,7 +125,7 @@ namespace ProdUI.Interaction.UIAPatterns
             {
                 object pat;
                 control.TryGetCurrentPattern(pattern, out pat);
-                ControlSetFocus(control);
+                control.SetFocus();
                 return pat;
             }
             catch (InvalidOperationException)
@@ -186,30 +140,6 @@ namespace ProdUI.Interaction.UIAPatterns
             {
                 throw new ProdOperationException("Does not support " + pattern.ProgrammaticName);
             }
-        }
-
-        /// <summary>
-        /// Gets the ReadOnly status of the control.
-        /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element</param>
-        /// <returns>
-        ///   <c>true</c> if control is in a ReadOnly state <c>false</c> otherwise
-        /// </returns>
-        internal static bool ReadOnly(AutomationElement control)
-        {
-            object pattern;
-            if (control.TryGetCurrentPattern(ValuePattern.Pattern, out pattern))
-            {
-                return ((ValuePattern)pattern).Current.IsReadOnly;
-            }
-            if (control.TryGetCurrentPattern(TextPattern.Pattern, out pattern))
-            {
-                object d = ((TextPattern)pattern).DocumentRange.GetAttributeValue(TextPattern.IsReadOnlyAttribute);
-
-                return (bool)d;
-            }
-
-            return false;
         }
 
     }

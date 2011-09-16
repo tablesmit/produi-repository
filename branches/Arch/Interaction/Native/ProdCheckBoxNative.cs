@@ -6,7 +6,7 @@ using System;
 using System.ComponentModel;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
-using ProdUI.Session;
+using ProdUI.Configuration;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
@@ -19,7 +19,7 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///   Uses SendMessage to check the state
         /// </summary>
-        /// <param name = "windowHandle">Handle to the checkbox</param>
+        /// <param name = "windowHandle">NativeWindowHandle to the checkbox</param>
         /// <returns>
         ///   one of the <see cref = "System.Windows.Automation.ToggleState" />ToggleStates
         /// </returns>
@@ -46,7 +46,7 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///   Uses SendMessage to post the state
         /// </summary>
-        /// <param name = "windowHandle">Handle to the checkbox</param>
+        /// <param name = "windowHandle">NativeWindowHandle to the checkbox</param>
         /// <param name = "isChecked">one of the <see cref = "System.Windows.Automation.ToggleState" />ToggleStates</param>
         internal static void SetCheckStateNative(IntPtr windowHandle, ToggleState isChecked)
         {

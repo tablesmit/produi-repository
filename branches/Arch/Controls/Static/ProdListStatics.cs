@@ -8,10 +8,11 @@ using System.Collections.ObjectModel;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
-using ProdUI.Session;
+using ProdUI.Configuration;
 using ProdUI.Utility;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Controls.Windows;
+using ProdUI.Interaction.Native;
 
 namespace ProdUI.Controls.Static
 {
@@ -24,7 +25,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Determines whether the list control supports multiple selection of items
         /// </summary>
-        /// <param name="controlHandle">Handle to th target list control</param>
+        /// <param name="controlHandle">NativeWindowHandle to th target list control</param>
         /// <returns>
         ///   <c>true</c> if this instance can have multiple items selected, otherwise <c>false</c>.
         /// </returns>
@@ -60,7 +61,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Get all items contained in the list control
         /// </summary>
-        /// <param name="controlHandle">Handle to the target list control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
         /// <returns>
         /// List containing text of all items in the list control
         /// </returns>
@@ -112,7 +113,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets the number of items in the list control
         /// </summary>
-        /// <param name="controlHandle">Handle to the target list control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
         /// <returns>
         /// The number of items contained in the list control
         /// </returns>
@@ -169,7 +170,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets the zero based index of the currently selected item in a list control
         /// </summary>
-        /// <param name="controlHandle">Handle to the target list control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
         /// <returns>
         /// Index of selected item
         /// </returns>
@@ -218,7 +219,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets a collection of all selected items in a list control
         /// </summary>
-        /// <param name="controlHandle">Handle to the window containing the target control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the window containing the target control</param>
         /// <returns>
         /// collection containing text of all selected items
         /// </returns>
@@ -270,7 +271,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Select an item in the list control, deselecting all other items
         /// </summary>
-        /// <param name="controlHandle">Handle to list control</param>
+        /// <param name="controlHandle">NativeWindowHandle to list control</param>
         /// <param name="index">The zero-based index of the item to select</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
@@ -298,7 +299,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Select an item in the list control, deselecting all other items
         /// </summary>
-        /// <param name="controlHandle">Handle to the target list control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
         /// <param name="itemText">Text of the item to select</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
@@ -369,7 +370,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Selects an item in a multi-select list control without deselecting other items
         /// </summary>
-        /// <param name="controlHandle">Handle to the target list control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
         /// <param name="index">The zero-based index of the item to select</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
@@ -399,7 +400,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Selects an item in a multi-select list control without deselecting other items
         /// </summary>
-        /// <param name="controlHandle">Handle to the target list control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
         /// <param name="itemText">Text of the item to select</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
@@ -474,7 +475,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Deselect an item in the list control
         /// </summary>
-        /// <param name="controlHandle">Handle to the target list control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
         /// <param name="index">The zero-based index of the item to select</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
@@ -503,7 +504,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Deselect an item in the list control
         /// </summary>
-        /// <param name="controlHandle">Handle to the target list control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
         /// <param name="itemText">Text of the item to select</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
@@ -574,7 +575,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets the number of selected items in the list control
         /// </summary>
-        /// <param name="controlHandle">Handle to the target window containing the control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target window containing the control</param>
         /// <returns>
         /// The number of selected items in the list control
         /// </returns>
@@ -631,7 +632,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets a collection of all selected items in a list control
         /// </summary>
-        /// <param name="controlHandle">Handle to the target window containing the control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target window containing the control</param>
         /// <returns>
         /// collection containing text of all selected items
         /// </returns>
@@ -659,7 +660,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets a list of selected indexes in a list control
         /// </summary>
-        /// <param name="controlHandle">Handle to the target list control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
         /// <returns>
         /// List of selected indexes
         /// </returns>
@@ -748,7 +749,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Sets selected items in a multi-select list control
         /// </summary>
-        /// <param name="controlHandle">Handle to the target list control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
         /// <param name="items">The text of all the items to select</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
@@ -785,7 +786,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Sets a list of selected items by index in a multi-select list control
         /// </summary>
-        /// <param name="controlHandle">Handle to the target list control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
         /// <param name="indexes">A list of integers representing the zero-based indexes to select</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>

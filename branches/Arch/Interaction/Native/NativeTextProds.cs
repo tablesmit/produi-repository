@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 using ProdUI.Exceptions;
-using ProdUI.Session;
+using ProdUI.Configuration;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
@@ -29,7 +29,7 @@ namespace ProdUI.Interaction.Native
             {
                 StringBuilder sb = new StringBuilder();
 
-                NativeMethods.SendMessage(windowHandle, (int) WindowMessage.WM_GETTEXT, sb.Capacity, sb);
+                NativeMethods.SendMessage(windowHandle, (int) WindowMessages.WM_GETTEXT, sb.Capacity, sb);
 
                 const string logmessage = "GetTextNative using SendMessage";
 
@@ -55,7 +55,7 @@ namespace ProdUI.Interaction.Native
         {
             try
             {
-                bool retVal = NativeMethods.SendMessage(windowHandle, (int) WindowMessage.WM_SETTEXT, 0, newText) == 1 && VerifyText(windowHandle, newText);
+                bool retVal = NativeMethods.SendMessage(windowHandle, (int) WindowMessages.WM_SETTEXT, 0, newText) == 1 && VerifyText(windowHandle, newText);
 
                 const string logmessage = "SetTextNative using SendMessage";
 
@@ -143,7 +143,7 @@ namespace ProdUI.Interaction.Native
         {
             try
             {
-                NativeMethods.SendMessage(windowHandle, (int) WindowMessage.WM_CLEAR, 0, 0);
+                NativeMethods.SendMessage(windowHandle, (int) WindowMessages.WM_CLEAR, 0, 0);
 
                 const string logmessage = "ClearTextNative using SendMessage";
 

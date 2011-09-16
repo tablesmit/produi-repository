@@ -13,7 +13,7 @@ using ProdUI.Exceptions;
 using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
-using ProdUI.Session;
+using ProdUI.Configuration;
 using ProdUI.Utility;
 
 namespace ProdUI.Controls.Static
@@ -59,14 +59,14 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Brings the specified window to the foreground and activates it
         /// </summary>
-        /// <param name="windowHandle">Handle to the target window</param>
+        /// <param name="windowHandle">NativeWindowHandle to the target window</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/></exception>
         [ProdLogging(LoggingLevels.Warn, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void ActivateWindow(IntPtr windowHandle)
         {
             if ((int)windowHandle == 0)
             {
-                throw new ProdOperationException("Handle not found.", new ElementNotEnabledException());
+                throw new ProdOperationException("NativeWindowHandle not found.", new ElementNotEnabledException());
             }
 
             NativeMethods.ShowWindowAsync(windowHandle, (int)ShowWindowCommand.SW_SHOWDEFAULT);
@@ -77,7 +77,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Performs a "Click" on the specified static Prod control.
         /// </summary>
-        /// <param name="controlHandle">Handle of the target control</param>
+        /// <param name="controlHandle">NativeWindowHandle of the target control</param>
         /// <remarks>
         /// This overload is invalid for WPF controls
         /// </remarks>
@@ -239,7 +239,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets control caption
         /// </summary>
-        /// <param name="controlHandle">Handle to the button</param>
+        /// <param name="controlHandle">NativeWindowHandle to the button</param>
         /// <returns>
         /// The caption of the current control
         /// </returns>
@@ -269,10 +269,10 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets current controls handle
         /// </summary>
-        /// <param name="parentHandle">Handle to the parent window</param>
+        /// <param name="parentHandle">NativeWindowHandle to the parent window</param>
         /// <param name="controlId">Resource Id of the control</param>
         /// <returns>
-        /// Handle to the current control
+        /// NativeWindowHandle to the current control
         /// </returns>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/></exception>
         [ProdLogging(LoggingLevels.Info, VerbositySupport = LoggingVerbosity.Minimum)]
@@ -296,10 +296,10 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets current controls handle
         /// </summary>
-        /// <param name="parentHandle">Handle to the parent window.</param>
+        /// <param name="parentHandle">NativeWindowHandle to the parent window.</param>
         /// <param name="controlText">The control text to match.</param>
         /// <returns>
-        /// Handle to the current control
+        /// NativeWindowHandle to the current control
         /// </returns>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/></exception>
         [ProdLogging(LoggingLevels.Info, VerbositySupport = LoggingVerbosity.Minimum)]
@@ -345,7 +345,7 @@ namespace ProdUI.Controls.Static
         /// </summary>
         /// <param name="partialTitle">The title of the window to search for (partial names are acceptable, though less accurate)</param>
         /// <returns>
-        /// Handle to the window if successful. IntPtr.Zero if not found
+        /// NativeWindowHandle to the window if successful. IntPtr.Zero if not found
         /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static IntPtr GetWindowHandle(string partialTitle)
@@ -357,7 +357,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Determines if control is able to accept input
         /// </summary>
-        /// <param name="controlHandle">Handle to the control to investigate</param>
+        /// <param name="controlHandle">NativeWindowHandle to the control to investigate</param>
         /// <returns>
         ///   <c>true</c> if enabled, <c>false</c> otherwise
         /// </returns>
@@ -397,7 +397,7 @@ namespace ProdUI.Controls.Static
         {
             if (control == null)
             {
-                throw new ProdOperationException("Handle not found.", new ElementNotEnabledException());
+                throw new ProdOperationException("NativeWindowHandle not found.", new ElementNotEnabledException());
             }
 
             try
@@ -494,7 +494,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Used to send a set of keys to a focused window or control
         /// </summary>
-        /// <param name="windowHandle">Handle to the window to focus upon, then send keys to</param>
+        /// <param name="windowHandle">NativeWindowHandle to the window to focus upon, then send keys to</param>
         /// <param name="theKeys">The keys to send. <seealso cref="System.Windows.Forms.SendKeys.Send"/></param>
         /// <exception cref="ProdOperationException">
         /// Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/>
@@ -505,7 +505,7 @@ namespace ProdUI.Controls.Static
         {
             if ((int)windowHandle == 0)
             {
-                throw new ProdOperationException("Handle not found.", new ElementNotEnabledException());
+                throw new ProdOperationException("NativeWindowHandle not found.", new ElementNotEnabledException());
             }
 
             try
@@ -577,7 +577,7 @@ namespace ProdUI.Controls.Static
         {
             if (control == null)
             {
-                throw new ProdOperationException("Handle not found.", new ElementNotEnabledException());
+                throw new ProdOperationException("NativeWindowHandle not found.", new ElementNotEnabledException());
             }
             if (control.Current.IsEnabled && (bool)control.GetCurrentPropertyValue(AutomationElement.IsKeyboardFocusableProperty, true))
             {
@@ -588,7 +588,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Sets input focus to control
         /// </summary>
-        /// <param name="controlHandle">Handle to the control to investigate</param>
+        /// <param name="controlHandle">NativeWindowHandle to the control to investigate</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/></exception>
         public static void SetFocus(IntPtr controlHandle)
         {
@@ -665,7 +665,7 @@ namespace ProdUI.Controls.Static
         /// <param name="partialTitle">The title of the window to search for (partial names are acceptable, though less accurate)</param>
         /// <param name="delay">Time, in seconds, to wait for window to exist. -1 to wait forever</param>
         /// <returns>
-        /// Handle to window if found, zero if not found
+        /// NativeWindowHandle to window if found, zero if not found
         /// </returns>
         public static IntPtr WinWaitExists(string partialTitle, int delay = -1)
         {
@@ -698,14 +698,14 @@ namespace ProdUI.Controls.Static
         {
             /* first, try using the Automation ID */
             Condition condId = new PropertyCondition(AutomationElement.AutomationIdProperty, automationId);
-            AutomationElement control = prodwindow.Window.FindFirst(TreeScope.Descendants, condId);
+            AutomationElement control = prodwindow.UIAElement.FindFirst(TreeScope.Descendants, condId);
 
             /* then we'll try the name...who knows? */
             if (control == null)
             {
                 /* try the name */
                 Condition condName = new PropertyCondition(AutomationElement.NameProperty, automationId);
-                control = prodwindow.Window.FindFirst(TreeScope.Descendants, condName);
+                control = prodwindow.UIAElement.FindFirst(TreeScope.Descendants, condName);
             }
 
             return control;
