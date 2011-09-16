@@ -26,7 +26,7 @@ namespace ProdUI.Utility
         /// <summary>
         /// Sends a message to the message window and waits until the WndProc method has processed the message
         /// </summary>
-        /// <param name="windowHandle">Handle to window to send message to</param>
+        /// <param name="windowHandle">NativeWindowHandle to window to send message to</param>
         /// <param name="msg">message to send: WM_SETTEXT</param>
         /// <param name="wParam">null</param>
         /// <param name="lParam">A pointer to a null-terminated string that is the window text</param>
@@ -40,7 +40,7 @@ namespace ProdUI.Utility
         /// <summary>
         /// WM_GETTEXT message to move text into a StringBuilder
         /// </summary>
-        /// <param name="windowHandle">Handle to window to send message to</param>
+        /// <param name="windowHandle">NativeWindowHandle to window to send message to</param>
         /// <param name="msg">message to send</param>
         /// <param name="wParam">The maximum number of characters to be copied, including the terminating null character</param>
         /// <param name="lParam">A pointer to the buffer that is to receive the text. (StringBuilder)</param>

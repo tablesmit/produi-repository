@@ -52,7 +52,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Closes the specified window
         /// </summary>
-        /// <param name="windowHandle">Handle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         public static void WindowClose(IntPtr windowHandle)
         {
@@ -66,7 +66,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Minimizes the current window
         /// </summary>
-        /// <param name="windowHandle">Handle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         public static void WindowMinimize(IntPtr windowHandle)
         {
@@ -80,7 +80,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Maximizes the current window
         /// </summary>
-        /// <param name="windowHandle">Handle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         public static void WindowMaximize(IntPtr windowHandle)
         {
@@ -94,7 +94,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Restores current window to its original dimensions
         /// </summary>
-        /// <param name="windowHandle">Handle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         public static void WindowRestore(IntPtr windowHandle)
         {
@@ -108,7 +108,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets whether the current window is modal or not
         /// </summary>
-        /// <param name="windowHandle">Handle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <returns>
         /// True if window is modal, false otherwise
         /// </returns>
@@ -128,7 +128,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets a value whether a window is set to be topmost in the z-order
         /// </summary>
-        /// <param name="windowHandle">Handle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <returns>
         /// True if window is topmost, false otherwise
         /// </returns>
@@ -148,7 +148,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets the WindowVisualState of the current window
         /// </summary>
-        /// <param name="windowHandle">Handle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <returns>
         /// The <see cref="WindowVisualState"/>
         /// </returns>
@@ -161,7 +161,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// gets the current ready-state of the window
         /// </summary>
-        /// <param name="windowHandle">Handle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <returns>
         /// The current <see cref="WindowState"/>
         /// </returns>
@@ -175,7 +175,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets the specified windows title
         /// </summary>
-        /// <param name="windowHandle">Handle to target window</param>
+        /// <param name="windowHandle">NativeWindowHandle to target window</param>
         /// <returns>
         /// The specified Windows Title
         /// </returns>
@@ -188,7 +188,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Sets the specified windows title
         /// </summary>
-        /// <param name="windowHandle">Handle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <param name="newText">The text to set the title to</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         public static void WindowSetTitle(IntPtr windowHandle, string newText)
@@ -199,7 +199,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Causes the calling code to block for the specified time or until the associated process enters an idle state, whichever completes first
         /// </summary>
-        /// <param name="windowHandle">Handle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <param name="delay">Time, in milliseconds to wait for an idle state</param>
         /// <returns>
         /// true if the window has entered the idle state; false if the timeout occurred
@@ -221,7 +221,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Moves window to specified location
         /// </summary>
-        /// <param name="windowHandle">Handle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <param name="x">Absolute screen coordinates of the left side of the window</param>
         /// <param name="y">Absolute screen coordinates of the top of the window</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
@@ -242,7 +242,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Moves the window a specified offset of its current location
         /// </summary>
-        /// <param name="windowHandle">Handle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <param name="xOffset">how far, in pixels, to move the windows left side</param>
         /// <param name="yOffset">how far, in pixels, to move the windows top</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
@@ -254,7 +254,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Rotates the window
         /// </summary>
-        /// <param name="windowHandle">Handle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <param name="degrees">The number of degrees to rotate the element. A positive number rotates clockwise; a negative number rotates counterclockwise</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         public static void WindowRotate(IntPtr windowHandle, double degrees)
@@ -265,7 +265,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Resizes the window
         /// </summary>
-        /// <param name="windowHandle">Handle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <param name="width">The new width of the window, in pixels</param>
         /// <param name="height">The new height of the window, in pixels</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>

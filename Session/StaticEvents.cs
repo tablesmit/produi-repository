@@ -4,7 +4,7 @@
 
 using System.Windows.Automation;
 
-namespace ProdUI.Session
+namespace ProdUI.Configuration
 {
     internal static class StaticEvents
     {

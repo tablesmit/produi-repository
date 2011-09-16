@@ -4,9 +4,10 @@
 
 using System;
 using System.Windows.Automation;
-using ProdUI.Session;
+using ProdUI.Configuration;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Controls.Windows;
+using ProdUI.Interaction.Native;
 
 namespace ProdUI.Controls.Static
 {
@@ -15,7 +16,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Performs a "Click" on the specified static ProdButton
         /// </summary>
-        /// <param name="controlHandle">Handle of the target control</param>
+        /// <param name="controlHandle">NativeWindowHandle of the target control</param>
         /// <remarks>
         /// This overload is invalid for WPF controls
         /// </remarks>
@@ -24,11 +25,11 @@ namespace ProdUI.Controls.Static
             AutomationElement control = CommonUIAPatternHelpers.Prologue(InvokePattern.Pattern, controlHandle);
             StaticEvents.RegisterEvent(InvokePattern.InvokedEvent, control);
 
-            int ret = InvokePatternHelper.Invoke(control);
-            if (ret == -1)
-            {
-                ProdButtonNative.Click(controlHandle);
-            }
+            InvokePatternHelper.Invoke(control);
+            //if (ret == -1)
+            //{
+            //    ProdButtonNative.Click(controlHandle);
+            //}
 
             ProdStaticSession.Log("button clicked");
         }

@@ -78,7 +78,7 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw err;
             }
         }
     }

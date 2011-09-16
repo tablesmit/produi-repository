@@ -111,8 +111,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logging\LogController.cs" />
     <Compile Include="InteractionBridge.cs" />
     <Compile Include="Interaction\Native\EditNative.cs" />
+    <Compile Include="Session\LoggerParameters.cs" />
+    <Compile Include="Session\SessionLoggerConfig.cs" />
     <Compile Include="Verification\AutomationEventVerifier.cs" />
     <Compile Include="Interaction\UIAPatterns\DockPatternHelper.cs" />
     <Compile Include="Interaction\UIAPatterns\GridPatternHelper.cs" />
@@ -216,6 +219,7 @@
     <Folder Include="obj\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Controls.cd" />
     <None Include="Data Structures.cd" />
     <None Include="Interaction Layer.cd" />
@@ -238,7 +242,7 @@ REM Create all the sancastle stuff
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_IncrementBeforeBuild="False" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_BuildAction="Build" />
+      <UserProperties BuildVersion_BuildAction="Build" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_IncrementBeforeBuild="False" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

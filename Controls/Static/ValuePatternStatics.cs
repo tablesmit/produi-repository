@@ -8,6 +8,7 @@ using ProdUI.Exceptions;
 using ProdUI.Utility;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Controls.Windows;
+using ProdUI.Interaction.Native;
 
 namespace ProdUI.Controls.Static
 {
@@ -16,7 +17,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets the ReadOnly status of the Textbox
         /// </summary>
-        /// <param name="controlHandle">Handle to the  control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the  control</param>
         /// <returns>
         /// <c>true</c> if control is ReadOnly, <c>false</c> otherwise
         /// </returns>
@@ -28,7 +29,7 @@ namespace ProdUI.Controls.Static
             try
             {
                 AutomationElement control = AutomationElement.FromHandle(controlHandle);
-                return CommonUIAPatternHelpers.ReadOnly(control);
+                return (bool) control.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty);
             }
             catch (InvalidOperationException err)
             {
@@ -47,13 +48,13 @@ namespace ProdUI.Controls.Static
         public static bool GetReadOnly(ProdWindow prodwindow, string automationId)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            return CommonUIAPatternHelpers.ReadOnly(control);
+            return (bool)control.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty);
         }
 
         /// <summary>
         /// Set text area value to an empty string
         /// </summary>
-        /// <param name="controlHandle">Handle to the target control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target control</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         public static void ClearText(IntPtr controlHandle)
         {
@@ -93,7 +94,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets the text currently contained in a text area
         /// </summary>
-        /// <param name="controlHandle">Handle to the target control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target control</param>
         /// <returns>
         /// Text contained in text area
         /// </returns>
@@ -133,7 +134,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Set text area value
         /// </summary>
-        /// <param name="controlHandle">Handle to the target control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target control</param>
         /// <param name="newText">Desired text</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         public static void SetText(IntPtr controlHandle, string newText)
@@ -181,7 +182,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Appends text to a .Net text input control
         /// </summary>
-        /// <param name="controlHandle">Handle to the target control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target control</param>
         /// <param name="newText">Text To Append</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         public static void AppendText(IntPtr controlHandle, string newText)

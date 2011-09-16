@@ -7,7 +7,7 @@ using System.Windows.Automation;
 using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
-using ProdUI.Session;
+using ProdUI.Configuration;
 using ProdUI.Utility;
 using ProdUI.Controls.Windows;
 

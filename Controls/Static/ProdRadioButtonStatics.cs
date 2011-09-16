@@ -6,7 +6,7 @@ using System;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
-using ProdUI.Session;
+using ProdUI.Configuration;
 using ProdUI.Utility;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Controls.Windows;
@@ -19,7 +19,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Determines whether specified RadioButton is selected
         /// </summary>
-        /// <param name="controlHandle">Handle to the target control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target control</param>
         /// <returns>
         /// True if selected, false if not
         /// </returns>
@@ -37,7 +37,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Selects the specified RadioButton
         /// </summary>
-        /// <param name="controlHandle">Handle to the target control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target control</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SelectRadio(IntPtr controlHandle)

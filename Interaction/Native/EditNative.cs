@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Text;
 using ProdUI.Exceptions;
-using ProdUI.Session;
+using ProdUI.Configuration;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
@@ -28,8 +28,8 @@ namespace ProdUI.Interaction.Native
 
                 const string logmessage = "GetTextNative using SendMessage";
 
-                if (ProdSession.Configuration != null)
-                    ProdSession.Log(logmessage);
+                //if (ProdSession.Configuration != null)
+                //    ProdSession.Log(logmessage);
 
                 return sb.ToString();
             }
@@ -54,8 +54,8 @@ namespace ProdUI.Interaction.Native
 
                 const string logmessage = "SetTextNative using SendMessage";
 
-                if (ProdSession.Configuration != null)
-                    ProdSession.Log(logmessage);
+                //if (ProdSession.Configuration != null)
+                //    ProdSession.Log(logmessage);
 
                 return retVal;
             }
@@ -83,8 +83,8 @@ namespace ProdUI.Interaction.Native
 
                 const string logmessage = "AppendTextNative using SendMessage";
 
-                if (ProdSession.Configuration != null)
-                    ProdSession.Log(logmessage);
+                //if (ProdSession.Configuration != null)
+                //    ProdSession.Log(logmessage);
             }
             catch (Win32Exception err)
             {
@@ -110,8 +110,8 @@ namespace ProdUI.Interaction.Native
 
                 const string logmessage = "InsertTextNative using SendMessage";
 
-                if (ProdSession.Configuration != null)
-                    ProdSession.Log(logmessage);
+                //if (ProdSession.Configuration != null)
+                //    ProdSession.Log(logmessage);
             }
             catch (Win32Exception err)
             {
@@ -132,8 +132,8 @@ namespace ProdUI.Interaction.Native
 
                 const string logmessage = "ClearTextNative using SendMessage";
 
-                if (ProdSession.Configuration != null)
-                    ProdSession.Log(logmessage);
+                //if (ProdSession.Configuration != null)
+                //    ProdSession.Log(logmessage);
             }
             catch (Win32Exception err)
             {
@@ -156,8 +156,8 @@ namespace ProdUI.Interaction.Native
 
                 const string logmessage = "VerifyText using SendMessage";
 
-                if (ProdSession.Configuration != null)
-                    ProdSession.Log(logmessage);
+                //if (ProdSession.Configuration != null)
+                //    ProdSession.Log(logmessage);
 
                 return string.Compare(currentValue, newText, false) == 0;
             }

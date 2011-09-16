@@ -66,14 +66,13 @@ namespace ProdUI.Controls.Windows
                 RegisterEvent(RangeValuePattern.ValueProperty);
                 int ret = RangeValuePatternHelper.SetValue(UIAElement, value);
 
-                if (ret == -1 && Handle != IntPtr.Zero)
+                if (ret == -1 && NativeWindowHandle != IntPtr.Zero)
                 {
-                    ProdSliderNative.SetValueNative(Handle, value);
+                    ProdSliderNative.SetValueNative(NativeWindowHandle, value);
                 }
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -89,9 +88,9 @@ namespace ProdUI.Controls.Windows
             {
                 double retVal = RangeValuePatternHelper.GetValue(UIAElement);
 
-                if (retVal == -1 && Handle != IntPtr.Zero)
+                if (retVal == -1 && NativeWindowHandle != IntPtr.Zero)
                 {
-                   retVal = ProdSliderNative.GetMaximumNative(Handle);
+                   retVal = ProdSliderNative.GetMaximumNative(NativeWindowHandle);
                 }
 
                 LogText = "Value: " + retVal;
@@ -101,7 +100,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -124,7 +122,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -140,9 +137,9 @@ namespace ProdUI.Controls.Windows
             {
                 double retVal = RangeValuePatternHelper.GetMaximum(UIAElement);
 
-                if (retVal == -1 && Handle != IntPtr.Zero)
+                if (retVal == -1 && NativeWindowHandle != IntPtr.Zero)
                 {
-                    ProdSliderNative.GetMaximumNative(Handle);
+                    ProdSliderNative.GetMaximumNative(NativeWindowHandle);
                 }
 
                 LogText = "Value: " + retVal;
@@ -152,7 +149,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -168,9 +164,9 @@ namespace ProdUI.Controls.Windows
             {
                 double retVal = RangeValuePatternHelper.GetMinimum(UIAElement);
 
-                if (retVal == -1 && Handle != IntPtr.Zero)
+                if (retVal == -1 && NativeWindowHandle != IntPtr.Zero)
                 {
-                    ProdSliderNative.GetMinimumNative(Handle);
+                    ProdSliderNative.GetMinimumNative(NativeWindowHandle);
                 }
 
                 LogText = "Value: " + retVal;
@@ -180,7 +176,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -203,7 +198,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }

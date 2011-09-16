@@ -5,46 +5,36 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using ProdUI.Session;
+using System.IO;
+using System.Runtime.Remoting;
+using ProdUI.Exceptions;
+using ProdUI.Configuration;
 
 namespace ProdUI.Logging
 {
-    /// <summary>Acts to route messages</summary>
+    /// <summary>
+    /// Acts to route messages
+    /// </summary>
     public class ProdLogger
     {
-        private static LogMessage _currentMessage;
-        private static ProdLogger _thisLogger;
-        private ILogTarget _logTarget;
-        private LoggingLevels _logLevel;
-        private string _logFormat;
-        private string _logDateFormat;
+
         private List<LoggerParameters> _loggerParams;
 
+        public ILogTarget LogTarget { get; set; }
+        public LoggingLevels LogLevel { get; set; }
+        public string LogFormat { get; set; }
+        public string LogDateFormat { get; set; }
 
 
-        private ProdLogger() { }
-
-
-        /// <summary>
-        /// Creates a ProdLogger.
-        /// </summary>
-        /// <param name="config">The current prod configuration.</param>
-        /// <param name="target">A log target.</param>
-        /// <returns>
-        /// A new ProdLogger
-        /// </returns>
-        public static ProdLogger Create(ProdSessionConfig config, ILogTarget target)
+        public ProdLogger(ProdSessionConfig config, ILogTarget target)
         {
-            _thisLogger = new ProdLogger
-                              {
-                                  _logLevel = (LoggingLevels)config.Loggers[0].LogLevel,
-                                  _loggerParams = config.Loggers[0].Parameters,
-                                  _logFormat = config.Loggers[0].LogFormat,
-                                  _logDateFormat = config.Loggers[0].LogDateFormat,
-                                  _logTarget = target
-                              };
 
-            return _thisLogger;
+            LogLevel = (LoggingLevels)config.Loggers[0].LogLevel;
+            _loggerParams = config.Loggers[0].Parameters;
+            LogFormat = config.Loggers[0].LogFormat;
+            LogDateFormat = config.Loggers[0].LogDateFormat;
+            LogTarget = target;
+
         }
 
         /// <summary>
@@ -56,84 +46,39 @@ namespace ProdUI.Logging
         /// <param name="logDateFormat">The log date format.</param>
         /// <returns>A new ProdLogger</returns>
         /// <remarks>This provides a way for someone to create a new logger on the fly</remarks>
-        public static ProdLogger Create(ILogTarget target, LoggingLevels logLevel, string logFormat, string logDateFormat)
+        public ProdLogger(ILogTarget target, LoggingLevels logLevel, string logFormat, string logDateFormat)
         {
-            _thisLogger = new ProdLogger
-            {
-                _logLevel = logLevel,
-                _loggerParams = null,
-                _logFormat = logFormat,
-                _logDateFormat = logDateFormat,
-                _logTarget = target
-            };
 
-            return _thisLogger;
+            LogLevel = logLevel;
+            _loggerParams = null;
+            LogFormat = logFormat;
+            LogDateFormat = logDateFormat;
+            LogTarget = target;
         }
 
-
-        /// <summary>
-        /// Writes the log message to the registered output logs
-        /// </summary>
-        /// <param name="msg">The log message to use</param>
-        /// <param name="loggers">The List of all active ProdLoggers.</param>
-        public static void Log(LogMessage msg, List<ProdLogger> loggers)
-        {
-            _currentMessage = msg;
-            //ProdLogger logger = loggers[0];
-            foreach (ProdLogger logger in loggers)
-            {
-                if (!VerifyLogLevel(logger))
-                {
-                    //return;
-                    continue;
-                }
-
-
-                FormatOutput(logger);
-
-                logger._logTarget.Write(_currentMessage, logger._loggerParams);
-            }
-        }
 
         /// <summary>
         /// Logs the specified exception.
         /// </summary>
         /// <param name="ex">The exception to log.</param>
         /// <param name="loggers">The List of all active ProdLoggers.</param>
-        public static void LogException(Exception ex, List<ProdLogger> loggers)
+        internal void LogException(Exception ex, LogMessage message)
         {
-            _currentMessage = new LogMessage(ex.Message, LoggingLevels.Error);
-
-            foreach (ProdLogger logger in loggers)
+            int errEnabled = (int)LogLevel | (int)LoggingLevels.Error;
+            if (errEnabled != (int)LogLevel)
             {
-                int x = (int)logger._logLevel | (int)LoggingLevels.Error;
-                if (x != (int)logger._logLevel)
-                {
-                    return;
-                }
-
-                logger._logTarget.Write(_currentMessage, logger._loggerParams);
-
+                return;
             }
+
+            FormatOutput(ref message);
+            LogTarget.Write(message, _loggerParams);
+
         }
 
-
-        /// <summary>
-        /// Verifies the log level of the current message against the loggers level.
-        /// </summary>
-        /// <param name="logger">The ProdLogger.</param>
-        /// <returns>
-        ///   <c>true</c> if message is to be logged, <c>false</c> otherwise
-        /// </returns>
-        private static bool VerifyLogLevel(ProdLogger logger)
+        internal void Log(LogMessage message)
         {
-            /* determine whether to log */
-            int z = (int)logger._logLevel;
-            int y = (int)_currentMessage.MessageLevel;
-            int x = (z | y);
-            if (x == (int)logger._logLevel)
-                return true;
-            return false;
+            FormatOutput(ref message);
+            LogTarget.Write(message, _loggerParams);
         }
 
         /// <summary>
@@ -143,9 +88,9 @@ namespace ProdUI.Logging
         /// <remarks>
         /// Accessible by calling ToString() on LogMessage
         /// </remarks>
-        private static void FormatOutput(ProdLogger logger)
+        private void FormatOutput(ref LogMessage message)
         {
-            string[] formats = logger._logFormat.Split(new[] { ',' });
+            string[] formats = LogFormat.Split(new[] { ',' });
 
             string outString = string.Empty;
 
@@ -155,22 +100,22 @@ namespace ProdUI.Logging
                 {
                     /* Set the message time (formatted) */
                     DateTime logTime = DateTime.Now;
-                    _currentMessage.LogTime = logTime.ToString(logger._logDateFormat, CultureInfo.CurrentCulture);
+                    message.LogTime = logTime.ToString(LogDateFormat, CultureInfo.CurrentCulture);
 
-                    string tempstr = "[" + _currentMessage.LogTime + "]";
+                    string tempstr = "[" + message.LogTime + "]";
                     outString += " " + tempstr;
                     continue;
                 }
                 if (item == "Message Level")
                 {
                     /* Get the message level */
-                    outString += _currentMessage.MessageLevel.ToString();
+                    outString += message.MessageLevel.ToString();
                     continue;
                 }
                 if (item == "Calling Function")
                 {
                     /* Get the message level */
-                    outString += _currentMessage.CallingMethod;
+                    outString += message.CallingMethod;
                     continue;
                 }
                 if (item != "Message Text")
@@ -179,12 +124,11 @@ namespace ProdUI.Logging
                 }
 
                 /* Get the message level */
-                outString += _currentMessage.Message;
+                outString += message.Message;
                 continue;
             }
 
-            _currentMessage.OutputString = outString;
+            message.OutputString = outString;
         }
-
     }
 }

@@ -6,10 +6,11 @@ using System;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
-using ProdUI.Session;
+using ProdUI.Configuration;
 using ProdUI.Utility;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Controls.Windows;
+using ProdUI.Interaction.Native;
 
 namespace ProdUI.Controls.Static
 {
@@ -18,7 +19,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Gets the current state of the specified checkbox
         /// </summary>
-        /// <param name="controlHandle">Handle of the target control</param>
+        /// <param name="controlHandle">NativeWindowHandle of the target control</param>
         /// <returns>
         /// one of the <see cref="System.Windows.Automation.ToggleState"/>ToggleStates
         /// </returns>
@@ -74,7 +75,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Sets the CheckState of the specified checkbox
         /// </summary>
-        /// <param name="controlHandle">Handle of the control</param>
+        /// <param name="controlHandle">NativeWindowHandle of the control</param>
         /// <param name="isChecked">One of the <see cref="System.Windows.Automation.ToggleState"/>ToggleStates</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
@@ -121,7 +122,7 @@ namespace ProdUI.Controls.Static
         /// <summary>
         /// Toggles the state of the specified checkbox
         /// </summary>
-        /// <param name="controlHandle">Handle of the control</param>
+        /// <param name="controlHandle">NativeWindowHandle of the control</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
         /// A control will cycle through its ToggleState in this order: On, Off and, if supported, Indeterminate.

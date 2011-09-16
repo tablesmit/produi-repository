@@ -25,7 +25,7 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         /// The TVM_EXPAND message expands or collapses the list of child items associated with the specified parent item, if any
         /// wParam = Action flag "TreeViewExpandArgs"
-        /// lParam = Handle to the parent item to expand or collapse
+        /// lParam = NativeWindowHandle to the parent item to expand or collapse
         /// </summary>
         TVMExpand = TVFirst + 2,
         /// <summary>
@@ -38,19 +38,19 @@ namespace ProdUI.Interaction.Native
         ///   Begins in-place editing of the specified item's text, replacing the text of the item with a single-line edit control containing the text.
         ///   This message implicitly selects and focuses the specified item
         ///   wParam = Must be zero.
-        ///   lParam = Handle to the item to edit.
+        ///   lParam = NativeWindowHandle to the item to edit.
         /// </summary>
         TVMEditlabel = TVFirst + 65,
         /// <summary>
         ///   Selects the specified tree-view item, scrolls the item into view, or redraws the item in the style used to indicate the target of a drag-and-drop operation
         ///   wParam = Action flag -> TreeViewSelectArgs
-        ///   lParam = Handle to an item. If lParam is NULL, the control is set to have no selected item
+        ///   lParam = NativeWindowHandle to an item. If lParam is NULL, the control is set to have no selected item
         /// </summary>
         TVMSelectitem = TVFirst + 11,
         /// <summary>
         ///   Ensures that a tree-view item is visible, expanding the parent item or scrolling the tree-view control, if necessary.
         ///   wParam = Must be zero
-        ///   lParam = Handle to the item
+        ///   lParam = NativeWindowHandle to the item
         /// </summary>
         TVMEnsurevisible = TVFirst + 20,
         /// <summary>

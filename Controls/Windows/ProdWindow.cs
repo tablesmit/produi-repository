@@ -11,6 +11,8 @@ using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 using ProdUI.Utility;
+using ProdUI.Controls.Static;
+using ProdUI.Configuration;
 
 namespace ProdUI.Controls.Windows
 {
@@ -19,18 +21,14 @@ namespace ProdUI.Controls.Windows
     /// </summary>
     public sealed class ProdWindow
     {
-        private readonly CacheRequest _cacheRequest;
-        private LogMessage _currentMessage;
-        private string _logmessage = string.Empty;
-        private readonly List<object> _verboseInformation;
 
-        internal AutomationElement Window;
+        protected string LogText;
+        protected List<object> _verboseInformation;
 
-        /// <summary>
-        ///   Gets or sets the attached logger.
-        /// </summary>
-        /// <value>The attached logger.</value>
-        internal List<ProdLogger> AttachedLoggers;
+        internal ProdSession AttachedSession;
+        internal AutomationElement UIAElement;
+        internal LogController sessionLoggers;
+        internal IntPtr NativeHandle;
 
         #region Constructors
 
@@ -39,30 +37,26 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name="windowHandle">The window handle.</param>
         /// <param name="loggers">The loggers.</param>
-        public ProdWindow(IntPtr windowHandle, List<ProdLogger> loggers)
+        public ProdWindow(IntPtr windowHandle, ProdSession session)
         {
             try
             {
-                AttachedLoggers = loggers;
-                Window = AutomationElement.FromHandle(windowHandle);
-                _cacheRequest = new CacheRequest();
-                _cacheRequest.Add(AutomationElement.NativeWindowHandleProperty);
+                UIAElement = AutomationElement.FromHandle(windowHandle);
+                NativeHandle = windowHandle; 
 
                 /* gotta check to make sure its a window */
-                if (!(bool)Window.GetCurrentPropertyValue(AutomationElement.IsWindowPatternAvailableProperty))
+                if (!(bool)UIAElement.GetCurrentPropertyValue(AutomationElement.IsWindowPatternAvailableProperty))
                 {
-                    ProdOperationException err = new ProdOperationException("Control does not support WindowPattern");
-                    ProdLogger.LogException(err, AttachedLoggers);
-                    throw new ProdOperationException(err);
+                    throw new ProdOperationException("Control does not support WindowPattern");
                 }
-                _verboseInformation = new List<object>();
+                AttachedSession = session;
             }
             catch (ElementNotAvailableException ex)
             {
-                ProdOperationException err = new ProdOperationException(ex);
-                ProdLogger.LogException(err, AttachedLoggers);
-                throw new ProdOperationException(err);                 
+                throw  new ProdOperationException(ex);                 
             }
+
+
         }
 
         /// <summary>
@@ -71,29 +65,25 @@ namespace ProdUI.Controls.Windows
         /// <param name="partialTitle">The title of the window to search for (partial names are acceptable, though less accurate)</param>
         /// <param name="loggers">The loggers.</param>
         /// <remarks>If window cannot be found, an error will be thrown</remarks>
-        public ProdWindow(string partialTitle, List<ProdLogger> loggers)
+        public ProdWindow(string partialTitle, ProdSession session)
         {
             try
             {
-                AttachedLoggers = loggers;
                 IntPtr handle = InternalUtilities.FindWindowPartial(partialTitle);
-                Window = AutomationElement.FromHandle(handle);
+                UIAElement = AutomationElement.FromHandle(handle);
+                NativeHandle = handle; 
 
                 /* Check to make sure its a window */
-                if (!(bool) Window.GetCurrentPropertyValue(AutomationElement.IsWindowPatternAvailableProperty))
+                if (!(bool) UIAElement.GetCurrentPropertyValue(AutomationElement.IsWindowPatternAvailableProperty))
                 {
-                    ProdOperationException err = new ProdOperationException("Control does not support WindowPattern");
-                    ProdLogger.LogException(err, AttachedLoggers);
-                    throw new ProdOperationException(err);
+                    throw new ProdOperationException("Control does not support WindowPattern");
                 }
             }
             catch (ElementNotAvailableException ex)
             {
-                ProdOperationException err = new ProdOperationException(ex);
-                ProdLogger.LogException(err, AttachedLoggers);
-                throw new ProdOperationException(err); 
+                throw new ProdOperationException(ex);  
             }
-            _verboseInformation = new List<object>();
+            AttachedSession = session;
         }
 
         #endregion
@@ -113,16 +103,15 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                WindowVisualState retVal = WindowPatternHelper.GetVisualState(AutomationElement.FromHandle((IntPtr) Window.Cached.NativeWindowHandle));
+                WindowVisualState retVal = WindowPatternHelper.GetVisualState(AutomationElement.FromHandle((IntPtr) UIAElement.Cached.NativeWindowHandle));
 
-               _logmessage = "Visual State: " + retVal;
-               LogEntry();
+                LogText = "Visual State: " + retVal;
+               LogMessage();
 
                 return retVal;
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, AttachedLoggers);
                 throw; 
             }
         }
@@ -139,16 +128,15 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                bool retVal = (bool) WindowPatternHelper.GetIsModal(Window);
+                bool retVal = (bool) WindowPatternHelper.GetIsModal(UIAElement);
 
-                _logmessage = "Is modal: " + retVal;
-                LogEntry();
+                LogText = "Is modal: " + retVal;
+                LogMessage();
 
                 return retVal;
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, AttachedLoggers);
                 throw;
             }
         }
@@ -165,16 +153,15 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                bool retVal = (bool) WindowPatternHelper.GetIsTopmost(Window);
+                bool retVal = (bool) WindowPatternHelper.GetIsTopmost(UIAElement);
 
-                _logmessage = "Is topmost: " + retVal;
-                LogEntry();
+                LogText = "Is topmost: " + retVal;
+                LogMessage();
 
                 return retVal;
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, AttachedLoggers);
                 throw;
             }
         }
@@ -188,16 +175,15 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                WindowInteractionState state = WindowPatternHelper.GetInteractionState(Window);
+                WindowInteractionState state = WindowPatternHelper.GetInteractionState(UIAElement);
 
-                _logmessage = "WindowState: " + state;
-                LogEntry();
+                LogText = "WindowState: " + state;
+                LogMessage();
 
                 return Prod.ConvertFromInteractionState(state);
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, AttachedLoggers);
                 throw;
             }
         }
@@ -211,16 +197,15 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                string retVal = Prod.WindowGetTitle((IntPtr) Window.Cached.NativeWindowHandle);
+                string retVal = Prod.WindowGetTitle((IntPtr) UIAElement.Cached.NativeWindowHandle);
 
-                _logmessage = "Title: " + retVal;
-                LogEntry();
+                LogText = "Title: " + retVal;
+                LogMessage();
 
                 return retVal;
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, AttachedLoggers);
                 throw;
             }
         }
@@ -234,14 +219,13 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                Prod.WindowSetTitle((IntPtr) Window.Cached.NativeWindowHandle, newTitle);
+                Prod.WindowSetTitle((IntPtr) UIAElement.Cached.NativeWindowHandle, newTitle);
 
-                _logmessage = "Title: " + newTitle;
-                LogEntry();
+                LogText = "Title: " + newTitle;
+                LogMessage();
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, AttachedLoggers);
                 throw;
             }
         }
@@ -255,18 +239,17 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                int ret = WindowPatternHelper.SetVisualState(Window, WindowVisualState.Minimized);
+                int ret = WindowPatternHelper.SetVisualState(UIAElement, WindowVisualState.Minimized);
                 if (ret == -1)
                 {
-                    ProdWindowNative.MinimizeWindow((IntPtr) Window.Cached.NativeWindowHandle);
+                    ProdWindowNative.MinimizeWindow((IntPtr) UIAElement.Cached.NativeWindowHandle);
                 }
 
-                _logmessage = "Window minimized";
-                LogEntry();
+                LogText = "Window minimized";
+                LogMessage();
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, AttachedLoggers);
                 throw;
             }
         }
@@ -280,18 +263,17 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                int ret = WindowPatternHelper.SetVisualState(Window, WindowVisualState.Maximized);
+                int ret = WindowPatternHelper.SetVisualState(UIAElement, WindowVisualState.Maximized);
                 if (ret == -1)
                 {
-                    ProdWindowNative.MaximizeWindow((IntPtr) Window.Cached.NativeWindowHandle);
+                    ProdWindowNative.MaximizeWindow((IntPtr) UIAElement.Cached.NativeWindowHandle);
                 }
 
-                _logmessage = "Window maximized";
-                LogEntry();
+                LogText = "Window maximized";
+                LogMessage();
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, AttachedLoggers);
                 throw;
             }
         }
@@ -305,18 +287,17 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                int ret = WindowPatternHelper.SetVisualState(Window, WindowVisualState.Normal);
+                int ret = WindowPatternHelper.SetVisualState(UIAElement, WindowVisualState.Normal);
                 if (ret == -1)
                 {
-                    ProdWindowNative.ShowWindow((IntPtr) Window.Cached.NativeWindowHandle);
+                    ProdWindowNative.ShowWindow((IntPtr) UIAElement.Cached.NativeWindowHandle);
                 }
 
-                _logmessage = "Window restored";
-                LogEntry();
+                LogText = "Window restored";
+                LogMessage();
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, AttachedLoggers);
                 throw;
             }
         }
@@ -330,18 +311,17 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                int ret = WindowPatternHelper.CloseWindow(Window);
+                int ret = WindowPatternHelper.CloseWindow(UIAElement);
                 if (ret == -1)
                 {
-                    ProdWindowNative.CloseWindow((IntPtr) Window.Cached.NativeWindowHandle);
+                    ProdWindowNative.CloseWindow((IntPtr) UIAElement.Cached.NativeWindowHandle);
                 }
 
-                _logmessage = "Window closed";
-                LogEntry();
+                LogText = "Window closed";
+                LogMessage();
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, AttachedLoggers);
                 throw;
             }
         }
@@ -358,18 +338,16 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                bool? ret = WindowPatternHelper.WaitForInputIdle(Window, delay);
+                bool? ret = WindowPatternHelper.WaitForInputIdle(UIAElement, delay);
                 if (ret == null)
                 {
                     ProdOperationException err = new ProdOperationException(new InvalidOperationException());
-                    ProdLogger.LogException(err, AttachedLoggers);
                     throw new ProdOperationException(err);
                 }
                 return (bool) ret;
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, AttachedLoggers);
                 throw;
             }
         }
@@ -385,27 +363,26 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                int ret = TransformPatternHelper.Resize(Window, width, height);
+                int ret = TransformPatternHelper.Resize(UIAElement, width, height);
 
                 if (ret == -1)
                 {
                     if (ret == -1)
                     {
-                        double x = Window.Current.BoundingRectangle.X;
-                        double y = Window.Current.BoundingRectangle.Y;
-                        ProdWindowNative.MoveWindowNative((IntPtr) Window.Current.NativeWindowHandle, x, y, width, height);
+                        double x = UIAElement.Current.BoundingRectangle.X;
+                        double y = UIAElement.Current.BoundingRectangle.Y;
+                        ProdWindowNative.MoveWindowNative((IntPtr) UIAElement.Current.NativeWindowHandle, x, y, width, height);
                     }
                 }
 
                 _verboseInformation.Clear();
                 _verboseInformation.Add("Width = " + width);
                 _verboseInformation.Add("Height = " + height);
-                _logmessage = "New Dimensions";
-                LogEntry();
+                LogText = "New Dimensions";
+                LogMessage();
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, AttachedLoggers);
                 throw;
             }
         }
@@ -419,20 +396,20 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public void Move(double x, double y)
         {
-            int ret = TransformPatternHelper.Move(Window, x, y);
+            int ret = TransformPatternHelper.Move(UIAElement, x, y);
 
             if (ret == -1)
             {
-                double width = Window.Current.BoundingRectangle.Width;
-                double height = Window.Current.BoundingRectangle.Height;
-                ProdWindowNative.MoveWindowNative((IntPtr) Window.Current.NativeWindowHandle, x, y, width, height);
+                double width = UIAElement.Current.BoundingRectangle.Width;
+                double height = UIAElement.Current.BoundingRectangle.Height;
+                ProdWindowNative.MoveWindowNative((IntPtr) UIAElement.Current.NativeWindowHandle, x, y, width, height);
             }
 
             _verboseInformation.Clear();
             _verboseInformation.Add("Y = " + y);
             _verboseInformation.Add("X = " + x);
-            _logmessage = "New Location";
-            LogEntry();
+            LogText = "New Location";
+            LogMessage();
         }
 
         /// <summary>
@@ -444,12 +421,12 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public void Rotate(double degrees)
         {
-            TransformPatternHelper.Rotate(Window, degrees);
+            TransformPatternHelper.Rotate(UIAElement, degrees);
 
             _verboseInformation.Clear();
             _verboseInformation.Add("degrees = " + degrees);
-            _logmessage = "Rotated";
-            LogEntry();
+            LogText = "Rotated";
+            LogMessage();
         }
 
         /// <summary>
@@ -463,51 +440,44 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                NativeMethods.ShowWindowAsync((IntPtr) Window.Cached.NativeWindowHandle, (int) ShowWindowCommand.SW_SHOWDEFAULT);
-                NativeMethods.ShowWindowAsync((IntPtr) Window.Cached.NativeWindowHandle, (int) ShowWindowCommand.SW_SHOW);
-                NativeMethods.SetForegroundWindow((IntPtr) Window.Cached.NativeWindowHandle);
+                NativeMethods.ShowWindowAsync((IntPtr) UIAElement.Cached.NativeWindowHandle, (int) ShowWindowCommand.SW_SHOWDEFAULT);
+                NativeMethods.ShowWindowAsync((IntPtr) UIAElement.Cached.NativeWindowHandle, (int) ShowWindowCommand.SW_SHOW);
+                NativeMethods.SetForegroundWindow((IntPtr) UIAElement.Cached.NativeWindowHandle);
             }
             catch (InvalidOperationException ex)
             {
-                ProdOperationException err = new ProdOperationException(ex);
-                ProdLogger.LogException(err, AttachedLoggers);
                 throw; 
             }
             catch (ElementNotAvailableException ex)
             {
-                ProdOperationException err = new ProdOperationException(ex);
-                ProdLogger.LogException(err, AttachedLoggers);
                 throw; 
             }
             catch (Win32Exception ex)
             {
-                ProdOperationException err = new ProdOperationException(ex);
-                ProdLogger.LogException(err, AttachedLoggers);
                 throw; 
             }
         }
 
 
-        private void CreateMessage()
+
+        /// <summary>
+        /// Creates and sends the proper LogMessage.
+        /// </summary>
+        protected void LogMessage()
         {
+            LogMessage message;
             if (_verboseInformation.Count == 0)
             {
-                _currentMessage = new LogMessage(_logmessage);
+                message = new LogMessage(LogText);
             }
             else
             {
-                _currentMessage = new LogMessage(_logmessage, _verboseInformation);
-            }
-        }
-
-        private void LogEntry()
-        {
-            if (_currentMessage == null)
-            {
-                CreateMessage();
+                _verboseInformation = new List<object>();
+                message = new LogMessage(LogText, _verboseInformation);
             }
 
-            ProdLogger.Log(_currentMessage, AttachedLoggers);
+            sessionLoggers.ReceiveLogMessage(message);
+
         }
 
     }

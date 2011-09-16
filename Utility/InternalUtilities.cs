@@ -172,7 +172,7 @@ namespace ProdUI.Utility
         /// <summary>
         ///   Enumerates child windows and fills the Hashtable
         /// </summary>
-        /// <param name = "theParentHandle">Handle to the parent window</param>
+        /// <param name = "theParentHandle">NativeWindowHandle to the parent window</param>
         /// <param name = "theChildTitle">The text associated with the desired child control</param>
         /// <returns>the handle to the window, or zero pointer if not found</returns>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" /></exception>
@@ -180,7 +180,7 @@ namespace ProdUI.Utility
         {
             if ((int)theParentHandle == 0)
             {
-                throw new ProdOperationException("Handle Not found", new ElementNotAvailableException());
+                throw new ProdOperationException("NativeWindowHandle Not found", new ElementNotAvailableException());
             }
 
             IntPtr retVal = NativeMethods.FindWindowEX(theParentHandle, IntPtr.Zero, null, theChildTitle);
@@ -198,15 +198,15 @@ namespace ProdUI.Utility
         /// <summary>
         ///   finds window handle of control with corresponding ID
         /// </summary>
-        /// <param name = "theParentHandle">Handle to the window containing the control</param>
+        /// <param name = "theParentHandle">NativeWindowHandle to the window containing the control</param>
         /// <param name = "controlId">Resource Id of the control</param>
-        /// <returns>Handle to the window if successful, 0 if not</returns>
+        /// <returns>NativeWindowHandle to the window if successful, 0 if not</returns>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" /></exception>
         public static IntPtr GetChildHandle(IntPtr theParentHandle, int controlId)
         {
             if ((int)theParentHandle == 0)
             {
-                throw new ProdOperationException("Handle Not found", new ElementNotAvailableException());
+                throw new ProdOperationException("NativeWindowHandle Not found", new ElementNotAvailableException());
             }
             IntPtr inp = IntPtr.Zero;
             ChildList = new Hashtable();
@@ -225,9 +225,9 @@ namespace ProdUI.Utility
         /// <summary>
         ///   Gets control handle that contains the specified text
         /// </summary>
-        /// <param name = "theParentHandle">Handle to the window containing the control</param>
+        /// <param name = "theParentHandle">NativeWindowHandle to the window containing the control</param>
         /// <param name = "theControlText">The text to match</param>
-        /// <returns>Handle to the window if successful, 0 if not</returns>
+        /// <returns>NativeWindowHandle to the window if successful, 0 if not</returns>
         /// <exception cref = "ProdOperationException">Thrown if call is invalid for the object's current state <seealso cref = "InvalidOperationException" /></exception>
         public static IntPtr GetChildHandle(IntPtr theParentHandle, string theControlText)
         {
@@ -235,7 +235,7 @@ namespace ProdUI.Utility
 
             if ((int)theParentHandle == 0)
             {
-                throw new ProdOperationException("Handle Not found", new ElementNotAvailableException());
+                throw new ProdOperationException("NativeWindowHandle Not found", new ElementNotAvailableException());
             }
 
 
@@ -491,14 +491,14 @@ namespace ProdUI.Utility
         internal static AutomationElement GetHandlelessElement(ProdWindow prodWindow, string automationId)
         {
             Condition cond = new PropertyCondition(AutomationElement.AutomationIdProperty, automationId);
-            AutomationElement control = prodWindow.Window.FindFirst(TreeScope.Descendants, cond);
+            AutomationElement control = prodWindow.UIAElement.FindFirst(TreeScope.Descendants, cond);
 
             /* then we'll try the name...who knows? */
             if (control == null)
             {
                 /* try the name */
                 Condition condName = new PropertyCondition(AutomationElement.NameProperty, automationId, PropertyConditionFlags.IgnoreCase);
-                control = prodWindow.Window.FindFirst(TreeScope.Descendants, condName);
+                control = prodWindow.UIAElement.FindFirst(TreeScope.Descendants, condName);
             }
 
             return control;

@@ -10,6 +10,7 @@ using ProdUI.Logging;
 using ProdUI.Controls.Windows;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Controls;
+using ProdUI.Interaction.Native;
 
 /* 
  * Supported Patterns: 
@@ -72,16 +73,16 @@ namespace ProdUI.Controls.Windows
             try
             {
                 RegisterEvent(ValuePattern.ValueProperty);
-                if (CommonUIAPatternHelpers.ReadOnly(UIAElement))
+                if ((bool)UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty))
                 {
                     throw new ProdOperationException("TextBox is Read Only");
                 }
 
                 int ret = ValuePatternHelper.AppendValue(UIAElement, newText);
 
-                if (ret == -1 && Handle != IntPtr.Zero)
+                if (ret == -1 && NativeWindowHandle != IntPtr.Zero)
                 {
-                    if (NativeTextProds.AppendTextNative(Handle, newText))
+                    if (NativeTextProds.AppendTextNative(NativeWindowHandle, newText))
                     {
                         return;
                     }
@@ -95,7 +96,7 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
             }
         }
 
@@ -110,8 +111,7 @@ namespace ProdUI.Controls.Windows
 
             try
             {
-                RegisterEvent(ValuePattern.ValueProperty);
-                if (CommonUIAPatternHelpers.ReadOnly(UIAElement))
+                if ((bool)UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty))
                 {
                     throw new ProdOperationException("TextBox is Read Only");
                 }
@@ -122,9 +122,9 @@ namespace ProdUI.Controls.Windows
                 }
 
 
-                if (Handle != IntPtr.Zero)
+                if (NativeWindowHandle != IntPtr.Zero)
                 {
-                    NativeTextProds.ClearTextNative(Handle);
+                    NativeTextProds.ClearTextNative(NativeWindowHandle);
                     return;
                 }
 
@@ -133,7 +133,7 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
             }
         }
 
@@ -162,9 +162,9 @@ namespace ProdUI.Controls.Windows
             try
             {
                 string txt = GetText();
-                if (txt != null && Handle != IntPtr.Zero)
+                if (txt != null && NativeWindowHandle != IntPtr.Zero)
                 {
-                    txt = NativeTextProds.GetTextNative(Handle);
+                    txt = NativeTextProds.GetTextNative(NativeWindowHandle);
                 }
 
                 int retVal = txt.Length;
@@ -175,7 +175,6 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
                 throw;
             }
         }
@@ -190,9 +189,9 @@ namespace ProdUI.Controls.Windows
         {
             string ret = ValuePatternHelper.GetValue(UIAElement);
 
-            if (ret == null && Handle != IntPtr.Zero)
+            if (ret == null && NativeWindowHandle != IntPtr.Zero)
             {
-                ret = NativeTextProds.GetTextNative(Handle);
+                ret = NativeTextProds.GetTextNative(NativeWindowHandle);
             }
 
             LogText = "Text: " + ret;
@@ -214,7 +213,7 @@ namespace ProdUI.Controls.Windows
             {
                 RegisterEvent(ValuePattern.ValueProperty);
 
-                if (CommonUIAPatternHelpers.ReadOnly(UIAElement))
+                if ((bool)UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty))
                 {
                     throw new ProdOperationException("TextBox is Read Only");
                 }
@@ -226,9 +225,9 @@ namespace ProdUI.Controls.Windows
                 }
 
 
-                if (Handle != IntPtr.Zero)
+                if (NativeWindowHandle != IntPtr.Zero)
                 {
-                    NativeTextProds.InsertTextNative(Handle, newText, insertIndex);
+                    NativeTextProds.InsertTextNative(NativeWindowHandle, newText, insertIndex);
                 }
                 else
                 {
@@ -237,7 +236,7 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
             }
         }
 
@@ -267,7 +266,7 @@ namespace ProdUI.Controls.Windows
             {
                 RegisterEvent(ValuePattern.ValueProperty);
 
-                if (CommonUIAPatternHelpers.ReadOnly(UIAElement))
+                if ((bool)UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty))
                 {
                     throw new ProdOperationException("TextBox is Read Only");
                 }
@@ -279,9 +278,9 @@ namespace ProdUI.Controls.Windows
 
 
                 /* If control has a handle, use native method */
-                if (Handle != IntPtr.Zero)
+                if (NativeWindowHandle != IntPtr.Zero)
                 {
-                    if (NativeTextProds.SetTextNative(Handle, text))
+                    if (NativeTextProds.SetTextNative(NativeWindowHandle, text))
                     {
                         return;
                     }
@@ -294,7 +293,7 @@ namespace ProdUI.Controls.Windows
             }
             catch (ProdOperationException err)
             {
-                ProdLogger.LogException(err, ParentWindow.AttachedLoggers);
+                throw;
             }
         }
 
