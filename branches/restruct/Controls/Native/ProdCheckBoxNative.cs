@@ -9,7 +9,7 @@ using ProdUI.Exceptions;
 using ProdUI.Session;
 using ProdUI.Utility;
 
-namespace ProdUI.Controls.Native
+namespace ProdUI.Interaction.Native
 {
     /// <summary>
     ///   Methods to work with Checkbox controls using the UI Automation framework

@@ -4,7 +4,7 @@
 
 using System;
 
-namespace ProdUI.Controls.Native
+namespace ProdUI.Interaction.Native
 {
     internal enum ComboBoxMessage
     {

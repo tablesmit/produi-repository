@@ -4,7 +4,7 @@
 
 using System;
 
-namespace ProdUI.Enums
+namespace ProdUI.Interaction.Native
 {
     [Flags]
     internal enum TreeViewMessages

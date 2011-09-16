@@ -4,14 +4,13 @@
 
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Text;
-using ProdUI.Enums;
 using ProdUI.Exceptions;
 using ProdUI.Session;
 using ProdUI.Utility;
-using System.Globalization;
 
-namespace ProdUI.Controls.Native
+namespace ProdUI.Interaction.Native
 {
     /// <summary>
     ///   Provides methods to interact with Textbox controls via the UI Automation API

@@ -1,17 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Text;
-using ProdUI.Enums;
 using ProdUI.Exceptions;
 using ProdUI.Session;
 using ProdUI.Utility;
 
-namespace ProdUI.Controls.Native
+namespace ProdUI.Interaction.Native
 {
     /// <summary>
     ///   Provides methods to interact with Textbox controls via the UI Automation API
     /// </summary>
-    internal class ProdEditNative : BaseNativeControl
+    internal class ProdEditNative
     {
         /// <summary>
         ///   Uses SendMessage to try and get the text value

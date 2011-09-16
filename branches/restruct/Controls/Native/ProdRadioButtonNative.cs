@@ -8,7 +8,7 @@ using ProdUI.Exceptions;
 using ProdUI.Session;
 using ProdUI.Utility;
 
-namespace ProdUI.Controls.Native
+namespace ProdUI.Interaction.Native
 {
     internal sealed class ProdRadioButtonNative
     {

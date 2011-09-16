@@ -5,12 +5,12 @@
 using System;
 using System.ComponentModel;
 using System.Text;
-using ProdUI.Enums;
 using ProdUI.Exceptions;
+using ProdUI.Interaction.Native;
 using ProdUI.Session;
 using ProdUI.Utility;
 
-namespace ProdUI.Controls.Native
+namespace ProdUI.Interaction.Native
 {
     internal static class ProdWindowNative
     {

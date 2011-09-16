@@ -11,7 +11,7 @@ using ProdUI.Exceptions;
 using ProdUI.Session;
 using ProdUI.Utility;
 
-namespace ProdUI.Controls.Native
+namespace ProdUI.Interaction.Native
 {
     /// <summary>
     ///   Provides methods to interact with ListBox controls using the Win32 API
