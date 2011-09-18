@@ -1,18 +1,18 @@
-﻿using System;
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Remoting;
-using ProdUI.Exceptions;
-using ProdUI.Logging;
 
 namespace ProdUI.Logging
 {
     internal class LogController
     {
-        private LogController(){}
-
-        private LogMessage _CurrentMessage;
         internal static List<ProdLogger> ActiveLoggers;
+        private LogMessage _CurrentMessage;
+
+        private LogController()
+        {
+        }
 
         internal static LogController Create(List<ProdLogger> loggers)
         {
@@ -37,7 +37,6 @@ namespace ProdUI.Logging
 
             _CurrentMessage = message;
             ProcessMessage();
-
         }
 
         private void ProcessMessage()
@@ -45,13 +44,12 @@ namespace ProdUI.Logging
             foreach (ProdLogger logger in ActiveLoggers)
             {
                 /* determine whether to log */
-                int z = (int)logger.LogLevel;
-                int y = (int)_CurrentMessage.MessageLevel;
+                int z = (int) logger.LogLevel;
+                int y = (int) _CurrentMessage.MessageLevel;
                 int x = (z | y);
-                if (x == (int)logger.LogLevel)
+                if (x == (int) logger.LogLevel)
                     logger.Log(_CurrentMessage);
             }
         }
-
     }
 }

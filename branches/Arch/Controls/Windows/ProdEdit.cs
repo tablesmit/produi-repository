@@ -1,16 +1,13 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.Windows.Automation;
 using System.Windows.Forms;
 using ProdUI.Exceptions;
-using ProdUI.Logging;
-using ProdUI.Controls.Windows;
-using ProdUI.Interaction.UIAPatterns;
-using ProdUI.Controls;
 using ProdUI.Interaction.Native;
+using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Logging;
 
 /* 
  * Supported Patterns: 
@@ -22,46 +19,43 @@ using ProdUI.Interaction.Native;
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
-    ///   Provides mechanisms to work with Edit (or TextBox) controls
+    ///     Provides mechanisms to work with Edit (or TextBox) controls
     /// </summary>
     public sealed class ProdEdit : BaseProdControl
     {
         #region Constructors
 
         /// <summary>
-        ///   Initializes a new instance of the ProdTextBox class.
+        ///     Initializes a new instance of the ProdTextBox class.
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "automationId">The UI Automation identifier (ID) for the element.</param>
-        public ProdEdit(ProdWindow prodWindow, string automationId)
-            : base(prodWindow, automationId)
+        public ProdEdit(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
         {
         }
 
         /// <summary>
-        ///   Initializes a new instance of the ProdTextBox class.
+        ///     Initializes a new instance of the ProdTextBox class.
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
-        public ProdEdit(ProdWindow prodWindow, int treePosition)
-            : base(prodWindow, treePosition)
+        public ProdEdit(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
         {
         }
 
         /// <summary>
-        ///   Initializes a new instance of the ProdTextBox class.
+        ///     Initializes a new instance of the ProdTextBox class.
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "controlHandle">Window handle of the control</param>
-        public ProdEdit(ProdWindow prodWindow, IntPtr controlHandle)
-            : base(prodWindow, controlHandle)
+        public ProdEdit(ProdWindow prodWindow, IntPtr controlHandle) : base(prodWindow, controlHandle)
         {
         }
 
         #endregion
 
         /// <summary>
-        ///   Appends text to a text input control
+        ///     Appends text to a text input control
         /// </summary>
         /// <param name = "newText">Text To Append</param>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
@@ -73,26 +67,23 @@ namespace ProdUI.Controls.Windows
             try
             {
                 RegisterEvent(ValuePattern.ValueProperty);
-                if ((bool)UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty))
+                if ((bool) UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty))
                 {
                     throw new ProdOperationException("TextBox is Read Only");
                 }
 
-                int ret = ValuePatternHelper.AppendValue(UIAElement, newText);
+                //TODO: convert    int ret = ValuePatternHelper.AppendValue(UIAElement, newText);
 
-                if (ret == -1 && NativeWindowHandle != IntPtr.Zero)
-                {
-                    if (NativeTextProds.AppendTextNative(NativeWindowHandle, newText))
-                    {
-                        return;
-                    }
-                    else
-                        /* If it doesn't have one, send keys, then */
-                        ValuePatternHelper.SendKeysAppendText(UIAElement, newText); 
-                }
-
-            
-
+                //if (ret == -1 && NativeWindowHandle != IntPtr.Zero)
+                //{
+                //    if (NativeTextProds.AppendTextNative(NativeWindowHandle, newText))
+                //    {
+                //        return;
+                //    }
+                //    else
+                //        /* If it doesn't have one, send keys, then */
+                //        ValuePatternHelper.SendKeysAppendText(UIAElement, newText); 
+                //}
             }
             catch (ProdOperationException err)
             {
@@ -101,7 +92,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Set text area value to an empty string
+        ///     Set text area value to an empty string
         /// </summary>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
@@ -111,7 +102,7 @@ namespace ProdUI.Controls.Windows
 
             try
             {
-                if ((bool)UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty))
+                if ((bool) UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty))
                 {
                     throw new ProdOperationException("TextBox is Read Only");
                 }
@@ -129,7 +120,7 @@ namespace ProdUI.Controls.Windows
                 }
 
                 /* If it doesn't have one, send keys, then */
-                ValuePatternHelper.SendKeysSetText(UIAElement, "");              
+                //TODO: convert  ValuePatternHelper.SendKeysSetText(UIAElement, "");              
             }
             catch (ProdOperationException err)
             {
@@ -137,24 +128,25 @@ namespace ProdUI.Controls.Windows
             }
         }
 
-        /// <summary>Copies any text in the control to the Clipboard.</summary>
+        /// <summary>
+        ///     Copies any text in the control to the Clipboard.
+        /// </summary>
         public void CopyToClipBoard()
         {
             string text = GetText();
             if (text.Length > 0)
-            { 
-                Clipboard.SetText(text); 
+            {
+                Clipboard.SetText(text);
             }
-            
         }
 
         /// <summary>
-        ///   Gets the number of characters in textbox
+        ///     Gets the number of characters in textbox
         /// </summary>
         /// <returns>The number of characters in the ProdTextBox</returns>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        ///   Will attempt to match AutomationId, then ReadOnly
+        ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public int GetLength()
@@ -180,7 +172,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Gets or sets the text contained in the current TextBox
+        ///     Gets or sets the text contained in the current TextBox
         /// </summary>
         /// <returns>The text currently in the ProdTextBox</returns>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
@@ -201,7 +193,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Appends the supplied string to the existing textBox text
+        ///     Appends the supplied string to the existing textBox text
         /// </summary>
         /// <param name = "newText">Text to append to TextBox value</param>
         /// <param name = "insertIndex">Zero based index of string to insert text into</param>
@@ -213,16 +205,16 @@ namespace ProdUI.Controls.Windows
             {
                 RegisterEvent(ValuePattern.ValueProperty);
 
-                if ((bool)UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty))
+                if ((bool) UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty))
                 {
                     throw new ProdOperationException("TextBox is Read Only");
                 }
 
-
-                if (ValuePatternHelper.InsertValue(UIAElement, newText, insertIndex) == 0)
-                {
-                    return;
-                }
+                //TODO: convert
+                //if (ValuePatternHelper.InsertValue(UIAElement, newText, insertIndex) == 0)
+                //{
+                //    return;
+                //}
 
 
                 if (NativeWindowHandle != IntPtr.Zero)
@@ -240,7 +232,9 @@ namespace ProdUI.Controls.Windows
             }
         }
 
-        /// <summary>Pastes text (if available) from the Clipboard into the control.</summary>
+        /// <summary>
+        ///     Pastes text (if available) from the Clipboard into the control.
+        /// </summary>
         public void PasteFromClipboard()
         {
             if (!Clipboard.ContainsText())
@@ -251,11 +245,10 @@ namespace ProdUI.Controls.Windows
 
             string contents = Clipboard.GetText();
             SetText(contents);
-
         }
 
         /// <summary>
-        ///   Gets or sets the text contained in the current TextBox
+        ///     Gets or sets the text contained in the current TextBox
         /// </summary>
         /// <param name = "text">The text to place into the ProdTextBox.</param>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
@@ -266,7 +259,7 @@ namespace ProdUI.Controls.Windows
             {
                 RegisterEvent(ValuePattern.ValueProperty);
 
-                if ((bool)UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty))
+                if ((bool) UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty))
                 {
                     throw new ProdOperationException("TextBox is Read Only");
                 }
@@ -284,18 +277,15 @@ namespace ProdUI.Controls.Windows
                     {
                         return;
                     }
-
                 }
 
                 /* If it doesn't have one, send keys, then */
-                ValuePatternHelper.SendKeysSetText(UIAElement, text);
-
+                //TODO: convert ValuePatternHelper.SendKeysSetText(UIAElement, text);
             }
             catch (ProdOperationException err)
             {
                 throw;
             }
         }
-
     }
 }

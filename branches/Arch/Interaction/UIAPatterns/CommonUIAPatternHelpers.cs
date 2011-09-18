@@ -1,30 +1,27 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.Windows.Automation;
-using ProdUI.Controls;
+using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
-using ProdUI.Controls.Windows;
 
 namespace ProdUI.Interaction.UIAPatterns
 {
     /// <summary>
-    /// Provides methods common across all pattern helpers. mostly to determine support
+    ///     Provides methods common across all pattern helpers. mostly to determine support
     /// </summary>
     internal static class CommonUIAPatternHelpers
     {
         /// <summary>
-        /// Gets UIAutomation target control ready for manipulation
+        ///     Gets UIAutomation target control ready for manipulation
         /// </summary>
-        /// <param name="pattern"><see cref="System.Windows.Automation.AutomationPattern"/> to be used</param>
-        /// <param name="controlHandle">NativeWindowHandle to control to be worked with</param>
+        /// <param name = "pattern"><see cref = "System.Windows.Automation.AutomationPattern" /> to be used</param>
+        /// <param name = "controlHandle">NativeWindowHandle to control to be worked with</param>
         /// <returns>
-        /// UI Automation element
+        ///     UI Automation element
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Error, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static AutomationElement Prologue(AutomationPattern pattern, IntPtr controlHandle)
         {
@@ -47,19 +44,18 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        /// Gets UIAutomation target control ready for manipulation
+        ///     Gets UIAutomation target control ready for manipulation
         /// </summary>
-        /// <param name="prodwindow">The ProdWindow.</param>
-        /// <param name="pattern"><see cref="System.Windows.Automation.AutomationPattern"/> to be used</param>
-        /// <param name="automationId">The automation id.</param>
+        /// <param name = "prodwindow">The ProdWindow.</param>
+        /// <param name = "pattern"><see cref = "System.Windows.Automation.AutomationPattern" /> to be used</param>
+        /// <param name = "automationId">The automation id.</param>
         /// <returns>
-        /// UI Automation element
+        ///     UI Automation element
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Error, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static AutomationElement Prologue(ProdWindow prodwindow, AutomationPattern pattern, string automationId)
         {
-
             AutomationElement control = GetControl(prodwindow, automationId);
             /* control found...proceed */
             control.SetFocus();
@@ -88,10 +84,10 @@ namespace ProdUI.Interaction.UIAPatterns
 
 
         /// <summary>
-        /// Gets the controls with matching automationId inside a ProdWindow
+        ///     Gets the controls with matching automationId inside a ProdWindow
         /// </summary>
-        /// <param name="prodwindow">The ProdWindow.</param>
-        /// <param name="automationId">The automation id.</param>
+        /// <param name = "prodwindow">The ProdWindow.</param>
+        /// <param name = "automationId">The automation id.</param>
         /// <returns>A list of matching elements/returns></returns>
         private static AutomationElement GetControl(ProdWindow prodwindow, string automationId)
         {
@@ -111,14 +107,14 @@ namespace ProdUI.Interaction.UIAPatterns
 
 
         /// <summary>
-        /// Performs <see cref="System.Windows.Automation.AutomationPattern"/> verification
+        ///     Performs <see cref = "System.Windows.Automation.AutomationPattern" /> verification
         /// </summary>
-        /// <param name="pattern"><see cref="System.Windows.Automation.AutomationPattern"/> to be used</param>
-        /// <param name="control">UI Automation element to be worked with</param>
+        /// <param name = "pattern"><see cref = "System.Windows.Automation.AutomationPattern" /> to be used</param>
+        /// <param name = "control">UI Automation element to be worked with</param>
         /// <returns>
-        ///   <c>true</c> if pattern is supported by the control, <c>false</c> if not. a <c>null</c> value is returned in the event of a recoverable error
+        ///     <c>true</c> if pattern is supported by the control, <c>false</c> if not. a <c>null</c> value is returned in the event of a recoverable error
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         internal static object CheckPatternSupport(AutomationPattern pattern, AutomationElement control)
         {
             try
@@ -141,6 +137,5 @@ namespace ProdUI.Interaction.UIAPatterns
                 throw new ProdOperationException("Does not support " + pattern.ProgrammaticName);
             }
         }
-
     }
 }

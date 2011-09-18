@@ -1,27 +1,26 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.ComponentModel;
 using System.Windows.Automation;
-using ProdUI.Exceptions;
 using ProdUI.Configuration;
+using ProdUI.Exceptions;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
 {
     /// <summary>
-    ///   Methods to work with Checkbox controls using the UI Automation framework
+    ///     Methods to work with Checkbox controls using the UI Automation framework
     /// </summary>
     internal sealed class ProdCheckBoxNative
     {
         /// <summary>
-        ///   Uses SendMessage to check the state
+        ///     Uses SendMessage to check the state
         /// </summary>
         /// <param name = "windowHandle">NativeWindowHandle to the checkbox</param>
         /// <returns>
-        ///   one of the <see cref = "System.Windows.Automation.ToggleState" />ToggleStates
+        ///     one of the <see cref = "System.Windows.Automation.ToggleState" />ToggleStates
         /// </returns>
         internal static ToggleState GetCheckStateNative(IntPtr windowHandle)
         {
@@ -44,7 +43,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Uses SendMessage to post the state
+        ///     Uses SendMessage to post the state
         /// </summary>
         /// <param name = "windowHandle">NativeWindowHandle to the checkbox</param>
         /// <param name = "isChecked">one of the <see cref = "System.Windows.Automation.ToggleState" />ToggleStates</param>
@@ -75,7 +74,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Converts Automation ToggleStates to Win32 BST
+        ///     Converts Automation ToggleStates to Win32 BST
         /// </summary>
         /// <param name = "isChecked"><see cref = "System.Windows.Automation.ToggleState" /></param>
         /// <returns><see cref = "ButtonStates" /></returns>
@@ -103,7 +102,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Converts Win32 BST_ to Automation ToggleStates
+        ///     Converts Win32 BST_ to Automation ToggleStates
         /// </summary>
         /// <param name = "bcs"><see cref = "ButtonStates" /></param>
         /// <returns><see cref = "System.Windows.Automation.ToggleState" /></returns>

@@ -1,13 +1,12 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using ProdUI.Exceptions;
 using ProdUI.Configuration;
+using ProdUI.Exceptions;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
@@ -17,7 +16,7 @@ namespace ProdUI.Interaction.Native
         private const int CBErr = -1;
 
         /// <summary>
-        ///   Gets the selected index from the ComboBox list.
+        ///     Gets the selected index from the ComboBox list.
         /// </summary>
         /// <param name = "windowHandle">The window handle.</param>
         /// <returns>The index of the selected list item</returns>
@@ -41,7 +40,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Uses SendMessage to select an item in the ComboBox, deselecting all other items
+        ///     Uses SendMessage to select an item in the ComboBox, deselecting all other items
         /// </summary>
         /// <param name = "windowHandle">NativeWindowHandle to ComboBox</param>
         /// <param name = "index">Zero based index of item to select</param>
@@ -70,7 +69,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Uses SendMessage to select an item in the ComboBox, deselecting all other items
+        ///     Uses SendMessage to select an item in the ComboBox, deselecting all other items
         /// </summary>
         /// <param name = "windowHandle">NativeWindowHandle to ComboBox</param>
         /// <param name = "itemText">String to search ComboBox for. Case insensitive</param>
@@ -102,7 +101,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Finds the desired string in the ComboBox list.
+        ///     Finds the desired string in the ComboBox list.
         /// </summary>
         /// <param name = "windowHandle">The window handle.</param>
         /// <param name = "itemText">The item text.</param>
@@ -125,7 +124,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Uses SendMessage to get a collection of all items in a ComboBox
+        ///     Uses SendMessage to get a collection of all items in a ComboBox
         /// </summary>
         /// <param name = "windowHandle">NativeWindowHandle to ComboBox</param>
         /// <returns>A string collection containing each item in the ComboBox</returns>
@@ -143,7 +142,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Gets all items in the ComboBox List.
+        ///     Gets all items in the ComboBox List.
         /// </summary>
         /// <param name = "windowHandle">The window handle.</param>
         /// <param name = "itemCount">The item count.</param>
@@ -170,7 +169,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Uses SendMessage to get # of items in ComboBox
+        ///     Uses SendMessage to get # of items in ComboBox
         /// </summary>
         /// <param name = "windowHandle">NativeWindowHandle to the control</param>
         /// <returns>Number of items in the ComboBox</returns>

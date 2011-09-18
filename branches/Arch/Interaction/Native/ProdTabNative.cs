@@ -1,22 +1,21 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.ComponentModel;
-using ProdUI.Exceptions;
 using ProdUI.Configuration;
+using ProdUI.Exceptions;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
 {
     /// <summary>
-    ///   Methods to work with Button controls using the UI Automation framework
+    ///     Methods to work with Button controls using the UI Automation framework
     /// </summary>
     internal sealed class ProdTabNative
     {
         /// <summary>
-        ///   Gets the tab count.
+        ///     Gets the tab count.
         /// </summary>
         /// <param name = "windowHandle">The window handle.</param>
         /// <returns>The number of tabs within the tabControl</returns>
@@ -40,7 +39,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Gets the selected tab.
+        ///     Gets the selected tab.
         /// </summary>
         /// <param name = "windowHandle">The window handle.</param>
         /// <returns>The zero based index of the selected TabItem</returns>
@@ -64,7 +63,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Sets the selected tab.
+        ///     Sets the selected tab.
         /// </summary>
         /// <param name = "windowHandle">The window handle.</param>
         /// <param name = "index">The index.</param>

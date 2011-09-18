@@ -1,34 +1,31 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Automation;
+using ProdUI.Configuration;
+using ProdUI.Controls.Static;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 using ProdUI.Utility;
-using ProdUI.Controls.Static;
-using ProdUI.Configuration;
 
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
-    ///   Provides mechanisms to work with container windows
+    ///     Provides mechanisms to work with container windows
     /// </summary>
     public sealed class ProdWindow
     {
-
-        protected string LogText;
-        protected List<object> _verboseInformation;
-
         internal ProdSession AttachedSession;
-        internal AutomationElement UIAElement;
-        internal LogController sessionLoggers;
+        internal string LogText;
         internal IntPtr NativeHandle;
+        internal AutomationElement UIAElement;
+        internal List<object> _verboseInformation;
+        internal LogController sessionLoggers;
 
         #region Constructors
 
@@ -36,16 +33,16 @@ namespace ProdUI.Controls.Windows
         /// Initializes a new instance of the ProdUI.Controls.ProdWindow Class from the specified handle
         /// </summary>
         /// <param name="windowHandle">The window handle.</param>
-        /// <param name="loggers">The loggers.</param>
+        /// <param name="session">The session.</param>
         public ProdWindow(IntPtr windowHandle, ProdSession session)
         {
             try
             {
                 UIAElement = AutomationElement.FromHandle(windowHandle);
-                NativeHandle = windowHandle; 
+                NativeHandle = windowHandle;
 
                 /* gotta check to make sure its a window */
-                if (!(bool)UIAElement.GetCurrentPropertyValue(AutomationElement.IsWindowPatternAvailableProperty))
+                if (!(bool) UIAElement.GetCurrentPropertyValue(AutomationElement.IsWindowPatternAvailableProperty))
                 {
                     throw new ProdOperationException("Control does not support WindowPattern");
                 }
@@ -53,25 +50,25 @@ namespace ProdUI.Controls.Windows
             }
             catch (ElementNotAvailableException ex)
             {
-                throw  new ProdOperationException(ex);                 
+                throw new ProdOperationException(ex);
             }
-
-
         }
 
         /// <summary>
         /// Initializes a new instance of the ProdUI.Controls.ProdWindow Class from the specified partial title
         /// </summary>
         /// <param name="partialTitle">The title of the window to search for (partial names are acceptable, though less accurate)</param>
-        /// <param name="loggers">The loggers.</param>
-        /// <remarks>If window cannot be found, an error will be thrown</remarks>
+        /// <param name="session">The session.</param>
+        /// <remarks>
+        /// If window cannot be found, an error will be thrown
+        /// </remarks>
         public ProdWindow(string partialTitle, ProdSession session)
         {
             try
             {
                 IntPtr handle = InternalUtilities.FindWindowPartial(partialTitle);
                 UIAElement = AutomationElement.FromHandle(handle);
-                NativeHandle = handle; 
+                NativeHandle = handle;
 
                 /* Check to make sure its a window */
                 if (!(bool) UIAElement.GetCurrentPropertyValue(AutomationElement.IsWindowPatternAvailableProperty))
@@ -81,22 +78,19 @@ namespace ProdUI.Controls.Windows
             }
             catch (ElementNotAvailableException ex)
             {
-                throw new ProdOperationException(ex);  
+                throw new ProdOperationException(ex);
             }
             AttachedSession = session;
         }
 
         #endregion
 
-
-
-
         /// <summary>
-        ///   Gets the WindowVisualState of the current window
+        ///     Gets the WindowVisualState of the current window
         /// </summary>
         /// <returns></returns>
         /// <value>
-        ///   The visual state of the window.
+        ///     The visual state of the window.
         /// </value>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public WindowVisualState GetWindowVisualState()
@@ -106,29 +100,29 @@ namespace ProdUI.Controls.Windows
                 WindowVisualState retVal = WindowPatternHelper.GetVisualState(AutomationElement.FromHandle((IntPtr) UIAElement.Cached.NativeWindowHandle));
 
                 LogText = "Visual State: " + retVal;
-               LogMessage();
+                LogMessage();
 
                 return retVal;
             }
             catch (ProdOperationException err)
             {
-                throw; 
+                throw;
             }
         }
 
         /// <summary>
-        ///   Gets whether the current window is modal or not
+        ///     Gets whether the current window is modal or not
         /// </summary>
         /// <returns></returns>
         /// <value>
-        ///   <c>true</c> if this instance is modal; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance is modal; otherwise, <c>false</c>.
         /// </value>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public bool GetIsModal()
         {
             try
             {
-                bool retVal = (bool) WindowPatternHelper.GetIsModal(UIAElement);
+                bool retVal = WindowPatternHelper.GetIsModal(UIAElement);
 
                 LogText = "Is modal: " + retVal;
                 LogMessage();
@@ -142,18 +136,18 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Gets a value whether a window is set to be topmost in the z-order
+        ///     Gets a value whether a window is set to be topmost in the z-order
         /// </summary>
         /// <returns></returns>
         /// <value>
-        ///   <c>true</c> if topmost; otherwise, <c>false</c>.
+        ///     <c>true</c> if topmost; otherwise, <c>false</c>.
         /// </value>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public bool GetIsTopmost()
         {
             try
             {
-                bool retVal = (bool) WindowPatternHelper.GetIsTopmost(UIAElement);
+                bool retVal = WindowPatternHelper.GetIsTopmost(UIAElement);
 
                 LogText = "Is topmost: " + retVal;
                 LogMessage();
@@ -167,7 +161,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Gets the state of the current window.
+        ///     Gets the state of the current window.
         /// </summary>
         /// <returns>The WindowState</returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
@@ -189,7 +183,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Gets the specified windows title
+        ///     Gets the specified windows title
         /// </summary>
         /// <returns></returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
@@ -211,7 +205,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Sets the specified windows title
+        ///     Sets the specified windows title
         /// </summary>
         /// <param name = "newTitle">The new title.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
@@ -231,7 +225,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Minimizes the current window
+        ///     Minimizes the current window
         /// </summary>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
@@ -255,7 +249,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Maximizes the current window
+        ///     Maximizes the current window
         /// </summary>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
@@ -279,7 +273,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Restores current window to its original dimensions
+        ///     Restores current window to its original dimensions
         /// </summary>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
@@ -303,7 +297,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Closes the current window
+        ///     Closes the current window
         /// </summary>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
@@ -327,24 +321,19 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Causes the calling code to block for the specified time or until the associated process enters an idle state, whichever completes first
+        ///     Causes the calling code to block for the specified time or until the associated process enters an idle state, whichever completes first
         /// </summary>
         /// <param name = "delay">Time, in milliseconds to wait for an idle state</param>
         /// <returns>
-        ///   <c>true</c> if the window has entered the idle state. <c>false</c> if the timeout occurred
+        ///     <c>true</c> if the window has entered the idle state. <c>false</c> if the timeout occurred
         /// </returns>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public bool WaitForInputIdle(int delay)
         {
             try
             {
-                bool? ret = WindowPatternHelper.WaitForInputIdle(UIAElement, delay);
-                if (ret == null)
-                {
-                    ProdOperationException err = new ProdOperationException(new InvalidOperationException());
-                    throw new ProdOperationException(err);
-                }
-                return (bool) ret;
+                bool ret = WindowPatternHelper.WaitForInputIdle(UIAElement, delay);
+                return ret;
             }
             catch (ProdOperationException err)
             {
@@ -353,7 +342,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Resize the window
+        ///     Resize the window
         /// </summary>
         /// <param name = "width">The new width of the window, in pixels</param>
         /// <param name = "height">The new height of the window, in pixels</param>
@@ -388,7 +377,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Moves the window to the specified location
+        ///     Moves the window to the specified location
         /// </summary>
         /// <param name = "x">Absolute screen coordinates of the left side of the window</param>
         /// <param name = "y">Absolute screen coordinates of the top of the window</param>
@@ -413,10 +402,10 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Rotates the window
+        ///     Rotates the window
         /// </summary>
         /// <param name = "degrees">The number of degrees to rotate the element. A positive number rotates clockwise;
-        ///   a negative number rotates counterclockwise</param>
+        ///     a negative number rotates counterclockwise</param>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public void Rotate(double degrees)
@@ -430,7 +419,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Register to make a window the active window.
+        ///     Register to make a window the active window.
         /// </summary>
         /// <exception cref = "InvalidOperationException">The exception that is thrown when a method call is invalid for the object's current state</exception>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
@@ -446,24 +435,23 @@ namespace ProdUI.Controls.Windows
             }
             catch (InvalidOperationException ex)
             {
-                throw; 
+                throw;
             }
             catch (ElementNotAvailableException ex)
             {
-                throw; 
+                throw;
             }
             catch (Win32Exception ex)
             {
-                throw; 
+                throw;
             }
         }
 
 
-
         /// <summary>
-        /// Creates and sends the proper LogMessage.
+        ///     Creates and sends the proper LogMessage.
         /// </summary>
-        protected void LogMessage()
+        private void LogMessage()
         {
             LogMessage message;
             if (_verboseInformation.Count == 0)
@@ -477,8 +465,6 @@ namespace ProdUI.Controls.Windows
             }
 
             sessionLoggers.ReceiveLogMessage(message);
-
         }
-
     }
 }

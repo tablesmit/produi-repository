@@ -1,37 +1,35 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Automation;
-using ProdUI.Exceptions;
-using ProdUI.Logging;
 using ProdUI.Configuration;
-using ProdUI.Utility;
-using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Controls.Windows;
+using ProdUI.Exceptions;
 using ProdUI.Interaction.Native;
+using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Logging;
+using ProdUI.Utility;
 
 namespace ProdUI.Controls.Static
 {
     /// <summary>
-    /// Provides access to controls using static methods
+    ///     Provides access to controls using static methods
     /// </summary>
     public static partial class Prod
     {
-
         /// <summary>
-        /// Determines whether the list control supports multiple selection of items
+        ///     Determines whether the list control supports multiple selection of items
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to th target list control</param>
+        /// <param name = "controlHandle">NativeWindowHandle to th target list control</param>
         /// <returns>
-        ///   <c>true</c> if this instance can have multiple items selected, otherwise <c>false</c>.
+        ///     <c>true</c> if this instance can have multiple items selected, otherwise <c>false</c>.
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Invalid on WPF controls
+        ///     Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static bool CanSelectMultiple(IntPtr controlHandle)
@@ -41,15 +39,15 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Determines whether the list control supports multiple selection of items
+        ///     Determines whether the list control supports multiple selection of items
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption)</param>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption)</param>
         /// <returns>
-        ///   <c>true</c> if this instance can have multiple items selected, otherwise <c>false</c>.
+        ///     <c>true</c> if this instance can have multiple items selected, otherwise <c>false</c>.
         /// </returns>
         /// <remarks>
-        /// This is the WPF version
+        ///     This is the WPF version
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static bool CanSelectMultiple(ProdWindow prodwindow, string automationId)
@@ -59,15 +57,15 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Get all items contained in the list control
+        ///     Get all items contained in the list control
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
+        /// <param name = "controlHandle">NativeWindowHandle to the target list control</param>
         /// <returns>
-        /// List containing text of all items in the list control
+        ///     List containing text of all items in the list control
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Only valid for multiple selection list controls. Invalid on WPF controls
+        ///     Only valid for multiple selection list controls. Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public static List<object> GetItems(IntPtr controlHandle)
@@ -87,16 +85,16 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Get all items contained in the list control
+        ///     Get all items contained in the list control
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
         /// <returns>
-        /// List containing text of all items in the list control
+        ///     List containing text of all items in the list control
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Only valid for multiple selection list controls.
+        ///     Only valid for multiple selection list controls.
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public static List<object> GetItems(ProdWindow prodwindow, string automationId)
@@ -111,15 +109,15 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Gets the number of items in the list control
+        ///     Gets the number of items in the list control
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
+        /// <param name = "controlHandle">NativeWindowHandle to the target list control</param>
         /// <returns>
-        /// The number of items contained in the list control
+        ///     The number of items contained in the list control
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Invalid on WPF controls
+        ///     Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static int GetItemCount(IntPtr controlHandle)
@@ -145,14 +143,14 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Gets the number of items in the list control
+        ///     Gets the number of items in the list control
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
         /// <returns>
-        /// The number of items contained in the list control
+        ///     The number of items contained in the list control
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static int GetItemCount(ProdWindow prodwindow, string automationId)
         {
@@ -164,19 +162,18 @@ namespace ProdUI.Controls.Static
             return ret;
         }
 
-
         #region Single Select specific
 
         /// <summary>
-        /// Gets the zero based index of the currently selected item in a list control
+        ///     Gets the zero based index of the currently selected item in a list control
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
+        /// <param name = "controlHandle">NativeWindowHandle to the target list control</param>
         /// <returns>
-        /// Index of selected item
+        ///     Index of selected item
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Invalid on WPF controls
+        ///     Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static int GetSelectedIndex(IntPtr controlHandle)
@@ -194,16 +191,16 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Gets the zero based index of the currently selected item in a list control
+        ///     Gets the zero based index of the currently selected item in a list control
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
         /// <returns>
-        /// Index of selected item
+        ///     Index of selected item
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Only valid only for single-selection list controls
+        ///     Only valid only for single-selection list controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static int GetSelectedIndex(ProdWindow prodwindow, string automationId)
@@ -217,15 +214,15 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Gets a collection of all selected items in a list control
+        ///     Gets a collection of all selected items in a list control
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to the window containing the target control</param>
+        /// <param name = "controlHandle">NativeWindowHandle to the window containing the target control</param>
         /// <returns>
-        /// collection containing text of all selected items
+        ///     collection containing text of all selected items
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Invalid on WPF controls
+        ///     Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static AutomationElement GetSelectedItem(IntPtr controlHandle)
@@ -244,14 +241,14 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Gets a collection of all selected items in a list control
+        ///     Gets a collection of all selected items in a list control
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
         /// <returns>
-        /// collection containing text of all selected items
+        ///     collection containing text of all selected items
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static object GetSelectedItem(ProdWindow prodwindow, string automationId)
         {
@@ -269,13 +266,13 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Select an item in the list control, deselecting all other items
+        ///     Select an item in the list control, deselecting all other items
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to list control</param>
-        /// <param name="index">The zero-based index of the item to select</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "controlHandle">NativeWindowHandle to list control</param>
+        /// <param name = "index">The zero-based index of the item to select</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Invalid on WPF controls
+        ///     Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SetSelectedItem(IntPtr controlHandle, int index)
@@ -297,13 +294,13 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Select an item in the list control, deselecting all other items
+        ///     Select an item in the list control, deselecting all other items
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
-        /// <param name="itemText">Text of the item to select</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "controlHandle">NativeWindowHandle to the target list control</param>
+        /// <param name = "itemText">Text of the item to select</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Invalid on WPF controls
+        ///     Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SetSelectedItem(IntPtr controlHandle, string itemText)
@@ -325,12 +322,12 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Select an item in the list control, deselecting all other items
+        ///     Select an item in the list control, deselecting all other items
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
-        /// <param name="index">The zero-based index of the item to select</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
+        /// <param name = "index">The zero-based index of the item to select</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SetSelectedItem(ProdWindow prodwindow, string automationId, int index)
         {
@@ -344,12 +341,12 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Select an item in the list control, deselecting all other items
+        ///     Select an item in the list control, deselecting all other items
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
-        /// <param name="itemText">Text of the item to select</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
+        /// <param name = "itemText">Text of the item to select</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SetSelectedItem(ProdWindow prodwindow, string automationId, string itemText)
         {
@@ -364,17 +361,16 @@ namespace ProdUI.Controls.Static
 
         #endregion
 
-
         #region Multi Select specific
 
         /// <summary>
-        /// Selects an item in a multi-select list control without deselecting other items
+        ///     Selects an item in a multi-select list control without deselecting other items
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
-        /// <param name="index">The zero-based index of the item to select</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "controlHandle">NativeWindowHandle to the target list control</param>
+        /// <param name = "index">The zero-based index of the item to select</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Only valid for multiple selection list controls. Invalid on WPF controls
+        ///     Only valid for multiple selection list controls. Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void AddToSelection(IntPtr controlHandle, int index)
@@ -394,17 +390,16 @@ namespace ProdUI.Controls.Static
                 /* Call native function */
                 ProdListBoxNative.AddSelectedItemNative(controlHandle, index);
             }
-
         }
 
         /// <summary>
-        /// Selects an item in a multi-select list control without deselecting other items
+        ///     Selects an item in a multi-select list control without deselecting other items
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
-        /// <param name="itemText">Text of the item to select</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "controlHandle">NativeWindowHandle to the target list control</param>
+        /// <param name = "itemText">Text of the item to select</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Only valid for multiple selection list controls. Invalid on WPF controls
+        ///     Only valid for multiple selection list controls. Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void AddToSelection(IntPtr controlHandle, string itemText)
@@ -424,19 +419,17 @@ namespace ProdUI.Controls.Static
                 /* Call native function */
                 ProdListBoxNative.AddSelectedItemNative(controlHandle, itemText);
             }
-
-
         }
 
         /// <summary>
-        /// Selects an item in a multi-select list control without deselecting other items
+        ///     Selects an item in a multi-select list control without deselecting other items
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
-        /// <param name="index">The zero-based index of the item to select</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
+        /// <param name = "index">The zero-based index of the item to select</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// This is the WPF version
+        ///     This is the WPF version
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void AddToSelection(ProdWindow prodwindow, string automationId, int index)
@@ -445,20 +438,20 @@ namespace ProdUI.Controls.Static
             AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(control, index);
 
             StaticEvents.RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
-            SelectionPatternHelper.AddToSelection(control,index);
+            SelectionPatternHelper.AddToSelection(control, index);
 
             ProdStaticSession.Log("List Item selected: " + index);
         }
 
         /// <summary>
-        /// Selects an item in a multi-select list control without deselecting other items
+        ///     Selects an item in a multi-select list control without deselecting other items
         /// </summary>
-        /// <param name="prodwindow">The prodwindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
-        /// <param name="itemText">Text of the item to select</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "prodwindow">The prodwindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
+        /// <param name = "itemText">Text of the item to select</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// This is the WPF version
+        ///     This is the WPF version
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void AddToSelection(ProdWindow prodwindow, string automationId, string itemText)
@@ -467,19 +460,19 @@ namespace ProdUI.Controls.Static
             AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(control, itemText);
 
             StaticEvents.RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
-            SelectionPatternHelper.AddToSelection(control,itemText);
+            SelectionPatternHelper.AddToSelection(control, itemText);
 
             ProdStaticSession.Log("List Item selected: " + itemText);
         }
 
         /// <summary>
-        /// Deselect an item in the list control
+        ///     Deselect an item in the list control
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
-        /// <param name="index">The zero-based index of the item to select</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "controlHandle">NativeWindowHandle to the target list control</param>
+        /// <param name = "index">The zero-based index of the item to select</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Only valid for multiple selection list controls. Invalid on WPF controls
+        ///     Only valid for multiple selection list controls. Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void DeselectItem(IntPtr controlHandle, int index)
@@ -502,13 +495,13 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Deselect an item in the list control
+        ///     Deselect an item in the list control
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
-        /// <param name="itemText">Text of the item to select</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "controlHandle">NativeWindowHandle to the target list control</param>
+        /// <param name = "itemText">Text of the item to select</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Only valid for multiple selection list controls. Invalid on WPF controls
+        ///     Only valid for multiple selection list controls. Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void DeselectItem(IntPtr controlHandle, string itemText)
@@ -531,13 +524,13 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Deselect an item in the list control
+        ///     Deselect an item in the list control
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
-        /// <param name="index">The zero-based index of the item to select.</param>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
+        /// <param name = "index">The zero-based index of the item to select.</param>
         /// <remarks>
-        /// Only valid for multiple selection list controls. This is the WPF version
+        ///     Only valid for multiple selection list controls. This is the WPF version
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void DeselectItem(ProdWindow prodwindow, string automationId, int index)
@@ -552,13 +545,13 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Deselect an item in the list control
+        ///     Deselect an item in the list control
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
-        /// <param name="itemText">Text of the item to select.</param>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
+        /// <param name = "itemText">Text of the item to select.</param>
         /// <remarks>
-        /// Only valid for multiple selection list controls. This is the WPF version
+        ///     Only valid for multiple selection list controls. This is the WPF version
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void DeselectItem(ProdWindow prodwindow, string automationId, string itemText)
@@ -573,15 +566,15 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Gets the number of selected items in the list control
+        ///     Gets the number of selected items in the list control
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to the target window containing the control</param>
+        /// <param name = "controlHandle">NativeWindowHandle to the target window containing the control</param>
         /// <returns>
-        /// The number of selected items in the list control
+        ///     The number of selected items in the list control
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Only valid for multiple selection list controls. Invalid on WPF controls
+        ///     Only valid for multiple selection list controls. Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static int SelectedItemCount(IntPtr controlHandle)
@@ -609,15 +602,15 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Gets the number of selected items in the list control.
+        ///     Gets the number of selected items in the list control.
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
         /// <returns>
-        /// The number of selected items in the list control
+        ///     The number of selected items in the list control
         /// </returns>
         /// <remarks>
-        /// Only valid for multiple selection list controls. This is the WPF version
+        ///     Only valid for multiple selection list controls. This is the WPF version
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static int SelectedItemCount(ProdWindow prodwindow, string automationId)
@@ -630,15 +623,15 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Gets a collection of all selected items in a list control
+        ///     Gets a collection of all selected items in a list control
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to the target window containing the control</param>
+        /// <param name = "controlHandle">NativeWindowHandle to the target window containing the control</param>
         /// <returns>
-        /// collection containing text of all selected items
+        ///     collection containing text of all selected items
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Only valid for multiple selection list controls. Invalid on WPF controls
+        ///     Only valid for multiple selection list controls. Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public static List<object> GetSelectedItems(IntPtr controlHandle)
@@ -658,15 +651,15 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Gets a list of selected indexes in a list control
+        ///     Gets a list of selected indexes in a list control
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
+        /// <param name = "controlHandle">NativeWindowHandle to the target list control</param>
         /// <returns>
-        /// List of selected indexes
+        ///     List of selected indexes
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Only valid for multiple selection list controls. Invalid on WPF controls
+        ///     Only valid for multiple selection list controls. Invalid on WPF controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public static List<object> GetSelectedIndexes(IntPtr controlHandle)
@@ -677,7 +670,7 @@ namespace ProdUI.Controls.Static
             }
 
             AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-       
+
             AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(control);
             List<object> retList = new List<object>(selectedItems);
 
@@ -688,22 +681,22 @@ namespace ProdUI.Controls.Static
 
 
         /// <summary>
-        /// Gets a collection of all selected items in a list control
+        ///     Gets a collection of all selected items in a list control
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
         /// <returns>
-        /// collection containing text of all selected items
+        ///     collection containing text of all selected items
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Only valid for multiple selection list controls. This is the WPF version
+        ///     Only valid for multiple selection list controls. This is the WPF version
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public static List<object> GetSelectedItems(ProdWindow prodwindow, string automationId)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            if (!CanSelectMultiple((IntPtr)control.Current.NativeWindowHandle))
+            if (!CanSelectMultiple((IntPtr) control.Current.NativeWindowHandle))
             {
                 return null;
             }
@@ -718,22 +711,22 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Gets a list of selected indexes in a list control
+        ///     Gets a list of selected indexes in a list control
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
         /// <returns>
-        /// List of selected indexes
+        ///     List of selected indexes
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Only valid for multiple selection list controls. This is the WPF version
+        ///     Only valid for multiple selection list controls. This is the WPF version
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public static List<object> GetSelectedIndexes(ProdWindow prodwindow, string automationId)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            if (!CanSelectMultiple((IntPtr)control.Current.NativeWindowHandle))
+            if (!CanSelectMultiple((IntPtr) control.Current.NativeWindowHandle))
             {
                 return null;
             }
@@ -747,11 +740,11 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Sets selected items in a multi-select list control
+        ///     Sets selected items in a multi-select list control
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
-        /// <param name="items">The text of all the items to select</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "controlHandle">NativeWindowHandle to the target list control</param>
+        /// <param name = "items">The text of all the items to select</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public static void SetSelectedItems(IntPtr controlHandle, Collection<string> items)
         {
@@ -780,17 +773,16 @@ namespace ProdUI.Controls.Static
                     ProdListBoxNative.AddSelectedItemNative(controlHandle, item);
                 }
             }
-
         }
 
         /// <summary>
-        /// Sets a list of selected items by index in a multi-select list control
+        ///     Sets a list of selected items by index in a multi-select list control
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to the target list control</param>
-        /// <param name="indexes">A list of integers representing the zero-based indexes to select</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "controlHandle">NativeWindowHandle to the target list control</param>
+        /// <param name = "indexes">A list of integers representing the zero-based indexes to select</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Only valid for multiple selection list controls
+        ///     Only valid for multiple selection list controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public static void SetSelectedIndexes(IntPtr controlHandle, Collection<int> indexes)
@@ -804,7 +796,7 @@ namespace ProdUI.Controls.Static
             try
             {
                 AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-                if (!CanSelectMultiple((IntPtr)control.Current.NativeWindowHandle))
+                if (!CanSelectMultiple((IntPtr) control.Current.NativeWindowHandle))
                 {
                     return;
                 }
@@ -815,7 +807,9 @@ namespace ProdUI.Controls.Static
                     AddToSelection(controlHandle, index);
                 }
 
-                List<object> retList = new List<object>(){indexes};
+                List<object> retList = new List<object> {
+                                                            indexes
+                                                        };
                 ProdStaticSession.Log("List items Selected: ", retList);
             }
             catch (InvalidOperationException)
@@ -829,17 +823,17 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Sets selected items in a multi-select list control
+        ///     Sets selected items in a multi-select list control
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption)</param>
-        /// <param name="items">The text of all the items to select</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption)</param>
+        /// <param name = "items">The text of all the items to select</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public static void SetSelectedItems(ProdWindow prodwindow, string automationId, Collection<string> items)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            if (!CanSelectMultiple((IntPtr)control.Current.NativeWindowHandle))
+            if (!CanSelectMultiple((IntPtr) control.Current.NativeWindowHandle))
             {
                 return;
             }
@@ -855,20 +849,20 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Sets a list of selected items by index in a multi-select list control
+        ///     Sets a list of selected items by index in a multi-select list control
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption)</param>
-        /// <param name="indexes">A list of integers representing the zero-based indexes to select</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption)</param>
+        /// <param name = "indexes">A list of integers representing the zero-based indexes to select</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         /// <remarks>
-        /// Only valid for multiple selection list controls
+        ///     Only valid for multiple selection list controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public static void SetSelectedIndexes(ProdWindow prodwindow, string automationId, Collection<int> indexes)
         {
             AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            if (!CanSelectMultiple((IntPtr)control.Current.NativeWindowHandle))
+            if (!CanSelectMultiple((IntPtr) control.Current.NativeWindowHandle))
             {
                 return;
             }
@@ -879,12 +873,12 @@ namespace ProdUI.Controls.Static
                 AddToSelection(prodwindow, automationId, index);
             }
 
-            List<object> retList = new List<object>(){indexes};
+            List<object> retList = new List<object> {
+                                                        indexes
+                                                    };
             ProdStaticSession.Log("List items Selected: ", retList);
         }
 
-
         #endregion
-
     }
 }

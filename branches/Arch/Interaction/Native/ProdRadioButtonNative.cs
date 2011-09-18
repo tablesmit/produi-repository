@@ -1,11 +1,10 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.ComponentModel;
-using ProdUI.Exceptions;
 using ProdUI.Configuration;
+using ProdUI.Exceptions;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
@@ -13,7 +12,7 @@ namespace ProdUI.Interaction.Native
     internal sealed class ProdRadioButtonNative
     {
         /// <summary>
-        ///   Gets the check state of the RadioButton.
+        ///     Gets the check state of the RadioButton.
         /// </summary>
         /// <param name = "windowHandle">The window handle.</param>
         /// <returns>true if selected, false otherwise</returns>
@@ -38,7 +37,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Sets the check state of the RadioButton
+        ///     Sets the check state of the RadioButton
         /// </summary>
         /// <param name = "windowHandle">The window handle.</param>
         internal static void SetCheckStateNative(IntPtr windowHandle)

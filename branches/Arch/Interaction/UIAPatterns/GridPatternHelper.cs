@@ -1,114 +1,70 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
-using System;
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System.Windows.Automation;
-using ProdUI.Exceptions;
 
 namespace ProdUI.Interaction.UIAPatterns
 {
     /// <summary>
-    ///   Used for controls that support the GridPattern and/or GridItemcontrol patterns. implements IGridProvider,IGridItemProvider
+    ///     Used for controls that support the GridPattern and/or GridItemcontrol patterns. implements IGridProvider,IGridItemProvider
     /// </summary>
     internal static class GridPatternHelper
     {
         /// <summary>
-        /// Determines if the control supports the GridItemPattern
+        ///     Determines if the control supports the GridItemPattern
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
+        /// <param name = "control">The UI Automation identifier (ID) for the element.</param>
         /// <returns>
-        /// The pattern, if valid
+        ///     The pattern, if valid
         /// </returns>
         private static GridItemPattern GetGridItemPattern(AutomationElement control)
         {
-            try
-            {
-                object pat;
-                control.TryGetCurrentPattern(GridItemPattern.Pattern, out pat);
-                return (GridItemPattern)pat;
-            }
-            catch (Exception)
-            {
-                throw new ProdOperationException("Does not support GridItemPattern");
-            }
+            object pat;
+            control.TryGetCurrentPattern(GridItemPattern.Pattern, out pat);
+            return (GridItemPattern) pat;
         }
 
         #region IGridProvider Implementation
 
         /// <summary>
-        /// Gets the total number of columns in a grid.
+        ///     Gets the total number of columns in a grid.
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
+        /// <param name = "control">The UI Automation identifier (ID) for the element.</param>
         /// <returns>
-        /// Total number of columns in a grid
+        ///     Total number of columns in a grid
         /// </returns>
         internal static int GetColumnCount(AutomationElement control)
         {
-            try
-            {
-                GridPattern pat = (GridPattern)CommonUIAPatternHelpers.CheckPatternSupport(GridPattern.Pattern, control);
-                return pat.Current.ColumnCount;
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
-
+            GridPattern pat = (GridPattern) CommonUIAPatternHelpers.CheckPatternSupport(GridPattern.Pattern, control);
+            return pat.Current.ColumnCount;
         }
 
         /// <summary>
-        /// Retrieves the UI Automation provider for the specified cell
+        ///     Retrieves the UI Automation provider for the specified cell
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
-        /// <param name="row">The ordinal number of the row of interest</param>
-        /// <param name="column">The ordinal number of the column of interest.</param>
+        /// <param name = "control">The UI Automation identifier (ID) for the element.</param>
+        /// <param name = "row">The ordinal number of the row of interest</param>
+        /// <param name = "column">The ordinal number of the column of interest.</param>
         /// <returns>
-        /// An object representing the item at the specified location
+        ///     An object representing the item at the specified location
         /// </returns>
         internal static AutomationElement GetItem(AutomationElement control, int row, int column)
         {
-            try
-            {
-                GridPattern pat = (GridPattern)CommonUIAPatternHelpers.CheckPatternSupport(GridPattern.Pattern, control);
-                return pat.GetItem(row, column);
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            GridPattern pat = (GridPattern) CommonUIAPatternHelpers.CheckPatternSupport(GridPattern.Pattern, control);
+            return pat.GetItem(row, column);
         }
 
         /// <summary>
-        /// Gets the total number of rows in a grid.
+        ///     Gets the total number of rows in a grid.
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element</param>
+        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
         /// <returns>
-        /// Total number of rows in a grid
+        ///     Total number of rows in a grid
         /// </returns>
         internal static int GetRowCount(AutomationElement control)
         {
-            try
-            {
-                GridPattern pat = (GridPattern)CommonUIAPatternHelpers.CheckPatternSupport(GridPattern.Pattern, control);
-                return pat.Current.RowCount;
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            GridPattern pat = (GridPattern) CommonUIAPatternHelpers.CheckPatternSupport(GridPattern.Pattern, control);
+            return pat.Current.RowCount;
         }
 
         #endregion
@@ -116,123 +72,68 @@ namespace ProdUI.Interaction.UIAPatterns
         #region IGridItemProvider Implementation
 
         /// <summary>
-        /// Gets the ordinal number of the column that contains the cell or item.
+        ///     Gets the ordinal number of the column that contains the cell or item.
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
+        /// <param name = "control">The UI Automation identifier (ID) for the element.</param>
         /// <returns>
-        /// The ordinal number of the column that contains the cell or item
+        ///     The ordinal number of the column that contains the cell or item
         /// </returns>
         internal static int GetColumn(AutomationElement control)
         {
-            try
-            {
-                GridItemPattern pat = GetGridItemPattern(control);
-                return pat.Current.Column;
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            GridItemPattern pat = GetGridItemPattern(control);
+            return pat.Current.Column;
         }
 
         /// <summary>
-        /// Gets the number of columns spanned by a cell or item.
+        ///     Gets the number of columns spanned by a cell or item.
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
+        /// <param name = "control">The UI Automation identifier (ID) for the element.</param>
         /// <returns>
-        /// The number of columns spanned by a cell or item
+        ///     The number of columns spanned by a cell or item
         /// </returns>
         internal static int GetColumnSpan(AutomationElement control)
         {
-            try
-            {
-                GridItemPattern pat = GetGridItemPattern(control);
-                return pat.Current.ColumnSpan;
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            GridItemPattern pat = GetGridItemPattern(control);
+            return pat.Current.ColumnSpan;
         }
 
         /// <summary>
-        /// Gets a UI Automation provider that implements IGridProvider and represents the container of the cell or item
+        ///     Gets a UI Automation provider that implements IGridProvider and represents the container of the cell or item
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element</param>
+        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
         /// <returns>
-        /// returns an object, stored as an internal variable that represents the grid container
+        ///     returns an object, stored as an internal variable that represents the grid container
         /// </returns>
         internal static object GetContainingGrid(AutomationElement control)
         {
-            try
-            {
-                GridItemPattern pat = GetGridItemPattern(control);
-                return pat.Current.ContainingGrid;
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            GridItemPattern pat = GetGridItemPattern(control);
+            return pat.Current.ContainingGrid;
         }
 
         /// <summary>
-        /// Gets the ordinal number of the row that contains the cell or item.
+        ///     Gets the ordinal number of the row that contains the cell or item.
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element</param>
+        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
         /// <returns>
-        /// The row that contains the cell or item.
+        ///     The row that contains the cell or item.
         /// </returns>
         internal static int Row(AutomationElement control)
         {
-            try
-            {
-                GridItemPattern pat = GetGridItemPattern(control);
-                return pat.Current.Row;
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            GridItemPattern pat = GetGridItemPattern(control);
+            return pat.Current.Row;
         }
 
         /// <summary>
-        /// Gets the number of rows spanned by a cell or item.
+        ///     Gets the number of rows spanned by a cell or item.
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element</param>
+        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
         /// <returns>
-        /// The number of rows spanned by a cell or item
+        ///     The number of rows spanned by a cell or item
         /// </returns>
         internal static int GetRowSpan(AutomationElement control)
         {
-            try
-            {
-                GridItemPattern pat = GetGridItemPattern(control);
-                return pat.Current.RowSpan;
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            GridItemPattern pat = GetGridItemPattern(control);
+            return pat.Current.RowSpan;
         }
 
         #endregion

@@ -1,15 +1,14 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
-using ProdUI.Logging;
 using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Logging;
 
 /* Notes
  * -Tree-
@@ -26,35 +25,32 @@ using ProdUI.Interaction.UIAPatterns;
  * IToggleProvider 
  */
 
-
-
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
-    ///   Methods to work with TreeView controls using the UI Automation framework
+    ///     Methods to work with TreeView controls using the UI Automation framework
     /// </summary>
-    public class ProdTreeView : BaseProdControl
+    public sealed class ProdTreeView : BaseProdControl
     {
         private int _chk;
         private int _treeIndex;
 
         /// <summary>
-        ///   holds all tree nodes.
+        ///     holds all tree nodes.
         /// </summary>
         internal Collection<AutomationElement> AllNodes { get; private set; }
 
         #region Constructors
 
         /// <summary>
-        ///   Initializes a new instance of the ProdTreeView class.
+        ///     Initializes a new instance of the ProdTreeView class.
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "automationId">The UI Automation identifier (ID) for the element.</param>
         /// <remarks>
-        ///   Will attempt to match AutomationId, then ReadOnly
+        ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
-        public ProdTreeView(ProdWindow prodWindow, string automationId)
-            : base(prodWindow, automationId)
+        public ProdTreeView(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
         {
             AllNodes = new Collection<AutomationElement>();
             AutomationElement aeNode = TreeWalker.ControlViewWalker.GetFirstChild(UIAElement);
@@ -62,31 +58,29 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Initializes a new instance of the ProdTreeView class.
+        ///     Initializes a new instance of the ProdTreeView class.
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
-        public ProdTreeView(ProdWindow prodWindow, int treePosition)
-            : base(prodWindow, treePosition)
+        public ProdTreeView(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
         {
         }
 
         /// <summary>
-        ///   Initializes a new instance of the ProdTreeView class.
+        ///     Initializes a new instance of the ProdTreeView class.
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "controlHandle">Window handle of the control</param>
-        public ProdTreeView(ProdWindow prodWindow, IntPtr controlHandle)
-            : base(prodWindow, controlHandle)
+        public ProdTreeView(ProdWindow prodWindow, IntPtr controlHandle) : base(prodWindow, controlHandle)
         {
         }
 
         #endregion
 
         /// <summary>
-        /// Enumerates all nodes ion the TreeView and adds to a collection
+        ///     Enumerates all nodes ion the TreeView and adds to a collection
         /// </summary>
-        /// <param name="aeRoot">The root tree node.</param>
+        /// <param name = "aeRoot">The root tree node.</param>
         private void EnumControlElements(AutomationElement aeRoot)
         {
             while (aeRoot != null)
@@ -111,12 +105,49 @@ namespace ProdUI.Controls.Windows
             return;
         }
 
+        /// <summary>
+        ///     Gets the number of items in the tree
+        /// </summary>
+        /// <returns>The number of items in the tree</returns>
+        /// <exception cref = "ProdOperationException"></exception>
+        /// <remarks>
+        ///     because nodes don't exist until
+        /// </remarks>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        public int GetNodeCount()
+        {
+            try
+            {
+                int retVal = AllNodes.Count;
+
+                LogText = "Count: " + retVal;
+                LogMessage();
+
+                return retVal;
+            }
+            catch (ProdOperationException err)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        ///     The Default invoke action.
+        /// </summary>
+        /// <param name = "index">The index.</param>
+        /// <returns></returns>
+        public AutomationElement DefaultAction(int index)
+        {
+            return AllNodes[index];
+        }
 
         #region Selection Pattern
 
-        /// <summary>Gets the selected TreeNodes index.</summary>
+        /// <summary>
+        ///     Gets the selected TreeNodes index.
+        /// </summary>
         /// <returns>The index of the selected node</returns>
-        /// <exception cref="ProdOperationException"></exception>
+        /// <exception cref = "ProdOperationException"></exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public int GetSelectedNodeIndex()
         {
@@ -140,11 +171,13 @@ namespace ProdUI.Controls.Windows
             }
         }
 
-        /// <summary>Gets the selected TreeNode.</summary>
+        /// <summary>
+        ///     Gets the selected TreeNode.
+        /// </summary>
         /// <returns>The selected node as an object</returns>
-        /// <exception cref="ProdOperationException"></exception>
+        /// <exception cref = "ProdOperationException"></exception>
         /// <remarks>
-        /// Return type kept as an object to provide flexibility in what type of control may be contained
+        ///     Return type kept as an object to provide flexibility in what type of control may be contained
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public AutomationElement GetSelectedNode()
@@ -165,9 +198,9 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        /// Selects the TreeNode with the desired index inside the parent tree.
+        ///     Selects the TreeNode with the desired index inside the parent tree.
         /// </summary>
-        /// <param name="index">The desired nodes index.</param>
+        /// <param name = "index">The desired nodes index.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SelectNode(int index)
         {
@@ -178,7 +211,6 @@ namespace ProdUI.Controls.Windows
                 RegisterEvent(SelectionItemPattern.ElementSelectedEvent);
                 AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(UIAElement, index);
                 SelectionPatternHelper.Select(indexedItem);
-
             }
             catch (ProdOperationException err)
             {
@@ -186,8 +218,10 @@ namespace ProdUI.Controls.Windows
             }
         }
 
-        /// <summary>Selects the first TreeNode matching the desired text.</summary>
-        /// <param name="itemText">The nodes text.</param>
+        /// <summary>
+        ///     Selects the first TreeNode matching the desired text.
+        /// </summary>
+        /// <param name = "itemText">The nodes text.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SelectNode(string itemText)
         {
@@ -205,8 +239,10 @@ namespace ProdUI.Controls.Windows
             }
         }
 
-        /// <summary>Selects the node based on a path.</summary>
-        /// <param name="nodePath">The node path.</param>
+        /// <summary>
+        ///     Selects the node based on a path.
+        /// </summary>
+        /// <param name = "nodePath">The node path.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public void SelectNode(string[] nodePath)
         {
@@ -225,8 +261,10 @@ namespace ProdUI.Controls.Windows
 
         #region ExpandCollapse Pattern
 
-        /// <summary>Collapses all nodes.</summary>
-        /// <param name="index">The index.</param>
+        /// <summary>
+        ///     Collapses all nodes.
+        /// </summary>
+        /// <param name = "index">The index.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void CollapseNode(int index)
         {
@@ -244,8 +282,10 @@ namespace ProdUI.Controls.Windows
             }
         }
 
-        /// <summary>Collapses the node.</summary>
-        /// <param name="itemText">The item text.</param>
+        /// <summary>
+        ///     Collapses the node.
+        /// </summary>
+        /// <param name = "itemText">The item text.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void CollapseNode(string itemText)
         {
@@ -264,8 +304,10 @@ namespace ProdUI.Controls.Windows
             }
         }
 
-        /// <summary>Expands all nodes.</summary>
-        /// <param name="index">The index.</param>
+        /// <summary>
+        ///     Expands all nodes.
+        /// </summary>
+        /// <param name = "index">The index.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void ExpandNode(int index)
         {
@@ -284,8 +326,10 @@ namespace ProdUI.Controls.Windows
             }
         }
 
-        /// <summary>Expands all nodes.</summary>
-        /// <param name="itemText">The item text.</param>
+        /// <summary>
+        ///     Expands all nodes.
+        /// </summary>
+        /// <param name = "itemText">The item text.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void ExpandNode(string itemText)
         {
@@ -306,54 +350,22 @@ namespace ProdUI.Controls.Windows
 
         #endregion
 
-        /// <summary>Gets the number of items in the tree</summary>
-        /// <returns>The number of items in the tree</returns>
-        /// <exception cref="ProdOperationException"></exception>
-        /// <remarks>because nodes don't exist until</remarks>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public int GetNodeCount()
-        {
-            try
-            {
-                int retVal = AllNodes.Count;
-
-                LogText = "Count: " + retVal;
-                LogMessage();
-
-                return retVal;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>The Default invoke action.</summary>
-        /// <param name="index">The index.</param>
-        /// <returns></returns>
-        public AutomationElement DefaultAction(int index)
-        {
-            return AllNodes[index];
-        }
-
-
         //TODO: In Progress
-//        private void SetNodeCheckState()
-//        {
-//            throw new NotImplementedException();
-//        }
+        //        private void SetNodeCheckState()
+        //        {
+        //            throw new NotImplementedException();
+        //        }
 
 
-//        private void EditNodeText()
-//        {
-//            throw new NotImplementedException();
-//        }
+        //        private void EditNodeText()
+        //        {
+        //            throw new NotImplementedException();
+        //        }
 
 
-//        private void GetChildNodeCount()
-//        {
-//            throw new NotImplementedException();
-//        }
-
+        //        private void GetChildNodeCount()
+        //        {
+        //            throw new NotImplementedException();
+        //        }
     }
 }

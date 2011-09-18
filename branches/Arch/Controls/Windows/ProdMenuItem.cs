@@ -1,16 +1,15 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Automation;
-using ProdUI.Exceptions;
-using ProdUI.Utility;
-using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Controls.Static;
+using ProdUI.Exceptions;
+using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Utility;
 
 /* Notes
  * -MenuBar-
@@ -25,11 +24,10 @@ using ProdUI.Controls.Static;
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
-    ///   Handles the MenuItem Control Type
+    ///     Handles the MenuItem Control Type
     /// </summary>
     public sealed class ProdMenuItem : BaseProdControl
     {
-
         ///// <summary>
         /////   Initializes a new instance of the ProdMenu class.
         ///// </summary>
@@ -46,26 +44,31 @@ namespace ProdUI.Controls.Windows
         //}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProdMenuItem" /> class.	
+        ///     Initializes a new instance of the <see cref = "ProdMenuItem" /> class.
         /// </summary>
-        /// <param name="prodWindow">The prod window.</param>
-        /// <param name="automationId">The automation id.</param>
-        /// <remarks></remarks>
-        public ProdMenuItem(ProdWindow prodWindow, string automationId): base(prodWindow, automationId){}
+        /// <param name = "prodWindow">The prod window.</param>
+        /// <param name = "automationId">The automation id.</param>
+        /// <remarks>
+        /// </remarks>
+        public ProdMenuItem(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
+        {
+        }
 
         /// <summary>
-        ///   Initializes a new instance of the ProdButton class.
+        ///     Initializes a new instance of the ProdButton class.
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
-        public ProdMenuItem(ProdWindow prodWindow, int treePosition): base(prodWindow, treePosition){}
+        public ProdMenuItem(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
+        {
+        }
 
         /// <summary>
-        ///   Selects the menu item.
+        ///     Selects the menu item.
         /// </summary>
         /// <param name = "itemPath">The item path, with each item down the path as an item in the list</param>
         /// <remarks>
-        ///   Menu item text MUST be exact (but not case-sensitive). 'Open' will not match an item 'Open...' but will match 'open'
+        ///     Menu item text MUST be exact (but not case-sensitive). 'Open' will not match an item 'Open...' but will match 'open'
         /// </remarks>
         public void SelectMenuItem(List<string> itemPath)
         {
@@ -84,18 +87,23 @@ namespace ProdUI.Controls.Windows
             }
         }
 
-        /// <summary>Invokes the menu item by accelerator key.</summary>
-        /// <param name="keyCombonation">The key combonation.</param>
-        /// <remarks>Converts from format of "Shift+CTRL+Y" into "+^(Y)"</remarks>
-        public void InvokeByAcceleratorKey(string keyCombonation) 
-        {         
+        /// <summary>
+        ///     Invokes the menu item by accelerator key.
+        /// </summary>
+        /// <param name = "keyCombonation">The key combonation.</param>
+        /// <remarks>
+        ///     Converts from format of "Shift+CTRL+Y" into "+^(Y)"
+        /// </remarks>
+        public void InvokeByAcceleratorKey(string keyCombonation)
+        {
             string cleaned = InternalUtilities.ConvertStringToSendKey(keyCombonation);
             ParentWindow.Activate();
-            Prod.SendKeysTo((IntPtr)ParentWindow.UIAElement.Current.NativeWindowHandle,cleaned);
-
+            Prod.SendKeysTo((IntPtr) ParentWindow.UIAElement.Current.NativeWindowHandle, cleaned);
         }
 
-        /// <summary>Invokes the menu item by accelerator key.</summary>
+        /// <summary>
+        ///     Invokes the menu item by accelerator key.
+        /// </summary>
         public void InvokeByAcceleratorKey(AutomationElement control)
         {
             if (control.Current.AcceleratorKey.Length == 0)
@@ -106,12 +114,13 @@ namespace ProdUI.Controls.Windows
 
             string cleaned = InternalUtilities.ConvertStringToSendKey(control.Current.AcceleratorKey);
             ParentWindow.Activate();
-            Prod.SendKeysTo((IntPtr)ParentWindow.UIAElement.Current.NativeWindowHandle, cleaned);
-
+            Prod.SendKeysTo((IntPtr) ParentWindow.UIAElement.Current.NativeWindowHandle, cleaned);
         }
 
-        /// <summary>Invokes the menu item by access key.</summary>
-        /// <param name="control">The menu item element.</param>
+        /// <summary>
+        ///     Invokes the menu item by access key.
+        /// </summary>
+        /// <param name = "control">The menu item element.</param>
         public void InvokeByAccessKey(AutomationElement control)
         {
             if (control.Current.AccessKey.Length == 0)
@@ -120,9 +129,8 @@ namespace ProdUI.Controls.Windows
             }
 
             ParentWindow.Activate();
-            Prod.SendKeysTo((IntPtr)ParentWindow.UIAElement.Current.NativeWindowHandle, control.Current.AccessKey);
+            Prod.SendKeysTo((IntPtr) ParentWindow.UIAElement.Current.NativeWindowHandle, control.Current.AccessKey);
         }
-
 
 
         ///// <summary>
@@ -163,7 +171,7 @@ namespace ProdUI.Controls.Windows
         //}
 
         /// <summary>
-        ///   Gets the menu items.
+        ///     Gets the menu items.
         /// </summary>
         /// <param name = "menubar">The menu bar.</param>
         /// <returns></returns>
@@ -186,7 +194,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Selects the menu item.
+        ///     Selects the menu item.
         /// </summary>
         /// <param name = "menuItems">The menu items.</param>
         /// <param name = "itemPath">The item path.</param>
@@ -226,7 +234,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Finds the item.
+        ///     Finds the item.
         /// </summary>
         /// <param name = "item">The item.</param>
         /// <param name = "itemPath">The item path.</param>
@@ -269,7 +277,5 @@ namespace ProdUI.Controls.Windows
             }
             return;
         }
-
-
     }
 }

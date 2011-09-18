@@ -1,201 +1,125 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
-using System;
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System.Windows.Automation;
-using ProdUI.Exceptions;
 
 namespace ProdUI.Interaction.UIAPatterns
 {
     /// <summary>
-    ///   Used for controls that support the RangeValuePattern pattern. implements IRangeValueProvider
+    ///     Used for controls that support the RangeValuePattern pattern. implements IRangeValueProvider
     /// </summary>
     internal static class RangeValuePatternHelper
     {
-
         #region IRangeValueProvider Implementation
 
         /// <summary>
-        /// Gets the control-specific large-change value which is added to or subtracted from the Value property
+        ///     Gets the control-specific large-change value which is added to or subtracted from the Value property
         /// </summary>
-        /// <param name="control">The UI Automation element</param>
+        /// <param name = "control">The UI Automation element</param>
         /// <returns>
-        /// The increment of a Large Change
+        ///     The increment of a Large Change
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static double GetLargeChange(AutomationElement control)
         {
-            try
-            {
-                RangeValuePattern pat = (RangeValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
-                if (pat == null)
-                {
-                    return -1;
-                }
-
-                return pat.Current.LargeChange;
-            }
-            catch (InvalidOperationException)
+            RangeValuePattern pat = (RangeValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
+            if (pat == null)
             {
                 return -1;
             }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+
+            return pat.Current.LargeChange;
         }
 
         /// <summary>
-        /// Gets the specified controls maximum range.
+        ///     Gets the specified controls maximum range.
         /// </summary>
-        /// <param name="control">The UI Automation element</param>
+        /// <param name = "control">The UI Automation element</param>
         /// <returns>
-        /// Maximum Range value
+        ///     Maximum Range value
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static double GetMaximum(AutomationElement control)
         {
-            try
-            {
-                RangeValuePattern pat = (RangeValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
-                if (pat == null)
-                {
-                    return -1;
-                }
-
-                return pat.Current.Maximum;
-            }
-            catch (InvalidOperationException)
+            RangeValuePattern pat = (RangeValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
+            if (pat == null)
             {
                 return -1;
             }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+
+            return pat.Current.Maximum;
         }
 
         /// <summary>
-        /// Gets the minimum range value supported by the UI Automation element.
+        ///     Gets the minimum range value supported by the UI Automation element.
         /// </summary>
-        /// <param name="control">The UI Automation element</param>
+        /// <param name = "control">The UI Automation element</param>
         /// <returns>
-        /// Minimum Range value
+        ///     Minimum Range value
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static double GetMinimum(AutomationElement control)
         {
-            try
-            {
-                RangeValuePattern pat = (RangeValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
-                if (pat == null)
-                {
-                    return -1;
-                }
-
-                return pat.Current.Minimum;
-            }
-            catch (InvalidOperationException)
+            RangeValuePattern pat = (RangeValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
+            if (pat == null)
             {
                 return -1;
             }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+
+            return pat.Current.Minimum;
         }
 
         /// <summary>
-        /// Sets the current value of the UI Automation element
+        ///     Sets the current value of the UI Automation element
         /// </summary>
-        /// <param name="control">The UI Automation element.</param>
-        /// <param name="value">The value to set the control to.</param>
+        /// <param name = "control">The UI Automation element.</param>
+        /// <param name = "value">The value to set the control to.</param>
         /// <returns>
-        /// 0 if successful, -1 otherwise
+        ///     0 if successful, -1 otherwise
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static int SetValue(AutomationElement control, double value)
         {
-            try
-            {
-                RangeValuePattern pat = (RangeValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
-                if (pat == null)
-                {
-                    return -1;
-                }
-
-                pat.SetValue(value);
-                return 0;
-            }
-            catch (InvalidOperationException)
+            RangeValuePattern pat = (RangeValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
+            if (pat == null)
             {
                 return -1;
             }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+
+            pat.SetValue(value);
+            return 0;
         }
 
         /// <summary>
-        /// Gets the small-change value, unique to the UI Automation element, which is added to or subtracted from the elements Value property.
+        ///     Gets the small-change value, unique to the UI Automation element, which is added to or subtracted from the elements Value property.
         /// </summary>
-        /// <param name="control">The UI Automation element.</param>
+        /// <param name = "control">The UI Automation element.</param>
         /// <returns>
-        /// The small-change value
+        ///     The small-change value
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static double GetSmallChange(AutomationElement control)
         {
-            try
-            {
-                RangeValuePattern pat = (RangeValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
-                if (pat == null)
-                {
-                    return -1;
-                }
-
-                return pat.Current.SmallChange;
-            }
-            catch (InvalidOperationException)
+            RangeValuePattern pat = (RangeValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
+            if (pat == null)
             {
                 return -1;
             }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+
+            return pat.Current.SmallChange;
         }
 
         /// <summary>
-        /// Gets the current value of the UI Automation element
+        ///     Gets the current value of the UI Automation element
         /// </summary>
-        /// <param name="control">The UI Automation element.</param>
+        /// <param name = "control">The UI Automation element.</param>
         /// <returns>
-        /// The control-specific value
+        ///     The control-specific value
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         internal static double GetValue(AutomationElement control)
         {
-            try
-            {
-                RangeValuePattern pat = (RangeValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
-                if (pat == null)
-                {
-                    return -1;
-                }
-
-                return pat.Current.Value;
-            }
-            catch (InvalidOperationException)
+            RangeValuePattern pat = (RangeValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
+            if (pat == null)
             {
                 return -1;
             }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+
+            return pat.Current.Value;
         }
 
         #endregion

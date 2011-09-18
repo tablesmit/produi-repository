@@ -1,7 +1,6 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -11,49 +10,50 @@ using ProdUI.Logging;
 namespace ProdUI.Configuration
 {
     /// <summary>
-    /// Provided to allow event monitoring and logging of any statically invoked Prods
+    ///     Provided to allow event monitoring and logging of any statically invoked Prods
     /// </summary>
     public sealed class ProdStaticSession
     {
-
         private static List<ProdLogger> _loggers;
         internal static ProdSessionConfig _Configuration;
 
         /* constructor */
-        private ProdStaticSession(){}
+
+        private ProdStaticSession()
+        {
+        }
 
         #region Properties
 
         /// <summary>
-        /// The number of seconds to wait for a event to be raised before notification
+        ///     The number of seconds to wait for a event to be raised before notification
         /// </summary>
         /// <value>
-        /// The event timeout in seconds.
+        ///     The event timeout in seconds.
         /// </value>
         public static int EventTimeout { get; set; }
 
         /// <summary>
-        /// The unique ID of this session
+        ///     The unique ID of this session
         /// </summary>
         public static string SessionId { get; private set; }
 
         /// <summary>
-        /// The 'friendly' name of the session
+        ///     The 'friendly' name of the session
         /// </summary>
         /// <value>
-        /// The name of the session.
+        ///     The name of the session.
         /// </value>
         public static string SessionName { get; set; }
 
         #endregion
 
-
         /// <summary>
-        /// Loads an instance of a ProdStaticSession.
+        ///     Loads an instance of a ProdStaticSession.
         /// </summary>
-        /// <param name="loggers">The List of loggers  to use during the session.</param>
+        /// <param name = "loggers">The List of loggers  to use during the session.</param>
         /// <returns>
-        /// An instance of the ProdStaticSession
+        ///     An instance of the ProdStaticSession
         /// </returns>
         public static ProdStaticSession Load(List<ProdLogger> loggers)
         {
@@ -65,12 +65,12 @@ namespace ProdUI.Configuration
         }
 
         /// <summary>
-        /// Loads an instance of a ProdStaticSession using settings from the supplied configuration file
+        ///     Loads an instance of a ProdStaticSession using settings from the supplied configuration file
         /// </summary>
-        /// <param name="configFile">The path to the configuration file</param>
-        /// <param name="loggers">The List of loggers  to use during the session.</param>
+        /// <param name = "configFile">The path to the configuration file</param>
+        /// <param name = "loggers">The List of loggers  to use during the session.</param>
         /// <returns>
-        /// An instance of the ProdStaticSession
+        ///     An instance of the ProdStaticSession
         /// </returns>
         public static ProdStaticSession Load(string configFile, List<ProdLogger> loggers)
         {
@@ -81,27 +81,33 @@ namespace ProdUI.Configuration
         }
 
         /// <summary>
-        /// Logs the specified message.
+        ///     Logs the specified message.
         /// </summary>
-        /// <param name="message">The message text.</param>
-        /// <param name="messageLevel">The message level.</param>
+        /// <param name = "message">The message text.</param>
+        /// <param name = "messageLevel">The message level.</param>
         public static void Log(string message, LoggingLevels messageLevel = LoggingLevels.Info)
         {
-            if (_loggers == null){ throw new ProdOperationException("A static session has not been loaded"); }
+            if (_loggers == null)
+            {
+                throw new ProdOperationException("A static session has not been loaded");
+            }
 
             //TODO Static Logging 
             //ProdLogger.Log(new LogMessage(message, messageLevel), _loggers);
         }
 
         /// <summary>
-        /// Logs the specified message.
+        ///     Logs the specified message.
         /// </summary>
-        /// <param name="message">The message text.</param>
-        /// <param name="additional">The additional information to write out if in verbose mode.</param>
-        /// <param name="messageLevel">The message level.</param>
+        /// <param name = "message">The message text.</param>
+        /// <param name = "additional">The additional information to write out if in verbose mode.</param>
+        /// <param name = "messageLevel">The message level.</param>
         public static void Log(string message, List<object> additional, LoggingLevels messageLevel = LoggingLevels.Info)
         {
-            if (_loggers == null) { throw new ProdOperationException("A static session has not been loaded"); }
+            if (_loggers == null)
+            {
+                throw new ProdOperationException("A static session has not been loaded");
+            }
 
             if (additional.Count == 0)
             {
@@ -113,11 +119,10 @@ namespace ProdUI.Configuration
                 //TODO Static Logging
                 //ProdLogger.Log(new LogMessage(message, additional, messageLevel),_loggers);
             }
-
         }
 
         /// <summary>
-        /// Loads a configuration file for a ProdSession, providing default values
+        ///     Loads a configuration file for a ProdSession, providing default values
         /// </summary>
         private static void Setup()
         {
@@ -128,9 +133,9 @@ namespace ProdUI.Configuration
         }
 
         /// <summary>
-        /// Loads a configuration file for a ProdSession
+        ///     Loads a configuration file for a ProdSession
         /// </summary>
-        /// <param name="configFile">The configuration file.</param>
+        /// <param name = "configFile">The configuration file.</param>
         private static void Setup(string configFile)
         {
             _Configuration = ProdSessionConfig.LoadConfig(configFile);
@@ -139,8 +144,6 @@ namespace ProdUI.Configuration
             SessionId = _Configuration.SessionId;
             SessionName = _Configuration.SessionName;
             EventTimeout = _Configuration.EventTimeout;
-
         }
-
     }
 }
