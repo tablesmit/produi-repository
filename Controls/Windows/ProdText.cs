@@ -1,37 +1,36 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
-using ProdUI.Logging;
-using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Interaction.Native;
+using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Logging;
 
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
-    /// This handles items with ControlType.Text (labels)
+    ///     This handles items with ControlType.Text (labels)
     /// </summary>
     public sealed class ProdText : BaseProdControl
     {
-       #region Constructors
+        #region Constructors
 
         /// <summary>
-        ///   Initializes a new instance of the ProdButton class.
+        ///     Initializes a new instance of the ProdButton class.
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "automationId">The UI Automation identifier (ID) for the element.</param>
         /// <remarks>
-        ///   Will attempt to match AutomationId, then ReadOnly
+        ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
         public ProdText(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
         {
         }
 
         /// <summary>
-        ///   Initializes a new instance of the ProdButton class.
+        ///     Initializes a new instance of the ProdButton class.
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
@@ -40,29 +39,29 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Initializes a new instance of the ProdButton class.
+        ///     Initializes a new instance of the ProdButton class.
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "controlHandle">Window handle of the control</param>
-        public ProdText(ProdWindow prodWindow, IntPtr controlHandle)
-            : base(prodWindow, controlHandle)
+        public ProdText(ProdWindow prodWindow, IntPtr controlHandle) : base(prodWindow, controlHandle)
         {
         }
 
         #endregion
 
-
-        public bool ReadOnly 
-        { 
+        public bool ReadOnly
+        {
             get
             {
-                TextPattern tp = (TextPattern)UIAElement.GetCurrentPattern(TextPattern.Pattern);
-                return (bool)tp.DocumentRange.GetAttributeValue(TextPattern.IsReadOnlyAttribute);
+                TextPattern tp = (TextPattern) UIAElement.GetCurrentPattern(TextPattern.Pattern);
+                return (bool) tp.DocumentRange.GetAttributeValue(TextPattern.IsReadOnlyAttribute);
             }
         }
 
-        /// <summary>Set label text to an empty string</summary>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <summary>
+        ///     Set label text to an empty string
+        /// </summary>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void Clear()
         {
@@ -89,7 +88,7 @@ namespace ProdUI.Controls.Windows
                 }
 
                 /* If it doesn't have one, send keys, then */
-                ValuePatternHelper.SendKeysSetText(UIAElement, string.Empty);              
+                //TODO: convert ValuePatternHelper.SendKeysSetText(UIAElement, string.Empty);              
             }
             catch (ProdOperationException err)
             {
@@ -98,10 +97,14 @@ namespace ProdUI.Controls.Windows
         }
 
 
-        /// <summary>Gets the number of characters in Text Control</summary>
+        /// <summary>
+        ///     Gets the number of characters in Text Control
+        /// </summary>
         /// <returns>The number of characters in the Text Control</returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
-        /// <remarks>Will attempt to match AutomationId, then ReadOnly</remarks>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <remarks>
+        ///     Will attempt to match AutomationId, then ReadOnly
+        /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public int GetTextLength()
         {
@@ -113,21 +116,27 @@ namespace ProdUI.Controls.Windows
                     txt = NativeTextProds.GetTextNative(NativeWindowHandle);
                 }
 
-                int retVal = txt.Length;
-                LogText = "Length: " + retVal;
-                LogMessage();
+                if (txt != null)
+                {
+                    int retVal = txt.Length;
+                    LogText = "Length: " + retVal;
+                    LogMessage();
 
-                return retVal;
+                    return retVal;
+                }
             }
             catch (ProdOperationException err)
             {
                 throw;
             }
+            return 0;
         }
 
-        /// <summary>Gets or sets the text contained in the current Text Control</summary>
+        /// <summary>
+        ///     Gets or sets the text contained in the current Text Control
+        /// </summary>
         /// <returns>The text currently in the Text Control</returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public string GetText()
         {
@@ -145,7 +154,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Gets or sets the text contained in the current Text Control
+        ///     Gets or sets the text contained in the current Text Control
         /// </summary>
         /// <param name = "text">The text to place into the Text Control.</param>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
@@ -176,12 +185,10 @@ namespace ProdUI.Controls.Windows
                     {
                         return;
                     }
-
                 }
 
                 /* If it doesn't have one, send keys, then */
-                ValuePatternHelper.SendKeysSetText(UIAElement, text);
-
+                //TODO: convert   ValuePatternHelper.SendKeysSetText(UIAElement, text);
             }
             catch (ProdOperationException err)
             {

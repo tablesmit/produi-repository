@@ -1,7 +1,6 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,54 +9,54 @@ using System.Xml.Serialization;
 namespace ProdUI.Configuration
 {
     /// <summary>
-    /// Stores the current prod configuration
+    ///     Stores the current prod configuration
     /// </summary>
     [XmlRoot(ElementName = "session")]
     public class ProdSessionConfig
     {
         /// <summary>
-        /// Gets or sets the session id.
+        ///     Gets or sets the session id.
         /// </summary>
         /// <value>
-        /// The session id.
+        ///     The session id.
         /// </value>
         [XmlAttribute(AttributeName = "id")]
         public string SessionId { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the session.
+        ///     Gets or sets the name of the session.
         /// </summary>
         /// <value>
-        /// The name of the session.
+        ///     The name of the session.
         /// </value>
         [XmlElement(ElementName = "sessionName")]
         public string SessionName { get; set; }
 
         /// <summary>
-        /// Gets or sets the event timeout.
+        ///     Gets or sets the event timeout.
         /// </summary>
         /// <value>
-        /// The event timeout.
+        ///     The event timeout.
         /// </value>
         [XmlElement(ElementName = "eventTimeout")]
         public int EventTimeout { get; set; }
 
         /// <summary>
-        /// A List containing the parameters for any loggers set in the configuration file
+        ///     A List containing the parameters for any loggers set in the configuration file
         /// </summary>
         /// <value>
-        /// The loggers.
+        ///     The loggers.
         /// </value>
         [XmlArray("loggers")]
         [XmlArrayItem("logger")]
         public List<SessionLoggerConfig> Loggers { get; set; }
 
         /// <summary>
-        /// Deserializes the specified configuration file.
+        ///     Deserializes the specified configuration file.
         /// </summary>
-        /// <param name="configFile">The config file.</param>
+        /// <param name = "configFile">The config file.</param>
         /// <returns>
-        /// The deserialized session
+        ///     The deserialized session
         /// </returns>
         public static ProdSessionConfig LoadConfig(string configFile)
         {
@@ -66,8 +65,8 @@ namespace ProdUI.Configuration
             try
             {
                 fs = new FileStream(configFile, FileMode.Open);
-                XmlSerializer serializer = new XmlSerializer(typeof(ProdSessionConfig));
-                return (ProdSessionConfig)serializer.Deserialize(fs);
+                XmlSerializer serializer = new XmlSerializer(typeof (ProdSessionConfig));
+                return (ProdSessionConfig) serializer.Deserialize(fs);
             }
             catch (Exception err)
             {
@@ -82,7 +81,7 @@ namespace ProdUI.Configuration
 
 
         /// <summary>
-        /// Loads a dummy config for an empty session.
+        ///     Loads a dummy config for an empty session.
         /// </summary>
         /// <returns>a ProdSessionConfig with default settings</returns>
         public static ProdSessionConfig LoadDummyConfig()
@@ -105,16 +104,16 @@ namespace ProdUI.Configuration
         }
 
         /// <summary>
-        /// Serializes the  current ProdSessionConfig, then writes out to the specified configuration file.
+        ///     Serializes the  current ProdSessionConfig, then writes out to the specified configuration file.
         /// </summary>
-        /// <param name="configFile">The configuration file.</param>
+        /// <param name = "configFile">The configuration file.</param>
         public void SaveConfig(string configFile)
         {
             FileStream fs = null;
             try
             {
                 fs = new FileStream(configFile, FileMode.Open);
-                XmlSerializer serializer = new XmlSerializer(typeof(ProdSessionConfig));
+                XmlSerializer serializer = new XmlSerializer(typeof (ProdSessionConfig));
                 serializer.Serialize(fs, this);
             }
             catch (Exception err)
@@ -128,9 +127,4 @@ namespace ProdUI.Configuration
             }
         }
     }
-
-
-
-
-
 }

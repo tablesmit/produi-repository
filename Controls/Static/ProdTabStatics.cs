@@ -1,30 +1,29 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.Collections;
 using System.Windows.Automation;
-using ProdUI.Exceptions;
-using ProdUI.Logging;
 using ProdUI.Configuration;
-using ProdUI.Utility;
-using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Controls.Windows;
+using ProdUI.Exceptions;
 using ProdUI.Interaction.Native;
+using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Logging;
+using ProdUI.Utility;
 
 namespace ProdUI.Controls.Static
 {
     public static partial class Prod
     {
         /// <summary>
-        /// Gets a collection of all items in the list control
+        ///     Gets a collection of all items in the list control
         /// </summary>
-        /// <param name="controlHandle">The target controls handle.</param>
+        /// <param name = "controlHandle">The target controls handle.</param>
         /// <returns>
-        /// list containing all items
+        ///     list containing all items
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static ArrayList TabsGet(IntPtr controlHandle)
         {
             try
@@ -44,14 +43,14 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Gets a collection of all items in the list control
+        ///     Gets a collection of all items in the list control
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
         /// <returns>
-        /// list containing all items
+        ///     list containing all items
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static ArrayList TabsGet(ProdWindow prodwindow, string automationId)
         {
             try
@@ -71,14 +70,14 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Determines whether the specified index is selected.
+        ///     Determines whether the specified index is selected.
         /// </summary>
-        /// <param name="controlHandle">The control handle.</param>
-        /// <param name="index">The zero-based index of the tab to select.</param>
+        /// <param name = "controlHandle">The control handle.</param>
+        /// <param name = "index">The zero-based index of the tab to select.</param>
         /// <returns>
-        ///   <c>true</c> if the specified index is selected; otherwise, <c>false</c>.
+        ///     <c>true</c> if the specified index is selected; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static bool TabIsSelected(IntPtr controlHandle, int index)
         {
             try
@@ -95,18 +94,17 @@ namespace ProdUI.Controls.Static
             {
                 throw new ProdOperationException(err);
             }
-
         }
 
         /// <summary>
-        /// Determines whether the specified item text is selected.
+        ///     Determines whether the specified item text is selected.
         /// </summary>
-        /// <param name="controlHandle">The control handle.</param>
-        /// <param name="itemText">The item text.</param>
+        /// <param name = "controlHandle">The control handle.</param>
+        /// <param name = "itemText">The item text.</param>
         /// <returns>
-        ///   <c>true</c> if the specified item text is selected; otherwise, <c>false</c>.
+        ///     <c>true</c> if the specified item text is selected; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static bool TabIsSelected(IntPtr controlHandle, string itemText)
         {
             try
@@ -126,15 +124,15 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Determines whether the specified index is selected.
+        ///     Determines whether the specified index is selected.
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
-        /// <param name="index">The zero-based index of the tab to verify.</param>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
+        /// <param name = "index">The zero-based index of the tab to verify.</param>
         /// <returns>
-        ///   <c>true</c> if the specified index is selected; otherwise, <c>false</c>.
+        ///     <c>true</c> if the specified index is selected; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static bool TabIsSelected(ProdWindow prodwindow, string automationId, int index)
         {
             try
@@ -154,15 +152,15 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Determines whether the specified item text is selected.
+        ///     Determines whether the specified item text is selected.
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
-        /// <param name="itemText">The item text that identifies the tab.</param>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
+        /// <param name = "itemText">The item text that identifies the tab.</param>
         /// <returns>
-        ///   <c>true</c> if the specified item text is selected; otherwise, <c>false</c>.
+        ///     <c>true</c> if the specified item text is selected; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static bool TabIsSelected(ProdWindow prodwindow, string automationId, string itemText)
         {
             try
@@ -182,13 +180,13 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Gets the number of child tabs contained in the tab control
+        ///     Gets the number of child tabs contained in the tab control
         /// </summary>
-        /// <param name="controlHandle">The target controls handle.</param>
+        /// <param name = "controlHandle">The target controls handle.</param>
         /// <returns>
-        /// The number of tabs in a TabControl
+        ///     The number of tabs in a TabControl
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static int TabGetCount(IntPtr controlHandle)
         {
             try
@@ -214,14 +212,14 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Gets the number of child tabs contained in the tab control
+        ///     Gets the number of child tabs contained in the tab control
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
         /// <returns>
-        /// The number of tabs contained in a TabControl
+        ///     The number of tabs contained in a TabControl
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static int TabGetCount(ProdWindow prodwindow, string automationId)
         {
             try
@@ -243,13 +241,13 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Retrieves the selected tab
+        ///     Retrieves the selected tab
         /// </summary>
-        /// <param name="controlHandle">The target controls handle.</param>
+        /// <param name = "controlHandle">The target controls handle.</param>
         /// <returns>
-        /// Selected TabItem
+        ///     Selected TabItem
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static AutomationElement TabGetSelected(IntPtr controlHandle)
         {
             try
@@ -269,14 +267,14 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Retrieves the selected tab
+        ///     Retrieves the selected tab
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
         /// <returns>
-        /// Selected TabItem
+        ///     Selected TabItem
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static object TabGetSelected(ProdWindow prodwindow, string automationId)
         {
             try
@@ -296,11 +294,11 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Select a TabItem within the TabControl
+        ///     Select a TabItem within the TabControl
         /// </summary>
-        /// <param name="controlHandle">The target controls handle.</param>
-        /// <param name="index">The zero based index of the TabItem</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "controlHandle">The target controls handle.</param>
+        /// <param name = "index">The zero based index of the TabItem</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void TabSelect(IntPtr controlHandle, int index)
         {
@@ -327,11 +325,11 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Select a TabItem within the TabControl
+        ///     Select a TabItem within the TabControl
         /// </summary>
-        /// <param name="controlHandle">The target controls handle.</param>
-        /// <param name="itemText">The TabItem text</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "controlHandle">The target controls handle.</param>
+        /// <param name = "itemText">The TabItem text</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void TabSelect(IntPtr controlHandle, string itemText)
         {
@@ -356,12 +354,12 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Select a TabItem within the TabControl
+        ///     Select a TabItem within the TabControl
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
-        /// <param name="index">The zero based index of the TabItem</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
+        /// <param name = "index">The zero based index of the TabItem</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void TabSelect(ProdWindow prodwindow, string automationId, int index)
         {
@@ -391,12 +389,12 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Select a TabItem within the TabControl
+        ///     Select a TabItem within the TabControl
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
-        /// <param name="itemText">The TabItem text</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
+        /// <param name = "itemText">The TabItem text</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void TabSelect(ProdWindow prodwindow, string automationId, string itemText)
         {

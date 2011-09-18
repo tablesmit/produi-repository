@@ -1,33 +1,32 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Text;
-using ProdUI.Exceptions;
 using ProdUI.Configuration;
+using ProdUI.Exceptions;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
 {
     /// <summary>
-    ///   Provides methods to interact with ListBox controls using the Win32 API
+    ///     Provides methods to interact with ListBox controls using the Win32 API
     /// </summary>
     internal sealed class ProdListBoxNative
     {
         private const int LBERR = -1;
 
         /// <summary>
-        ///   Uses SendMessage to get # of items in ListBox
+        ///     Uses SendMessage to get # of items in ListBox
         /// </summary>
         /// <param name = "windowHandle">NativeWindowHandle to the control</param>
         /// <returns>Number of items in the list box</returns>
         internal static int GetItemCountNative(IntPtr windowHandle)
         {
-            int retVal = (int)NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBGetcount, 0, 0);
+            int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBGetcount, 0, 0);
             if (retVal == LBERR)
             {
                 throw new ProdOperationException("Native call fail");
@@ -39,20 +38,19 @@ namespace ProdUI.Interaction.Native
                 ProdStaticSession.Log(logmessage);
 
             return retVal;
-
         }
 
         /// <summary>
-        ///   Uses SendMessage to get the number of selected items from a multi-select ListBox
+        ///     Uses SendMessage to get the number of selected items from a multi-select ListBox
         /// </summary>
         /// <param name = "windowHandle">handle to ListBox</param>
         /// <returns>number of selected items</returns>
         /// <remarks>
-        ///   This will FAIL on a single select
+        ///     This will FAIL on a single select
         /// </remarks>
         internal static int GetSelectedItemCountNative(IntPtr windowHandle)
         {
-            int retVal = (int)NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBGetselcount, 0, 0);
+            int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBGetselcount, 0, 0);
             if (retVal == LBERR)
             {
                 throw new ProdOperationException("Native call fail");
@@ -64,11 +62,10 @@ namespace ProdUI.Interaction.Native
                 ProdStaticSession.Log(logmessage);
 
             return retVal;
-
         }
 
         /// <summary>
-        ///   Uses SendMessage to get a collection of all items in a ListBox
+        ///     Uses SendMessage to get a collection of all items in a ListBox
         /// </summary>
         /// <param name = "windowHandle">NativeWindowHandle to ListBox</param>
         /// <returns>A string collection containing each item in the ListBox</returns>
@@ -92,7 +89,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Uses SendMessage to select an item in the ListBox, deselecting all other items
+        ///     Uses SendMessage to select an item in the ListBox, deselecting all other items
         /// </summary>
         /// <param name = "windowHandle">handle to ListBox</param>
         /// <param name = "index">Zero based index of item to select</param>
@@ -100,7 +97,7 @@ namespace ProdUI.Interaction.Native
         {
             try
             {
-                int sndReturn = (int)NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBSetcursel, index, 0);
+                int sndReturn = (int) NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSetcursel, index, 0);
 
                 if (index != -1 && sndReturn == LBERR)
                 {
@@ -119,7 +116,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Uses SendMessage to select an item in the ListBox, deselecting all other items
+        ///     Uses SendMessage to select an item in the ListBox, deselecting all other items
         /// </summary>
         /// <param name = "windowHandle">handle to ListBox</param>
         /// <param name = "itemText">string to search ListBox for. Case insensitive</param>
@@ -129,7 +126,7 @@ namespace ProdUI.Interaction.Native
             {
                 int stringIndex = FindString(windowHandle, itemText);
 
-                int sndReturn = (int)NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBSetcursel, stringIndex, 0);
+                int sndReturn = (int) NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSetcursel, stringIndex, 0);
 
                 if (sndReturn == LBERR)
                 {
@@ -148,7 +145,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Uses SendMessage to deselect an item in the ListBox
+        ///     Uses SendMessage to deselect an item in the ListBox
         /// </summary>
         /// <param name = "windowHandle">handle to ListBox</param>
         /// <param name = "index">Zero based index of item to select</param>
@@ -156,7 +153,7 @@ namespace ProdUI.Interaction.Native
         {
             try
             {
-                NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBSetsel, 0, index);
+                NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSetsel, 0, index);
 
                 const string logmessage = "DeSelectItemNative using SendMessage";
 
@@ -170,7 +167,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Uses SendMessage to deselect an item in the ListBox
+        ///     Uses SendMessage to deselect an item in the ListBox
         /// </summary>
         /// <param name = "windowHandle">handle to ListBox</param>
         /// <param name = "itemText">string to search ListBox for. Case insensitive</param>
@@ -180,7 +177,7 @@ namespace ProdUI.Interaction.Native
             {
                 int stringIndex = FindString(windowHandle, itemText);
 
-                NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBSetsel, 0, stringIndex);
+                NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSetsel, 0, stringIndex);
 
                 const string logmessage = "DeSelectItemNative using SendMessage";
 
@@ -194,7 +191,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Uses SendMessage to select an item in a multi-select ListBox without deselecting other items
+        ///     Uses SendMessage to select an item in a multi-select ListBox without deselecting other items
         /// </summary>
         /// <param name = "windowHandle">handle to ListBox</param>
         /// <param name = "index">Zero based index of item to select</param>
@@ -202,7 +199,7 @@ namespace ProdUI.Interaction.Native
         {
             try
             {
-                NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBSetsel, 1, index);
+                NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSetsel, 1, index);
 
                 const string logmessage = "AddSelectedItemNative using SendMessage";
 
@@ -216,7 +213,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Uses SendMessage to select an item in a multi-select ListBox without deselecting other items
+        ///     Uses SendMessage to select an item in a multi-select ListBox without deselecting other items
         /// </summary>
         /// <param name = "windowHandle">handle to ListBox</param>
         /// <param name = "itemText">string to search ListBox for. Case insensitive</param>
@@ -226,7 +223,7 @@ namespace ProdUI.Interaction.Native
             {
                 int stringIndex = FindString(windowHandle, itemText);
 
-                NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBSetsel, 1, stringIndex);
+                NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSetsel, 1, stringIndex);
 
                 const string logmessage = "AddSelectedItemNative using SendMessage";
 
@@ -243,7 +240,7 @@ namespace ProdUI.Interaction.Native
         {
             try
             {
-                int retVal = (int)NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBGetcursel, 0, 0);
+                int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBGetcursel, 0, 0);
 
                 const string logmessage = "GetSelectedIndexNative using SendMessage";
 
@@ -267,7 +264,7 @@ namespace ProdUI.Interaction.Native
 
             for (int i = 0; i < itemCount - 1; i++)
             {
-                NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBGettext, i, sb);
+                NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBGettext, i, sb);
                 returnCollection.Add(sb.ToString());
                 sb.Clear();
             }
@@ -277,7 +274,7 @@ namespace ProdUI.Interaction.Native
 
         private static int FindString(IntPtr windowHandle, string itemText)
         {
-            int stringIndex = NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBFindstring, -1, itemText);
+            int stringIndex = NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBFindstring, -1, itemText);
 
             if (stringIndex == LBERR)
             {

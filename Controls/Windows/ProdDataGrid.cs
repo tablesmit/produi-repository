@@ -1,15 +1,13 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
-using ProdUI.Logging;
-using ProdUI.Controls;
 using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Logging;
 
 namespace ProdUI.Controls.Windows
 {
@@ -18,19 +16,19 @@ namespace ProdUI.Controls.Windows
         #region Constructors
 
         /// <summary>
-        ///   Initializes a new instance of the ProdDataGrid class.
+        ///     Initializes a new instance of the ProdDataGrid class.
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "automationId">The UI Automation identifier (ID) for the element.</param>
         /// <remarks>
-        ///   Will attempt to match AutomationId, then ReadOnly
+        ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
         public ProdDataGrid(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
         {
         }
 
         /// <summary>
-        ///   Initializes a new instance of the ProdDataGrid class.
+        ///     Initializes a new instance of the ProdDataGrid class.
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
@@ -39,7 +37,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Initializes a new instance of the ProdDataGrid class.
+        ///     Initializes a new instance of the ProdDataGrid class.
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "controlHandle">Window handle of the control</param>
@@ -52,7 +50,7 @@ namespace ProdUI.Controls.Windows
         #region GridPattern
 
         /// <summary>
-        ///   Gets the total number of columns in the ProdDataGrid
+        ///     Gets the total number of columns in the ProdDataGrid
         /// </summary>
         /// <returns>The number of columns</returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
@@ -60,11 +58,11 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                    int retVal = GridPatternHelper.GetColumnCount(UIAElement);
+                int retVal = GridPatternHelper.GetColumnCount(UIAElement);
 
-                    LogMessage();
+                LogMessage();
 
-                    return retVal;
+                return retVal;
             }
             catch (ProdOperationException err)
             {
@@ -73,7 +71,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Gets the total number of rows in the ProdDataGrid
+        ///     Gets the total number of rows in the ProdDataGrid
         /// </summary>
         /// <returns>The number of rows</returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
@@ -81,12 +79,11 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
+                int retVal = GridPatternHelper.GetRowCount(UIAElement);
 
-                    int retVal = GridPatternHelper.GetRowCount(UIAElement);
+                LogMessage();
 
-                    LogMessage();
-
-                    return retVal;
+                return retVal;
             }
             catch (ProdOperationException err)
             {
@@ -95,7 +92,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Gets the desired item from a ProdDataGrid.
+        ///     Gets the desired item from a ProdDataGrid.
         /// </summary>
         /// <param name = "row">The zero-based row of the desired item.</param>
         /// <param name = "column">The zero-based column of the desired item.</param>
@@ -105,12 +102,11 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                    AutomationElement retVal = GridPatternHelper.GetItem(UIAElement, row, column);
+                AutomationElement retVal = GridPatternHelper.GetItem(UIAElement, row, column);
 
-                    LogMessage();
+                LogMessage();
 
-                    return retVal;
-
+                return retVal;
             }
             catch (ProdOperationException err)
             {
@@ -119,7 +115,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Gets the column span of the passed in item.
+        ///     Gets the column span of the passed in item.
         /// </summary>
         /// <param name = "dataItem">The data item.</param>
         /// <returns>Number of columns spanned by a cell or item</returns>
@@ -128,13 +124,11 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
+                int retVal = GridPatternHelper.GetColumnSpan(dataItem);
 
-                    int retVal = GridPatternHelper.GetColumnSpan(dataItem);
+                LogMessage();
 
-                    LogMessage();
-
-                    return retVal;
-
+                return retVal;
             }
             catch (ProdOperationException err)
             {
@@ -143,7 +137,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Gets the row span of the passed in item.
+        ///     Gets the row span of the passed in item.
         /// </summary>
         /// <param name = "dataItem">The data item.</param>
         /// <returns>Number of rows spanned by a cell or item</returns>
@@ -152,11 +146,11 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
-                    int retVal = GridPatternHelper.GetRowSpan(dataItem);
+                int retVal = GridPatternHelper.GetRowSpan(dataItem);
 
-                    LogMessage();
+                LogMessage();
 
-                    return retVal;
+                return retVal;
             }
             catch (ProdOperationException err)
             {
@@ -169,22 +163,20 @@ namespace ProdUI.Controls.Windows
         #region SelectionProvider
 
         /// <summary>
-        ///   Selects an item in a DataGrid.
+        ///     Selects an item in a DataGrid.
         /// </summary>
         /// <param name = "dataItem">The data item to select.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SelectItem(AutomationElement dataItem)
-        { 
+        {
             LogText = "Item: " + dataItem.Current.AutomationId;
 
             try
             {
+                RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
+                SelectionPatternHelper.Select(dataItem);
 
-                    RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
-                    SelectionPatternHelper.Select(dataItem);
-                   
-                    LogMessage();
-
+                LogMessage();
             }
             catch (ProdOperationException err)
             {
@@ -193,23 +185,21 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Selects an item in a DataGrid
+        ///     Selects an item in a DataGrid
         /// </summary>
         /// <param name = "row">The zero-based row of the desired item.</param>
         /// <param name = "column">The zero-based column of the desired item.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SelectItem(int row, int column)
         {
-
             try
             {
-                    AutomationElement dataItem = GetItem(row, column);
+                AutomationElement dataItem = GetItem(row, column);
 
-                    LogText = "Item: " + dataItem.Current.AutomationId;
-                    RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
+                LogText = "Item: " + dataItem.Current.AutomationId;
+                RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
 
-                    SelectionPatternHelper.Select(dataItem);          
-
+                SelectionPatternHelper.Select(dataItem);
             }
             catch (ProdOperationException err)
             {
@@ -218,7 +208,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Gets Whether the control supports multiple selection of items
+        ///     Gets Whether the control supports multiple selection of items
         /// </summary>
         /// <returns>True if it supports multiple selection, false otherwise</returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
@@ -240,13 +230,13 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   DeSelect an item in the DataGrid control
+        ///     DeSelect an item in the DataGrid control
         /// </summary>
         /// <param name = "row">The zero-based row of the desired item.</param>
         /// <param name = "column">The zero-based column of the desired item.</param>
         /// <exception cref = "ProdVerificationException"></exception>
         /// <remarks>
-        ///   Only valid for multiple selection list controls
+        ///     Only valid for multiple selection list controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void RemoveFromSelection(int row, int column)
@@ -273,12 +263,12 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   DeSelect an item in the DataGrid control
+        ///     DeSelect an item in the DataGrid control
         /// </summary>
         /// <param name = "dataItem">The data item to deselect.</param>
         /// <exception cref = "ProdVerificationException"></exception>
         /// <remarks>
-        ///   Only valid for multiple selection list controls
+        ///     Only valid for multiple selection list controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void RemoveFromSelection(AutomationElement dataItem)
@@ -296,13 +286,13 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Selects an item in a multi-select DataGrid control without deselecting other items
+        ///     Selects an item in a multi-select DataGrid control without deselecting other items
         /// </summary>
         /// <param name = "row">The zero-based row of the desired item.</param>
         /// <param name = "column">The zero-based column of the desired item.</param>
         /// <exception cref = "ProdVerificationException"></exception>
         /// <remarks>
-        ///   Only valid for multiple selection DataGrid controls
+        ///     Only valid for multiple selection DataGrid controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void AddToSelection(int row, int column)
@@ -329,12 +319,12 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Selects an item in a multi-select DataGrid control without deselecting other items
+        ///     Selects an item in a multi-select DataGrid control without deselecting other items
         /// </summary>
         /// <param name = "dataItem">The data item to select.</param>
         /// <exception cref = "ProdVerificationException"></exception>
         /// <remarks>
-        ///   Only valid for multiple selection controls
+        ///     Only valid for multiple selection controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void AddToSelection(AutomationElement dataItem)
@@ -362,7 +352,7 @@ namespace ProdUI.Controls.Windows
         #region TablePattern
 
         /// <summary>
-        ///   Gets a collection of UI Automation providers that represents all the column headers in a DataGrid
+        ///     Gets a collection of UI Automation providers that represents all the column headers in a DataGrid
         /// </summary>
         /// <returns>An array of header items</returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
@@ -370,18 +360,17 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
+                AutomationElement[] retVal = TablePatternHelper.GetColumnHeaders(UIAElement);
+                List<object> retList = new List<object>();
+                foreach (AutomationElement item in retVal)
+                {
+                    retList.Add(item);
+                }
+                LogText = "Column Headers";
+                VerboseInformation = retList;
+                LogMessage();
 
-                    AutomationElement[] retVal = TablePatternHelper.GetColumnHeaders(UIAElement);
-                    List<object> retList = new List<object>();
-                    foreach (AutomationElement item in retVal)
-                    {
-                        retList.Add(item);
-                    }
-                    LogText = "Column Headers";
-                    VerboseInformation = retList;
-                    LogMessage();
-
-                    return retVal;
+                return retVal;
             }
             catch (ProdOperationException err)
             {
@@ -390,7 +379,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Gets a collection of UI Automation providers that represents all the row headers in a DataGrid
+        ///     Gets a collection of UI Automation providers that represents all the row headers in a DataGrid
         /// </summary>
         /// <returns>An array of header items</returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
@@ -398,16 +387,14 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
+                AutomationElement[] retVal = TablePatternHelper.GetRowHeaders(UIAElement);
+                List<object> retList = new List<object>(retVal);
 
-                    AutomationElement[] retVal = TablePatternHelper.GetRowHeaders(UIAElement);
-                    List<object> retList = new List<object>(retVal);
+                LogText = "Row Headers";
+                VerboseInformation = retList;
+                LogMessage();
 
-                    LogText = "Row Headers";
-                    VerboseInformation = retList;
-                    LogMessage();
-
-                    return retVal;
-
+                return retVal;
             }
             catch (ProdOperationException err)
             {
@@ -416,7 +403,7 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///   Retrieves the primary direction of traversal for the table
+        ///     Retrieves the primary direction of traversal for the table
         /// </summary>
         /// <returns>The primary direction of traversal. </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
@@ -424,13 +411,12 @@ namespace ProdUI.Controls.Windows
         {
             try
             {
+                RowOrColumnMajor retVal = TablePatternHelper.GetRowOrColumnMajor(UIAElement);
 
-                    RowOrColumnMajor retVal = TablePatternHelper.GetRowOrColumnMajor(UIAElement);
+                LogText = "Row Or Column Major: " + retVal;
+                LogMessage();
 
-                    LogText = "Row Or Column Major: " + retVal;
-                    LogMessage();
-
-                    return retVal;
+                return retVal;
             }
             catch (InvalidOperationException err)
             {
@@ -443,6 +429,5 @@ namespace ProdUI.Controls.Windows
         }
 
         #endregion
-
     }
 }

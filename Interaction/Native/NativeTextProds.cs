@@ -1,24 +1,23 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Text;
-using ProdUI.Exceptions;
 using ProdUI.Configuration;
+using ProdUI.Exceptions;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
 {
     /// <summary>
-    ///   Provides methods to interact with Textbox controls via the UI Automation API
+    ///     Provides methods to interact with Textbox controls via the UI Automation API
     /// </summary>
-    internal static class NativeTextProds
+    internal sealed class NativeTextProds
     {
         /// <summary>
-        ///   Uses SendMessage to try and get the text value
+        ///     Uses SendMessage to try and get the text value
         /// </summary>
         /// <param name = "windowHandle">handle to the control</param>
         /// <returns>A string containing the text</returns>
@@ -45,7 +44,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Uses SendMessage to set and verify the text value.
+        ///     Uses SendMessage to set and verify the text value.
         /// </summary>
         /// <param name = "windowHandle">handle to the control</param>
         /// <param name = "newText">Desired text</param>
@@ -71,7 +70,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Appends the text using SendMessages.
+        ///     Appends the text using SendMessages.
         /// </summary>
         /// <param name = "windowHandle">The window handle.</param>
         /// <param name = "newText">The new text.</param>
@@ -104,7 +103,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Inserts text using SendMessages.
+        ///     Inserts text using SendMessages.
         /// </summary>
         /// <param name = "windowHandle">The window handle.</param>
         /// <param name = "newText">The new text.</param>
@@ -135,7 +134,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Clears the text using SendMessage.
+        ///     Clears the text using SendMessage.
         /// </summary>
         /// <param name = "windowHandle">The window handle.</param>
         /// <exception cref = "ProdOperationException"><seealso cref = "Win32Exception" /></exception>
@@ -157,7 +156,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Verifies that the current text is correct.
+        ///     Verifies that the current text is correct.
         /// </summary>
         /// <param name = "windowHandle">The window handle.</param>
         /// <param name = "newText">The desired text.</param>
@@ -181,6 +180,5 @@ namespace ProdUI.Interaction.Native
                 throw new ProdOperationException(err.Message, err);
             }
         }
-
     }
 }

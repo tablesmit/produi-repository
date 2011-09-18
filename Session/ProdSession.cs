@@ -1,7 +1,6 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -13,37 +12,32 @@ using ProdUI.Logging;
 namespace ProdUI.Configuration
 {
     /// <summary>
-    /// Represents a ProdSession
+    ///     Represents a ProdSession
     /// </summary>
     public class ProdSession
     {
         private ProdLogger _tempLogger;
         internal LogController logController;
 
-        /// <summary>
-        /// Gets the current ProdSessionConfig.
-        /// </summary>
-        internal ProdSessionConfig Configuration { get; private set; }
-
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProdSession"/> class.
+        ///     Initializes a new instance of the <see cref = "ProdSession" /> class.
         /// </summary>
-        /// <param name="configFile">The path to the .ses file that contains the sessions parameters.</param>
+        /// <param name = "configFile">The path to the .ses file that contains the sessions parameters.</param>
         public ProdSession(string configFile)
         {
             Configuration = ProdSessionConfig.LoadConfig(configFile);
 
             /* Process any loggers from config file */
             logController = LogController.Create(GetLoggers());
-            
+
 
             /* Set up the loggers for the static Prods */
             ProdStaticSession.Load(logController.GetActiveLoggers());
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProdSession"/> class.
+        ///     Initializes a new instance of the <see cref = "ProdSession" /> class.
         /// </summary>
         public ProdSession()
         {
@@ -65,7 +59,12 @@ namespace ProdUI.Configuration
         }
 
         /// <summary>
-        /// Instantiates and adds loggers from the configuration file.
+        ///     Gets the current ProdSessionConfig.
+        /// </summary>
+        internal ProdSessionConfig Configuration { get; private set; }
+
+        /// <summary>
+        ///     Instantiates and adds loggers from the configuration file.
         /// </summary>
         /// <returns>A List of all of the sessions loggers</returns>
         private List<ProdLogger> GetLoggers()
@@ -98,12 +97,12 @@ namespace ProdUI.Configuration
         }
 
         /// <summary>
-        /// Creates an instance of the logger type
+        ///     Creates an instance of the logger type
         /// </summary>
-        /// <param name="dllPath">The path to the dll that contains the ProdLogger .</param>
-        /// <param name="loggerType">The ILogTarget from the configuration file</param>
+        /// <param name = "dllPath">The path to the dll that contains the ProdLogger .</param>
+        /// <param name = "loggerType">The ILogTarget from the configuration file</param>
         /// <returns>
-        /// An unwrapped and casted ProdLogger
+        ///     An unwrapped and casted ProdLogger
         /// </returns>
         private static ILogTarget InitializeLogger(string dllPath, string loggerType)
         {
@@ -111,7 +110,7 @@ namespace ProdUI.Configuration
             {
                 ObjectHandle oh = Activator.CreateInstanceFrom(dllPath, loggerType);
 
-                return (ILogTarget)oh.Unwrap();
+                return (ILogTarget) oh.Unwrap();
             }
             catch (TypeLoadException err)
             {

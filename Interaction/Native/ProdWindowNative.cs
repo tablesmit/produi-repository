@@ -1,25 +1,23 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.ComponentModel;
 using System.Text;
-using ProdUI.Exceptions;
-using ProdUI.Interaction.Native;
 using ProdUI.Configuration;
+using ProdUI.Exceptions;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
 {
-    internal static class ProdWindowNative
+    internal sealed class ProdWindowNative
     {
         /// <summary>
-        ///   Close the specified window using the supplied window handle
+        ///     Close the specified window using the supplied window handle
         /// </summary>
         /// <param name = "windowHandle">NativeWindowHandle to the target window</param>
         /// <returns>
-        ///   If the function succeeds, the return value is true, otherwise, false
+        ///     If the function succeeds, the return value is true, otherwise, false
         /// </returns>
         internal static bool CloseWindow(IntPtr windowHandle)
         {
@@ -52,7 +50,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Maximizes specified window
+        ///     Maximizes specified window
         /// </summary>
         /// <param name = "windowHandle">NativeWindowHandle to the target window</param>
         internal static void MaximizeWindow(IntPtr windowHandle)
@@ -79,7 +77,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Minimizes specified window
+        ///     Minimizes specified window
         /// </summary>
         /// <param name = "windowHandle">NativeWindowHandle to the target window</param>
         /// <exception cref = "ProdOperationException"></exception>
@@ -98,7 +96,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Shows a window in its "normal" state.
+        ///     Shows a window in its "normal" state.
         /// </summary>
         /// <param name = "windowHandle">NativeWindowHandle to the target window</param>
         internal static void ShowWindow(IntPtr windowHandle)
@@ -116,7 +114,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Retrieves the specified windows title
+        ///     Retrieves the specified windows title
         /// </summary>
         /// <param name = "windowHandle">NativeWindowHandle to the target window</param>
         /// <returns>Title of the specified window, null if failure</returns>
@@ -144,7 +142,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   sets the title of the specified window
+        ///     sets the title of the specified window
         /// </summary>
         /// <param name = "windowHandle">NativeWindowHandle to the window</param>
         /// <param name = "newTitle">Text to be used as the new title</param>
@@ -176,7 +174,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///   Moves the window using MoveWindow native call.
+        ///     Moves the window using MoveWindow native call.
         /// </summary>
         /// <param name = "windowHandle">The window handle.</param>
         /// <param name = "x">The x.</param>

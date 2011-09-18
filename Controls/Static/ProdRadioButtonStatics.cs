@@ -1,29 +1,28 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// /* License Rider:
+//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+//  */
 using System;
 using System.Windows.Automation;
-using ProdUI.Exceptions;
-using ProdUI.Logging;
 using ProdUI.Configuration;
-using ProdUI.Utility;
-using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Controls.Windows;
+using ProdUI.Exceptions;
 using ProdUI.Interaction.Native;
+using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Logging;
+using ProdUI.Utility;
 
 namespace ProdUI.Controls.Static
 {
     public static partial class Prod
     {
         /// <summary>
-        /// Determines whether specified RadioButton is selected
+        ///     Determines whether specified RadioButton is selected
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to the target control</param>
+        /// <param name = "controlHandle">NativeWindowHandle to the target control</param>
         /// <returns>
-        /// True if selected, false if not
+        ///     True if selected, false if not
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static bool GetRadioState(IntPtr controlHandle)
         {
@@ -35,10 +34,10 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Selects the specified RadioButton
+        ///     Selects the specified RadioButton
         /// </summary>
-        /// <param name="controlHandle">NativeWindowHandle to the target control</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "controlHandle">NativeWindowHandle to the target control</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SelectRadio(IntPtr controlHandle)
         {
@@ -59,14 +58,14 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Determines whether specified RadioButton is selected
+        ///     Determines whether specified RadioButton is selected
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
         /// <returns>
-        /// True if selected, false if not
+        ///     True if selected, false if not
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static bool GetRadioState(ProdWindow prodwindow, string automationId)
         {
@@ -80,11 +79,11 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        /// Selects the specified RadioButton
+        ///     Selects the specified RadioButton
         /// </summary>
-        /// <param name="prodwindow">The containing ProdWindow.</param>
-        /// <param name="automationId">The automation id (or caption).</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "prodwindow">The containing ProdWindow.</param>
+        /// <param name = "automationId">The automation id (or caption).</param>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SelectRadio(ProdWindow prodwindow, string automationId)
         {
