@@ -110,10 +110,10 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///     Determines whether this instance can select multiple item selection.
+        /// Determines whether this instance can select multiple item selection.
         /// </summary>
         /// <returns>
-        ///     <c>true</c> if this instance can select multiple; otherwise, <c>false</c>.
+        ///   <c>true</c> if this instance can select multiple; otherwise, <c>false</c>.
         /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public bool CanSelectMultiple()

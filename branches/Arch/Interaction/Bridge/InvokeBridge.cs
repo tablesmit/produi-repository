@@ -16,29 +16,29 @@ namespace ProdUI.Interaction.Bridge
     {
         internal static void ClickBridge(this IInvoke theInvoke, BaseProdControl control)
         {
-            try
-            {
-                AutomationEventVerifier.Register(new EventRegistrationMessage(control, InvokePattern.InvokedEvent));
-                InvokePatternHelper.Invoke(control.UIAElement);
-            }
-            catch (InvalidOperationException)
-            {
-                NativeInvoke(control.UIAElement);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            /* Try UIA First */
+            UiaInvoke(control);
+
+            /* now try a native SendMessage */
+            NativeInvoke(control);
         }
 
-        private static void NativeInvoke(AutomationElement control)
+        private static void UiaInvoke(BaseProdControl control)
         {
-            int hWnd = control.Current.NativeWindowHandle;
+            AutomationEventVerifier.Register(new EventRegistrationMessage(control, InvokePattern.InvokedEvent));
+            InvokePatternHelper.Invoke(control.UIAElement);
+        }
 
+        private static void NativeInvoke(BaseProdControl control)
+        {
+            AutomationElement element = control.UIAElement;
+
+            int hWnd = element.Current.NativeWindowHandle;
             if (hWnd == 0) throw new ProdOperationException("Unable to use native method");
-            if (control.Current.ControlType == ControlType.Button)
+
+            if (element.Current.ControlType == ControlType.Button)
             {
-                ProdButtonNative.Click((IntPtr) hWnd);
+                ProdButtonNative.Click((IntPtr)hWnd);
             }
         }
     }
