@@ -3,7 +3,7 @@
 //  */
 namespace ProdUI.Interaction.Base
 {
-    public interface IValue
+    internal interface IValue
     {
     }
 }

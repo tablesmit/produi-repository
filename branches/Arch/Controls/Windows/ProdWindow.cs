@@ -25,7 +25,6 @@ namespace ProdUI.Controls.Windows
         internal IntPtr NativeHandle;
         internal AutomationElement UIAElement;
         internal List<object> _verboseInformation;
-        internal LogController sessionLoggers;
 
         #region Constructors
 
@@ -464,7 +463,7 @@ namespace ProdUI.Controls.Windows
                 message = new LogMessage(LogText, _verboseInformation);
             }
 
-            sessionLoggers.ReceiveLogMessage(message);
+            //sessionLoggers.ReceiveLogMessage(message);
         }
     }
 }

@@ -111,6 +111,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\LoggerParameters.cs" />
+    <Compile Include="Configuration\ProdSession.cs" />
+    <Compile Include="Configuration\ProdSessionConfig.cs" />
+    <Compile Include="Configuration\ProdStaticSession.cs" />
+    <Compile Include="Configuration\SessionLoggerConfig.cs" />
+    <Compile Include="Configuration\StaticEvents.cs" />
     <Compile Include="Interaction\Base\IMultipleSelectionList.cs" />
     <Compile Include="Interaction\Base\IInvoke.cs" />
     <Compile Include="Interaction\Bridge\InvokeBridge.cs" />
@@ -120,8 +126,6 @@
     <Compile Include="Logging\LogController.cs" />
     <Compile Include="Interaction\Native\EditNative.cs" />
     <Compile Include="Interaction\Bridge\MultipleSelectListBridge.cs" />
-    <Compile Include="Session\LoggerParameters.cs" />
-    <Compile Include="Session\SessionLoggerConfig.cs" />
     <Compile Include="Interaction\Bridge\ValueBridge.cs" />
     <Compile Include="Verification\AutomationEventVerifier.cs" />
     <Compile Include="Interaction\UIAPatterns\DockPatternHelper.cs" />
@@ -151,8 +155,6 @@
     <Compile Include="Controls\Static\ProdTabStatics.cs" />
     <Compile Include="Controls\Static\ValuePatternStatics.cs" />
     <Compile Include="Controls\Static\WindowPatternsStatics.cs" />
-    <Compile Include="Session\ProdSession.cs" />
-    <Compile Include="Session\StaticEvents.cs" />
     <Compile Include="Controls\Windows\ProdCalendar.cs" />
     <Compile Include="Controls\Windows\ProdDataGrid.cs" />
     <Compile Include="Controls\Windows\ProdRibbonElement.cs" />
@@ -163,8 +165,6 @@
     <Compile Include="Controls\Windows\ProdTreeView.cs" />
     <Compile Include="Exceptions\ProdVerificationException.cs" />
     <Compile Include="Interaction\Native\MessageConstants\TrackbarConstants.cs" />
-    <Compile Include="Session\ProdStaticSession.cs" />
-    <Compile Include="Session\ProdSessionConfig.cs" />
     <Compile Include="Controls\Windows\ProdButton.cs" />
     <Compile Include="Controls\Windows\ProdCheckBox.cs" />
     <Compile Include="Controls\Windows\ProdComboBox.cs" />
@@ -244,7 +244,7 @@ REM Create all the sancastle stuff
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="Build" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_IncrementBeforeBuild="False" />
+      <UserProperties BuildVersion_IncrementBeforeBuild="False" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_BuildAction="Build" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

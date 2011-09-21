@@ -17,7 +17,7 @@ namespace ProdUI.Configuration
     public class ProdSession
     {
         private ProdLogger _tempLogger;
-        internal LogController logController;
+        //internal LogController logController;
 
 
         /// <summary>
@@ -29,11 +29,11 @@ namespace ProdUI.Configuration
             Configuration = ProdSessionConfig.LoadConfig(configFile);
 
             /* Process any loggers from config file */
-            logController = LogController.Create(GetLoggers());
+            //logController = LogController.Create(GetLoggers());
 
 
             /* Set up the loggers for the static Prods */
-            ProdStaticSession.Load(logController.GetActiveLoggers());
+           // ProdStaticSession.Load(logController.GetActiveLoggers());
         }
 
         /// <summary>
@@ -52,10 +52,10 @@ namespace ProdUI.Configuration
             Configuration.SessionName = defaultId;
 
             /* Process any loggers from config file */
-            logController = LogController.Create(GetLoggers());
+          //  logController = LogController.Create(GetLoggers());
 
             /* Set up the loggers for the static Prods */
-            ProdStaticSession.Load(logController.GetActiveLoggers());
+           // ProdStaticSession.Load(logController.GetActiveLoggers());
         }
 
         /// <summary>

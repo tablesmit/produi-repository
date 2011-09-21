@@ -15,6 +15,8 @@ using System.Windows.Automation;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.Native;
+using System.Windows.Forms;
+using System.Threading;
 
 namespace ProdUI.Utility
 {
@@ -503,6 +505,36 @@ namespace ProdUI.Utility
             }
 
             return control;
+        }
+
+        /// <summary>
+        ///     Uses SendKeys to set the text (clobbering).
+        /// </summary>
+        /// <param name = "theInterface">The interface.</param>
+        /// <param name = "control">The control to set.</param>
+        /// <param name = "text">The text to place in the control.</param>
+        internal static void SendKeysSetText(AutomationElement control, string text)
+        {
+            control.SetFocus();
+            Thread.Sleep(100);
+            SendKeys.SendWait("^{HOME}");
+            SendKeys.SendWait("^+{END}");
+            SendKeys.SendWait("{DEL}");
+            SendKeys.SendWait(text);
+        }
+
+        /// <summary>
+        ///     Uses SendKeys to append text.
+        /// </summary>
+        /// <param name = "theInterface">The interface.</param>
+        /// <param name = "control">The control to set.</param>
+        /// <param name = "text">The text to append.</param>
+        internal static void SendKeysAppendText(AutomationElement control, string text)
+        {
+            control.SetFocus();
+            Thread.Sleep(100);
+            SendKeys.SendWait("^{END}");
+            SendKeys.SendWait(text);
         }
     }
 }

@@ -3,14 +3,15 @@
 //  */
 using System;
 using ProdUI.Utility;
+using ProdUI.Logging;
 
 namespace ProdUI.Interaction.Native
 {
     /// <summary>
-    ///     Methods to work with Button controls using the UI Automation framework
+    /// Methods to work with Button controls using the UI Automation framework
     /// </summary>
     /// <remarks>
-    ///     Uses InvokeBridge
+    /// Uses InvokeBridge
     /// </remarks>
     internal sealed class ProdButtonNative
     {
@@ -20,12 +21,8 @@ namespace ProdUI.Interaction.Native
         /// <param name = "windowHandle">NativeWindowHandle to the button to send message to</param>
         internal static void Click(IntPtr windowHandle)
         {
-            NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMCLICK, 0, 0);
-
-            const string logmessage = "Button clicked using SendMessage";
-
-            //if (ProdStaticSession._Configuration != null)
-            //    ProdStaticSession.Log(logmessage);
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMCLICK, 0, 0); 
         }
     }
 }

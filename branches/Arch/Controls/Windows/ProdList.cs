@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.Base;
@@ -51,7 +50,8 @@ namespace ProdUI.Controls.Windows
         /// <remarks>
         ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
-        public ProdList(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
+        public ProdList(ProdWindow prodWindow, string automationId)
+            : base(prodWindow, automationId)
         {
         }
 
@@ -60,7 +60,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
-        public ProdList(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
+        public ProdList(ProdWindow prodWindow, int treePosition)
+            : base(prodWindow, treePosition)
         {
         }
 
@@ -69,7 +70,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "controlHandle">Window handle of the control</param>
-        public ProdList(ProdWindow prodWindow, IntPtr controlHandle) : base(prodWindow, controlHandle)
+        public ProdList(ProdWindow prodWindow, IntPtr controlHandle)
+            : base(prodWindow, controlHandle)
         {
         }
 
@@ -81,18 +83,9 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         ///     an ArrayList containing the items in a List control
         /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public List<object> GetItems()
         {
-            AutomationElementCollection convRet = SelectionPatternHelper.GetListItems(UIAElement);
-
-            List<object> retVal = InternalUtilities.AutomationCollToObjectList(convRet);
-
-            LogText = "Items:";
-            VerboseInformation = retVal;
-            LogMessage();
-
-            return retVal;
+            return this.GetItemsBridge(this);
         }
 
         /// <summary>
@@ -102,29 +95,11 @@ namespace ProdUI.Controls.Windows
         ///     The number of items in the list
         /// </returns>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public int GetItemCount()
         {
-            AutomationElementCollection convRet = SelectionPatternHelper.GetListItems(UIAElement);
-            return convRet.Count;
+            return this.GetItemCountBridge(this);
         }
 
-        /// <summary>
-        /// Determines whether this instance can select multiple item selection.
-        /// </summary>
-        /// <returns>
-        ///   <c>true</c> if this instance can select multiple; otherwise, <c>false</c>.
-        /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public bool CanSelectMultiple()
-        {
-            bool retVal = SelectionPatternHelper.CanSelectMultiple(UIAElement);
-
-            LogText = "Value " + retVal;
-            LogMessage();
-
-            return retVal;
-        }
 
         #region single select specific
 
@@ -133,14 +108,10 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <returns>
         ///     The zero based index of the selected item
-        /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// </returns>       
         public int GetSelectedIndex()
         {
-            int retVal = this.GetSelectedIndexBridge(this);
-            LogText = retVal.ToString(CultureInfo.CurrentCulture);
-            LogMessage();
-            return retVal;
+            return this.GetSelectedIndexBridge(this);
         }
 
         /// <summary>
@@ -149,13 +120,9 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         ///     The selected List element
         /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public AutomationElement GetSelectedItem()
         {
             AutomationElement retVal = this.GetSelectedItemBridge(this);
-            LogText = "Item " + retVal;
-            LogMessage();
-
             return retVal;
         }
 
@@ -164,11 +131,8 @@ namespace ProdUI.Controls.Windows
         ///     Sets the selected list item.
         /// </summary>
         /// <param name = "index">The zero-based index of the item to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetSelectedIndex(int index)
         {
-            LogText = "Index " + index;
-
             this.SetSelectedIndexBridge(this, index);
         }
 
@@ -176,12 +140,9 @@ namespace ProdUI.Controls.Windows
         /// <summary>
         ///     Sets the selected list item.
         /// </summary>
-        /// <param name = "itemText">The text of the item to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <param name = "itemText">The text of the item to select.</param>      
         public void SetSelectedItem(string itemText)
         {
-            LogText = "Item " + itemText;
-
             this.SetSelectedItemBridge(this, itemText);
         }
 
@@ -192,13 +153,9 @@ namespace ProdUI.Controls.Windows
         /// <summary>
         ///     Adds the selected list item to the current selection.
         /// </summary>
-        /// <param name = "index">The zero-based index of the item to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <param name = "index">The zero-based index of the item to select.</param>     
         public void AddToSelection(int index)
         {
-            LogText = "Index " + index;
-
-            RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
             this.AddToSelectionBridge(this, index);
         }
 
@@ -206,30 +163,20 @@ namespace ProdUI.Controls.Windows
         ///     Adds the selected list item to the current selection.
         /// </summary>
         /// <param name = "itemText">The text of the item to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void AddToSelection(string itemText)
         {
-            LogText = "Item " + itemText;
-
-            RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent);
             this.AddToSelectionBridge(this, itemText);
         }
 
         /// <summary>
-        ///     Gets the selected indexes.
+        /// Gets the selected indexes.
         /// </summary>
         /// <returns>
-        ///     An ArrayList of all the indexes of currently selected list items.
+        /// A List of all the indexes of currently selected list items.
         /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public List<object> GetSelectedIndexes()
         {
             List<object> retList = this.GetSelectedIndexesBridge((this));
-
-            LogText = "Index";
-            VerboseInformation = retList;
-            LogMessage();
-
             return retList;
         }
 
@@ -237,18 +184,11 @@ namespace ProdUI.Controls.Windows
         ///     Gets the selected items.
         /// </summary>
         /// <returns>
-        ///     An ArrayList of all currently selected list items
-        /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
+        ///     A List of all currently selected list items
+        /// </returns>     
         public List<object> GetSelectedItems()
         {
-            List<object> retList = this.GetSelectedItemsBridge(this);
-
-            LogText = "Items: ";
-            VerboseInformation = retList;
-            LogMessage();
-
-            return retList;
+            return this.GetSelectedItemsBridge(this);
         }
 
         /// <summary>
@@ -259,95 +199,51 @@ namespace ProdUI.Controls.Windows
         /// </returns>
         public int GetSelectedItemCount()
         {
-            int retVal = this.GetSelectedItemCountBridge(this);
-
-            LogText = "Count: " + retVal;
-            LogMessage();
-
-            return retVal;
+            return this.GetSelectedItemCountBridge(this);
         }
 
         /// <summary>
         ///     Removes the selected list item from the current selection.
         /// </summary>
-        /// <param name = "index">The index of the item to deselect.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <param name = "index">The index of the item to deselect.</param>       
         public void RemoveFromSelection(int index)
         {
-            RegisterEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent);
             this.RemoveFromSelectionBridge(this, index);
-
-            LogText = "Index: " + index;
-            LogMessage();
         }
 
         /// <summary>
         ///     Removes the selected list item from the current selection.
         /// </summary>
-        /// <param name = "itemText">The text of the item to deselect.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <param name = "itemText">The text of the item to deselect.</param>       
         public void RemoveFromSelection(string itemText)
         {
-            RegisterEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent);
             this.RemoveFromSelectionBridge(this, itemText);
-
-            LogText = "Item: " + itemText;
-            LogMessage();
         }
 
         /// <summary>
         ///     Selects all items in a ListBox.
         /// </summary>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SelectAll()
         {
-            LogText = "Select All";
-            LogMessage();
-
-            foreach (AutomationElement item in SelectionPatternHelper.GetListCollectionUtility(UIAElement))
-            {
-                this.AddToSelectionBridge(this, item.Current.Name);
-            }
+            this.SelectAllBridge(this);
         }
-
 
         /// <summary>
         ///     Sets the select indexes from a supplied list.
         /// </summary>
-        /// <param name = "indexes">The indexes to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
+        /// <param name = "indexes">The indexes to select.</param>    
         public void SetSelectIndexes(Collection<int> indexes)
         {
-            foreach (int index in indexes)
-            {
-                this.AddToSelectionBridge(this, index);
-            }
-
-            List<object> retList = new List<object> {
-                                                        indexes
-                                                    };
-
-            LogText = "Indexes";
-            VerboseInformation = retList;
-            LogMessage();
+            this.SetSelectIndexesBridge(this,indexes);
         }
 
         /// <summary>
         ///     Sets the selected items from a supplied list.
         /// </summary>
         /// <param name = "items">The text of the items to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public void SetSelectedItems(Collection<string> items)
         {
-            foreach (string item in items)
-            {
-                this.AddToSelectionBridge(this, item);
-            }
-
-            List<object> retList = new List<object>(items);
-            LogText = "Items";
-            VerboseInformation = retList;
-            LogMessage();
+                this.SetSelectedItemsBridge(this, items);
         }
 
         #endregion
