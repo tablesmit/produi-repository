@@ -26,7 +26,7 @@ namespace ProdUI.Interaction.Native
         /// <returns>Number of items in the list box</returns>
         internal static int GetItemCountNative(IntPtr windowHandle)
         {
-            int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBGetcount, 0, 0);
+            int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBGETCOUNT, 0, 0);
             if (retVal == LBERR)
             {
                 throw new ProdOperationException("Native call fail");
@@ -34,8 +34,8 @@ namespace ProdUI.Interaction.Native
 
             string logmessage = "GetItemCountNative using SendMessage: " + retVal;
 
-            if (ProdStaticSession._Configuration != null)
-                ProdStaticSession.Log(logmessage);
+            //if (ProdStaticSession._Configuration != null)
+            //    ProdStaticSession.Log(logmessage);
 
             return retVal;
         }
@@ -50,7 +50,7 @@ namespace ProdUI.Interaction.Native
         /// </remarks>
         internal static int GetSelectedItemCountNative(IntPtr windowHandle)
         {
-            int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBGetselcount, 0, 0);
+            int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBGETSELCOUNT, 0, 0);
             if (retVal == LBERR)
             {
                 throw new ProdOperationException("Native call fail");
@@ -58,8 +58,8 @@ namespace ProdUI.Interaction.Native
 
             string logmessage = "GetSelectedItemCountNative using SendMessage: " + retVal;
 
-            if (ProdStaticSession._Configuration != null)
-                ProdStaticSession.Log(logmessage);
+            //if (ProdStaticSession._Configuration != null)
+            //    ProdStaticSession.Log(logmessage);
 
             return retVal;
         }
@@ -71,21 +71,14 @@ namespace ProdUI.Interaction.Native
         /// <returns>A string collection containing each item in the ListBox</returns>
         internal static Collection<object> GetItemsNative(IntPtr windowHandle)
         {
-            try
-            {
                 int itemCount = GetItemCountNative(windowHandle);
 
                 const string logmessage = "GetItemsNative using SendMessage";
 
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
+                //if (ProdStaticSession._Configuration != null)
+                //    ProdStaticSession.Log(logmessage);
 
                 return GetAllItems(windowHandle, itemCount);
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
         }
 
         /// <summary>
@@ -95,9 +88,7 @@ namespace ProdUI.Interaction.Native
         /// <param name = "index">Zero based index of item to select</param>
         internal static void SelectItemNative(IntPtr windowHandle, int index)
         {
-            try
-            {
-                int sndReturn = (int) NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSetcursel, index, 0);
+                int sndReturn = (int) NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSETCURSEL, index, 0);
 
                 if (index != -1 && sndReturn == LBERR)
                 {
@@ -106,13 +97,8 @@ namespace ProdUI.Interaction.Native
 
                 const string logmessage = "SelectItemNative using SendMessage";
 
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+                //if (ProdStaticSession._Configuration != null)
+                //    ProdStaticSession.Log(logmessage);
         }
 
         /// <summary>
@@ -122,11 +108,9 @@ namespace ProdUI.Interaction.Native
         /// <param name = "itemText">string to search ListBox for. Case insensitive</param>
         internal static void SelectItemNative(IntPtr windowHandle, string itemText)
         {
-            try
-            {
                 int stringIndex = FindString(windowHandle, itemText);
 
-                int sndReturn = (int) NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSetcursel, stringIndex, 0);
+                int sndReturn = (int) NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSETCURSEL, stringIndex, 0);
 
                 if (sndReturn == LBERR)
                 {
@@ -135,13 +119,8 @@ namespace ProdUI.Interaction.Native
 
                 const string logmessage = "SelectItemNative using SendMessage";
 
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+                //if (ProdStaticSession._Configuration != null)
+                //    ProdStaticSession.Log(logmessage);
         }
 
         /// <summary>
@@ -151,19 +130,12 @@ namespace ProdUI.Interaction.Native
         /// <param name = "index">Zero based index of item to select</param>
         internal static void DESelectItemNative(IntPtr windowHandle, int index)
         {
-            try
-            {
-                NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSetsel, 0, index);
+                NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSETSEL, 0, index);
 
                 const string logmessage = "DeSelectItemNative using SendMessage";
 
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+                //if (ProdStaticSession._Configuration != null)
+                //    ProdStaticSession.Log(logmessage);
         }
 
         /// <summary>
@@ -173,21 +145,14 @@ namespace ProdUI.Interaction.Native
         /// <param name = "itemText">string to search ListBox for. Case insensitive</param>
         internal static void DESelectItemNative(IntPtr windowHandle, string itemText)
         {
-            try
-            {
                 int stringIndex = FindString(windowHandle, itemText);
 
-                NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSetsel, 0, stringIndex);
+                NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSETSEL, 0, stringIndex);
 
                 const string logmessage = "DeSelectItemNative using SendMessage";
 
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+                //if (ProdStaticSession._Configuration != null)
+                //    ProdStaticSession.Log(logmessage);
         }
 
         /// <summary>
@@ -197,19 +162,12 @@ namespace ProdUI.Interaction.Native
         /// <param name = "index">Zero based index of item to select</param>
         internal static void AddSelectedItemNative(IntPtr windowHandle, int index)
         {
-            try
-            {
-                NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSetsel, 1, index);
+                NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSETSEL, 1, index);
 
                 const string logmessage = "AddSelectedItemNative using SendMessage";
 
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+                //if (ProdStaticSession._Configuration != null)
+                //    ProdStaticSession.Log(logmessage);
         }
 
         /// <summary>
@@ -219,43 +177,29 @@ namespace ProdUI.Interaction.Native
         /// <param name = "itemText">string to search ListBox for. Case insensitive</param>
         internal static void AddSelectedItemNative(IntPtr windowHandle, string itemText)
         {
-            try
-            {
                 int stringIndex = FindString(windowHandle, itemText);
 
-                NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSetsel, 1, stringIndex);
+                NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSETSEL, 1, stringIndex);
 
                 const string logmessage = "AddSelectedItemNative using SendMessage";
 
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+                //if (ProdStaticSession._Configuration != null)
+                //    ProdStaticSession.Log(logmessage);
         }
 
         internal static int GetSelectedIndexNative(IntPtr windowHandle)
         {
-            try
-            {
-                int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBGetcursel, 0, 0);
+                int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBGETCURSEL, 0, 0);
 
                 const string logmessage = "GetSelectedIndexNative using SendMessage";
 
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
+                //if (ProdStaticSession._Configuration != null)
+                //    ProdStaticSession.Log(logmessage);
 
                 return retVal;
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
         }
 
-        /* Util */
+        /* Utility */
 
         private static Collection<object> GetAllItems(IntPtr windowHandle, int itemCount)
         {
@@ -264,7 +208,7 @@ namespace ProdUI.Interaction.Native
 
             for (int i = 0; i < itemCount - 1; i++)
             {
-                NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBGettext, i, sb);
+                NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBGETTEXT, i, sb);
                 returnCollection.Add(sb.ToString());
                 sb.Clear();
             }
@@ -274,7 +218,7 @@ namespace ProdUI.Interaction.Native
 
         private static int FindString(IntPtr windowHandle, string itemText)
         {
-            int stringIndex = NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBFindstring, -1, itemText);
+            int stringIndex = NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBFINDSTRING, -1, itemText);
 
             if (stringIndex == LBERR)
             {

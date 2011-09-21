@@ -1,0 +1,716 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Comment CommentText="Public Controls">
+    <Position X="14.625" Y="0.5" Height="0.291" Width="1.103" />
+  </Comment>
+  <Comment CommentText="Events">
+    <Position X="15.083" Y="11.25" Height="0.291" Width="0.7" />
+  </Comment>
+  <Comment CommentText="Logging">
+    <Position X="31.417" Y="6.5" Height="0.291" Width="0.7" />
+  </Comment>
+  <Comment CommentText="Core">
+    <Position X="26" Y="12.25" Height="0.291" Width="0.7" />
+  </Comment>
+  <Comment CommentText="Native Controls">
+    <Position X="20.192" Y="7.355" Height="0.327" Width="1.053" />
+  </Comment>
+  <Comment CommentText="Session">
+    <Position X="27.854" Y="12.25" Height="0.291" Width="0.7" />
+  </Comment>
+  <Comment CommentText="Exceptions">
+    <Position X="1" Y="0.5" Height="0.291" Width="0.912" />
+  </Comment>
+  <Comment CommentText="Bridges will call on UIA Patterns, and Native Controls. &#xD;&#xA;Should not catch exceptions (for the most part).&#xD;&#xA;Exceptions will be handled at the Prod Control level">
+    <Position X="13.76" Y="4.521" Height="0.75" Width="3.127" />
+  </Comment>
+  <Class Name="ProdUI.Controls.Static.Prod" Collapsed="true">
+    <Position X="18" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CJCDGjIQgAlIKEhoSKGSGgjsFxUhskAAgBICSRwKAkw=</HashCode>
+      <FileName>Controls\Static\ProdButtonStatics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.BaseProdControl" Collapsed="true">
+    <Position X="14.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIKIQSAAAAAAABAAAgEgAQABAAAAAAAAACAAAEAAAAI=</HashCode>
+      <FileName>Controls\Windows\BaseProdControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdButton" Collapsed="true">
+    <Position X="4" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Controls\Windows\ProdButton.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdCalendar" Collapsed="true">
+    <Position X="9.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Windows\ProdCalendar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdCheckBox" Collapsed="true">
+    <Position X="11" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAiAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Windows\ProdCheckBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdComboBox" Collapsed="true">
+    <Position X="14.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAgAEAIIAIAAAABAAQAAAgAAABAAAQBAAAA=</HashCode>
+      <FileName>Controls\Windows\ProdComboBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdDataGrid" Collapsed="true">
+    <Position X="5.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAEAAAAAAAEAAAAAAAAAAEIABADAAAATCAAAAAAA=</HashCode>
+      <FileName>Controls\Windows\ProdDataGrid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdDocument" Collapsed="true">
+    <Position X="19.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAABAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Controls\Windows\ProdDocument.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdEdit" Collapsed="true">
+    <Position X="26.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAIBIAAAAAIAAAAAAAAAAIAAABAAAA=</HashCode>
+      <FileName>Controls\Windows\ProdEdit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdList" Collapsed="true">
+    <Position X="32" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAACAAAACgAAAIAABAAAgAEEQAAAhAAABACAQAAAAA=</HashCode>
+      <FileName>Controls\Windows\ProdList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdMenuItem" Collapsed="true">
+    <Position X="30.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAEABAAAAAAAAAAEAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Controls\Windows\ProdMenuItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdRadioButton" Collapsed="true">
+    <Position X="23.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Controls\Windows\ProdRadioButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdRibbonElement" Collapsed="true">
+    <Position X="7.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Controls\Windows\ProdRibbonElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdSlider" Collapsed="true">
+    <Position X="18" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAgAAAAAAAAAAAAAAAAAAQAAoAAAAAAg=</HashCode>
+      <FileName>Controls\Windows\ProdSlider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdSpinner" Collapsed="true">
+    <Position X="16.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAgAAAAAAAAAAAAAAAAAAAAAIAAAAAAg=</HashCode>
+      <FileName>Controls\Windows\ProdSpinner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdTab" Collapsed="true">
+    <Position X="28.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAEAAAAAIAAAAAAQAAAgAAAAAAAAAAAQA=</HashCode>
+      <FileName>Controls\Windows\ProdTab.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdText" Collapsed="true">
+    <Position X="25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAIAIAAAAAAAAAAAAAAAAAIAABAAAA=</HashCode>
+      <FileName>Controls\Windows\ProdText.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdToolBar" Collapsed="true">
+    <Position X="21.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Windows\ProdToolBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdTreeView" Collapsed="true">
+    <Position X="12.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAQAAAAJAAAAAAAAAIAQAAgACAEAAAAAAEAAAAAE=</HashCode>
+      <FileName>Controls\Windows\ProdTreeView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Controls.Windows.ProdWindow" Collapsed="true">
+    <Position X="16.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAASAEQIggAhBAAAACAAAEMAAAAAEAAAIAQAGACgA=</HashCode>
+      <FileName>Controls\Windows\ProdWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Exceptions.ProdOperationException" Collapsed="true">
+    <Position X="0.5" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ProdOperationException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Exceptions.ProdVerificationException" Collapsed="true">
+    <Position X="0.5" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ProdVerificationException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.Bridge.InvokeBridge" Collapsed="true">
+    <Position X="10.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAIAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\Bridge\InvokeBridge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.Bridge.SingleSelectListBridge" Collapsed="true">
+    <Position X="14.5" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAEAAIAACAAAAgAAAAAAA=</HashCode>
+      <FileName>Interaction\Bridge\SingleSelectListBridge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.Native.ProdEditNative" Collapsed="true">
+    <Position X="21.75" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAIAAiAAAAAAAAIIAAAAAAA=</HashCode>
+      <FileName>Interaction\Native\EditNative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.Native.NativeTextProds" Collapsed="true">
+    <Position X="23.75" Y="9.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAIAAiAAAAAAAAIIAAAAAAA=</HashCode>
+      <FileName>Interaction\Native\NativeTextProds.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.Native.ProdButtonNative" Collapsed="true">
+    <Position X="17.75" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Interaction\Native\ProdButtonNative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.Native.ProdCheckBoxNative" Collapsed="true">
+    <Position X="17.75" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAACACAAAAAgAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Interaction\Native\ProdCheckBoxNative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.Native.ProdComboBoxNative" Collapsed="true">
+    <Position X="19.75" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAABCAAAEABAAAACAAAAAAAAIA=</HashCode>
+      <FileName>Interaction\Native\ProdComboBoxNative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.Native.ProdListBoxNative" Collapsed="true">
+    <Position X="19.75" Y="9.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAJAEAABAAAAAAAAABCAAAEABAAAAAAAAAAEAAIA=</HashCode>
+      <FileName>Interaction\Native\ProdListBoxNative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.Native.ProdRadioButtonNative" Collapsed="true">
+    <Position X="17.75" Y="9.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\Native\ProdRadioButtonNative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.Native.ProdSliderNative" Collapsed="true">
+    <Position X="23.75" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAgAAAAAAAAAAAAAIAAAAAAgAA=</HashCode>
+      <FileName>Interaction\Native\ProdSliderNative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.Native.ProdSpinnerNative" Collapsed="true">
+    <Position X="19.75" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAgAAAAAAAAAAAAAIAAAAAAgAA=</HashCode>
+      <FileName>Interaction\Native\ProdSpinnerNative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.Native.ProdTabNative" Collapsed="true">
+    <Position X="21.75" Y="9.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAABAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\Native\ProdTabNative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.Native.ProdTreeViewNative" Collapsed="true">
+    <Position X="21.75" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\Native\ProdTreeViewNative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.Native.ProdWindowNative" Collapsed="true">
+    <Position X="23.75" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EAAAAEAAAAgAQAAAAAAACACAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Interaction\Native\ProdWindowNative.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.UIAPatterns.CommonUIAPatternHelpers" Collapsed="true">
+    <Position X="3.5" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>CAEAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\UIAPatterns\CommonUIAPatternHelpers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.UIAPatterns.DockPatternHelper" Collapsed="true">
+    <Position X="9.5" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\UIAPatterns\DockPatternHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.UIAPatterns.ExpandCollapseHelper" Collapsed="true">
+    <Position X="7.5" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AQAAgAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\UIAPatterns\ExpandCollapseHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.UIAPatterns.GridPatternHelper" Collapsed="true">
+    <Position X="3.5" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AACAQAAAAAAAAEAAAAABAAABAIAAAgAACABAAAAAAAA=</HashCode>
+      <FileName>Interaction\UIAPatterns\GridPatternHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.UIAPatterns.InvokePatternHelper" Collapsed="true">
+    <Position X="11.5" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\UIAPatterns\InvokePatternHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.UIAPatterns.RangeValuePatternHelper" Collapsed="true">
+    <Position X="1.5" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAgAAgAAAAAAAAAAAAAAAQgAgAAAAAAA=</HashCode>
+      <FileName>Interaction\UIAPatterns\RangeValuePatternHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.UIAPatterns.ScrollPatternHelper" Collapsed="true">
+    <Position X="1.5" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAQIAAAAAAAQAEAAAAAQAAAAAAAAAAAAAgACAACAA=</HashCode>
+      <FileName>Interaction\UIAPatterns\ScrollPatternHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.UIAPatterns.SelectionPatternHelper" Collapsed="true">
+    <Position X="13.5" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAMAAAAgAAAAkAEQgAADAAEABCRAAAAIA=</HashCode>
+      <FileName>Interaction\UIAPatterns\SelectionPatternHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.UIAPatterns.TablePatternHelper" Collapsed="true">
+    <Position X="5.5" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AACAQEAAAAAAAEAAAAgAACABAIAAACAACQBAAAAAAAA=</HashCode>
+      <FileName>Interaction\UIAPatterns\TablePatternHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.UIAPatterns.TextPatternHelper" Collapsed="true">
+    <Position X="5.5" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BAAAABEAAJAAIAIIEAgAAAAAAAQAQBAAAIBCQCgACBA=</HashCode>
+      <FileName>Interaction\UIAPatterns\TextPatternHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.UIAPatterns.TogglePatternHelper" Collapsed="true">
+    <Position X="7.5" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAgAAAABA=</HashCode>
+      <FileName>Interaction\UIAPatterns\TogglePatternHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.UIAPatterns.TransformPatternHelper" Collapsed="true">
+    <Position X="9.5" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAIAAAAEAAAAAAAAAEBAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Interaction\UIAPatterns\TransformPatternHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.UIAPatterns.ValuePatternHelper" Collapsed="true">
+    <Position X="13.5" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAgAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Interaction\UIAPatterns\ValuePatternHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.UIAPatterns.WindowPatternHelper" Collapsed="true">
+    <Position X="11.5" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EABABAAAAiggAAAAAAAAAAAAAAAAAEAAAAAAAAAAAQA=</HashCode>
+      <FileName>Interaction\UIAPatterns\WindowPatternHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Logging.LogController" Collapsed="true">
+    <Position X="31" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAIAAEAAAAAEAEgAAAAABAAAAAA=</HashCode>
+      <FileName>Logging\LogController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Logging.LogMessage" Collapsed="true">
+    <Position X="31" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAGAAABACAAAAAgAAAAAgAAIAAAAAI=</HashCode>
+      <FileName>Logging\LogMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Logging.ProdLogger" Collapsed="true">
+    <Position X="31" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAABAAAAAAAEAAAAAAgCAEIAAAAAAAAAAAE=</HashCode>
+      <FileName>Logging\ProdLogger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Logging.ProdLoggingAttribute" Collapsed="true">
+    <Position X="12.25" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Logging\ProdLoggingAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Configuration.LoggerParameters" Collapsed="true">
+    <Position X="27.5" Y="16" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAEAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Session\LoggerParameters.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Configuration.ProdSession" Collapsed="true">
+    <Position X="27.5" Y="12.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAIAEAAAAAACgAAAAAAAAAA=</HashCode>
+      <FileName>Session\ProdSession.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Configuration.ProdSessionConfig" Collapsed="true">
+    <Position X="27.5" Y="13.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAgACIAAAAAAAAAAABAAQAACA=</HashCode>
+      <FileName>Session\ProdSessionConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Configuration.ProdStaticSession" Collapsed="true">
+    <Position X="27.5" Y="15.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAACAAAAAAAAAAAAAAIAAkBAAAAAAABAAAAACA=</HashCode>
+      <FileName>Session\ProdStaticSession.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Configuration.SessionLoggerConfig" Collapsed="true">
+    <Position X="27.5" Y="14.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAoAAAAAAAAAAAEAAAAAAAAAEIAQoAAAAAAAAA=</HashCode>
+      <FileName>Session\SessionLoggerConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Configuration.StaticEvents" Collapsed="true">
+    <Position X="25.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAACAAACAAACAAAABAAAgAAAAAAIAACAAAAAIAAA=</HashCode>
+      <FileName>Session\StaticEvents.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Utility.ControlTree" Collapsed="true">
+    <Position X="25.75" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAEAAAAAAAAAAIAAAAAAIAAAAEAAAAAEAAAA=</HashCode>
+      <FileName>Utility\ControlTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Utility.InternalUtilities" Collapsed="true">
+    <Position X="25.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAUAAAgBAAAAAAAQCAAEAABAUAIASIAAACABAAA=</HashCode>
+      <FileName>Utility\InternalUtilities.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Utility.NativeMethods" Collapsed="true">
+    <Position X="25.75" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAEBAMgJBAAACASAAAAAAAAAAgAABAAAAAgQgAAA=</HashCode>
+      <FileName>Utility\NativeMethods.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Verification.AutomationEventVerifier" Collapsed="true">
+    <Position X="14.5" Y="13.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAQIAA=</HashCode>
+      <FileName>Verification\AutomationEventVerifier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Verification.EventListener" Collapsed="true">
+    <Position X="14.5" Y="12.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACABACAAAABAAAgAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Verification\EventListener.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Verification.EventRegistrationMessage" Collapsed="true">
+    <Position X="14.5" Y="11.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAEAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Verification\EventRegistrationMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.Bridge.MultipleSelectListBridge" Collapsed="true">
+    <Position X="12.25" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ACQABAAAAAAAgAiAAAAAAAAAEAAAAAEAAAAAgAAAAAA=</HashCode>
+      <FileName>Interaction\Bridge\MultipleSelectListBridge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProdUI.Interaction.Bridge.ValueBridge" Collapsed="true">
+    <Position X="16.75" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAQAAAAAAAAAAAAAAAAAAAQBAAAAAAACABABA=</HashCode>
+      <FileName>Interaction\Bridge\ValueBridge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="ProdUI.Interaction.Native.MOUSEINPUT" Collapsed="true">
+    <Position X="35.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAQAAAgAAAAAAAAAAAAIgACAAAQAAAAyA=</HashCode>
+      <FileName>Utility\InternalStructs.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ProdUI.Interaction.Native.KEYBDINPUT" Collapsed="true">
+    <Position X="33.75" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAIAAAAAIAACAACQAAAAyA=</HashCode>
+      <FileName>Utility\InternalStructs.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ProdUI.Interaction.Native.HARDWAREINPUT" Collapsed="true">
+    <Position X="32" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAgAAAAAAAAAAAAJEAAAAAAAAAAiA=</HashCode>
+      <FileName>Utility\InternalStructs.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ProdUI.Interaction.Native.UNION" Collapsed="true">
+    <Position X="39" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAIAAAAAAAAgAAAAAAAAAAAAIAAAgAAAAAAAiA=</HashCode>
+      <FileName>Utility\InternalStructs.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ProdUI.Interaction.Native.NPUT" Collapsed="true">
+    <Position X="37.25" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAQAAAQAAAiA=</HashCode>
+      <FileName>Utility\InternalStructs.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="ProdUI.Interaction.Base.IInvoke" Collapsed="true">
+    <Position X="10.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\Base\IInvoke.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ProdUI.Interaction.Base.ISingleSelectList" Collapsed="true">
+    <Position X="14.5" Y="5.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\Base\ISingleSelectList.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ProdUI.Logging.ILogTarget" Collapsed="true">
+    <Position X="31" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAEAAgA=</HashCode>
+      <FileName>Logging\ILogTarget.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ProdUI.Interaction.Base.IMultipleSelectionList" Collapsed="true">
+    <Position X="12.25" Y="5.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\Base\IMultipleSelectionList.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ProdUI.Interaction.Base.IValue" Collapsed="true">
+    <Position X="16.75" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\Base\IValue.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="ProdUI.Interaction.Native.ComboBoxMessage" Collapsed="true">
+    <Position X="35.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IMAAAAA0AIAAARQgAAgAAAgAkABABAQAABAIAAIAAAA=</HashCode>
+      <FileName>Interaction\Native\MessageConstants\MessageConstants.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.ButtonStates" Collapsed="true">
+    <Position X="33.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABICAEAAAAAAAAAACAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interaction\Native\MessageConstants\MessageConstants.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.ButtonMessage" Collapsed="true">
+    <Position X="32" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAACAAABAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Interaction\Native\MessageConstants\MessageConstants.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.ListboxMessage" Collapsed="true">
+    <Position X="39" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAQAAAAAAiAgAAgAAAAAQAAAAAAgAABAAAAA=</HashCode>
+      <FileName>Interaction\Native\MessageConstants\MessageConstants.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.TabControlMessage" Collapsed="true">
+    <Position X="37.25" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAIAAAgAAIAAAAAEAAAAAA=</HashCode>
+      <FileName>Interaction\Native\MessageConstants\MessageConstants.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.SpinnerMessages" Collapsed="true">
+    <Position X="37.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAYAAAggAIAAEAACAAAgAAAAAABABAFARAAAQAAAA=</HashCode>
+      <FileName>Interaction\Native\MessageConstants\SpinnerConstants.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.TrackBarMessages" Collapsed="true">
+    <Position X="33.75" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABgAAAAAAAAAAAAAQAAAAAAAAACAA=</HashCode>
+      <FileName>Interaction\Native\MessageConstants\TrackbarConstants.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.TreeViewMessages" Collapsed="true">
+    <Position X="33.75" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAEAQARAQAAEAAAAAAAAAAAAAAAAACABAA=</HashCode>
+      <FileName>Interaction\Native\MessageConstants\TreeViewConstants.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.TreeViewExpandArg" Collapsed="true">
+    <Position X="32" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAEAAAAAAAACAAAAAAAAAAAAAAEAAgAAA=</HashCode>
+      <FileName>Interaction\Native\MessageConstants\TreeViewConstants.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.TreeViewSelectArg" Collapsed="true">
+    <Position X="35.5" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAABAAAAAAAAAAgAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Interaction\Native\MessageConstants\TreeViewConstants.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.TreeViewStyle" Collapsed="true">
+    <Position X="37.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAACAAAAAIAAAAAIAAAAAAABAAAgAAAQAACCAAA=</HashCode>
+      <FileName>Interaction\Native\MessageConstants\TreeViewConstants.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.WindowMessages" Collapsed="true">
+    <Position X="39" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAEAAAAAAAgAgAAAAAABEAECEAACAAAQAAQAAAAA=</HashCode>
+      <FileName>Interaction\Native\MessageConstants\WindowConstants.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.ShowWindowCommand" Collapsed="true">
+    <Position X="35.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IABIAAAAAAAAAAgAAICAAIQAAAAEAAAAAAAAAAAAEQg=</HashCode>
+      <FileName>Interaction\Native\MessageConstants\WindowConstants.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.MouseClick" Collapsed="true">
+    <Position X="32" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACACQAAAAAAA=</HashCode>
+      <FileName>Utility\ControlEnumerations.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.WindowState" Collapsed="true">
+    <Position X="35.5" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAJAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Utility\ControlEnumerations.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.MOUSEEVENTF" Collapsed="true">
+    <Position X="33.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAEAhAAAAAAAQBAgAAAABAAAAAEABAIAAAAAQAAA=</HashCode>
+      <FileName>Utility\InternalStructs.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.SystemMetric" Collapsed="true">
+    <Position X="39" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAgAAAAAAEAAEAAAAAAAAwA=</HashCode>
+      <FileName>Utility\InternalStructs.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Interaction.Native.InputStructType" Collapsed="true">
+    <Position X="37.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utility\InternalStructs.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Logging.LoggingLevels" Collapsed="true">
+    <Position X="39" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAQAAAAAAIAAAAAAAAAEAEAAAAEAAAAA=</HashCode>
+      <FileName>Logging\LoggingEnums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ProdUI.Logging.LoggingVerbosity" Collapsed="true">
+    <Position X="32" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logging\LoggingEnums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

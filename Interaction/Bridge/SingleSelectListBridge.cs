@@ -1,7 +1,6 @@
 ﻿// /* License Rider:
 //  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 //  */
-using System;
 using System.Windows.Automation;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
@@ -21,24 +20,13 @@ namespace ProdUI.Interaction.Bridge
         /// <returns></returns>
         internal static int GetSelectedIndexBridge(this ISingleSelectList theInterface, BaseProdControl control)
         {
-            try
+            if (!CanSelectMultiple(control))
             {
-                if (!CanSelectMultiple(control))
-                {
-                    AutomationElement[] element = SelectionPatternHelper.GetSelection(control.UIAElement);
-                    int retVal = SelectionPatternHelper.FindIndexByItem(control.UIAElement, element[0].Current.Name);
-                    return retVal;
-                }
-                throw new ProdOperationException("Does not support single selection");
+                AutomationElement[] element = SelectionPatternHelper.GetSelection(control.UIAElement);
+                int retVal = SelectionPatternHelper.FindIndexByItem(control.UIAElement, element[0].Current.Name);
+                return retVal;
             }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            throw new ProdOperationException("Does not support single selection");
         }
 
         /// <summary>
@@ -51,71 +39,43 @@ namespace ProdUI.Interaction.Bridge
         /// </returns>
         internal static AutomationElement GetSelectedItemBridge(this ISingleSelectList theInterface, BaseProdControl control)
         {
-            try
-            {
-                AutomationElement[] retVal = SelectionPatternHelper.GetSelection(control.UIAElement);
-                return retVal[0];
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            AutomationElement[] retVal = SelectionPatternHelper.GetSelection(control.UIAElement);
+            return retVal[0];
         }
 
 
         /// <summary>
-        ///     Sets the selected list item.
+        /// Sets the selected list item.
         /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The control.</param>
-        /// <param name = "index">The zero-based index of the item to select.</param>
+        /// <param name="theInterface">The interface.</param>
+        /// <param name="control">The control.</param>
+        /// <param name="index">The zero-based index of the item to select.</param>
         internal static void SetSelectedIndexBridge(this ISingleSelectList theInterface, BaseProdControl control, int index)
         {
-            try
-            {
-                AutomationEventVerifier.Register(new EventRegistrationMessage(control, SelectionItemPattern.ElementSelectedEvent));
+            AutomationEventVerifier.Register(new EventRegistrationMessage(control, SelectionItemPattern.ElementSelectedEvent));
 
-                AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(control.UIAElement, index);
-                SelectionPatternHelper.Select(indexedItem);
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(control.UIAElement, index);
+            SelectionPatternHelper.Select(indexedItem);
         }
 
 
         /// <summary>
-        ///     Sets the selected list item.
+        /// Sets the selected list item.
         /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The control.</param>
-        /// <param name = "itemText">The text of the item to select.</param>
+        /// <param name="theInterface">The interface.</param>
+        /// <param name="control">The control.</param>
+        /// <param name="itemText">The text of the item to select.</param>
         internal static void SetSelectedItemBridge(this ISingleSelectList theInterface, BaseProdControl control, string itemText)
         {
-            try
-            {
-                AutomationEventVerifier.Register(new EventRegistrationMessage(control, SelectionItemPattern.ElementSelectedEvent));
-                AutomationElement ae = SelectionPatternHelper.FindItemByText(control.UIAElement, itemText);
-                SelectionPatternHelper.Select(ae);
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            AutomationEventVerifier.Register(new EventRegistrationMessage(control, SelectionItemPattern.ElementSelectedEvent));
+            AutomationElement ae = SelectionPatternHelper.FindItemByText(control.UIAElement, itemText);
+            SelectionPatternHelper.Select(ae);
         }
 
 
         private static bool CanSelectMultiple(BaseProdControl control)
         {
-            try
-            {
-                return SelectionPatternHelper.CanSelectMultiple(control.UIAElement);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw;
-            }
+            return SelectionPatternHelper.CanSelectMultiple(control.UIAElement);
         }
     }
 }

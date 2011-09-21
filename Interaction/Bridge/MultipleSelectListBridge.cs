@@ -1,7 +1,6 @@
 ﻿// /* License Rider:
 //  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 //  */
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Automation;
@@ -102,23 +101,12 @@ namespace ProdUI.Interaction.Bridge
         /// </returns>
         internal static int GetSelectedItemCountBridge(this IMultipleSelectionList theInterface, BaseProdControl control)
         {
-            try
+            if (!CanSelectMultiple(control.UIAElement))
             {
-                if (!CanSelectMultiple(control.UIAElement))
-                {
-                    throw new ProdOperationException("Does not allow multiple selection");
-                }
-                AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(control.UIAElement);
-                return selectedItems.Length;
+                throw new ProdOperationException("Does not allow multiple selection");
             }
-            catch (InvalidOperationException)
-            {
-                return -1;
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(control.UIAElement);
+            return selectedItems.Length;
         }
 
         /// <summary>
@@ -163,25 +151,14 @@ namespace ProdUI.Interaction.Bridge
         /// <param name = "control">The control.</param>
         internal static void SelectAllBridge(this IMultipleSelectionList theInterface, AutomationElement control)
         {
-            try
+            if (!CanSelectMultiple(control))
             {
-                if (!CanSelectMultiple(control))
-                {
-                    throw new ProdOperationException("Does not allow multiple selection");
-                }
+                throw new ProdOperationException("Does not allow multiple selection");
+            }
 
-                foreach (AutomationElement item in SelectionPatternHelper.GetListCollectionUtility(control))
-                {
-                    SelectionPatternHelper.AddToSelection(control, item.Current.Name);
-                }
-            }
-            catch (InvalidOperationException err)
+            foreach (AutomationElement item in SelectionPatternHelper.GetListCollectionUtility(control))
             {
-                throw new ProdOperationException(err.Message, err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
+                SelectionPatternHelper.AddToSelection(control, item.Current.Name);
             }
         }
 
@@ -206,11 +183,11 @@ namespace ProdUI.Interaction.Bridge
         }
 
         /// <summary>
-        ///     Sets the selected items from a supplied list.
+        /// Sets the selected items from a supplied list.
         /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The control.</param>
-        /// <param name = "items">The text of the items to select.</param>
+        /// <param name="theInterface">The interface.</param>
+        /// <param name="control">The control.</param>
+        /// <param name="items">The text of the items to select.</param>
         internal static void SetSelectedItemsBridge(this IMultipleSelectionList theInterface, AutomationElement control, Collection<string> items)
         {
             if (!CanSelectMultiple(control))
@@ -224,9 +201,9 @@ namespace ProdUI.Interaction.Bridge
             }
         }
 
-        private static bool CanSelectMultiple(AutomationElement UIAElement)
+        private static bool CanSelectMultiple(AutomationElement uiaElement)
         {
-            return SelectionPatternHelper.CanSelectMultiple(UIAElement);
+            return SelectionPatternHelper.CanSelectMultiple(uiaElement);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace ProdUI.Interaction.Native
 {
     internal sealed class ProdComboBoxNative
     {
-        private const int CBErr = -1;
+        private const int CB_ERR = -1;
 
         /// <summary>
         ///     Gets the selected index from the ComboBox list.
@@ -24,7 +24,7 @@ namespace ProdUI.Interaction.Native
         {
             try
             {
-                int ret = (int) NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBGetcursel, 0, 0);
+                int ret = (int) NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBGETCURSEL, 0, 0);
 
                 const string logmessage = "GetSelectedIndex using SendMessage";
 
@@ -48,11 +48,11 @@ namespace ProdUI.Interaction.Native
         {
             try
             {
-                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBShowdropdown, 1, 0);
-                int sndReturn = (int) NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSetcursel, index, 0);
-                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBShowdropdown, 1, 0);
-                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBShowdropdown, 0, 0);
-                if (index != -1 && sndReturn == CBErr)
+                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSHOWDROPDOWN, 1, 0);
+                int sndReturn = (int) NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSETCURSEL, index, 0);
+                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSHOWDROPDOWN, 1, 0);
+                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSHOWDROPDOWN, 0, 0);
+                if (index != -1 && sndReturn == CB_ERR)
                 {
                     throw new ProdOperationException("Could not select item");
                 }
@@ -79,12 +79,12 @@ namespace ProdUI.Interaction.Native
             {
                 int stringIndex = FindString(windowHandle, itemText);
 
-                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBShowdropdown, 1, 0);
-                int sndReturn = (int) NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSetcursel, stringIndex, 0);
-                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBShowdropdown, 1, 0);
-                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBShowdropdown, 0, 0);
+                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSHOWDROPDOWN, 1, 0);
+                int sndReturn = (int) NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSETCURSEL, stringIndex, 0);
+                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSHOWDROPDOWN, 1, 0);
+                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSHOWDROPDOWN, 0, 0);
 
-                if (sndReturn == CBErr)
+                if (sndReturn == CB_ERR)
                 {
                     throw new ProdOperationException("Could not select item");
                 }
@@ -108,9 +108,9 @@ namespace ProdUI.Interaction.Native
         /// <returns></returns>
         private static int FindString(IntPtr windowHandle, string itemText)
         {
-            int stringIndex = NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBFindstring, -1, itemText);
+            int stringIndex = NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBFINDSTRING, -1, itemText);
 
-            if (stringIndex == CBErr)
+            if (stringIndex == CB_ERR)
             {
                 throw new ProdOperationException("Could not find item");
             }
@@ -154,7 +154,7 @@ namespace ProdUI.Interaction.Native
 
             for (int i = 0; i < itemCount - 1; i++)
             {
-                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBGetlbtext, i, sb);
+                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBGETLBTEXT, i, sb);
 
                 const string logmessage = "GetAllItems using SendMessage";
 
@@ -177,8 +177,8 @@ namespace ProdUI.Interaction.Native
         {
             try
             {
-                int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBGetcount, 0, 0);
-                if (retVal == CBErr)
+                int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBGETCOUNT, 0, 0);
+                if (retVal == CB_ERR)
                 {
                     throw new ProdOperationException("Native call fail");
                 }

@@ -20,7 +20,7 @@ namespace ProdUI.Interaction.Native
         {
             try
             {
-                int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMGetcheck, 0, 0);
+                int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMGETCHECK, 0, 0);
 
                 const string logmessage = "GetCheckStateNative using SendMessage";
 
@@ -28,7 +28,7 @@ namespace ProdUI.Interaction.Native
                     ProdStaticSession.Log(logmessage);
 
 
-                return retVal == (int) ButtonStates.BstChecked;
+                return retVal == (int) ButtonStates.BSTCHECKED;
             }
             catch (Win32Exception err)
             {
@@ -44,7 +44,7 @@ namespace ProdUI.Interaction.Native
         {
             try
             {
-                NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMSetcheck, (int) ButtonStates.BstChecked, 0);
+                NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMSETCHECK, (int) ButtonStates.BSTCHECKED, 0);
 
                 if (!GetCheckStateNative(windowHandle))
                 {

@@ -23,7 +23,7 @@ namespace ProdUI.Interaction.Native
         {
             try
             {
-                int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) TabControlMessage.TCMGetitemcount, 0, 0);
+                int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) TabControlMessage.TCMGETITEMCOUNT, 0, 0);
 
                 const string logmessage = "GetTabCount using SendMessage";
 
@@ -47,7 +47,7 @@ namespace ProdUI.Interaction.Native
         {
             try
             {
-                int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) TabControlMessage.TCMGetcursel, 0, 0);
+                int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) TabControlMessage.TCMGETCURSEL, 0, 0);
 
                 const string logmessage = "GetSelectedTab using SendMessage";
 
@@ -71,7 +71,7 @@ namespace ProdUI.Interaction.Native
         {
             try
             {
-                NativeMethods.SendMessage(windowHandle, (int) TabControlMessage.TCMSetcursel, index, 0);
+                NativeMethods.SendMessage(windowHandle, (int) TabControlMessage.TCMSETCURSEL, index, 0);
 
                 const string logmessage = "SetSelectedTab using SendMessage";
 

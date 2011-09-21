@@ -2,9 +2,6 @@
 //  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 //  */
 using System;
-using System.ComponentModel;
-using ProdUI.Configuration;
-using ProdUI.Exceptions;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
@@ -23,19 +20,12 @@ namespace ProdUI.Interaction.Native
         /// <param name = "windowHandle">NativeWindowHandle to the button to send message to</param>
         internal static void Click(IntPtr windowHandle)
         {
-            try
-            {
-                NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMClick, 0, 0);
+            NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMCLICK, 0, 0);
 
-                const string logmessage = "Button clicked using SendMessage";
+            const string logmessage = "Button clicked using SendMessage";
 
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            //if (ProdStaticSession._Configuration != null)
+            //    ProdStaticSession.Log(logmessage);
         }
     }
 }
