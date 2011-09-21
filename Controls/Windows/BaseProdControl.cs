@@ -6,11 +6,9 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
-using ProdUI.Logging;
 using ProdUI.Utility;
 
 [assembly: InternalsVisibleTo("ProdUITests")]
-
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
@@ -19,14 +17,16 @@ namespace ProdUI.Controls.Windows
     public class BaseProdControl
     {
         internal bool EventVerified;
-        protected string LogText;
+
         internal IntPtr NativeWindowHandle;
         internal ProdWindow ParentWindow;
-        internal LogController SessionLoggers;
         internal List<AutomationProperty> SupportedProperties;
         internal AutomationElement UIAElement;
 
-        protected List<object> VerboseInformation;
+        //unused vars
+        //internal LogController SessionLoggers;
+        //protected List<object> VerboseInformation;
+        //protected string LogText;
 
         #region Constructors
 
@@ -60,9 +60,9 @@ namespace ProdUI.Controls.Windows
                 }
 
                 ParentWindow = prodWindow;
-                SessionLoggers = ParentWindow.AttachedSession.logController;
+                //SessionLoggers = ParentWindow.AttachedSession.logController;
                 GetSupportedProperties();
-                NativeWindowHandle = (IntPtr) UIAElement.Current.NativeWindowHandle;
+                NativeWindowHandle = (IntPtr)UIAElement.Current.NativeWindowHandle;
             }
             catch (ElementNotAvailableException err)
             {
@@ -84,12 +84,12 @@ namespace ProdUI.Controls.Windows
 
             try
             {
-                ControlTree tree = new ControlTree((IntPtr) prodWindow.UIAElement.Current.NativeWindowHandle);
+                ControlTree tree = new ControlTree((IntPtr)prodWindow.UIAElement.Current.NativeWindowHandle);
                 UIAElement = tree.FindElement(treePosition);
                 ParentWindow = prodWindow;
-                SessionLoggers = ParentWindow.AttachedSession.logController;
+                //SessionLoggers = ParentWindow.AttachedSession.logController;
                 GetSupportedProperties();
-                NativeWindowHandle = (IntPtr) UIAElement.Current.NativeWindowHandle;
+                NativeWindowHandle = (IntPtr)UIAElement.Current.NativeWindowHandle;
             }
             catch (ElementNotAvailableException err)
             {
@@ -108,9 +108,9 @@ namespace ProdUI.Controls.Windows
             {
                 UIAElement = AutomationElement.FromHandle(controlHandle);
                 ParentWindow = prodWindow;
-                SessionLoggers = ParentWindow.AttachedSession.logController;
+                //SessionLoggers = ParentWindow.AttachedSession.logController;
                 GetSupportedProperties();
-                NativeWindowHandle = (IntPtr) UIAElement.Current.NativeWindowHandle;
+                NativeWindowHandle = (IntPtr)UIAElement.Current.NativeWindowHandle;
             }
             catch (ElementNotAvailableException err)
             {
@@ -118,25 +118,35 @@ namespace ProdUI.Controls.Windows
             }
         }
 
+        #endregion
+
         private void GetSupportedProperties()
         {
             SupportedProperties = new List<AutomationProperty>(UIAElement.GetSupportedProperties());
         }
-
-        #endregion
 
         /// <summary>
         ///     specifies whether the user interface (UI) item referenced by the AutomationElement is enabled
         /// </summary>
         public bool IsEnabled
         {
-            get { return (bool) UIAElement.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty); }
+            get { return (bool)UIAElement.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty); }
         }
 
         public void SetFocus()
         {
-            if (UIAElement != null)
+            try
+            {
                 UIAElement.SetFocus();
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err);
+            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err);
+            }
         }
 
         public void WaitForControlEnabled(int waitSeconds = -1)
@@ -146,7 +156,7 @@ namespace ProdUI.Controls.Windows
 
             while (ctr <= limit)
             {
-                if ((bool) UIAElement.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty))
+                if ((bool)UIAElement.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty))
                 {
                     return;
                 }
@@ -163,45 +173,44 @@ namespace ProdUI.Controls.Windows
             return UIAElement.GetCurrentPropertyValue(property);
         }
 
-        /// <summary>
-        ///     Creates and sends the proper LogMessage.
-        /// </summary>
-        protected void LogMessage()
-        {
-            LogMessage message;
-            if (VerboseInformation.Count == 0)
-            {
-                message = new LogMessage(LogText);
-            }
-            else
-            {
-                VerboseInformation = new List<object>();
-                message = new LogMessage(LogText, VerboseInformation);
-            }
-
-            SessionLoggers.ReceiveLogMessage(message);
-        }
-
-        #region Events
-
+        /////
         ///// <summary>
-        ///// Registers an action event event.
+        /////     Creates and sends the proper LogMessage.
         ///// </summary>
-        ///// <param name="eventType">Type of the event.</param>
-        internal void RegisterEvent(AutomationEvent eventType)
-        {
-            // AutomationEventVerifier.Register(new EventRegistrationMessage(this, eventType));
-        }
+        //protected void LogMessage()
+        //{
+        //    LogMessage message;
+        //    if (VerboseInformation.Count == 0)
+        //    {
+        //        message = new LogMessage(LogText);
+        //    }
+        //    else
+        //    {
+        //        VerboseInformation = new List<object>();
+        //        message = new LogMessage(LogText, VerboseInformation);
+        //    }
 
-        ///// <summary>
-        ///// Registers a property change event.
-        ///// </summary>
-        ///// <param name="property">The property to monitor.</param>
-        internal void RegisterEvent(AutomationProperty property)
-        {
-            /* create message to pass */
-            //AutomationEventVerifier.Register(new EventRegistrationMessage(this, property));
-        }
+        //    LogController.ReceiveLogMessage(message);
+        //}
+
+        /////// <summary>
+        /////// Registers an action event event.
+        /////// </summary>
+        /////// <param name="eventType">Type of the event.</param>
+        //internal void RegisterEvent(AutomationEvent eventType)
+        //{
+        //    // AutomationEventVerifier.Register(new EventRegistrationMessage(this, eventType));
+        //}
+
+        /////// <summary>
+        /////// Registers a property change event.
+        /////// </summary>
+        /////// <param name="property">The property to monitor.</param>
+        //internal void RegisterEvent(AutomationProperty property)
+        //{
+        //    /* create message to pass */
+        //    //AutomationEventVerifier.Register(new EventRegistrationMessage(this, property));
+        //}
 
         /// <summary>
         ///     Receives the event notification message.
@@ -211,7 +220,5 @@ namespace ProdUI.Controls.Windows
         {
             EventVerified = eventTriggered;
         }
-
-        #endregion
     }
 }

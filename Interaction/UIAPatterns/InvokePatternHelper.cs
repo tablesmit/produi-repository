@@ -2,7 +2,6 @@
 //  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 //  */
 using System.Windows.Automation;
-using ProdUI.Exceptions;
 
 namespace ProdUI.Interaction.UIAPatterns
 {
@@ -12,22 +11,13 @@ namespace ProdUI.Interaction.UIAPatterns
     internal static class InvokePatternHelper
     {
         /// <summary>
-        ///     Ensures the window pattern is supported, then invokes
+        /// Ensures the window pattern is supported, then invokes
         /// </summary>
-        /// <param name = "control">The UI Automation element to invoke</param>
-        /// <returns>
-        ///     0 if no problems encountered, -1 if InvalidOperationException is raised
-        /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        internal static void Invoke(AutomationElement control)
+        /// <param name="control">The UI Automation element to invoke</param>
+        internal static void Invoke(AutomationElement element)
         {
-            InvokePattern pat = (InvokePattern) CommonUIAPatternHelpers.CheckPatternSupport(InvokePattern.Pattern, control);
-            if (pat == null)
-            {
-                throw new ProdOperationException("Control doesn't support pattern");
-            }
-
-            pat.Invoke();
+                InvokePattern pattern = (InvokePattern)CommonUIAPatternHelpers.CheckPatternSupport(InvokePattern.Pattern, element);
+                pattern.Invoke();
         }
     }
 }

@@ -490,7 +490,7 @@ namespace ProdUI.Controls.Static
             catch (InvalidOperationException)
             {
                 /* Call native function */
-                ProdListBoxNative.DESelectItemNative(controlHandle, index);
+                ProdListBoxNative.DeSelectItemNative(controlHandle, index);
             }
         }
 
@@ -519,7 +519,7 @@ namespace ProdUI.Controls.Static
             catch (InvalidOperationException)
             {
                 /* Call native function */
-                ProdListBoxNative.DESelectItemNative(controlHandle, itemText);
+                ProdListBoxNative.DeSelectItemNative(controlHandle, itemText);
             }
         }
 

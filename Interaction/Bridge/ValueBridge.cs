@@ -2,213 +2,284 @@
 //  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 //  */
 using System;
-using System.Threading;
 using System.Windows.Automation;
 using System.Windows.Forms;
+using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.Base;
+using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Logging;
+using ProdUI.Utility;
+using ProdUI.Verification;
 
 namespace ProdUI.Interaction.Bridge
 {
     internal static class ValueBridge
     {
-        #region IValueProvider Implementation
 
         /// <summary>
-        ///     Gets the current string value in the supplied TextBox
+        /// Appends text to a text input control
         /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The UI Automation element</param>
-        /// <returns>
-        ///     String value in TextBox, or <c>null</c> if InvalidOperationException is raised
-        /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        internal static string GetValueBridge(this ISingleSelectList theInterface, AutomationElement control)
+        /// <param name="theValue">The invoke.</param>
+        /// <param name="control">The control.</param>
+        /// <param name="newText">Text To Append</param>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        internal static void AppendTextBridge(this IValue theValue, BaseProdControl control, string newText)
         {
             try
             {
-                ValuePattern pat = (ValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
-                return pat.Current.Value;
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err.Message, err);
+                if (GetReadOnly(control.UIAElement)) throw new ProdOperationException("Control is Read Only");
+             
+                AutomationEventVerifier.Register(new EventRegistrationMessage(control, ValuePattern.ValueProperty));
+
+                LogController.ReceiveLogMessage(new LogMessage("Appending: " + newText));
+                ValuePatternHelper.AppendValue(control.UIAElement, newText);
             }
             catch (ElementNotAvailableException err)
             {
-                throw new ProdOperationException(err.Message, err);
+                throw new ProdOperationException(err);
+            }
+            catch (InvalidOperationException)
+            {
+                /* now try a native SendMessage */
+                NativeAppendText(control.UIAElement, newText);
+            }
+        }
+
+        private static void UiaAppendText(AutomationElement element, string newText)
+        {
+            ValuePatternHelper.AppendValue(element, newText);
+        }
+
+        private static void NativeAppendText(AutomationElement element, string newText)
+        {
+            int hwnd = element.Current.NativeWindowHandle;
+            if (hwnd == 0)
+                /* If it doesn't have one, send keys, then */
+                InternalUtilities.SendKeysAppendText(element, newText);
+
+            ProdEditNative.AppendTextNative((IntPtr)element.Current.NativeWindowHandle, newText);
+        }
+
+
+
+
+
+
+        /// <summary>
+        ///     Set text area value to an empty string
+        /// </summary>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        internal static void ClearTextBridge(this IValue theValue, BaseProdControl control)
+        {
+            try
+            {
+                if (GetReadOnly(control.UIAElement)) throw new ProdOperationException("Control is Read Only");
+
+                UiaClearText(control.UIAElement);
+
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err);
+            }
+            catch (InvalidOperationException)
+            {
+                /* now try a native SendMessage */
+                NativeClearText(control.UIAElement);
+            }
+        }
+
+        private static void UiaClearText(AutomationElement element)
+        {
+            //currently the verification is done in pattern helper
+            ValuePatternHelper.SetValue(element, "");
+        }
+
+        private static void NativeClearText(AutomationElement element)
+        {
+            int hwnd = element.Current.NativeWindowHandle;
+            if (hwnd != 0) { ProdEditNative.ClearTextNative((IntPtr)hwnd); }
+
+            /* If it doesn't have one, send keys, then */
+            InternalUtilities.SendKeysSetText(element, "^a");
+            InternalUtilities.SendKeysSetText(element, "{Backspace}");
+        }
+
+
+
+
+
+
+
+        /// <summary>
+        ///     Copies any text in the control to the Clipboard.
+        /// </summary>
+        public void CopyToClipBoard()
+        {
+            string text = GetText();
+            if (text.Length > 0)
+            {
+                Clipboard.SetText(text);
             }
         }
 
         /// <summary>
-        ///     Sets the TextBox value to the supplied value, overwriting any existing text
+        ///     Gets the number of characters in textbox
         /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "newText">Text to set Textbox value to</param>
-        /// <returns>
-        ///     0 if no problems encountered, -1 if InvalidOperationException is raised
-        /// </returns>
+        /// <returns>The number of characters in the ProdTextBox</returns>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        internal static int SetValueBridge(this ISingleSelectList theInterface, AutomationElement control, string newText)
+        /// <remarks>
+        ///     Will attempt to match AutomationId, then ReadOnly
+        /// </remarks>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        public int GetLength()
         {
             try
             {
-                ValuePattern pat = (ValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
-                pat.SetValue(newText);
+                string txt = GetText();
+                if (txt != null && NativeWindowHandle != IntPtr.Zero)
+                {
+                    txt = NativeTextProds.GetTextNative(NativeWindowHandle);
+                }
 
-                return ValuePatternHelper.VerifyText(control, newText); //Note: Verify text
+                int retVal = txt.Length;
+                LogText = "Length: " + retVal;
+                LogMessage();
+
+                return retVal;
             }
-            catch (InvalidOperationException err)
+            catch (ProdOperationException err)
             {
-                throw new ProdOperationException(err.Message, err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
+                throw;
             }
         }
 
-        #endregion
+        /// <summary>
+        ///     Gets or sets the text contained in the current TextBox
+        /// </summary>
+        /// <returns>The text currently in the ProdTextBox</returns>
+        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        public string GetText()
+        {
+            string ret = ValuePatternHelper.GetValue(UIAElement);
 
-        #region Custom Functions
+            if (ret == null && NativeWindowHandle != IntPtr.Zero)
+            {
+                ret = NativeTextProds.GetTextNative(NativeWindowHandle);
+            }
+
+            LogText = "Text: " + ret;
+            LogMessage();
+
+            return ret;
+        }
 
         /// <summary>
         ///     Appends the supplied string to the existing textBox text
         /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The UI Automation element</param>
         /// <param name = "newText">Text to append to TextBox value</param>
-        /// <returns>
-        ///     0 if no problems encountered, -1 if InvalidOperationException is raised
-        /// </returns>
+        /// <param name = "insertIndex">Zero based index of string to insert text into</param>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        internal static int AppendValueBridge(this ISingleSelectList theInterface, AutomationElement control, string newText)
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        public void InsertText(string newText, int insertIndex)
         {
             try
             {
-                ValuePattern pat = (ValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
+                RegisterEvent(ValuePattern.ValueProperty);
 
-                string appText = pat.Current.Value + newText;
-                pat.SetValue(appText);
-
-                return ValuePatternHelper.VerifyText(control, appText); //Note: Verify text
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
-        }
-
-        /// <summary>
-        ///     Inserts supplied text into existing string beginning at the specified index
-        /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "newText">Text to insert into to TextBox value</param>
-        /// <param name = "index">Index into string where to begin insertion</param>
-        /// <returns>
-        ///     0 if no problems encountered, -1 if InvalidOperationException is raised
-        /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        internal static int InsertValueBridge(this ISingleSelectList theInterface, AutomationElement control, string newText, int index)
-        {
-            try
-            {
-                ValuePattern pat = (ValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
-                string baseText = pat.Current.Value;
-
-                /* If index is out of range, defer to ProdErrorManager */
-                if (baseText != null)
+                if ((bool)UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty))
                 {
-                    string insString = baseText.Insert(index, newText);
-                    ValuePatternHelper.SetValue(control, insString);
+                    throw new ProdOperationException("TextBox is Read Only");
                 }
 
-                /* Time to verify */
-                return ValuePatternHelper.VerifyText(control, ValuePatternHelper.GetValue(control));
+                //TODO: convert
+                //if (ValuePatternHelper.InsertValue(UIAElement, newText, insertIndex) == 0)
+                //{
+                //    return;
+                //}
+
+
+                if (NativeWindowHandle != IntPtr.Zero)
+                {
+                    NativeTextProds.InsertTextNative(NativeWindowHandle, newText, insertIndex);
+                }
+                else
+                {
+                    throw new ProdOperationException("Could not InsertText");
+                }
             }
-            catch (InvalidOperationException err)
+            catch (ProdOperationException err)
             {
-                throw new ProdOperationException(err.Message, err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
+                throw;
             }
         }
 
         /// <summary>
-        ///     Verifies that supplied text matches what is currently in the control
+        ///     Pastes text (if available) from the Clipboard into the control.
         /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">control to verify</param>
-        /// <param name = "text">the text to verify</param>
-        /// <returns>
-        ///     <c>true</c> if text matches, <c>null</c> if InvalidOperationException is raised
-        /// </returns>
-        /// <exception cref = "ProdVerificationException">Thrown if element value does not match</exception>
+        public void PasteFromClipboard()
+        {
+            if (!Clipboard.ContainsText())
+            {
+                return;
+            }
+
+
+            string contents = Clipboard.GetText();
+            SetText(contents);
+        }
+
+        /// <summary>
+        ///     Gets or sets the text contained in the current TextBox
+        /// </summary>
+        /// <param name = "text">The text to place into the ProdTextBox.</param>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        internal static int VerifyTextBridge(this ISingleSelectList theInterface, AutomationElement control, string text)
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        public void SetText(string text)
         {
             try
             {
-                ValuePattern pat = (ValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
-                string currentText = pat.Current.Value;
+                RegisterEvent(ValuePattern.ValueProperty);
 
-                if (text.Length == 0 || currentText.Length == 0)
+                if ((bool)UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty))
                 {
-                    return 0;
+                    throw new ProdOperationException("TextBox is Read Only");
                 }
-                if (String.Compare(text, currentText, StringComparison.Ordinal) == 0)
-                    return 0;
-                throw new ProdVerificationException(control);
+
+                if (ValuePatternHelper.SetValue(UIAElement, text) == 0)
+                {
+                    return;
+                }
+
+
+                /* If control has a handle, use native method */
+                if (NativeWindowHandle != IntPtr.Zero)
+                {
+                    if (NativeTextProds.SetTextNative(NativeWindowHandle, text))
+                    {
+                        return;
+                    }
+                }
+
+                /* If it doesn't have one, send keys, then */
+                //TODO: convert ValuePatternHelper.SendKeysSetText(UIAElement, text);
             }
-            catch (InvalidOperationException err)
+            catch (ProdOperationException err)
             {
-                throw new ProdOperationException(err.Message, err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
+                throw;
             }
         }
 
-        #endregion
 
-        /// <summary>
-        ///     Uses SendKeys to set the text (clobbering).
-        /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The control to set.</param>
-        /// <param name = "text">The text to place in the control.</param>
-        internal static void SendKeysSetTextBridge(this ISingleSelectList theInterface, AutomationElement control, string text)
+        private static bool GetReadOnly(AutomationElement control)
         {
-            control.SetFocus();
-            Thread.Sleep(100);
-            SendKeys.SendWait("^{HOME}");
-            SendKeys.SendWait("^+{END}");
-            SendKeys.SendWait("{DEL}");
-            SendKeys.SendWait(text);
+            return (bool)control.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty);
         }
 
-        /// <summary>
-        ///     Uses SendKeys to append text.
-        /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The control to set.</param>
-        /// <param name = "text">The text to append.</param>
-        internal static void SendKeysAppendTextBridge(this ISingleSelectList theInterface, AutomationElement control, string text)
-        {
-            control.SetFocus();
-            Thread.Sleep(100);
-            SendKeys.SendWait("^{END}");
-            SendKeys.SendWait(text);
-        }
+
     }
 }

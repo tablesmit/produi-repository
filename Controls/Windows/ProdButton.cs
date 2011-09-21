@@ -2,10 +2,8 @@
 //  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 //  */
 using System;
-using ProdUI.Exceptions;
 using ProdUI.Interaction.Base;
 using ProdUI.Interaction.Bridge;
-using ProdUI.Logging;
 
 /* Notes
  * Supported Patterns: 
@@ -16,7 +14,7 @@ using ProdUI.Logging;
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
-    ///     Methods to work with Button controls using the UI Automation framework
+    /// Methods to work with Button controls using the UI Automation framework
     /// </summary>
     public sealed class ProdButton : BaseProdControl, IInvoke
     {
@@ -55,14 +53,10 @@ namespace ProdUI.Controls.Windows
         #endregion
 
         /// <summary>
-        ///     Performs a "Click" on the current ProdButton
+        /// Performs a "Click" on the current ProdButton
         /// </summary>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void Click()
         {
-            LogText = "Click Verified";
-
             this.ClickBridge(this);
         }
     }

@@ -3,6 +3,7 @@
 //  */
 using System;
 using System.Windows.Automation;
+using ProdUI.Exceptions;
 
 namespace ProdUI.Interaction.UIAPatterns
 {
@@ -55,73 +56,73 @@ namespace ProdUI.Interaction.UIAPatterns
 
         //#region Custom Functions
 
-        ///// <summary>
-        ///// Appends the supplied string to the existing textBox text
-        ///// </summary>
-        ///// <param name="control">The UI Automation element</param>
-        ///// <param name="newText">Text to append to TextBox value</param>
-        ///// <returns>
-        ///// 0 if no problems encountered, -1 if InvalidOperationException is raised
-        ///// </returns>
-        ///// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
-        //internal static int AppendValue(AutomationElement control, string newText)
-        //{
-        //    try
-        //    {
-        //        ValuePattern pat = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
+        /// <summary>
+        /// Appends the supplied string to the existing textBox text
+        /// </summary>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="newText">Text to append to TextBox value</param>
+        /// <returns>
+        /// 0 if no problems encountered, -1 if InvalidOperationException is raised
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        internal static int AppendValue(AutomationElement control, string newText)
+        {
+            try
+            {
+                ValuePattern pat = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
 
-        //        string appText = pat.Current.Value + newText;
-        //        pat.SetValue(appText);
+                string appText = pat.Current.Value + newText;
+                pat.SetValue(appText);
 
-        //        return VerifyText(control, appText);
-        //    }
-        //    catch (InvalidOperationException)
-        //    {
-        //        return -1;
-        //    }
-        //    catch (ElementNotAvailableException err)
-        //    {
-        //        throw new ProdOperationException(err.Message, err);
-        //    }
-        //}
+                return VerifyText(control, appText);
+            }
+            catch (InvalidOperationException)
+            {
+                return -1;
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+        }
 
-        ///// <summary>
-        ///// Inserts supplied text into existing string beginning at the specified index
-        ///// </summary>
-        ///// <param name="control">The UI Automation element</param>
-        ///// <param name="newText">Text to insert into to TextBox value</param>
-        ///// <param name="index">Index into string where to begin insertion</param>
-        ///// <returns>
-        ///// 0 if no problems encountered, -1 if InvalidOperationException is raised
-        ///// </returns>
-        ///// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
-        //internal static int InsertValue(AutomationElement control, string newText, int index)
-        //{
-        //    try
-        //    {
-        //        ValuePattern pat = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
-        //        string baseText = pat.Current.Value;
+        /// <summary>
+        /// Inserts supplied text into existing string beginning at the specified index
+        /// </summary>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="newText">Text to insert into to TextBox value</param>
+        /// <param name="index">Index into string where to begin insertion</param>
+        /// <returns>
+        /// 0 if no problems encountered, -1 if InvalidOperationException is raised
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        internal static int InsertValue(AutomationElement control, string newText, int index)
+        {
+            try
+            {
+                ValuePattern pat = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
+                string baseText = pat.Current.Value;
 
-        //        /* If index is out of range, defer to ProdErrorManager */
-        //        if (baseText != null)
-        //        {
-        //            string insString = baseText.Insert(index, newText);
-        //            SetValue(control, insString);
-        //        }
+                /* If index is out of range, defer to ProdErrorManager */
+                if (baseText != null)
+                {
+                    string insString = baseText.Insert(index, newText);
+                    SetValue(control, insString);
+                }
 
 
-        //        /* Time to verify */
-        //        return VerifyText(control, GetValue(control));
-        //    }
-        //    catch (InvalidOperationException)
-        //    {
-        //        return -1;
-        //    }
-        //    catch (ElementNotAvailableException err)
-        //    {
-        //        throw new ProdOperationException(err.Message, err);
-        //    }
-        //}
+                /* Time to verify */
+                return VerifyText(control, GetValue(control));
+            }
+            catch (InvalidOperationException)
+            {
+                return -1;
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+        }
 
         /// <summary>
         ///     Verifies that supplied text matches what is currently in the control

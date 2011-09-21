@@ -5,33 +5,29 @@ using System.Collections.Generic;
 
 namespace ProdUI.Logging
 {
-    internal class LogController
+    internal static class LogController
     {
         internal static List<ProdLogger> ActiveLoggers;
-        private LogMessage _CurrentMessage;
+        private static LogMessage _CurrentMessage;
 
-        private LogController()
+        internal static void AddActiveLogger(List<ProdLogger> loggers)
         {
+            if (loggers == null) return;
+            ActiveLoggers.AddRange(loggers);
         }
 
-        internal static LogController Create(List<ProdLogger> loggers)
-        {
-            ActiveLoggers = loggers;
-            return new LogController();
-        }
-
-        internal List<ProdLogger> GetActiveLoggers()
-        {
-            return ActiveLoggers;
-        }
-
-        internal void AddActiveLogger(ProdLogger newLogger)
+        internal static  void AddActiveLogger(ProdLogger newLogger)
         {
             if (newLogger == null) return;
             ActiveLoggers.Add(newLogger);
         }
 
-        internal void ReceiveLogMessage(LogMessage message)
+        internal static List<ProdLogger> GetActiveLoggers()
+        {
+            return ActiveLoggers;
+        }
+
+        internal static void ReceiveLogMessage(LogMessage message)
         {
             if (message == null) return;
 
@@ -39,7 +35,7 @@ namespace ProdUI.Logging
             ProcessMessage();
         }
 
-        private void ProcessMessage()
+        private static  void ProcessMessage()
         {
             foreach (ProdLogger logger in ActiveLoggers)
             {
