@@ -8,9 +8,6 @@ using System.Windows.Automation;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.Base;
 using ProdUI.Interaction.Bridge;
-using ProdUI.Interaction.UIAPatterns;
-using ProdUI.Logging;
-using ProdUI.Utility;
 
 /* Notes
  * Supported Patterns: 
@@ -50,8 +47,7 @@ namespace ProdUI.Controls.Windows
         /// <remarks>
         ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
-        public ProdList(ProdWindow prodWindow, string automationId)
-            : base(prodWindow, automationId)
+        public ProdList(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
         {
         }
 
@@ -60,8 +56,7 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
-        public ProdList(ProdWindow prodWindow, int treePosition)
-            : base(prodWindow, treePosition)
+        public ProdList(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
         {
         }
 
@@ -70,8 +65,7 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "controlHandle">Window handle of the control</param>
-        public ProdList(ProdWindow prodWindow, IntPtr controlHandle)
-            : base(prodWindow, controlHandle)
+        public ProdList(ProdWindow prodWindow, IntPtr controlHandle) : base(prodWindow, controlHandle)
         {
         }
 
@@ -100,7 +94,6 @@ namespace ProdUI.Controls.Windows
             return this.GetItemCountBridge(this);
         }
 
-
         #region single select specific
 
         /// <summary>
@@ -108,7 +101,7 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <returns>
         ///     The zero based index of the selected item
-        /// </returns>       
+        /// </returns>
         public int GetSelectedIndex()
         {
             return this.GetSelectedIndexBridge(this);
@@ -140,7 +133,7 @@ namespace ProdUI.Controls.Windows
         /// <summary>
         ///     Sets the selected list item.
         /// </summary>
-        /// <param name = "itemText">The text of the item to select.</param>      
+        /// <param name = "itemText">The text of the item to select.</param>
         public void SetSelectedItem(string itemText)
         {
             this.SetSelectedItemBridge(this, itemText);
@@ -153,7 +146,7 @@ namespace ProdUI.Controls.Windows
         /// <summary>
         ///     Adds the selected list item to the current selection.
         /// </summary>
-        /// <param name = "index">The zero-based index of the item to select.</param>     
+        /// <param name = "index">The zero-based index of the item to select.</param>
         public void AddToSelection(int index)
         {
             this.AddToSelectionBridge(this, index);
@@ -169,15 +162,14 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        /// Gets the selected indexes.
+        ///     Gets the selected indexes.
         /// </summary>
         /// <returns>
-        /// A List of all the indexes of currently selected list items.
+        ///     A List of all the indexes of currently selected list items.
         /// </returns>
-        public List<object> GetSelectedIndexes()
+        public List<int> GetSelectedIndexes()
         {
-            List<object> retList = this.GetSelectedIndexesBridge((this));
-            return retList;
+            return this.GetSelectedIndexesBridge((this));
         }
 
         /// <summary>
@@ -185,7 +177,7 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <returns>
         ///     A List of all currently selected list items
-        /// </returns>     
+        /// </returns>
         public List<object> GetSelectedItems()
         {
             return this.GetSelectedItemsBridge(this);
@@ -205,7 +197,7 @@ namespace ProdUI.Controls.Windows
         /// <summary>
         ///     Removes the selected list item from the current selection.
         /// </summary>
-        /// <param name = "index">The index of the item to deselect.</param>       
+        /// <param name = "index">The index of the item to deselect.</param>
         public void RemoveFromSelection(int index)
         {
             this.RemoveFromSelectionBridge(this, index);
@@ -214,7 +206,7 @@ namespace ProdUI.Controls.Windows
         /// <summary>
         ///     Removes the selected list item from the current selection.
         /// </summary>
-        /// <param name = "itemText">The text of the item to deselect.</param>       
+        /// <param name = "itemText">The text of the item to deselect.</param>
         public void RemoveFromSelection(string itemText)
         {
             this.RemoveFromSelectionBridge(this, itemText);
@@ -231,10 +223,10 @@ namespace ProdUI.Controls.Windows
         /// <summary>
         ///     Sets the select indexes from a supplied list.
         /// </summary>
-        /// <param name = "indexes">The indexes to select.</param>    
-        public void SetSelectIndexes(Collection<int> indexes)
+        /// <param name = "indexes">The indexes to select.</param>
+        public void SetSelectIndexes(List<int> indexes)
         {
-            this.SetSelectIndexesBridge(this,indexes);
+            this.SetSelectedIndexesBridge(this, indexes);
         }
 
         /// <summary>
@@ -243,7 +235,7 @@ namespace ProdUI.Controls.Windows
         /// <param name = "items">The text of the items to select.</param>
         public void SetSelectedItems(Collection<string> items)
         {
-                this.SetSelectedItemsBridge(this, items);
+            this.SetSelectedItemsBridge(this, items);
         }
 
         #endregion

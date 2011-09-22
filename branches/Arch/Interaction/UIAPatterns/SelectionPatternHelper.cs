@@ -46,9 +46,9 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        /// Gets the selected items.
+        ///     Gets the selected items.
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element</param>
+        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
         /// <returns>An AutomationElement array of all selected items</returns>
         internal static AutomationElement[] GetSelection(AutomationElement control)
         {
@@ -80,7 +80,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name = "index">The index.</param>
         internal static void AddToSelection(AutomationElement control, int index)
         {
-            SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
+            SelectionItemPattern pattern = (SelectionItemPattern) CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
             pattern.AddToSelection();
         }
 
@@ -138,11 +138,11 @@ namespace ProdUI.Interaction.UIAPatterns
         #endregion
 
         /// <summary>
-        /// Gets the selection items.
+        ///     Gets the selection items.
         /// </summary>
-        /// <param name="control">The control.</param>
+        /// <param name = "control">The control.</param>
         /// <returns>A collection of selected items</returns>
-        internal static AutomationElementCollection GetSelectionItems(AutomationElement control)
+        internal static AutomationElementCollection GetSelectedItems(AutomationElement control)
         {
             AutomationElementCollection elementCollection = GetListCollectionUtility(control);
             return elementCollection;
@@ -229,16 +229,16 @@ namespace ProdUI.Interaction.UIAPatterns
             Condition propertyCondition = new PropertyCondition(AutomationElement.NameProperty, itemText, PropertyConditionFlags.IgnoreCase);
 
             AutomationElement firstMatch = control.FindFirst(TreeScope.Descendants, propertyCondition);
-  
+
             return firstMatch;
         }
 
         /// <summary>
-        /// Gets the list items.
+        ///     Gets the list items.
         /// </summary>
-        /// <param name="control">The UI Automation element</param>
+        /// <param name = "control">The UI Automation element</param>
         /// <returns>
-        /// An <see cref="AutomationElementCollection"/> of list items
+        ///     An <see cref = "AutomationElementCollection" /> of list items
         /// </returns>
         internal static AutomationElementCollection GetListItems(AutomationElement control)
         {

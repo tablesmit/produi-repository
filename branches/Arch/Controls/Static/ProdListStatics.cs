@@ -642,7 +642,7 @@ namespace ProdUI.Controls.Static
             }
 
             AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-            AutomationElementCollection convRet = SelectionPatternHelper.GetSelectionItems(control);
+            AutomationElementCollection convRet = SelectionPatternHelper.GetSelectedItems(control);
 
             List<object> ret = InternalUtilities.AutomationCollToObjectList(convRet);
             ProdStaticSession.Log("List selected items: ", ret);
