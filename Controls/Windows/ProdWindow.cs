@@ -103,7 +103,7 @@ namespace ProdUI.Controls.Windows
 
                 return retVal;
             }
-            catch (ProdOperationException err)
+            catch (ProdOperationException)
             {
                 throw;
             }

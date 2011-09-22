@@ -10,6 +10,7 @@ using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 using ProdUI.Utility;
+using ProdUI.Interaction.Bridge;
 
 /* Notes
  * Supported Patterns: 
@@ -29,7 +30,7 @@ namespace ProdUI.Controls.Windows
     ///     Methods to work with Tab controls using the UI Automation framework
     ///     A tab control is analogous to the dividers in a notebook or the labels in a file cabinet. By using a tab control, an application can define multiple pages for the same area of a window or dialog box
     /// </summary>
-    public sealed class ProdTab : BaseProdControl
+    public sealed class ProdTab : BaseProdControl, ISingleSelectList
     {
         #region Constructors
 
@@ -41,7 +42,8 @@ namespace ProdUI.Controls.Windows
         /// <remarks>
         ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
-        public ProdTab(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
+        public ProdTab(ProdWindow prodWindow, string automationId)
+            : base(prodWindow, automationId)
         {
         }
 
@@ -50,7 +52,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
-        public ProdTab(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
+        public ProdTab(ProdWindow prodWindow, int treePosition)
+            : base(prodWindow, treePosition)
         {
         }
 
@@ -59,59 +62,78 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "controlHandle">Window handle of the control</param>
-        public ProdTab(ProdWindow prodWindow, IntPtr controlHandle) : base(prodWindow, controlHandle)
+        public ProdTab(ProdWindow prodWindow, IntPtr controlHandle)
+            : base(prodWindow, controlHandle)
         {
         }
 
         #endregion
 
         /// <summary>
-        ///     Gets the number of tabs in a TabControl.
+        /// Gets the number of tabs in a TabControl.
         /// </summary>
-        /// <returns>The number of tabs in a TabControl</returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <returns>
+        /// The number of tabs in a TabControl
+        /// </returns>
         public int GetItemCount()
         {
-            try
-            {
-                AutomationElementCollection aec = SelectionPatternHelper.GetListCollectionUtility(UIAElement);
-                int retVal = aec.Count;
-
-                LogText = "Length: " + retVal;
-                LogMessage();
-
-                return retVal;
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            return this.GetItemCountBridge(this);
         }
 
         /// <summary>
-        ///     Gets a collection of all tabs in the TabControl
+        /// Gets a collection of all tabs in the TabControl
         /// </summary>
-        /// <returns>list containing all items</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
+        /// <returns>
+        /// list containing all items
+        /// </returns>
         public List<object> GetItems()
         {
-            try
-            {
-                AutomationElementCollection aec = SelectionPatternHelper.GetListItems(UIAElement);
-                List<object> retList = InternalUtilities.AutomationCollToObjectList(aec);
-
-                LogText = "Items: ";
-                VerboseInformation = retList;
-                LogMessage();
-
-                return InternalUtilities.AutomationCollToObjectList(aec);
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            return this.GetItemsBridge(this);
         }
+
+
+
+        /// <summary>
+        /// Gets the number of child tabs contained in the tab control
+        /// </summary>
+        /// <returns>
+        /// The number of tabs
+        /// </returns>
+        public int TabCount()
+        {
+            return this.GetItemCountBridge(this);
+        }
+
+        /// <summary>
+        /// Retrieves the selected tab
+        /// </summary>
+        /// <returns>
+        /// Selected TabItem
+        /// </returns>
+        public AutomationElement SelectedTab()
+        {
+            return this.GetSelectedItemBridge(this);
+        }
+
+        /// <summary>
+        /// Select a TabItem within the TabControl
+        /// </summary>
+        /// <param name="index">The zero based index of the TabItem</param>
+        public void SelectTab(int index)
+        {
+            this.SetSelectedIndexBridge(this, index);
+        }
+
+        /// <summary>
+        /// Select a TabItem within the TabControl
+        /// </summary>
+        /// <param name="text">The text on the tab to be selected.</param>
+        public void SelectTab(string text)
+        {
+            this.SetSelectedItemBridge(this, text);
+        }
+
+
 
         /// <summary>
         ///     Determines whether the Tab with the specified index is selected.
@@ -157,105 +179,6 @@ namespace ProdUI.Controls.Windows
                 LogMessage();
 
                 return ret;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        ///     Gets the number of child tabs contained in the tab control
-        /// </summary>
-        /// <returns>The number of tabs</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public int TabCount()
-        {
-            try
-            {
-                int retVal = GetItemCount();
-
-                if (retVal == -1)
-                {
-                    retVal = ProdTabNative.GetTabCount(NativeWindowHandle);
-                }
-
-                LogText = retVal.ToString(CultureInfo.CurrentCulture);
-                LogMessage();
-
-                return retVal;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        ///     Retrieves the selected tab
-        /// </summary>
-        /// <returns>Selected TabItem</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public AutomationElement SelectedTab()
-        {
-            try
-            {
-                AutomationElement[] retVal = SelectionPatternHelper.GetSelection(UIAElement);
-
-                LogText = "Tab: " + retVal[0].Current.AutomationId;
-                LogMessage();
-
-                return retVal[0];
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        ///     Select a TabItem within the TabControl
-        /// </summary>
-        /// <param name = "index">The zero based index of the TabItem</param>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void SelectTab(int index)
-        {
-            LogText = "Index: " + index;
-
-            try
-            {
-                RegisterEvent(SelectionItemPattern.ElementSelectedEvent);
-                AutomationElementCollection aec = SelectionPatternHelper.GetListItems(UIAElement);
-
-                /* When using the GetListItems() methods, item index 0 is the tab control itself, so add on to get to correct tabitem */
-                int adjustedIndex = index; // +1;
-
-                string itemText = aec[adjustedIndex].Current.Name;
-                SelectionPatternHelper.Select(SelectionPatternHelper.FindItemByText(UIAElement, itemText));
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        ///     Select a TabItem within the TabControl
-        /// </summary>
-        /// <param name = "itemText">The TabItem text</param>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void SelectTab(string itemText)
-        {
-            LogText = "Item: " + itemText;
-
-            try
-            {
-                RegisterEvent(SelectionItemPattern.ElementSelectedEvent);
-                SelectionPatternHelper.Select(SelectionPatternHelper.FindItemByText(UIAElement, itemText));
             }
             catch (ProdOperationException err)
             {

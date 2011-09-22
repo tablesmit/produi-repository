@@ -2,8 +2,8 @@
 //  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 //  */
 using System;
-using ProdUI.Utility;
 using ProdUI.Logging;
+using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
 {
@@ -18,7 +18,7 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///     Uses SendMessage to click the button
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to the button to send message to</param>
+        /// <param name = "windowHandle">Handle to the button to send message to</param>
         internal static void Click(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));

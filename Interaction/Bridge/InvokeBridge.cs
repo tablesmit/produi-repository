@@ -5,7 +5,7 @@ using System;
 using System.Windows.Automation;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
-using ProdUI.Interaction.Base;
+using ProdUI.Interaction.Bridge;
 using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
@@ -16,9 +16,14 @@ namespace ProdUI.Interaction.Bridge
 
     internal static class InvokeBridge
     {
-        private const string CLICK_MSG = @"Performing Click on ";
-        private const string NATIVE_CLICK_MSG = @"Performing Click with SendMessage";
+        private const string CLICK_MSG = @"Performing Click";
 
+        /// <summary>
+        /// Handles the invoke event
+        /// </summary>
+        /// <param name="theInvoke">The extension interface.</param>
+        /// <param name="control">The base ProdUI control.</param>
+        /// <exception cref="ProdOperationException"></exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static void ClickBridge(this IInvoke theInvoke, BaseProdControl control)
         {
@@ -42,6 +47,10 @@ namespace ProdUI.Interaction.Bridge
             }
         }
 
+        /// <summary>
+        /// Handles the UIA version of the invoke event
+        /// </summary>
+        /// <param name="control">The UI Automation element</param>
         private static void UiaInvoke(BaseProdControl control)
         {
             AutomationEventVerifier.Register(new EventRegistrationMessage(control, InvokePattern.InvokedEvent));
@@ -50,13 +59,16 @@ namespace ProdUI.Interaction.Bridge
             InvokePatternHelper.Invoke(control.UIAElement);
         }
 
+        /// <summary>
+        /// Handles the native version of the invoke event
+        /// </summary>
+        /// <param name="control">The UI Automation element</param>
         private static void NativeInvoke(AutomationElement control)
         {
             int hWnd = control.Current.NativeWindowHandle;
 
             if (control.Current.ControlType != ControlType.Button) return;
-
-            LogController.ReceiveLogMessage(new LogMessage(NATIVE_CLICK_MSG));
+         
             /* should throw with no handle */
             ProdButtonNative.Click((IntPtr)hWnd);
         }

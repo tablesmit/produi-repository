@@ -2,10 +2,7 @@
 //  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 //  */
 using System;
-using System.Windows.Automation;
-using ProdUI.Exceptions;
-using ProdUI.Interaction.Native;
-using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Interaction.Bridge;
 
 /* Notes
  * Supported Patterns: 
@@ -26,7 +23,7 @@ namespace ProdUI.Controls.Windows
     ///     Methods to work with Spinner (or numeric up/down) controls using the UI Automation framework
     ///     A Spinner control type consists of a set of buttons that enable a user to select from a set of items or set a numerical value from within a range
     /// </summary>
-    public sealed class ProdSpinner : BaseProdControl
+    public sealed class ProdSpinner : BaseProdControl, IRangeValue
     {
         #region Constructors
 
@@ -63,104 +60,43 @@ namespace ProdUI.Controls.Windows
         #endregion
 
         /// <summary>
-        ///     Sets the value.
+        /// Sets the value.
         /// </summary>
-        /// <param name = "value">The value.</param>
+        /// <param name="value">The value.</param>
         public void SetValue(double value)
         {
-            LogText = "Value: " + value;
-            try
-            {
-                RegisterEvent(RangeValuePattern.ValueProperty);
-                int ret = RangeValuePatternHelper.SetValue(UIAElement, value);
-
-                if (ret == -1 && NativeWindowHandle != IntPtr.Zero)
-                {
-                    ProdSpinnerNative.SetValueNative(NativeWindowHandle, value);
-                }
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            this.SetValueBridge(this, value);
         }
 
         /// <summary>
-        ///     Gets the value.
+        /// Gets the value.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The current value of the slider</returns>
         public double GetValue()
         {
-            try
-            {
-                double retVal = RangeValuePatternHelper.GetValue(UIAElement);
-
-                if (retVal == -1)
-                {
-                    ProdSliderNative.GetValueNative(NativeWindowHandle);
-                }
-
-                LogText = "Value: " + retVal;
-                LogMessage();
-
-                return retVal;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            return this.GetValueBridge(this);
         }
 
         /// <summary>
-        ///     Gets the max value.
+        /// Gets the maximum value of the control
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// The maximum value of the control
+        /// </returns>
         public double GetMaxValue()
         {
-            try
-            {
-                double retVal = RangeValuePatternHelper.GetMaximum(UIAElement);
-
-                if (retVal == -1 && NativeWindowHandle != IntPtr.Zero)
-                {
-                    ProdSpinnerNative.GetMaximumNative(NativeWindowHandle);
-                }
-
-                LogText = "Value: " + retVal;
-                LogMessage();
-
-                return retVal;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            return this.GetMaxValueBridge(this);
         }
 
         /// <summary>
-        ///     Gets the min value.
+        /// Gets the minimum value of the control
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// The minimum value of the control
+        /// </returns>
         public double GetMinValue()
         {
-            try
-            {
-                double retVal = RangeValuePatternHelper.GetMinimum(UIAElement);
-
-                if (retVal == -1 && NativeWindowHandle != IntPtr.Zero)
-                {
-                    ProdSpinnerNative.GetMinimumNative(NativeWindowHandle);
-                }
-
-                LogText = "Value: " + retVal;
-                LogMessage();
-
-                return retVal;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            return this.GetMinValueBridge(this);
         }
     }
 }

@@ -3,7 +3,6 @@
 //  */
 using System;
 using System.Windows.Automation;
-using ProdUI.Exceptions;
 
 namespace ProdUI.Interaction.UIAPatterns
 {
@@ -15,165 +14,89 @@ namespace ProdUI.Interaction.UIAPatterns
         #region IValueProvider Implementation
 
         /// <summary>
-        ///     Gets the current string value in the supplied TextBox
+        /// Gets the current string value in the supplied TextBox
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
-        ///     String value in TextBox, or <c>null</c> if InvalidOperationException is raised
+        /// String value in TextBox, or <c>null</c> if InvalidOperationException is raised
         /// </returns>
         internal static string GetValue(AutomationElement control)
         {
-            ValuePattern pat = (ValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
-            if (pat == null)
-            {
-                return null;
-            }
-            return pat.Current.Value;
+            ValuePattern pattern = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
+            return pattern.Current.Value;
         }
 
         /// <summary>
-        ///     Sets the TextBox value to the supplied value, overwriting any existing text
+        /// Sets the TextBox value to the supplied value, overwriting any existing text
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "newText">Text to set Textbox value to</param>
-        /// <returns>
-        ///     0 if no problems encountered, -1 if InvalidOperationException is raised
-        /// </returns>
-        internal static int SetValue(AutomationElement control, string newText)
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="text">Text to set Textbox value to</param>
+        internal static void SetValue(AutomationElement control, string text)
         {
-            ValuePattern pat = (ValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
-            if (pat == null)
-            {
-                return -1;
-            }
+            ValuePattern pattern = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
+            pattern.SetValue(text);
 
-            pat.SetValue(newText);
-
-            return VerifyText(control, newText);
+            VerifyText(control, text);
         }
 
         #endregion
 
-        //#region Custom Functions
 
         /// <summary>
         /// Appends the supplied string to the existing textBox text
         /// </summary>
         /// <param name="control">The UI Automation element</param>
-        /// <param name="newText">Text to append to TextBox value</param>
-        /// <returns>
-        /// 0 if no problems encountered, -1 if InvalidOperationException is raised
-        /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
-        internal static int AppendValue(AutomationElement control, string newText)
+        /// <param name="text">Text to append to TextBox value</param>
+        internal static void AppendValue(AutomationElement control, string text)
         {
-            try
-            {
-                ValuePattern pat = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
+            ValuePattern pattern = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
 
-                string appText = pat.Current.Value + newText;
-                pat.SetValue(appText);
+            string appText = pattern.Current.Value + text;
+            pattern.SetValue(appText);
 
-                return VerifyText(control, appText);
-            }
-            catch (InvalidOperationException)
-            {
-                return -1;
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            VerifyText(control, appText);
         }
 
         /// <summary>
         /// Inserts supplied text into existing string beginning at the specified index
         /// </summary>
         /// <param name="control">The UI Automation element</param>
-        /// <param name="newText">Text to insert into to TextBox value</param>
+        /// <param name="text">Text to insert into to TextBox value</param>
         /// <param name="index">Index into string where to begin insertion</param>
-        /// <returns>
-        /// 0 if no problems encountered, -1 if InvalidOperationException is raised
-        /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
-        internal static int InsertValue(AutomationElement control, string newText, int index)
+        internal static void InsertValue(AutomationElement control, string text, int index)
         {
-            try
-            {
-                ValuePattern pat = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
-                string baseText = pat.Current.Value;
+            ValuePattern pattern = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
+            string baseText = pattern.Current.Value;
 
-                /* If index is out of range, defer to ProdErrorManager */
-                if (baseText != null)
-                {
-                    string insString = baseText.Insert(index, newText);
-                    SetValue(control, insString);
-                }
-
-
-                /* Time to verify */
-                return VerifyText(control, GetValue(control));
-            }
-            catch (InvalidOperationException)
+            /* If index is out of range, defer to ProdErrorManager */
+            if (baseText != null)
             {
-                return -1;
+                string insString = baseText.Insert(index, text);
+                SetValue(control, insString);
             }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+
+            /* Time to verify */
+            VerifyText(control, GetValue(control));
         }
 
         /// <summary>
-        ///     Verifies that supplied text matches what is currently in the control
+        /// Verifies that supplied text matches what is currently in the control
         /// </summary>
-        /// <param name = "control">control to verify</param>
-        /// <param name = "text">the text to verify</param>
+        /// <param name="control">control to verify</param>
+        /// <param name="text">the text to verify</param>
         /// <returns>
         /// 0 if match, anything else otherwise
         /// </returns>
-        internal static int VerifyText(AutomationElement control, string text)
+        private static int VerifyText(AutomationElement control, string text)
         {
-            ValuePattern pat = (ValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
-            string currentText = pat.Current.Value;
+            ValuePattern pattern = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
+            string currentText = pattern.Current.Value;
 
             if (text.Length == 0 || currentText.Length == 0)
             {
                 return 0;
             }
             return String.Compare(text, currentText, StringComparison.Ordinal);
-
-
         }
-
-        //#endregion
-
-        ///// <summary>
-        ///// Uses SendKeys to set the text (clobbering).
-        ///// </summary>
-        ///// <param name="control">The control to set.</param>
-        ///// <param name="text">The text to place in the control.</param>
-        //internal static void SendKeysSetText(AutomationElement control, string text)
-        //{
-        //    control.SetFocus();
-        //    Thread.Sleep(100);
-        //    SendKeys.SendWait("^{HOME}");
-        //    SendKeys.SendWait("^+{END}");
-        //    SendKeys.SendWait("{DEL}");
-        //    SendKeys.SendWait(text);
-        //}
-
-        ///// <summary>
-        ///// Uses SendKeys to append text.
-        ///// </summary>
-        ///// <param name="control">The control to set.</param>
-        ///// <param name="text">The text to append.</param>
-        //internal static void SendKeysAppendText(AutomationElement control, string text)
-        //{
-        //    control.SetFocus();
-        //    Thread.Sleep(100);
-        //    SendKeys.SendWait("^{END}");
-        //    SendKeys.SendWait(text);
-        //}
     }
 }

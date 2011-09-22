@@ -117,12 +117,18 @@
     <Compile Include="Configuration\ProdStaticSession.cs" />
     <Compile Include="Configuration\SessionLoggerConfig.cs" />
     <Compile Include="Configuration\StaticEvents.cs" />
-    <Compile Include="Interaction\Base\IMultipleSelectionList.cs" />
-    <Compile Include="Interaction\Base\IInvoke.cs" />
+    <Compile Include="Interaction\Bridge\IInvoke.cs" />
+    <Compile Include="Interaction\Bridge\IMultipleSelectionList.cs" />
     <Compile Include="Interaction\Bridge\InvokeBridge.cs" />
-    <Compile Include="Interaction\Base\ISingleSelectList.cs" />
+    <Compile Include="Interaction\Bridge\IRangeValue.cs" />
+    <Compile Include="Interaction\Bridge\ISelection.cs" />
+    <Compile Include="Interaction\Bridge\ISingleSelectList.cs" />
+    <Compile Include="Interaction\Bridge\IToggle.cs" />
+    <Compile Include="Interaction\Bridge\IValue.cs" />
+    <Compile Include="Interaction\Bridge\RangeValueBridge.cs" />
+    <Compile Include="Interaction\Bridge\SelectionBridge.cs" />
     <Compile Include="Interaction\Bridge\SingleSelectListBridge.cs" />
-    <Compile Include="Interaction\Base\IValue.cs" />
+    <Compile Include="Interaction\Bridge\ToggleBridge.cs" />
     <Compile Include="Logging\LogController.cs" />
     <Compile Include="Interaction\Native\EditNative.cs" />
     <Compile Include="Interaction\Bridge\MultipleSelectListBridge.cs" />
@@ -204,6 +210,7 @@
     <Compile Include="Utility\InternalUtilities.cs" />
     <Compile Include="Exceptions\ProdOperationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Verification\ValueVerifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

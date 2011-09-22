@@ -4,8 +4,8 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Automation;
-using ProdUI.Configuration;
 using ProdUI.Exceptions;
+using ProdUI.Logging;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
@@ -16,60 +16,62 @@ namespace ProdUI.Interaction.Native
     internal sealed class ProdCheckBoxNative
     {
         /// <summary>
-        ///     Uses SendMessage to check the state
+        /// Uses SendMessage to check the state
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to the checkbox</param>
+        /// <param name="windowHandle">NativeWindowHandle to the checkbox</param>
         /// <returns>
-        ///     one of the <see cref = "System.Windows.Automation.ToggleState" />ToggleStates
+        /// one of the <see cref="System.Windows.Automation.ToggleState"/>ToggleStates
         /// </returns>
         internal static ToggleState GetCheckStateNative(IntPtr windowHandle)
         {
-            try
-            {
-                /* get valid ButtonCheckStates */
-                int bcs = (int) NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMGETCHECK, 0, 0);
-
-                string logmessage = "Retrieved CheckBox state using SendMessage: " + ConvertButtonStates(bcs);
-
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-
-                return ConvertButtonStates(bcs);
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            /* get valid ButtonCheckStates */
+            int bcs = (int)NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMGETCHECK, 0, 0);
+            return ConvertButtonStates(bcs);
         }
 
         /// <summary>
-        ///     Uses SendMessage to post the state
+        /// Uses SendMessage to post the state
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to the checkbox</param>
-        /// <param name = "isChecked">one of the <see cref = "System.Windows.Automation.ToggleState" />ToggleStates</param>
+        /// <param name="windowHandle">NativeWindowHandle to the checkbox</param>
+        /// <param name="isChecked">one of the <see cref="System.Windows.Automation.ToggleState"/>ToggleStates</param>
         internal static void SetCheckStateNative(IntPtr windowHandle, ToggleState isChecked)
         {
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+
             ButtonStates bst = ConvertToggleStates(isChecked);
 
-            try
-            {
-                /* send the message */
-                NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMSETSTATE, (int) bst, 0);
+            /* send the message */
+            NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMSETSTATE, (int)bst, 0);
 
-                /* Verify it */
-                if (GetCheckStateNative(windowHandle) == isChecked)
-                {
-                    string logmessage = "CheckBox state set using SendMessage: " + isChecked;
+            /* Verify it */
+            if (GetCheckStateNative(windowHandle) != isChecked) throw new ProdVerificationException("SetCheckStateNative verification failed");
+        }
 
-                    if (ProdStaticSession._Configuration != null)
-                        ProdStaticSession.Log(logmessage);
-                    return;
-                }
-                return;
-            }
-            catch (Win32Exception err)
+        internal static void ToggleCheckStateNative(IntPtr windowHandle)
+        {
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+
+            /* A control will cycle through its ToggleState in this order: On, Off and, if supported, Indeterminate.*/
+            int currentState = (int)NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMGETCHECK, 0, 0);
+            switch (currentState)
             {
-                throw new ProdOperationException(err.Message, err);
+                case (int)ButtonStates.BSTUNCHECKED:
+                    try
+                    {
+                        NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMSETSTATE, (int)ButtonStates.BSTINDETERMINATE, 0);
+                    }
+                    catch (Win32Exception)
+                    {
+                        NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMSETSTATE, (int)ButtonStates.BSTCHECKED, 0);
+                    }
+                    break;
+                case (int)ButtonStates.BSTCHECKED:
+                    NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMSETSTATE, (int)ButtonStates.BSTUNCHECKED, 0);
+                    break;
+                case (int)ButtonStates.BSTINDETERMINATE:
+                    NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMSETSTATE, (int)ButtonStates.BSTCHECKED, 0);
+                    break;
             }
         }
 
@@ -78,7 +80,7 @@ namespace ProdUI.Interaction.Native
         /// </summary>
         /// <param name = "isChecked"><see cref = "System.Windows.Automation.ToggleState" /></param>
         /// <returns><see cref = "ButtonStates" /></returns>
-        internal static ButtonStates ConvertToggleStates(ToggleState isChecked)
+        private static ButtonStates ConvertToggleStates(ToggleState isChecked)
         {
             ButtonStates bst;
 
@@ -106,15 +108,15 @@ namespace ProdUI.Interaction.Native
         /// </summary>
         /// <param name = "bcs"><see cref = "ButtonStates" /></param>
         /// <returns><see cref = "System.Windows.Automation.ToggleState" /></returns>
-        internal static ToggleState ConvertButtonStates(int bcs)
+        private static ToggleState ConvertButtonStates(int bcs)
         {
             switch (bcs)
             {
-                case (int) ButtonStates.BSTUNCHECKED:
+                case (int)ButtonStates.BSTUNCHECKED:
                     return ToggleState.Off;
-                case (int) ButtonStates.BSTCHECKED:
+                case (int)ButtonStates.BSTCHECKED:
                     return ToggleState.On;
-                case (int) ButtonStates.BSTINDETERMINATE:
+                case (int)ButtonStates.BSTINDETERMINATE:
                     return ToggleState.Indeterminate;
                 default:
                     return ToggleState.Indeterminate;

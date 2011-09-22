@@ -3,7 +3,6 @@
 //  */
 using System.Runtime.CompilerServices;
 using System.Windows.Automation;
-using ProdUI.Exceptions;
 
 [assembly: InternalsVisibleTo("ProdUITests")]
 
@@ -89,10 +88,6 @@ namespace ProdUI.Interaction.UIAPatterns
             SelectionItemPattern pattern = (SelectionItemPattern) CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
 
             AutomationElement container = pattern.Current.SelectionContainer;
-            if (container == null)
-            {
-                throw new ProdOperationException(new ElementNotAvailableException());
-            }
             pattern.AddToSelection();
         }
 

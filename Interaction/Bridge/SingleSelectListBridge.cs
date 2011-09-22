@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Windows.Automation;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
-using ProdUI.Interaction.Base;
 using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
@@ -15,6 +14,13 @@ namespace ProdUI.Interaction.Bridge
 {
     internal static class SingleSelectListBridge
     {
+
+        /// <summary>
+        /// Gets the list items.
+        /// </summary>
+        /// <param name="theInterface">The interface.</param>
+        /// <param name="control">The control.</param>
+        /// <returns></returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         internal static List<object> GetItemsBridge(this ISingleSelectList theInterface, BaseProdControl control)
         {
@@ -82,6 +88,9 @@ namespace ProdUI.Interaction.Bridge
 
         private static int NativeGetItemCount(BaseProdControl control)
         {
+            if (control.UIAElement.Current.ControlType == ControlType.Tab)
+                return ProdTabNative.GetTabCount((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+
             return ProdListBoxNative.GetItemCountNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
 
