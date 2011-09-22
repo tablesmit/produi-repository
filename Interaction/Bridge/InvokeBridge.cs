@@ -27,6 +27,10 @@ namespace ProdUI.Interaction.Bridge
                 /* Try UIA First */
                 UiaInvoke(control);
             }
+            catch (ArgumentNullException err)
+            {
+                throw new ProdOperationException(err);
+            }
             catch (ElementNotAvailableException err)
             {
                 throw new ProdOperationException(err);
@@ -50,12 +54,11 @@ namespace ProdUI.Interaction.Bridge
         {
             int hWnd = control.Current.NativeWindowHandle;
 
-            if (control.Current.ControlType == ControlType.Button)
-            {
-                LogController.ReceiveLogMessage(new LogMessage(NATIVE_CLICK_MSG));
-                /* should throw with no handle */
-                ProdButtonNative.Click((IntPtr)hWnd);
-            }
+            if (control.Current.ControlType != ControlType.Button) return;
+
+            LogController.ReceiveLogMessage(new LogMessage(NATIVE_CLICK_MSG));
+            /* should throw with no handle */
+            ProdButtonNative.Click((IntPtr)hWnd);
         }
     }
 }

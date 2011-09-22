@@ -9,6 +9,7 @@ using ProdUI.Exceptions;
 using ProdUI.Utility;
 
 [assembly: InternalsVisibleTo("ProdUITests")]
+
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
@@ -22,11 +23,6 @@ namespace ProdUI.Controls.Windows
         internal ProdWindow ParentWindow;
         internal List<AutomationProperty> SupportedProperties;
         internal AutomationElement UIAElement;
-
-        //unused vars
-        //internal LogController SessionLoggers;
-        //protected List<object> VerboseInformation;
-        //protected string LogText;
 
         #region Constructors
 
@@ -62,7 +58,7 @@ namespace ProdUI.Controls.Windows
                 ParentWindow = prodWindow;
                 //SessionLoggers = ParentWindow.AttachedSession.logController;
                 GetSupportedProperties();
-                NativeWindowHandle = (IntPtr)UIAElement.Current.NativeWindowHandle;
+                NativeWindowHandle = (IntPtr) UIAElement.Current.NativeWindowHandle;
             }
             catch (ElementNotAvailableException err)
             {
@@ -84,12 +80,12 @@ namespace ProdUI.Controls.Windows
 
             try
             {
-                ControlTree tree = new ControlTree((IntPtr)prodWindow.UIAElement.Current.NativeWindowHandle);
+                ControlTree tree = new ControlTree((IntPtr) prodWindow.UIAElement.Current.NativeWindowHandle);
                 UIAElement = tree.FindElement(treePosition);
                 ParentWindow = prodWindow;
                 //SessionLoggers = ParentWindow.AttachedSession.logController;
                 GetSupportedProperties();
-                NativeWindowHandle = (IntPtr)UIAElement.Current.NativeWindowHandle;
+                NativeWindowHandle = (IntPtr) UIAElement.Current.NativeWindowHandle;
             }
             catch (ElementNotAvailableException err)
             {
@@ -110,7 +106,7 @@ namespace ProdUI.Controls.Windows
                 ParentWindow = prodWindow;
                 //SessionLoggers = ParentWindow.AttachedSession.logController;
                 GetSupportedProperties();
-                NativeWindowHandle = (IntPtr)UIAElement.Current.NativeWindowHandle;
+                NativeWindowHandle = (IntPtr) UIAElement.Current.NativeWindowHandle;
             }
             catch (ElementNotAvailableException err)
             {
@@ -120,17 +116,22 @@ namespace ProdUI.Controls.Windows
 
         #endregion
 
-        private void GetSupportedProperties()
-        {
-            SupportedProperties = new List<AutomationProperty>(UIAElement.GetSupportedProperties());
-        }
+        //unused vars
+        //internal LogController SessionLoggers;
+        //protected List<object> VerboseInformation;
+        //protected string LogText;
 
         /// <summary>
         ///     specifies whether the user interface (UI) item referenced by the AutomationElement is enabled
         /// </summary>
         public bool IsEnabled
         {
-            get { return (bool)UIAElement.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty); }
+            get { return (bool) UIAElement.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty); }
+        }
+
+        private void GetSupportedProperties()
+        {
+            SupportedProperties = new List<AutomationProperty>(UIAElement.GetSupportedProperties());
         }
 
         public void SetFocus()
@@ -156,7 +157,7 @@ namespace ProdUI.Controls.Windows
 
             while (ctr <= limit)
             {
-                if ((bool)UIAElement.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty))
+                if ((bool) UIAElement.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty))
                 {
                     return;
                 }

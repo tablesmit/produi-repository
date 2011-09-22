@@ -14,7 +14,7 @@ using ProdUI.Interaction.Bridge;
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
-    /// Methods to work with Button controls using the UI Automation framework
+    ///     Methods to work with Button controls using the UI Automation framework
     /// </summary>
     public sealed class ProdButton : BaseProdControl, IInvoke
     {
@@ -53,7 +53,7 @@ namespace ProdUI.Controls.Windows
         #endregion
 
         /// <summary>
-        /// Performs a "Click" on the current ProdButton
+        ///     Performs a "Click" on the current ProdButton
         /// </summary>
         public void Click()
         {

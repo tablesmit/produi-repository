@@ -235,7 +235,14 @@ namespace ProdUI.Interaction.Native
         /// <summary>
         ///     Removes all items from a list box
         /// </summary>
-        LBRESETCONTENT = 0x0184
+        LBRESETCONTENT = 0x0184,
+
+        /// <summary>
+        /// Gets the application-defined value associated with the specified list box item.
+        /// wParam The index of the item
+        /// lParam This parameter is not used
+        /// </summary>
+        LBGETITEMDATA = 0x0199
     }
 
     internal enum TabControlMessage

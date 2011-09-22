@@ -5,6 +5,7 @@ using System.Windows.Automation;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.Base;
+using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 using ProdUI.Utility;
@@ -19,98 +20,161 @@ namespace ProdUI.Interaction.Bridge
         {
             try
             {
-                AutomationElementCollection convRet = SelectionPatternHelper.GetListItems(control.UIAElement);
-
-                List<object> retVal = InternalUtilities.AutomationCollToObjectList(convRet);
-                LogController.ReceiveLogMessage(new LogMessage("List Items: ", retVal));
-                return retVal;
+                return UiaGetItems(control);
+            }
+            catch (ArgumentNullException err)
+            {
+                throw new ProdOperationException(err);
             }
             catch (ElementNotAvailableException err)
             {
                 throw new ProdOperationException(err);
             }
-            catch (InvalidOperationException err)
+            catch (InvalidOperationException)
             {
-                throw new ProdOperationException(err);
+                return NativeGetItems(control);
             }
         }
+
+        private static List<object> UiaGetItems(BaseProdControl control)
+        {
+            AutomationElementCollection convRet = SelectionPatternHelper.GetListItems(control.UIAElement);
+
+            List<object> retVal = InternalUtilities.AutomationCollToObjectList(convRet);
+            LogController.ReceiveLogMessage(new LogMessage("List Items: ", retVal));
+            return retVal;
+        }
+
+        private static List<object> NativeGetItems(BaseProdControl control)
+        {
+            return ProdListBoxNative.GetItemsNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+        }
+
+
 
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static int GetItemCountBridge(this ISingleSelectList theInterface, BaseProdControl control)
         {
             try
             {
-                AutomationElementCollection convRet = SelectionPatternHelper.GetListItems(control.UIAElement);
-                LogController.ReceiveLogMessage(new LogMessage("Items: " + convRet.Count));
-                return convRet.Count;
+                return UiaGetItemCount(control);
+            }
+            catch (ArgumentNullException err)
+            {
+                throw new ProdOperationException(err);
             }
             catch (ElementNotAvailableException err)
             {
                 throw new ProdOperationException(err);
             }
-            catch (InvalidOperationException err)
+            catch (InvalidOperationException)
             {
-                throw new ProdOperationException(err);
+                return NativeGetItemCount(control);
             }
         }
 
+        private static int UiaGetItemCount(BaseProdControl control)
+        {
+            AutomationElementCollection convRet = SelectionPatternHelper.GetListItems(control.UIAElement);
+            LogController.ReceiveLogMessage(new LogMessage("Items: " + convRet.Count));
+            return convRet.Count;
+        }
+
+        private static int NativeGetItemCount(BaseProdControl control)
+        {
+            return ProdListBoxNative.GetItemCountNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+        }
+
+
 
         /// <summary>
-        ///     Gets the selected index ex.
+        /// Gets the selected index ex.
         /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The control.</param>
+        /// <param name="theInterface">The interface.</param>
+        /// <param name="control">The control.</param>
         /// <returns></returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static int GetSelectedIndexBridge(this ISingleSelectList theInterface, BaseProdControl control)
         {
             try
             {
-                if (!CanSelectMultiple(control)) throw new ProdOperationException("Does not support single selection");
-
-                AutomationElement[] element = SelectionPatternHelper.GetSelection(control.UIAElement);
-                int retVal = SelectionPatternHelper.FindIndexByItem(control.UIAElement, element[0].Current.Name);
-
-                LogController.ReceiveLogMessage(new LogMessage(retVal.ToString(CultureInfo.CurrentCulture)));
-                return retVal;
+                return UiaSelectedIndex(control);
+            }
+            catch (ArgumentNullException err)
+            {
+                throw new ProdOperationException(err);
             }
             catch (ElementNotAvailableException err)
             {
                 throw new ProdOperationException(err);
             }
-            catch (InvalidOperationException err)
+            catch (InvalidOperationException)
             {
-                throw new ProdOperationException(err);
+                return NativeSelectedIndex(control);
             }
 
         }
 
+        private static int UiaSelectedIndex(BaseProdControl control)
+        {
+            AutomationElement[] element = SelectionPatternHelper.GetSelection(control.UIAElement);
+            int retVal = SelectionPatternHelper.FindIndexByItem(control.UIAElement, element[0].Current.Name);
+
+            LogController.ReceiveLogMessage(new LogMessage(retVal.ToString(CultureInfo.CurrentCulture)));
+            return retVal;
+        }
+
+        private static int NativeSelectedIndex(BaseProdControl control)
+        {
+            return ProdListBoxNative.GetSelectedIndexNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+        }
+
+
+
         /// <summary>
-        ///     Gets the selected list item.
+        /// Gets the selected list item.
         /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The control.</param>
+        /// <param name="theInterface">The interface.</param>
+        /// <param name="control">The control.</param>
         /// <returns>
-        ///     The selected List element
+        /// The selected List element
         /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static AutomationElement GetSelectedItemBridge(this ISingleSelectList theInterface, BaseProdControl control)
         {
             try
             {
-                AutomationElement[] retVal = SelectionPatternHelper.GetSelection(control.UIAElement);
-                LogController.ReceiveLogMessage(new LogMessage("Item " + retVal[0]));
-                return retVal[0];
+                return UiaGetSelectedItem(control);
+            }
+            catch (ArgumentNullException err)
+            {
+                throw new ProdOperationException(err);
             }
             catch (ElementNotAvailableException err)
             {
                 throw new ProdOperationException(err);
             }
-            catch (InvalidOperationException err)
+            catch (InvalidOperationException)
             {
-                throw new ProdOperationException(err);
+                return NativeGetSelectedItem(control);
             }
         }
+
+        private static AutomationElement UiaGetSelectedItem(BaseProdControl control)
+        {
+            AutomationElement[] retVal = SelectionPatternHelper.GetSelection(control.UIAElement);
+            LogController.ReceiveLogMessage(new LogMessage("Item " + retVal[0]));
+            return retVal[0];
+        }
+
+        private static AutomationElement NativeGetSelectedItem(BaseProdControl control)
+        {
+            ProdListBoxNative.GetSelectedItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+            //Note: This can not return an AutomationElement...
+            return control.UIAElement;
+        }
+
+
 
 
         /// <summary>
@@ -124,21 +188,37 @@ namespace ProdUI.Interaction.Bridge
         {
             try
             {
-                AutomationEventVerifier.Register(new EventRegistrationMessage(control, SelectionItemPattern.ElementSelectedEvent));
-
-                LogController.ReceiveLogMessage(new LogMessage("Selecting " + index));
-                AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(control.UIAElement, index);
-                SelectionPatternHelper.Select(indexedItem);
+                UiaSetSelectedIndex(control, index);
+            }
+            catch (ArgumentNullException err)
+            {
+                throw new ProdOperationException(err);
             }
             catch (ElementNotAvailableException err)
             {
                 throw new ProdOperationException(err);
             }
-            catch (InvalidOperationException err)
+            catch (InvalidOperationException)
             {
-                throw new ProdOperationException(err);
+                NativeSetSelectedIndex(control, index);
             }
         }
+
+        private static void UiaSetSelectedIndex(BaseProdControl control, int index)
+        {
+            LogController.ReceiveLogMessage(new LogMessage("Selecting " + index));
+
+            AutomationEventVerifier.Register(new EventRegistrationMessage(control, SelectionItemPattern.ElementSelectedEvent));
+            AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(control.UIAElement, index);
+            SelectionPatternHelper.Select(indexedItem);
+        }
+
+        private static void NativeSetSelectedIndex(BaseProdControl control, int index)
+        {
+            ProdListBoxNative.SetSelectedIndexNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, index);
+        }
+
+
 
 
         /// <summary>
@@ -152,26 +232,34 @@ namespace ProdUI.Interaction.Bridge
         {
             try
             {
-                AutomationEventVerifier.Register(new EventRegistrationMessage(control, SelectionItemPattern.ElementSelectedEvent));
-
-                LogController.ReceiveLogMessage(new LogMessage("Selecting " + itemText));
-                AutomationElement ae = SelectionPatternHelper.FindItemByText(control.UIAElement, itemText);
-                SelectionPatternHelper.Select(ae);
+                UiaSetSelectedItem(control, itemText);
+            }
+            catch (ArgumentNullException err)
+            {
+                throw new ProdOperationException(err);
             }
             catch (ElementNotAvailableException err)
             {
                 throw new ProdOperationException(err);
             }
-            catch (InvalidOperationException err)
+            catch (InvalidOperationException)
             {
-                throw new ProdOperationException(err);
+                NativeSetSelectedItem(control, itemText);
             }
         }
 
-
-        private static bool CanSelectMultiple(BaseProdControl control)
+        private static void UiaSetSelectedItem(BaseProdControl control, string itemText)
         {
-            return SelectionPatternHelper.CanSelectMultiple(control.UIAElement);
+            LogController.ReceiveLogMessage(new LogMessage("Selecting " + itemText));
+
+            AutomationEventVerifier.Register(new EventRegistrationMessage(control, SelectionItemPattern.ElementSelectedEvent));
+            AutomationElement ae = SelectionPatternHelper.FindItemByText(control.UIAElement, itemText);
+            SelectionPatternHelper.Select(ae);
+        }
+
+        private static void NativeSetSelectedItem(BaseProdControl control, string itemText)
+        {
+            ProdListBoxNative.SelectItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, itemText);
         }
     }
 }

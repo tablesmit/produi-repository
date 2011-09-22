@@ -15,7 +15,7 @@ using ProdUI.Interaction.Bridge;
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
-    ///     Provides mechanisms to work with Edit (or TextBox) controls
+    /// Provides mechanisms to work with Edit (or TextBox) controls
     /// </summary>
     public sealed class ProdEdit : BaseProdControl, IValue
     {
@@ -53,15 +53,56 @@ namespace ProdUI.Controls.Windows
         /// <summary>
         /// Appends text to a text input control
         /// </summary>
-        /// <param name="newText">Text To Append</param>
-        public void AppendText(string newText)
+        /// <param name="text">Text To Append</param>
+        public void AppendText(string text)
         {
-            this.AppendTextBridge(this, newText);
+            this.AppendTextBridge(this, text);
         }
 
+        /// <summary>
+        /// Clears the edit control of text.
+        /// </summary>
         public void Clear()
         {
             this.ClearTextBridge(this);
         }
+
+        /// <summary>
+        /// Gets the text.
+        /// </summary>
+        /// <returns>The text contained in the control</returns>
+        public string GetText()
+        {
+            return this.GetTextBridge(this);
+        }
+
+        /// <summary>
+        /// Gets the length of the text.
+        /// </summary>
+        /// <returns>The number of characters in the specified control</returns>
+        public int GetTextLength()
+        {
+            return this.GetLengthBridge(this);
+        }
+
+        /// <summary>
+        /// Inserts the text at the specified (zero-based) index.
+        /// </summary>
+        /// <param name="text">The text to insert.</param>
+        /// <param name="index">The zero-based index.</param>
+        public void InsertText(string text, int index)
+        {
+            this.InsertTextBridge(this, text, index);
+        }
+
+        /// <summary>
+        /// Sets the text contained in the edit control.
+        /// </summary>
+        /// <param name="text">The text to place into control.</param>
+        public void SetText(string text)
+        {
+            this.SetTextBridge(this, text);
+        }
+
     }
 }

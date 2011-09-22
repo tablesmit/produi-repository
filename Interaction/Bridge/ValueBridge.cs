@@ -3,7 +3,6 @@
 //  */
 using System;
 using System.Windows.Automation;
-using System.Windows.Forms;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.Base;
@@ -17,24 +16,22 @@ namespace ProdUI.Interaction.Bridge
 {
     internal static class ValueBridge
     {
-
         /// <summary>
-        /// Appends text to a text input control
+        ///     Appends text to a text input control
         /// </summary>
-        /// <param name="theValue">The invoke.</param>
-        /// <param name="control">The control.</param>
-        /// <param name="newText">Text To Append</param>
+        /// <param name = "theValue">The invoke.</param>
+        /// <param name = "control">The control.</param>
+        /// <param name = "newText">Text To Append</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static void AppendTextBridge(this IValue theValue, BaseProdControl control, string newText)
         {
             try
             {
-                if (GetReadOnly(control.UIAElement)) throw new ProdOperationException("Control is Read Only");
-             
-                AutomationEventVerifier.Register(new EventRegistrationMessage(control, ValuePattern.ValueProperty));
-
-                LogController.ReceiveLogMessage(new LogMessage("Appending: " + newText));
-                ValuePatternHelper.AppendValue(control.UIAElement, newText);
+                UiaAppendText(control, newText);
+            }
+            catch (ArgumentNullException err)
+            {
+                throw new ProdOperationException(err);
             }
             catch (ElementNotAvailableException err)
             {
@@ -43,43 +40,46 @@ namespace ProdUI.Interaction.Bridge
             catch (InvalidOperationException)
             {
                 /* now try a native SendMessage */
-                NativeAppendText(control.UIAElement, newText);
+                NativeAppendText(control, newText);
             }
         }
 
-        private static void UiaAppendText(AutomationElement element, string newText)
+        private static void UiaAppendText(BaseProdControl control, string newText)
         {
-            ValuePatternHelper.AppendValue(element, newText);
+            if (GetReadOnly(control.UIAElement)) throw new ProdOperationException("Control is Read Only");
+
+            AutomationEventVerifier.Register(new EventRegistrationMessage(control, ValuePattern.ValueProperty));
+
+            LogController.ReceiveLogMessage(new LogMessage("Appending: " + newText));
+            ValuePatternHelper.AppendValue(control.UIAElement, newText);
         }
 
-        private static void NativeAppendText(AutomationElement element, string newText)
+        private static void NativeAppendText(BaseProdControl control, string newText)
         {
-            int hwnd = element.Current.NativeWindowHandle;
+            int hwnd = control.UIAElement.Current.NativeWindowHandle;
             if (hwnd == 0)
                 /* If it doesn't have one, send keys, then */
-                InternalUtilities.SendKeysAppendText(element, newText);
+                InternalUtilities.SendKeysAppendText(control.UIAElement, newText);
 
-            ProdEditNative.AppendTextNative((IntPtr)element.Current.NativeWindowHandle, newText);
+            ProdEditNative.AppendTextNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, newText);
         }
-
-
-
-
 
 
         /// <summary>
         ///     Set text area value to an empty string
         /// </summary>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "theValue">The value.</param>
+        /// <param name = "control">The control.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static void ClearTextBridge(this IValue theValue, BaseProdControl control)
         {
             try
             {
-                if (GetReadOnly(control.UIAElement)) throw new ProdOperationException("Control is Read Only");
-
-                UiaClearText(control.UIAElement);
-
+                UiaClearText(control);
+            }
+            catch (ArgumentNullException err)
+            {
+                throw new ProdOperationException(err);
             }
             catch (ElementNotAvailableException err)
             {
@@ -88,198 +88,212 @@ namespace ProdUI.Interaction.Bridge
             catch (InvalidOperationException)
             {
                 /* now try a native SendMessage */
-                NativeClearText(control.UIAElement);
+                NativeClearText(control);
             }
         }
 
-        private static void UiaClearText(AutomationElement element)
+        private static void UiaClearText(BaseProdControl control)
         {
+            if (GetReadOnly(control.UIAElement)) throw new ProdOperationException("Control is Read Only");
             //currently the verification is done in pattern helper
-            ValuePatternHelper.SetValue(element, "");
+            ValuePatternHelper.SetValue(control.UIAElement, "");
+            LogController.ReceiveLogMessage(new LogMessage("Clear Text"));
         }
 
-        private static void NativeClearText(AutomationElement element)
+        private static void NativeClearText(BaseProdControl control)
         {
-            int hwnd = element.Current.NativeWindowHandle;
-            if (hwnd != 0) { ProdEditNative.ClearTextNative((IntPtr)hwnd); }
+            int hwnd = control.UIAElement.Current.NativeWindowHandle;
+            if (hwnd != 0)
+            {
+                ProdEditNative.ClearTextNative((IntPtr) hwnd);
+            }
 
             /* If it doesn't have one, send keys, then */
-            InternalUtilities.SendKeysSetText(element, "^a");
-            InternalUtilities.SendKeysSetText(element, "{Backspace}");
+            InternalUtilities.SendKeysSetText(control.UIAElement, "^a");
+            InternalUtilities.SendKeysSetText(control.UIAElement, "{Backspace}");
         }
 
-
-
-
-
-
-
-        /// <summary>
-        ///     Copies any text in the control to the Clipboard.
-        /// </summary>
-        public void CopyToClipBoard()
-        {
-            string text = GetText();
-            if (text.Length > 0)
-            {
-                Clipboard.SetText(text);
-            }
-        }
 
         /// <summary>
         ///     Gets the number of characters in textbox
         /// </summary>
-        /// <returns>The number of characters in the ProdTextBox</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "theValue">The value.</param>
+        /// <param name = "control">The control.</param>
+        /// <returns>
+        ///     The number of characters in the ProdTextBox
+        /// </returns>
         /// <remarks>
         ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public int GetLength()
+        internal static int GetLengthBridge(this IValue theValue, BaseProdControl control)
         {
             try
             {
-                string txt = GetText();
-                if (txt != null && NativeWindowHandle != IntPtr.Zero)
-                {
-                    txt = NativeTextProds.GetTextNative(NativeWindowHandle);
-                }
-
-                int retVal = txt.Length;
-                LogText = "Length: " + retVal;
-                LogMessage();
-
-                return retVal;
+                return UiaGetLength(control);
             }
-            catch (ProdOperationException err)
+            catch (ArgumentNullException err)
             {
-                throw;
+                throw new ProdOperationException(err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err);
+            }
+            catch (InvalidOperationException)
+            {
+                /* now try a native SendMessage */
+                return NativeGetLength(control);
             }
         }
+
+        private static int UiaGetLength(BaseProdControl control)
+        {
+            string txt = ValuePatternHelper.GetValue(control.UIAElement);
+            int retVal = txt.Length;
+            LogController.ReceiveLogMessage(new LogMessage("Length: " + retVal));
+            return retVal;
+        }
+
+        private static int NativeGetLength(BaseProdControl control)
+        {
+            string txt = NativeTextProds.GetTextNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            return txt.Length;
+        }
+
 
         /// <summary>
         ///     Gets or sets the text contained in the current TextBox
         /// </summary>
-        /// <returns>The text currently in the ProdTextBox</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "theValue">The value.</param>
+        /// <param name = "control">The control.</param>
+        /// <returns>
+        ///     The text currently in the ProdTextBox
+        /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public string GetText()
+        internal static string GetTextBridge(this IValue theValue, BaseProdControl control)
         {
-            string ret = ValuePatternHelper.GetValue(UIAElement);
-
-            if (ret == null && NativeWindowHandle != IntPtr.Zero)
+            try
             {
-                ret = NativeTextProds.GetTextNative(NativeWindowHandle);
+                return UiaGetText(control);
             }
+            catch (ArgumentNullException err)
+            {
+                throw new ProdOperationException(err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err);
+            }
+            catch (InvalidOperationException)
+            {
+                /* now try a native SendMessage */
+                return NativeGetText(control);
+            }
+        }
 
-            LogText = "Text: " + ret;
-            LogMessage();
-
+        private static string UiaGetText(BaseProdControl control)
+        {
+            string ret = ValuePatternHelper.GetValue(control.UIAElement);
+            LogController.ReceiveLogMessage(new LogMessage("String: " + ret));
             return ret;
         }
 
+        private static string NativeGetText(BaseProdControl control)
+        {
+            return NativeTextProds.GetTextNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+        }
+
+
         /// <summary>
-        ///     Appends the supplied string to the existing textBox text
+        ///     inserts the supplied string to the existing textBox text
         /// </summary>
+        /// <param name = "theValue">The value.</param>
+        /// <param name = "control">The control.</param>
         /// <param name = "newText">Text to append to TextBox value</param>
-        /// <param name = "insertIndex">Zero based index of string to insert text into</param>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name = "index">Zero based index of string to insert text into</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void InsertText(string newText, int insertIndex)
+        internal static void InsertTextBridge(this IValue theValue, BaseProdControl control, string newText, int index)
         {
+            if ((bool) control.UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty)) throw new ProdOperationException("TextBox is Read Only");
+
             try
             {
-                RegisterEvent(ValuePattern.ValueProperty);
-
-                if ((bool)UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty))
-                {
-                    throw new ProdOperationException("TextBox is Read Only");
-                }
-
-                //TODO: convert
-                //if (ValuePatternHelper.InsertValue(UIAElement, newText, insertIndex) == 0)
-                //{
-                //    return;
-                //}
-
-
-                if (NativeWindowHandle != IntPtr.Zero)
-                {
-                    NativeTextProds.InsertTextNative(NativeWindowHandle, newText, insertIndex);
-                }
-                else
-                {
-                    throw new ProdOperationException("Could not InsertText");
-                }
+                UiaInsertText(control, newText, index);
             }
-            catch (ProdOperationException err)
+            catch (ArgumentNullException err)
             {
-                throw;
+                throw new ProdOperationException(err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err);
+            }
+            catch (InvalidOperationException)
+            {
+                /* now try a native SendMessage */
+                NativeInsertText(control, newText, index);
             }
         }
 
-        /// <summary>
-        ///     Pastes text (if available) from the Clipboard into the control.
-        /// </summary>
-        public void PasteFromClipboard()
+        private static void UiaInsertText(BaseProdControl control, string newText, int index)
         {
-            if (!Clipboard.ContainsText())
-            {
-                return;
-            }
-
-
-            string contents = Clipboard.GetText();
-            SetText(contents);
+            LogController.ReceiveLogMessage(new LogMessage("inserting " + newText));
+            AutomationEventVerifier.Register(new EventRegistrationMessage(control, ValuePattern.ValueProperty));
+            ValuePatternHelper.InsertValue(control.UIAElement, newText, index);
         }
 
+        private static void NativeInsertText(BaseProdControl control, string newText, int index)
+        {
+            NativeTextProds.InsertTextNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, newText, index);
+        }
+
+
         /// <summary>
-        ///     Gets or sets the text contained in the current TextBox
+        ///     Sets the text contained in the current TextBox
         /// </summary>
+        /// <param name = "theValue">The value.</param>
+        /// <param name = "control">The control.</param>
         /// <param name = "text">The text to place into the ProdTextBox.</param>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void SetText(string text)
+        internal static void SetTextBridge(this IValue theValue, BaseProdControl control, string text)
         {
+            if ((bool) control.UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty)) throw new ProdOperationException("TextBox is Read Only");
             try
             {
-                RegisterEvent(ValuePattern.ValueProperty);
-
-                if ((bool)UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty))
-                {
-                    throw new ProdOperationException("TextBox is Read Only");
-                }
-
-                if (ValuePatternHelper.SetValue(UIAElement, text) == 0)
-                {
-                    return;
-                }
-
-
-                /* If control has a handle, use native method */
-                if (NativeWindowHandle != IntPtr.Zero)
-                {
-                    if (NativeTextProds.SetTextNative(NativeWindowHandle, text))
-                    {
-                        return;
-                    }
-                }
-
-                /* If it doesn't have one, send keys, then */
-                //TODO: convert ValuePatternHelper.SendKeysSetText(UIAElement, text);
+                UiaSetText(control, text);
             }
-            catch (ProdOperationException err)
+            catch (ArgumentNullException err)
             {
-                throw;
+                throw new ProdOperationException(err);
             }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err);
+            }
+            catch (InvalidOperationException)
+            {
+                /* now try a native SendMessage */
+                NativeSetText(control, text);
+            }
+        }
+
+        private static void UiaSetText(BaseProdControl control, string text)
+        {
+            LogController.ReceiveLogMessage(new LogMessage(text));
+            AutomationEventVerifier.Register(new EventRegistrationMessage(control, ValuePattern.ValueProperty));
+            ValuePatternHelper.SetValue(control.UIAElement, text);
+        }
+
+        private static void NativeSetText(BaseProdControl control, string text)
+        {
+            NativeTextProds.SetTextNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, text);
         }
 
 
         private static bool GetReadOnly(AutomationElement control)
         {
-            return (bool)control.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty);
+            return (bool) control.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty);
         }
-
-
     }
 }

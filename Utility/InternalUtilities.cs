@@ -508,11 +508,10 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///     Uses SendKeys to set the text (clobbering).
+        /// Uses SendKeys to set the text (clobbering).
         /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The control to set.</param>
-        /// <param name = "text">The text to place in the control.</param>
+        /// <param name="control">The control to set.</param>
+        /// <param name="text">The text to place in the control.</param>
         internal static void SendKeysSetText(AutomationElement control, string text)
         {
             control.SetFocus();
@@ -524,11 +523,10 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///     Uses SendKeys to append text.
+        /// Uses SendKeys to append text.
         /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The control to set.</param>
-        /// <param name = "text">The text to append.</param>
+        /// <param name="control">The control to set.</param>
+        /// <param name="text">The text to append.</param>
         internal static void SendKeysAppendText(AutomationElement control, string text)
         {
             control.SetFocus();

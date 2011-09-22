@@ -2,7 +2,7 @@
 //  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 //  */
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Text;
 using ProdUI.Logging;
 using ProdUI.Utility;
@@ -44,7 +44,7 @@ namespace ProdUI.Interaction.Native
         /// </summary>
         /// <param name = "windowHandle">NativeWindowHandle to ListBox</param>
         /// <returns>A string collection containing each item in the ListBox</returns>
-        internal static Collection<object> GetItemsNative(IntPtr windowHandle)
+        internal static List<object> GetItemsNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
             int itemCount = GetItemCountNative(windowHandle);
@@ -59,7 +59,15 @@ namespace ProdUI.Interaction.Native
         internal static void SelectItemNative(IntPtr windowHandle, int index)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
-            int sndReturn = (int)NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBSETCURSEL, index, 0);
+            NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBSETCURSEL, index, 0);
+        }
+
+        internal static string GetSelectedItemNative(IntPtr windowHandle)
+        {
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            int index = (int)NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBGETCURSEL, 0, 0);
+            NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBGETITEMDATA, index, 0);
+            return string.Empty;
         }
 
         /// <summary>
@@ -72,7 +80,7 @@ namespace ProdUI.Interaction.Native
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
             int stringIndex = FindString(windowHandle, itemText);
 
-            int sndReturn = (int)NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBSETCURSEL, stringIndex, 0);
+            NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBSETCURSEL, stringIndex, 0);
         }
 
         /// <summary>
@@ -129,12 +137,28 @@ namespace ProdUI.Interaction.Native
             return (int)NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBGETCURSEL, 0, 0);
         }
 
+        internal static void SetSelectedIndexNative(IntPtr windowHandle, int index)
+        {
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBSETCURSEL, index, 0);
+        }
+
+        internal static List<int> GetSelectedIndexesNative(IntPtr windowHandle)
+        {
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            int selectionCount = GetSelectedItemCountNative(windowHandle);
+            int[] selectedIndexes = new int[selectionCount];
+            NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBGETSELITEMS, selectionCount, selectedIndexes);
+
+            return new List<int>(selectedIndexes);
+        }
+
         /* Utility */
 
-        private static Collection<object> GetAllItems(IntPtr windowHandle, int itemCount)
+        private static List<object> GetAllItems(IntPtr windowHandle, int itemCount)
         {
             StringBuilder sb = new StringBuilder();
-            Collection<object> returnCollection = new Collection<object>();
+            List<object> returnCollection = new List<object>();
 
             for (int i = 0; i < itemCount - 1; i++)
             {
