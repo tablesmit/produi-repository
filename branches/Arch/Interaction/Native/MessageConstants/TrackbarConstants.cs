@@ -15,18 +15,32 @@ namespace ProdUI.Interaction.Native
         ///     If this parameter is FALSE, the message does not redraw the slider at the new position.
         ///     lParam - New logical position of the slider. Valid logical positions are the integer values in the TrackBar's range of minimum to maximum slider positions
         /// </summary>
-        TbmGetpos = 0x0400,
+        TBMGETPOS = 0x0400,
         /// <summary>
         ///     Sets the current logical position of the slider in a TrackBar
         /// </summary>
-        TbmSetpos = 0x0405,
+        TBMSETPOS = 0x0405,
         /// <summary>
         ///     Retrieves the maximum position for the slider in a TrackBar
         /// </summary>
-        TbmGetrangemax = 0x0402,
+        TBMGETRANGEMAX = 0x0402,
         /// <summary>
         ///     Retrieves the minimum position for the slider in a TrackBar
         /// </summary>
-        TbmGetrangemin = 0x0401
+        TBMGETRANGEMIN = 0x0401,
+        /// <summary>
+        /// This message retrieves the size of the page for a TrackBar
+        /// wParam Not used. 
+        /// lParam Not used
+        /// Returns a 32-bit value that specifies the page size for the TrackBar
+        /// </summary>
+        TBMGETPAGESIZE = (TBMGETPOS+22),
+        /// <summary>
+        /// This message retrieves the size of the line for a TrackBar
+        /// wParam Not used. 
+        /// lParam Not used
+        /// Returns a 32-bit value that specifies the line size for the TrackBar
+        /// </summary>
+        TBMGETLINESIZE = (TBMGETPOS+24)
     }
 }

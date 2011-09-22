@@ -2,18 +2,14 @@
 //  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 //  */
 using System;
-using System.Windows.Automation;
-using ProdUI.Exceptions;
-using ProdUI.Interaction.Native;
-using ProdUI.Interaction.UIAPatterns;
-using ProdUI.Logging;
+using ProdUI.Interaction.Bridge;
 
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
     ///     Methods to work with Slider (or Track Bar) controls using the UI Automation framework
     /// </summary>
-    public sealed class ProdSlider : BaseProdControl
+    public sealed class ProdSlider : BaseProdControl,IRangeValue
     {
         #region Constructors
 
@@ -50,152 +46,65 @@ namespace ProdUI.Controls.Windows
         #endregion
 
         /// <summary>
-        ///     Sets the value.
+        /// Gets the value.
         /// </summary>
-        /// <param name = "value">The value.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void SetValue(double value)
-        {
-            LogText = "Value: " + value;
-            try
-            {
-                RegisterEvent(RangeValuePattern.ValueProperty);
-                int ret = RangeValuePatternHelper.SetValue(UIAElement, value);
-
-                if (ret == -1 && NativeWindowHandle != IntPtr.Zero)
-                {
-                    ProdSliderNative.SetValueNative(NativeWindowHandle, value);
-                }
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        ///     Gets the value.
-        /// </summary>
-        /// <returns></returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <returns>The current value of the slider</returns>
         public double GetValue()
         {
-            try
-            {
-                double retVal = RangeValuePatternHelper.GetValue(UIAElement);
-
-                if (retVal == -1 && NativeWindowHandle != IntPtr.Zero)
-                {
-                    retVal = ProdSliderNative.GetMaximumNative(NativeWindowHandle);
-                }
-
-                LogText = "Value: " + retVal;
-                LogMessage();
-
-                return retVal;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            return this.GetValueBridge(this);
         }
 
         /// <summary>
-        ///     Gets the large change.
+        /// Sets the value.
         /// </summary>
-        /// <returns></returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public double GetLargeChange()
+        /// <param name="value">The value.</param>
+        public void SetValue(double value)
         {
-            try
-            {
-                double retVal = RangeValuePatternHelper.GetLargeChange(UIAElement);
-
-                LogText = "Value: " + retVal;
-                LogMessage();
-
-                return retVal;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            this.SetValueBridge(this,value);
         }
 
         /// <summary>
-        ///     Gets the max value.
+        /// Gets the maximum value of the control
         /// </summary>
-        /// <returns></returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <returns>
+        /// The maximum value of the control
+        /// </returns>
         public double GetMaxValue()
         {
-            try
-            {
-                double retVal = RangeValuePatternHelper.GetMaximum(UIAElement);
-
-                if (retVal == -1 && NativeWindowHandle != IntPtr.Zero)
-                {
-                    ProdSliderNative.GetMaximumNative(NativeWindowHandle);
-                }
-
-                LogText = "Value: " + retVal;
-                LogMessage();
-
-                return retVal;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            return this.GetMaxValueBridge(this);
         }
 
         /// <summary>
-        ///     Gets the min value.
+        /// Gets the minimum value of the control
         /// </summary>
-        /// <returns></returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <returns>
+        /// The minimum value of the control
+        /// </returns>
         public double GetMinValue()
         {
-            try
-            {
-                double retVal = RangeValuePatternHelper.GetMinimum(UIAElement);
-
-                if (retVal == -1 && NativeWindowHandle != IntPtr.Zero)
-                {
-                    ProdSliderNative.GetMinimumNative(NativeWindowHandle);
-                }
-
-                LogText = "Value: " + retVal;
-                LogMessage();
-
-                return retVal;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+           return this.GetMinValueBridge(this);
         }
 
         /// <summary>
-        ///     Gets the small change.
+        /// Gets the large change value for the control.
         /// </summary>
-        /// <returns></returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <returns>
+        /// A number indicating the increment of a large change.
+        /// </returns>
+        public double GetLargeChange()
+        {
+            return this.GetLargeChangeBridge(this);
+        }
+
+        /// <summary>
+        /// Gets the small change value for the control.
+        /// </summary>
+        /// <returns>
+        /// A number indicating the increment of a small change.
+        /// </returns>
         public double GetSmallChange()
         {
-            try
-            {
-                double retVal = RangeValuePatternHelper.GetSmallChange(UIAElement);
-
-                LogText = "Value: " + retVal;
-                LogMessage();
-
-                return retVal;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            return this.GetSmallChangeBridge(this);
         }
     }
 }

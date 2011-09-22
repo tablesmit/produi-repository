@@ -3,22 +3,16 @@
 //  */
 using System;
 using System.Windows.Automation;
-using ProdUI.Exceptions;
-using ProdUI.Interaction.Native;
-using ProdUI.Interaction.UIAPatterns;
-using ProdUI.Logging;
+using ProdUI.Interaction.Bridge;
 
-/* Notes
- * Supported Patterns: 
- * IToggleProvider
- */
+
 
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
     ///     Methods to work with CheckBox controls using the UI Automation framework
     /// </summary>
-    public sealed class ProdCheckBox : BaseProdControl
+    public sealed class ProdCheckBox : BaseProdControl, IToggle
     {
         #region Constructors
 
@@ -30,7 +24,8 @@ namespace ProdUI.Controls.Windows
         /// <remarks>
         ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
-        public ProdCheckBox(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
+        public ProdCheckBox(ProdWindow prodWindow, string automationId)
+            : base(prodWindow, automationId)
         {
         }
 
@@ -39,7 +34,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
-        public ProdCheckBox(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
+        public ProdCheckBox(ProdWindow prodWindow, int treePosition)
+            : base(prodWindow, treePosition)
         {
         }
 
@@ -48,87 +44,37 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "controlHandle">Window handle of the control</param>
-        public ProdCheckBox(ProdWindow prodWindow, IntPtr controlHandle) : base(prodWindow, controlHandle)
+        public ProdCheckBox(ProdWindow prodWindow, IntPtr controlHandle)
+            : base(prodWindow, controlHandle)
         {
         }
 
         #endregion
 
         /// <summary>
-        ///     Gets the currentToggleState
+        /// Gets the currentToggleState
         /// </summary>
-        /// <returns></returns>
-        /// <value>The state of the checkbox.</value>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <returns>The state of the checkbox.</returns>
         public ToggleState GetCheckState()
         {
-            try
-            {
-                ToggleState ret = TogglePatternHelper.GetToggleState(UIAElement);
-                if (ret == ToggleState.Indeterminate && NativeWindowHandle != IntPtr.Zero)
-                {
-                    /* Otherwise, retry with native method */
-                    ret = ProdCheckBoxNative.GetCheckStateNative((IntPtr) UIAElement.Current.NativeWindowHandle);
-                }
-                LogText = "CheckState " + ret;
-                LogMessage();
-
-                return ret;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            return this.GetCheckStateBridge(this);
         }
 
         /// <summary>
-        ///     Sets the current CheckBoxes state.
+        /// Sets the current CheckBoxes state.
         /// </summary>
-        /// <param name = "checkstate">The ProdCheckState.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <param name="checkstate">The ProdCheckState.</param>
         public void SetCheckState(ToggleState checkstate)
         {
-            LogText = "Check change verified";
-
-            try
-            {
-                RegisterEvent(TogglePatternIdentifiers.ToggleStateProperty);
-                int ret = TogglePatternHelper.SetToggleState(UIAElement, checkstate);
-                if (ret == -1 && NativeWindowHandle != IntPtr.Zero)
-                {
-                    ProdCheckBoxNative.SetCheckStateNative(NativeWindowHandle, checkstate);
-                }
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            this.SetCheckStateBridge(this, checkstate);
         }
 
         /// <summary>
-        ///     Changes the CheckState of checkbox to next valid CheckState
+        /// Changes the CheckState of checkbox to next valid CheckState
         /// </summary>
-        /// <exception cref = "ProdVerificationException">Toggle event could not be confirmed</exception>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void ToggleCheckState()
         {
-            LogText = "Toggle verified";
-
-            try
-            {
-                RegisterEvent(TogglePatternIdentifiers.ToggleStateProperty);
-                TogglePatternHelper.Toggle(UIAElement);
-            }
-            catch (ProdVerificationException err)
-            {
-                throw;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            this.ToggleCheckStateBridge(this);
         }
     }
 }

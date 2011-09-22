@@ -2,19 +2,14 @@
 //  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 //  */
 using System;
-using System.Globalization;
-using System.Windows.Automation;
-using ProdUI.Exceptions;
-using ProdUI.Interaction.Native;
-using ProdUI.Interaction.UIAPatterns;
-using ProdUI.Logging;
+using ProdUI.Interaction.Bridge;
 
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
-    ///     Methods to work with Radio Button controls using the UI Automation framework
+    ///     Methods to work with RadioButton controls using the UI Automation framework
     /// </summary>
-    public sealed class ProdRadioButton : BaseProdControl
+    public sealed class ProdRadioButton : BaseProdControl, ISelection
     {
         #region Constructors
 
@@ -51,54 +46,21 @@ namespace ProdUI.Controls.Windows
         #endregion
 
         /// <summary>
-        ///     Gets a value indicating whether the control is checked
+        /// Gets a value indicating whether the control is checked
         /// </summary>
         /// <returns></returns>
         /// <value><c>true</c> if checked; otherwise, <c>false</c>.</value>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public bool GetChecked()
         {
-            try
-            {
-                bool retVal = SelectionPatternHelper.IsSelected(UIAElement);
-
-                LogText = retVal.ToString(CultureInfo.CurrentCulture);
-                LogMessage();
-
-                return retVal;
-            }
-            catch (InvalidOperationException)
-            {
-                return ProdRadioButtonNative.GetCheckStateNative(NativeWindowHandle);
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            return this.GetIsSelectedBridge(this);
         }
 
         /// <summary>
         ///     Selects a radio button, deselecting others in its group
         /// </summary>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void Select()
         {
-            LogText = "Selection verified";
-            try
-            {
-                RegisterEvent(SelectionItemPattern.ElementSelectedEvent);
-                SelectionPatternHelper.Select(UIAElement);
-            }
-            catch (InvalidOperationException)
-            {
-                ProdRadioButtonNative.SetCheckStateNative(NativeWindowHandle);
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            this.SetSetSelectedBridge(this);
         }
     }
 }

@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
-using ProdUI.Interaction.Base;
 using ProdUI.Interaction.Bridge;
 
 /* Notes
