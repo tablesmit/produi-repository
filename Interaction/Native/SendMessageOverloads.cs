@@ -5,7 +5,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace ProdUI.Utility
+namespace ProdUI.Interaction.Native
 {
     internal static partial class NativeMethods
     {

@@ -376,24 +376,6 @@ namespace ProdUI.Utility
 
         #endregion
 
-        /// <summary>
-        ///     Gets the stack trace and converts it into a string collection
-        /// </summary>
-        /// <param name = "frames">The frames currently on the execution stack.</param>
-        /// <returns>
-        ///     A string collection of the frames content
-        /// </returns>
-        internal static Collection<string> GetStackTrace(StackFrame[] frames)
-        {
-            Collection<string> retColl = new Collection<string>();
-
-            foreach (StackFrame item in frames)
-            {
-                retColl.Add(item.ToString());
-            }
-
-            return retColl;
-        }
 
         /// <summary>
         ///     Moves the mouse to the specified point.
@@ -405,7 +387,7 @@ namespace ProdUI.Utility
         }
 
         /**************************************************************************************************************************/
-        /* Credit where credit is due: SendMouseInput shamelessley taken from UI Verify - http://uiautomationverify.codeplex.com/ */
+        /* Credit where credit is due: SendMouseInput shamelessly taken from UI Verify - http://uiautomationverify.codeplex.com/ */
         /**************************************************************************************************************************/
 
         /// <summary>

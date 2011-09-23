@@ -6,96 +6,6 @@ using System.Runtime.InteropServices;
 
 namespace ProdUI.Interaction.Native
 {
-    /// <summary>
-    ///     Mouse event flags from From winuser.h
-    /// </summary>
-    [Flags]
-    internal enum MOUSEEVENTF
-    {
-        /// <summary>
-        ///     mouse move
-        /// </summary>
-        MouseeventfMove = 0x0001,
-        /// <summary>
-        ///     left button down
-        /// </summary>
-        MouseeventfLeftdown = 0x0002,
-        /// <summary>
-        ///     left button up
-        /// </summary>
-        MouseeventfLeftup = 0x0004,
-        /// <summary>
-        ///     right button down
-        /// </summary>
-        MouseeventfRightdown = 0x0008,
-        /// <summary>
-        ///     right button up
-        /// </summary>
-        MouseeventfRightup = 0x0010,
-        /// <summary>
-        ///     middle button down
-        /// </summary>
-        MouseeventfMiddledown = 0x0020,
-        /// <summary>
-        ///     middle button up
-        /// </summary>
-        MouseeventfMiddleup = 0x0040,
-        /// <summary>
-        ///     x button down
-        /// </summary>
-        MouseeventfXdown = 0x0080,
-        /// <summary>
-        ///     x button down
-        /// </summary>
-        MouseeventfXup = 0x0100,
-        /// <summary>
-        ///     wheel button rolled
-        /// </summary>
-        MouseeventfWheel = 0x0800,
-        /// <summary>
-        ///     absolute move
-        /// </summary>
-        MouseeventfAbsolute = 0x8000,
-        /// <summary>
-        ///     map to entire virtual desktop
-        /// </summary>
-        MouseeventfVirtualdesk = 0x4000
-    }
-
-    /// <summary>
-    ///     Used for the nIndex parameter in the GetSystemMetrics call. this is only a partial list. http://msdn.microsoft.com/en-us/library/ms724385(VS.85).aspx
-    /// </summary>
-    internal enum SystemMetric
-    {
-        /// <summary>
-        ///     Nonzero if the meanings of the left and right mouse buttons are swapped; otherwise, 0.
-        /// </summary>
-        SMSwapbutton = 23,
-        /// <summary>
-        ///     The default maximum width of a window that has a caption and sizing borders, in pixels. This metric refers to the entire desktop.
-        /// </summary>
-        SMCxmaxtrack = 59,
-        /// <summary>
-        ///     The default maximum width of a window that has a caption and sizing borders, in pixels. This metric refers to the entire desktop.
-        /// </summary>
-        SMCymaxtrack = 60,
-        /// <summary>
-        ///     The coordinates for the left side of the virtual screen. The virtual screen is the bounding rectangle of all display monitors
-        /// </summary>
-        SMXvirtualscreen = 76,
-        /// <summary>
-        ///     The coordinates for the top of the virtual screen. The virtual screen is the bounding rectangle of all display monitors
-        /// </summary>
-        SMYvirtualscreen = 77,
-        /// <summary>
-        ///     The width of the virtual screen, in pixels. The virtual screen is the bounding rectangle of all display monitors
-        /// </summary>
-        SMCxvirtualscreen = 78,
-        /// <summary>
-        ///     The height of the virtual screen, in pixels. The virtual screen is the bounding rectangle of all display monitors
-        /// </summary>
-        SMCyvirtualscreen = 79
-    }
 
     #region Union Structs for SendInput Call
 
@@ -261,7 +171,7 @@ namespace ProdUI.Interaction.Native
     ///     contains the mi, ki and hi structs for the input struct.
     /// </summary>
     /// <remarks>
-    ///     These are layed out per MSDN INPUT structure documentation in order to simulate a c union
+    ///     These are laid out per MSDN INPUT structure documentation in order to simulate a c union
     /// </remarks>
     [StructLayout(LayoutKind.Sequential)]
     internal struct UNION
@@ -348,4 +258,41 @@ namespace ProdUI.Interaction.Native
     }
 
     #endregion
+
+    /// <summary>
+    /// Contains information about the placement of a window on the screen. 
+    /// </summary>
+    internal struct WindowPlacement
+    {
+        /// <summary>
+        /// The length of the structure, in bytes. Before calling the GetWindowPlacement or SetWindowPlacement functions, set this member to sizeof(WINDOWPLACEMENT)
+        /// </summary>
+        [MarshalAs(UnmanagedType.U4)]
+        internal uint Length;
+        /// <summary>
+        /// The flags that control the position of the minimized window and the method by which the window is restored.
+        /// </summary>
+        [MarshalAs(UnmanagedType.U4)]
+        internal WindowPlacementFlags Flags;
+        /// <summary>
+        /// The current show state of the window. This member can be one of the following values.
+        /// </summary>
+        [MarshalAs(UnmanagedType.U4)]
+        internal ShowCmdFlags ShowCmd;
+        /// <summary>
+        /// The coordinates of the window's upper-left corner when the window is minimized
+        /// </summary>
+        [MarshalAs(UnmanagedType.U4)]
+        internal uint PtMinPosition;
+        /// <summary>
+        /// The coordinates of the window's upper-left corner when the window is maximized.
+        /// </summary>
+        [MarshalAs(UnmanagedType.U4)]
+        internal uint PtMaxPosition;
+        /// <summary>
+        /// The window's coordinates when the window is in the restored position.
+        /// </summary>
+        [MarshalAs(UnmanagedType.U4)]
+        internal uint RcNormalPosition;
+    }
 }

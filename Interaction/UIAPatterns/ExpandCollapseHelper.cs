@@ -8,8 +8,6 @@ namespace ProdUI.Interaction.UIAPatterns
     /// </summary>
     internal static class ExpandCollapseHelper
     {
-        #region IExpandCollapsePattern Implementation
-
         /// <summary>
         ///     Collapses the specified control.
         /// </summary>
@@ -49,7 +47,5 @@ namespace ProdUI.Interaction.UIAPatterns
         {
             return (ExpandCollapseState) control.GetCurrentPropertyValue(ExpandCollapsePattern.ExpandCollapseStateProperty);
         }
-
-        #endregion
     }
 }
