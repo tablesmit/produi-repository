@@ -9,8 +9,6 @@ namespace ProdUI.Interaction.UIAPatterns
     /// </summary>
     internal static class ValuePatternHelper
     {
-        #region IValueProvider Implementation
-
         /// <summary>
         ///     Gets the current string value in the supplied TextBox
         /// </summary>
@@ -20,7 +18,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static string GetValue(AutomationElement control)
         {
-            ValuePattern pattern = (ValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
+            ValuePattern pattern = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
             return pattern.Current.Value;
         }
 
@@ -31,13 +29,12 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name = "text">Text to set Textbox value to</param>
         internal static void SetValue(AutomationElement control, string text)
         {
-            ValuePattern pattern = (ValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
+            ValuePattern pattern = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
             pattern.SetValue(text);
 
             VerifyText(control, text);
         }
 
-        #endregion
 
         /// <summary>
         ///     Appends the supplied string to the existing textBox text
@@ -46,7 +43,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name = "text">Text to append to TextBox value</param>
         internal static void AppendValue(AutomationElement control, string text)
         {
-            ValuePattern pattern = (ValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
+            ValuePattern pattern = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
 
             string appText = pattern.Current.Value + text;
             pattern.SetValue(appText);
@@ -62,7 +59,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name = "index">Index into string where to begin insertion</param>
         internal static void InsertValue(AutomationElement control, string text, int index)
         {
-            ValuePattern pattern = (ValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
+            ValuePattern pattern = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
             string baseText = pattern.Current.Value;
 
             /* If index is out of range, defer to ProdErrorManager */
@@ -86,7 +83,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         private static int VerifyText(AutomationElement control, string text)
         {
-            ValuePattern pattern = (ValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
+            ValuePattern pattern = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
             string currentText = pattern.Current.Value;
 
             if (text.Length == 0 || currentText.Length == 0)

@@ -8,8 +8,6 @@ namespace ProdUI.Interaction.UIAPatterns
     /// </summary>
     internal static class DockPatternHelper
     {
-        #region DockProvider Implementations
-
         /// <summary>
         ///     Gets the current DockPosition of the control within a docking container.
         /// </summary>
@@ -33,7 +31,5 @@ namespace ProdUI.Interaction.UIAPatterns
             DockPattern pat = (DockPattern) CommonUIAPatternHelpers.CheckPatternSupport(DockPattern.Pattern, control);
             pat.SetDockPosition(dockPosition);
         }
-
-        #endregion
     }
 }

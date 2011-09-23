@@ -8,8 +8,6 @@ namespace ProdUI.Interaction.UIAPatterns
     /// </summary>
     internal static class TransformPatternHelper
     {
-        #region ITransformProvider Implementation
-
         /// <summary>
         ///     Determines whether this instance can be moved
         /// </summary>
@@ -107,7 +105,5 @@ namespace ProdUI.Interaction.UIAPatterns
             }
             return -1;
         }
-
-        #endregion
     }
 }

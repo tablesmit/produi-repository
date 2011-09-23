@@ -53,11 +53,11 @@ namespace ProdUI.Controls.Static
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static void WindowClose(IntPtr windowHandle)
         {
-            int ret = WindowPatternHelper.CloseWindow(AutomationElement.FromHandle(windowHandle));
-            if (ret == -1)
-            {
-                ProdWindowNative.CloseWindow(windowHandle);
-            }
+            WindowPatternHelper.CloseWindow(AutomationElement.FromHandle(windowHandle));
+            //if (ret == -1)
+            //{
+            //    ProdWindowNative.CloseWindowNative(windowHandle);
+            //}
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace ProdUI.Controls.Static
             int ret = WindowPatternHelper.SetVisualState(AutomationElement.FromHandle(windowHandle), WindowVisualState.Minimized);
             if (ret == -1)
             {
-                ProdWindowNative.MinimizeWindow(windowHandle);
+                ProdWindowNative.MinimizeWindowNative(windowHandle);
             }
         }
 
@@ -84,7 +84,7 @@ namespace ProdUI.Controls.Static
             int ret = WindowPatternHelper.SetVisualState(AutomationElement.FromHandle(windowHandle), WindowVisualState.Maximized);
             if (ret == -1)
             {
-                ProdWindowNative.MaximizeWindow(windowHandle);
+                ProdWindowNative.MaximizeWindowNative(windowHandle);
             }
         }
 
@@ -98,7 +98,7 @@ namespace ProdUI.Controls.Static
             int ret = WindowPatternHelper.SetVisualState(AutomationElement.FromHandle(windowHandle), WindowVisualState.Normal);
             if (ret == -1)
             {
-                ProdWindowNative.ShowWindow(windowHandle);
+                ProdWindowNative.ShowWindowNative(windowHandle);
             }
         }
 
@@ -156,17 +156,15 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     gets the current ready-state of the window
+        /// gets the current ready-state of the window
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <returns>
-        ///     The current <see cref = "WindowState" />
+        /// The current <see cref="WindowInteractionState"/>
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        public static WindowState WindowGetWindowState(IntPtr windowHandle)
+        public static WindowInteractionState WindowGetWindowState(IntPtr windowHandle)
         {
-            WindowInteractionState state = WindowPatternHelper.GetInteractionState(AutomationElement.FromHandle(windowHandle));
-            return ConvertFromInteractionState(state);
+            return WindowPatternHelper.GetInteractionState(AutomationElement.FromHandle(windowHandle));
         }
 
         /// <summary>
@@ -179,7 +177,7 @@ namespace ProdUI.Controls.Static
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static string WindowGetTitle(IntPtr windowHandle)
         {
-            return ProdWindowNative.GetWindowTitle(windowHandle);
+            return ProdWindowNative.GetWindowTitleNative(windowHandle);
         }
 
         /// <summary>
@@ -190,7 +188,7 @@ namespace ProdUI.Controls.Static
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static void WindowSetTitle(IntPtr windowHandle, string newText)
         {
-            ProdWindowNative.SetWindowTitle(windowHandle, newText);
+            ProdWindowNative.SetWindowTitleNative(windowHandle, newText);
         }
 
         /// <summary>
@@ -281,32 +279,6 @@ namespace ProdUI.Controls.Static
         }
 
         /* Private */
-
-        /// <summary>
-        ///     Converts a WindowInteractionState enum to a WindowState value.
-        /// </summary>
-        /// <param name = "state">The WindowInteractionState to convert from</param>
-        /// <returns>
-        ///     the corresponding WindowState
-        /// </returns>
-        internal static WindowState ConvertFromInteractionState(WindowInteractionState state)
-        {
-            switch (state)
-            {
-                case WindowInteractionState.Running:
-                    return WindowState.Running;
-                case WindowInteractionState.Closing:
-                    return WindowState.NotResponding;
-                case WindowInteractionState.ReadyForUserInteraction:
-                    return WindowState.Ready;
-                case WindowInteractionState.BlockedByModalWindow:
-                    return WindowState.Blocked;
-                case WindowInteractionState.NotResponding:
-                    return WindowState.NotResponding;
-                default:
-                    return WindowState.Running;
-            }
-        }
 
         /// <summary>
         ///     Gets the handle to a window.

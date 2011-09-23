@@ -1,9 +1,12 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Automation;
 using ProdUI.Configuration;
 using ProdUI.Exceptions;
+using ProdUI.Logging;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
@@ -11,192 +14,152 @@ namespace ProdUI.Interaction.Native
     internal sealed class ProdWindowNative
     {
         /// <summary>
-        ///     Close the specified window using the supplied window handle
+        /// Close the specified window using the supplied window handle
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to the target window</param>
+        /// <param name="windowHandle">Handle to the target window</param>
         /// <returns>
-        ///     If the function succeeds, the return value is true, otherwise, false
+        /// If the function succeeds, the return value is true, otherwise, false
         /// </returns>
-        internal static bool CloseWindow(IntPtr windowHandle)
+        internal static bool CloseWindowNative(IntPtr windowHandle)
         {
-            if ((int) windowHandle == 0)
-            {
-                throw new ProdOperationException("NativeWindowHandle not found.");
-            }
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
             try
             {
-                NativeMethods.SendMessage(windowHandle, (int) WindowMessages.WM_CLOSE, 0, 0);
-
-                const string logmessage = "CloseWindow using SendMessage";
-
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-
-                try
-                {
-                    return NativeMethods.DestroyWindow(windowHandle);
-                }
-                catch (Win32Exception err)
-                {
-                    throw new ProdOperationException(err.Message, err);
-                }
+                NativeMethods.SendMessage(windowHandle, (int)WindowMessages.WM_CLOSE, 0, 0);
             }
-            catch (Win32Exception err)
+            catch (Win32Exception)
             {
-                throw new ProdOperationException(err.Message, err);
+                return NativeMethods.DestroyWindow(windowHandle);
             }
+            return false;
         }
 
         /// <summary>
-        ///     Maximizes specified window
+        /// Maximizes specified window
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to the target window</param>
-        internal static void MaximizeWindow(IntPtr windowHandle)
+        /// <param name="windowHandle">Handle to the target window</param>
+        internal static void MaximizeWindowNative(IntPtr windowHandle)
         {
-            if ((int) windowHandle == 0)
-            {
-                throw new ProdOperationException("NativeWindowHandle not found.");
-            }
-            try
-            {
-                ShowWindow(windowHandle);
-                NativeMethods.ShowWindowAsync(windowHandle, (int) ShowWindowCommand.SW_SHOWMAXIMIZED);
-                NativeMethods.SetForegroundWindow(windowHandle);
-
-                const string logmessage = "MaximizeWindow using SendMessage";
-
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            ShowWindowNative(windowHandle);
+            NativeMethods.ShowWindowAsync(windowHandle, (int)ShowWindowCommand.SW_SHOWMAXIMIZED);
+            NativeMethods.SetForegroundWindow(windowHandle);
         }
 
         /// <summary>
-        ///     Minimizes specified window
+        /// Minimizes specified window
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to the target window</param>
-        /// <exception cref = "ProdOperationException"></exception>
-        internal static void MinimizeWindow(IntPtr windowHandle)
+        /// <param name="windowHandle">Handle to the target window</param>
+        internal static void MinimizeWindowNative(IntPtr windowHandle)
         {
-            if ((int) windowHandle == 0)
-            {
-                throw new ProdOperationException("NativeWindowHandle not found.");
-            }
-            NativeMethods.ShowWindowAsync(windowHandle, (int) ShowWindowCommand.SW_SHOWMINNOACTIVE);
-
-            const string logmessage = "MinimizeWindow using SendMessage";
-
-            if (ProdStaticSession._Configuration != null)
-                ProdStaticSession.Log(logmessage);
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            NativeMethods.ShowWindowAsync(windowHandle, (int)ShowWindowCommand.SW_SHOWMINNOACTIVE);
         }
 
         /// <summary>
-        ///     Shows a window in its "normal" state.
+        /// Shows a window in its "normal" state.
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to the target window</param>
-        internal static void ShowWindow(IntPtr windowHandle)
+        /// <param name="windowHandle">Handle to the target window</param>
+        internal static void ShowWindowNative(IntPtr windowHandle)
         {
-            if ((int) windowHandle == 0)
-            {
-                throw new ProdOperationException("NativeWindowHandle not found.");
-            }
-            NativeMethods.ShowWindowAsync(windowHandle, (int) ShowWindowCommand.SW_SHOWDEFAULT);
-
-            const string logmessage = "ShowWindow using SendMessage";
-
-            if (ProdStaticSession._Configuration != null)
-                ProdStaticSession.Log(logmessage);
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            NativeMethods.ShowWindowAsync(windowHandle, (int)ShowWindowCommand.SW_SHOWDEFAULT);
         }
 
         /// <summary>
-        ///     Retrieves the specified windows title
+        /// Retrieves the specified windows title
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to the target window</param>
-        /// <returns>Title of the specified window, null if failure</returns>
-        internal static string GetWindowTitle(IntPtr windowHandle)
+        /// <param name="windowHandle">Handle to the target window</param>
+        /// <returns>
+        /// Title of the specified window, null if failure
+        /// </returns>
+        internal static string GetWindowTitleNative(IntPtr windowHandle)
         {
-            try
-            {
-                StringBuilder sb = new StringBuilder();
-                if (NativeMethods.GetWindowText(windowHandle, sb, sb.Capacity) == 0)
-                {
-                    throw new ProdOperationException("NativeWindowHandle not found.");
-                }
-
-                const string logmessage = "GetWindowTitle using SendMessage";
-
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-
-                return sb.ToString();
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            StringBuilder sb = new StringBuilder();
+            NativeMethods.GetWindowText(windowHandle, sb, sb.Capacity);
+            return sb.ToString();
         }
 
         /// <summary>
-        ///     sets the title of the specified window
+        /// sets the title of the specified window
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to the window</param>
-        /// <param name = "newTitle">Text to be used as the new title</param>
-        internal static void SetWindowTitle(IntPtr windowHandle, string newTitle)
+        /// <param name="windowHandle">Handle to the window</param>
+        /// <param name="newTitle">Text to be used as the new title</param>
+        internal static void SetWindowTitleNative(IntPtr windowHandle, string newTitle)
         {
-            try
-            {
-                if ((int) windowHandle == 0)
-                {
-                    throw new ProdOperationException("NativeWindowHandle not found.");
-                }
-                NativeMethods.SetWindowText(windowHandle, newTitle);
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            NativeMethods.SetWindowText(windowHandle, newTitle);
 
-                /* verify it was changed */
-                if (GetWindowTitle(windowHandle).CompareTo(newTitle) != 0)
-                {
-                    throw new ProdOperationException("unable to verify title change");
-                }
-
-                const string logmessage = "SetWindowTitle using SendMessage";
-
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            /* verify it was changed */
+            //if (GetWindowTitleNative(windowHandle).CompareTo(newTitle) != 0)
+            //{
+            //    throw new ProdOperationException("unable to verify title change");
+            //}
         }
 
         /// <summary>
-        ///     Moves the window using MoveWindow native call.
+        /// Moves the window using MoveWindow native call.
         /// </summary>
-        /// <param name = "windowHandle">The window handle.</param>
-        /// <param name = "x">The x.</param>
-        /// <param name = "y">The y.</param>
-        /// <param name = "width">The width.</param>
-        /// <param name = "height">The height.</param>
+        /// <param name="windowHandle">The window handle.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
         internal static void MoveWindowNative(IntPtr windowHandle, double x, double y, double width, double height)
         {
-            try
-            {
-                int ret = NativeMethods.MoveWindow(windowHandle, (int) x, (int) y, (int) width, (int) height, true);
-                if (ret != 0)
-                {
-                    throw new ProdOperationException("Unable to move Window");
-                }
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            NativeMethods.MoveWindow(windowHandle, (int)x, (int)y, (int)width, (int)height, true);
+        }
 
-                const string logmessage = "MoveWindowNative using SendMessage";
+        /// <summary>
+        /// Gets the visual state of the window.
+        /// </summary>
+        /// <param name="windowHandle">The window handle.</param>
+        /// <returns>
+        ///   <see cref="WindowVisualState"/>
+        /// </returns>
+        internal static WindowVisualState GetVisualStateNative(IntPtr windowHandle)
+        {
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            WindowPlacement windowPlacement = new WindowPlacement();
+            windowPlacement.Length = (uint)Marshal.SizeOf(windowPlacement);
 
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-            }
-            catch (Win32Exception err)
+            NativeMethods.GetWindowPlacement(windowHandle, windowPlacement);
+            ShowCmdFlags flag = windowPlacement.ShowCmd;
+            return StateConversion((uint)flag);
+        }
+
+        /// <summary>
+        /// Determines if window the is topmost in the z-order.
+        /// </summary>
+        /// <param name="windowHandle">The window handle.</param>
+        /// <returns>
+        ///   <c>true</c> if window is topmost, <c>false</c> otherwise
+        /// </returns>
+        internal static bool GetIsTopmostNative(IntPtr windowHandle)
+        {
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            IntPtr topHandle = NativeMethods.GetTopWindow(IntPtr.Zero);
+            return ((int)topHandle == (int)windowHandle);
+        }
+
+
+        /// <summary>
+        /// conversion utility ShowCmdFlags -> WindowVisualState
+        /// </summary>
+        /// <param name="state">The state.</param>
+        /// <returns>corresponding WindowVisualState</returns>
+        private static WindowVisualState StateConversion(uint state)
+        {
+            switch (state)
             {
-                throw new ProdOperationException(err.Message, err);
+                case 2:
+                    return WindowVisualState.Minimized;
+                case 3:
+                    return WindowVisualState.Maximized;
+                default:
+                    return WindowVisualState.Normal;
             }
         }
     }

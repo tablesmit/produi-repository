@@ -125,10 +125,20 @@
     <Compile Include="Interaction\Bridge\ISingleSelectList.cs" />
     <Compile Include="Interaction\Bridge\IToggle.cs" />
     <Compile Include="Interaction\Bridge\IValue.cs" />
+    <Compile Include="Interaction\Bridge\IWindow.cs" />
     <Compile Include="Interaction\Bridge\RangeValueBridge.cs" />
     <Compile Include="Interaction\Bridge\SelectionBridge.cs" />
     <Compile Include="Interaction\Bridge\SingleSelectListBridge.cs" />
     <Compile Include="Interaction\Bridge\ToggleBridge.cs" />
+    <Compile Include="Interaction\Bridge\WindowBridge.cs" />
+    <Compile Include="Interaction\Native\MessageConstants\ComboBoxConstants.cs" />
+    <Compile Include="Interaction\Native\MessageConstants\InternalStructs.cs" />
+    <Compile Include="Interaction\Native\MessageConstants\ListBoxConstants.cs" />
+    <Compile Include="Interaction\Native\MessageConstants\MouseConstants.cs" />
+    <Compile Include="Interaction\Native\MessageConstants\SystemConstants.cs" />
+    <Compile Include="Interaction\Native\MessageConstants\TabControlConstants.cs" />
+    <Compile Include="Interaction\Native\NativeMethods.cs" />
+    <Compile Include="Interaction\Native\SendMessageOverloads.cs" />
     <Compile Include="Interaction\UIAPatterns\SelectionItemPatternHelper.cs" />
     <Compile Include="Logging\LogController.cs" />
     <Compile Include="Interaction\Native\EditNative.cs" />
@@ -146,7 +156,6 @@
     <None Include="Controls\Windows\ProdText.cs" />
     <Compile Include="Verification\EventListener.cs" />
     <Compile Include="Verification\EventRegistrationMessage.cs" />
-    <Compile Include="Utility\ControlEnumerations.cs" />
     <Compile Include="Interaction\Native\MessageConstants\MessageConstants.cs" />
     <Compile Include="Interaction\Native\ProdSpinnerNative.cs" />
     <Compile Include="Interaction\Native\ProdTabNative.cs" />
@@ -161,7 +170,7 @@
     <None Include="Controls\Static\ProdSpinnerStatics.cs" />
     <None Include="Controls\Static\ProdTabStatics.cs" />
     <None Include="Controls\Static\ValuePatternStatics.cs" />
-    <Compile Include="Controls\Static\WindowPatternsStatics.cs" />
+    <None Include="Controls\Static\WindowPatternsStatics.cs" />
     <Compile Include="Controls\Windows\ProdCalendar.cs" />
     <None Include="Controls\Windows\ProdDataGrid.cs" />
     <None Include="Controls\Windows\ProdRibbonElement.cs" />
@@ -202,9 +211,6 @@
     <Compile Include="Interaction\UIAPatterns\TransformPatternHelper.cs" />
     <Compile Include="Interaction\UIAPatterns\WindowPatternHelper.cs" />
     <Compile Include="Utility\ControlTree.cs" />
-    <Compile Include="Utility\InternalStructs.cs" />
-    <Compile Include="Utility\NativeMethods.cs" />
-    <Compile Include="Utility\SendMessageOverloads.cs" />
     <Compile Include="Interaction\UIAPatterns\InvokePatternHelper.cs" />
     <Compile Include="Interaction\UIAPatterns\TogglePatternHelper.cs" />
     <Compile Include="Interaction\UIAPatterns\ValuePatternHelper.cs" />
@@ -233,9 +239,6 @@
   <ItemGroup>
     <Folder Include="obj\" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF $(ConfigurationName) == Release GOTO REL
@@ -252,7 +255,7 @@ REM Create all the sancastle stuff
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="Build" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_IncrementBeforeBuild="False" />
+      <UserProperties BuildVersion_IncrementBeforeBuild="False" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_BuildAction="Build" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

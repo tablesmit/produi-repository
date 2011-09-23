@@ -4,9 +4,8 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using ProdUI.Interaction.Native;
 
-namespace ProdUI.Utility
+namespace ProdUI.Interaction.Native
 {
     internal static partial class NativeMethods
     {
@@ -121,6 +120,17 @@ namespace ProdUI.Utility
         /// </returns>
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern int GetSystemMetrics(int nIndex);
+
+
+        /// <summary>
+        /// Examines the Z order of the child windows associated with the specified parent window and retrieves a handle to the child window at the top of the Z order. 
+        /// </summary>
+        /// <param name="hWnd">A handle to the parent window whose child windows are to be examined. 
+        /// If this parameter is NULL, the function returns a handle to the window at the top of the Z order.</param>
+        /// <returns>If the function succeeds, the return value is a handle to the child window at the top of the Z order. If the specified window has no child windows, the return value is NULL</returns>
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern IntPtr GetTopWindow(IntPtr hWnd);
+
 
         /// <summary>
         ///     Retrieves information about the specified window. The function also retrieves the 32-bit (DWORD) value at the specified offset into the extra window memory.
