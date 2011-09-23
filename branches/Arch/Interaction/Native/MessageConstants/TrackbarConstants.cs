@@ -1,6 +1,4 @@
-﻿// /* License Rider:
-//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
-//  */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 
 namespace ProdUI.Interaction.Native
@@ -29,18 +27,18 @@ namespace ProdUI.Interaction.Native
         /// </summary>
         TBMGETRANGEMIN = 0x0401,
         /// <summary>
-        /// This message retrieves the size of the page for a TrackBar
-        /// wParam Not used. 
-        /// lParam Not used
-        /// Returns a 32-bit value that specifies the page size for the TrackBar
+        ///     This message retrieves the size of the page for a TrackBar
+        ///     wParam Not used. 
+        ///     lParam Not used
+        ///     Returns a 32-bit value that specifies the page size for the TrackBar
         /// </summary>
-        TBMGETPAGESIZE = (TBMGETPOS+22),
+        TBMGETPAGESIZE = (TBMGETPOS + 22),
         /// <summary>
-        /// This message retrieves the size of the line for a TrackBar
-        /// wParam Not used. 
-        /// lParam Not used
-        /// Returns a 32-bit value that specifies the line size for the TrackBar
+        ///     This message retrieves the size of the line for a TrackBar
+        ///     wParam Not used. 
+        ///     lParam Not used
+        ///     Returns a 32-bit value that specifies the line size for the TrackBar
         /// </summary>
-        TBMGETLINESIZE = (TBMGETPOS+24)
+        TBMGETLINESIZE = (TBMGETPOS + 24)
     }
 }

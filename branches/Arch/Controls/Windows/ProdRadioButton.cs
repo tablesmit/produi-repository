@@ -60,7 +60,7 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         public void Select()
         {
-            this.SetSetSelectedBridge(this);
+            this.SetIsSelectedBridge(this);
         }
     }
 }

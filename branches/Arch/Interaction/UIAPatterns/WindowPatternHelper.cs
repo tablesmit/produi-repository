@@ -1,6 +1,4 @@
-﻿// /* License Rider:
-//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
-//  */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System.Windows.Automation;
 using ProdUI.Exceptions;
 
@@ -43,11 +41,11 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        /// Gets whether the window is modal or not
+        ///     Gets whether the window is modal or not
         /// </summary>
-        /// <param name="control">The UI Automation element</param>
+        /// <param name = "control">The UI Automation element</param>
         /// <returns>
-        ///   <c>true</c> if modal, <c>false</c> otherwise
+        ///     <c>true</c> if modal, <c>false</c> otherwise
         /// </returns>
         internal static bool GetIsModal(AutomationElement control)
         {

@@ -1,6 +1,4 @@
-﻿// /* License Rider:
-//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
-//  */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.ComponentModel;
 using ProdUI.Configuration;
@@ -92,13 +90,13 @@ namespace ProdUI.Interaction.Native
         internal static IntPtr GetLargeChangeNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
-            return (IntPtr)NativeMethods.SendMessage(windowHandle, (int)TrackBarMessages.TBMGETPAGESIZE, 0, 0); 
+            return NativeMethods.SendMessage(windowHandle, (int) TrackBarMessages.TBMGETPAGESIZE, 0, 0);
         }
 
         internal static IntPtr GetSmallChangeNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
-            return (IntPtr)NativeMethods.SendMessage(windowHandle, (int)TrackBarMessages.TBMGETLINESIZE, 0, 0);
+            return NativeMethods.SendMessage(windowHandle, (int) TrackBarMessages.TBMGETLINESIZE, 0, 0);
         }
     }
 }

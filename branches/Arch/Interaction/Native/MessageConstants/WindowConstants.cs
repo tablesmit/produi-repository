@@ -1,6 +1,7 @@
-﻿// /* License Rider:
-//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
-//  */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+using System;
+using System.Runtime.InteropServices;
+
 namespace ProdUI.Interaction.Native
 {
     internal enum WindowMessages : uint
@@ -85,4 +86,126 @@ namespace ProdUI.Interaction.Native
         /// </summary>
         SW_FORCEMINIMIZE
     }
+
+    /// <summary>
+    /// Contains information about the placement of a window on the screen. 
+    /// </summary>
+    internal struct WindowPlacement
+    {
+        /// <summary>
+        /// The length of the structure, in bytes. Before calling the GetWindowPlacement or SetWindowPlacement functions, set this member to sizeof(WINDOWPLACEMENT)
+        /// </summary>
+        [MarshalAs(UnmanagedType.U4)]
+        internal uint Length;
+        /// <summary>
+        /// The flags that control the position of the minimized window and the method by which the window is restored.
+        /// </summary>
+        [MarshalAs(UnmanagedType.U4)]
+        internal WindowPlacementFlags Flags;
+        /// <summary>
+        /// The current show state of the window. This member can be one of the following values.
+        /// </summary>
+        [MarshalAs(UnmanagedType.U4)]
+        internal ShwowCmdFlags ShowCmd;
+        /// <summary>
+        /// The coordinates of the window's upper-left corner when the window is minimized
+        /// </summary>
+        [MarshalAs(UnmanagedType.U4)]
+        internal uint PtMinPosition;
+        /// <summary>
+        /// The coordinates of the window's upper-left corner when the window is maximized.
+        /// </summary>
+        [MarshalAs(UnmanagedType.U4)]
+        internal uint PtMaxPosition;
+        /// <summary>
+        /// The window's coordinates when the window is in the restored position.
+        /// </summary>
+        [MarshalAs(UnmanagedType.U4)]
+        internal uint RcNormalPosition;
+    }
+
+    [Flags]
+    internal enum WindowPlacementFlags : uint
+    {
+        /// <summary>
+        /// The coordinates of the minimized window may be specified. This flag must be specified if the coordinates are set in the ptMinPosition member.
+        /// </summary>
+        WPF_SETMINPOSITION = 0x0001,
+
+        /// <summary>
+        /// The restored window will be maximized, regardless of whether it was maximized before it was minimized. 
+        /// This setting is only valid the next time the window is restored. It does not change the default restoration behavior. 
+        /// This flag is only valid when the SW_SHOWMINIMIZED value is specified for the showCmd member.
+        /// </summary>
+        WPF_RESTORETOMAXIMIZED = 0x0002,
+
+
+        /// <summary>
+        /// If the calling thread and the thread that owns the window are attached to different input queues, the system posts the request to the thread that owns the window. 
+        /// This prevents the calling thread from blocking its execution while other threads process the request.
+        /// </summary>
+        WPF_ASYNCWINDOWPLACEMENT = 0x0004
+
+    }
+
+    internal enum ShwowCmdFlags : uint
+    {
+        /// <summary>
+        /// Hides the window and activates another window.
+        /// </summary>
+        SW_HIDE = 0,
+
+        /// <summary>
+        /// Activates and displays a window. If the window is minimized or maximized, the system restores it to its original size and position. 
+        /// An application should specify this flag when displaying the window for the first time.
+        /// </summary>
+        SW_SHOWNORMAL = 1,
+
+        /// <summary>
+        /// Activates the window and displays it as a minimized window.
+        /// </summary>
+        SW_SHOWMINIMIZED = 2,
+
+        /// <summary>
+        /// Maximizes the specified window.
+        /// </summary>
+        SW_MAXIMIZE = 3,
+
+        /// <summary>
+        /// Activates the window and displays it as a maximized window.
+        /// </summary>
+        SW_SHOWMAXIMIZED = 3,
+
+        /// <summary>
+        /// Displays a window in its most recent size and position. This value is similar to SW_SHOWNORMAL, except the window is not activated.
+        /// </summary>
+        SW_SHOWNOACTIVATE = 4,
+
+        /// <summary>
+        /// Activates the window and displays it in its current size and position.
+        /// </summary>
+        SW_SHOW = 5,
+
+        /// <summary>
+        /// Minimizes the specified window and activates the next top-level window in the z-order.
+        /// </summary>
+        SW_MINIMIZE = 6,
+
+        /// <summary>
+        /// Displays the window as a minimized window. This value is similar to SW_SHOWMINIMIZED, except the window is not activated.
+        /// </summary>
+        SW_SHOWMINNOACTIVE = 7,
+
+        /// <summary>
+        /// Displays the window in its current size and position. This value is similar to SW_SHOW, except the window is not activated.
+        /// </summary>
+        SW_SHOWNA = 8,
+
+        /// <summary>
+        /// Activates and displays the window. If the window is minimized or maximized, the system restores it to its original size and position. An application should specify this flag when restoring a minimized window.
+        /// </summary>
+        SW_RESTORE = 9,
+
+    }
+
 }

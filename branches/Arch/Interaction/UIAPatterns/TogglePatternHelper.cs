@@ -1,6 +1,4 @@
-﻿// /* License Rider:
-//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
-//  */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System.Runtime.CompilerServices;
 using System.Windows.Automation;
 
@@ -16,28 +14,28 @@ namespace ProdUI.Interaction.UIAPatterns
         #region IToggleProvider Implementation
 
         /// <summary>
-        /// Cycles through the toggle states of an AutomationElement.
+        ///     Cycles through the toggle states of an AutomationElement.
         /// </summary>
-        /// <param name="control">Toggle element to cycle</param>
+        /// <param name = "control">Toggle element to cycle</param>
         /// <remarks>
-        /// A control will cycle through its ToggleState in this order: On, Off and, if supported, Indeterminate.
+        ///     A control will cycle through its ToggleState in this order: On, Off and, if supported, Indeterminate.
         /// </remarks>
         internal static void Toggle(AutomationElement control)
         {
-            TogglePattern pattern = (TogglePattern)CommonUIAPatternHelpers.CheckPatternSupport(TogglePattern.Pattern, control);
+            TogglePattern pattern = (TogglePattern) CommonUIAPatternHelpers.CheckPatternSupport(TogglePattern.Pattern, control);
             pattern.Toggle();
         }
 
         /// <summary>
-        /// Retrieves the ToggleState of specified control
+        ///     Retrieves the ToggleState of specified control
         /// </summary>
-        /// <param name="control">The control to be manipulated</param>
+        /// <param name = "control">The control to be manipulated</param>
         /// <returns>
-        /// The current <see cref="System.Windows.Automation.ToggleState"/>ToggleState or null if there is a recoverable error
+        ///     The current <see cref = "System.Windows.Automation.ToggleState" />ToggleState or null if there is a recoverable error
         /// </returns>
         internal static ToggleState GetToggleState(AutomationElement control)
         {
-            TogglePattern pattern = (TogglePattern)CommonUIAPatternHelpers.CheckPatternSupport(TogglePattern.Pattern, control);
+            TogglePattern pattern = (TogglePattern) CommonUIAPatternHelpers.CheckPatternSupport(TogglePattern.Pattern, control);
             return pattern.Current.ToggleState;
         }
 
@@ -46,16 +44,16 @@ namespace ProdUI.Interaction.UIAPatterns
         #region Custom functions
 
         /// <summary>
-        /// Sets state of toggle control
+        ///     Sets state of toggle control
         /// </summary>
-        /// <param name="control">The control to be manipulated</param>
-        /// <param name="toggleState">The current <see cref="System.Windows.Automation.ToggleState"/>ToggleState</param>
+        /// <param name = "control">The control to be manipulated</param>
+        /// <param name = "toggleState">The current <see cref = "System.Windows.Automation.ToggleState" />ToggleState</param>
         internal static void SetToggleState(AutomationElement control, ToggleState toggleState)
         {
             /* Only need to change it if it needs-a-changin' */
             if (GetToggleState(control) != toggleState)
             {
-                TogglePattern pattern = (TogglePattern)control.GetCurrentPattern(TogglePattern.Pattern);
+                TogglePattern pattern = (TogglePattern) control.GetCurrentPattern(TogglePattern.Pattern);
                 pattern.Toggle();
             }
 
@@ -63,12 +61,12 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        /// Verifies the toggle state.
+        ///     Verifies the toggle state.
         /// </summary>
-        /// <param name="control">The control to verify.</param>
-        /// <param name="toggleState">Desired toggleState</param>
+        /// <param name = "control">The control to verify.</param>
+        /// <param name = "toggleState">Desired toggleState</param>
         /// <returns>
-        ///   <c>true</c> if verified, <c>false</c> if failure
+        ///     <c>true</c> if verified, <c>false</c> if failure
         /// </returns>
         private static bool VerifyCheckState(AutomationElement control, ToggleState toggleState)
         {

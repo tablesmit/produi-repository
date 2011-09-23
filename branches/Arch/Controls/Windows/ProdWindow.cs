@@ -24,7 +24,7 @@ namespace ProdUI.Controls.Windows
         internal string LogText;
         internal IntPtr NativeHandle;
         internal AutomationElement UIAElement;
-        internal List<object> _verboseInformation;
+        internal List<object> VerboseInformation;
 
         #region Constructors
 
@@ -94,19 +94,12 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public WindowVisualState GetWindowVisualState()
         {
-            try
-            {
-                WindowVisualState retVal = WindowPatternHelper.GetVisualState(AutomationElement.FromHandle((IntPtr) UIAElement.Cached.NativeWindowHandle));
+            WindowVisualState retVal = WindowPatternHelper.GetVisualState(AutomationElement.FromHandle((IntPtr) UIAElement.Cached.NativeWindowHandle));
 
-                LogText = "Visual State: " + retVal;
-                LogMessage();
+            LogText = "Visual State: " + retVal;
+            LogMessage();
 
-                return retVal;
-            }
-            catch (ProdOperationException)
-            {
-                throw;
-            }
+            return retVal;
         }
 
         /// <summary>
@@ -119,19 +112,12 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public bool GetIsModal()
         {
-            try
-            {
-                bool retVal = WindowPatternHelper.GetIsModal(UIAElement);
+            bool retVal = WindowPatternHelper.GetIsModal(UIAElement);
 
-                LogText = "Is modal: " + retVal;
-                LogMessage();
+            LogText = "Is modal: " + retVal;
+            LogMessage();
 
-                return retVal;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            return retVal;
         }
 
         /// <summary>
@@ -144,19 +130,12 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public bool GetIsTopmost()
         {
-            try
-            {
-                bool retVal = WindowPatternHelper.GetIsTopmost(UIAElement);
+            bool retVal = WindowPatternHelper.GetIsTopmost(UIAElement);
 
-                LogText = "Is topmost: " + retVal;
-                LogMessage();
+            LogText = "Is topmost: " + retVal;
+            LogMessage();
 
-                return retVal;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            return retVal;
         }
 
         /// <summary>
@@ -166,19 +145,12 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public WindowState GetWinState()
         {
-            try
-            {
-                WindowInteractionState state = WindowPatternHelper.GetInteractionState(UIAElement);
+            WindowInteractionState state = WindowPatternHelper.GetInteractionState(UIAElement);
 
-                LogText = "WindowState: " + state;
-                LogMessage();
+            LogText = "WindowState: " + state;
+            LogMessage();
 
-                return Prod.ConvertFromInteractionState(state);
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            return Prod.ConvertFromInteractionState(state);
         }
 
         /// <summary>
@@ -188,19 +160,12 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public string GetTitle()
         {
-            try
-            {
-                string retVal = Prod.WindowGetTitle((IntPtr) UIAElement.Cached.NativeWindowHandle);
+            string retVal = Prod.WindowGetTitle((IntPtr) UIAElement.Cached.NativeWindowHandle);
 
-                LogText = "Title: " + retVal;
-                LogMessage();
+            LogText = "Title: " + retVal;
+            LogMessage();
 
-                return retVal;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            return retVal;
         }
 
         /// <summary>
@@ -210,17 +175,10 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetTitle(string newTitle)
         {
-            try
-            {
-                Prod.WindowSetTitle((IntPtr) UIAElement.Cached.NativeWindowHandle, newTitle);
+            Prod.WindowSetTitle((IntPtr) UIAElement.Cached.NativeWindowHandle, newTitle);
 
-                LogText = "Title: " + newTitle;
-                LogMessage();
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            LogText = "Title: " + newTitle;
+            LogMessage();
         }
 
         /// <summary>
@@ -230,21 +188,14 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void Minimize()
         {
-            try
+            int ret = WindowPatternHelper.SetVisualState(UIAElement, WindowVisualState.Minimized);
+            if (ret == -1)
             {
-                int ret = WindowPatternHelper.SetVisualState(UIAElement, WindowVisualState.Minimized);
-                if (ret == -1)
-                {
-                    ProdWindowNative.MinimizeWindow((IntPtr) UIAElement.Cached.NativeWindowHandle);
-                }
+                ProdWindowNative.MinimizeWindow((IntPtr) UIAElement.Cached.NativeWindowHandle);
+            }
 
-                LogText = "Window minimized";
-                LogMessage();
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            LogText = "Window minimized";
+            LogMessage();
         }
 
         /// <summary>
@@ -254,21 +205,14 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void Maximize()
         {
-            try
+            int ret = WindowPatternHelper.SetVisualState(UIAElement, WindowVisualState.Maximized);
+            if (ret == -1)
             {
-                int ret = WindowPatternHelper.SetVisualState(UIAElement, WindowVisualState.Maximized);
-                if (ret == -1)
-                {
-                    ProdWindowNative.MaximizeWindow((IntPtr) UIAElement.Cached.NativeWindowHandle);
-                }
+                ProdWindowNative.MaximizeWindow((IntPtr) UIAElement.Cached.NativeWindowHandle);
+            }
 
-                LogText = "Window maximized";
-                LogMessage();
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            LogText = "Window maximized";
+            LogMessage();
         }
 
         /// <summary>
@@ -278,21 +222,14 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void Restore()
         {
-            try
+            int ret = WindowPatternHelper.SetVisualState(UIAElement, WindowVisualState.Normal);
+            if (ret == -1)
             {
-                int ret = WindowPatternHelper.SetVisualState(UIAElement, WindowVisualState.Normal);
-                if (ret == -1)
-                {
-                    ProdWindowNative.ShowWindow((IntPtr) UIAElement.Cached.NativeWindowHandle);
-                }
+                ProdWindowNative.ShowWindow((IntPtr) UIAElement.Cached.NativeWindowHandle);
+            }
 
-                LogText = "Window restored";
-                LogMessage();
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            LogText = "Window restored";
+            LogMessage();
         }
 
         /// <summary>
@@ -302,21 +239,14 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void Close()
         {
-            try
+            int ret = WindowPatternHelper.CloseWindow(UIAElement);
+            if (ret == -1)
             {
-                int ret = WindowPatternHelper.CloseWindow(UIAElement);
-                if (ret == -1)
-                {
-                    ProdWindowNative.CloseWindow((IntPtr) UIAElement.Cached.NativeWindowHandle);
-                }
+                ProdWindowNative.CloseWindow((IntPtr) UIAElement.Cached.NativeWindowHandle);
+            }
 
-                LogText = "Window closed";
-                LogMessage();
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            LogText = "Window closed";
+            LogMessage();
         }
 
         /// <summary>
@@ -329,15 +259,8 @@ namespace ProdUI.Controls.Windows
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public bool WaitForInputIdle(int delay)
         {
-            try
-            {
-                bool ret = WindowPatternHelper.WaitForInputIdle(UIAElement, delay);
-                return ret;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            bool ret = WindowPatternHelper.WaitForInputIdle(UIAElement, delay);
+            return ret;
         }
 
         /// <summary>
@@ -349,30 +272,23 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public void Resize(double width, double height)
         {
-            try
-            {
-                int ret = TransformPatternHelper.Resize(UIAElement, width, height);
+            int ret = TransformPatternHelper.Resize(UIAElement, width, height);
 
+            if (ret == -1)
+            {
                 if (ret == -1)
                 {
-                    if (ret == -1)
-                    {
-                        double x = UIAElement.Current.BoundingRectangle.X;
-                        double y = UIAElement.Current.BoundingRectangle.Y;
-                        ProdWindowNative.MoveWindowNative((IntPtr) UIAElement.Current.NativeWindowHandle, x, y, width, height);
-                    }
+                    double x = UIAElement.Current.BoundingRectangle.X;
+                    double y = UIAElement.Current.BoundingRectangle.Y;
+                    ProdWindowNative.MoveWindowNative((IntPtr) UIAElement.Current.NativeWindowHandle, x, y, width, height);
                 }
+            }
 
-                _verboseInformation.Clear();
-                _verboseInformation.Add("Width = " + width);
-                _verboseInformation.Add("Height = " + height);
-                LogText = "New Dimensions";
-                LogMessage();
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            VerboseInformation.Clear();
+            VerboseInformation.Add("Width = " + width);
+            VerboseInformation.Add("Height = " + height);
+            LogText = "New Dimensions";
+            LogMessage();
         }
 
         /// <summary>
@@ -393,9 +309,9 @@ namespace ProdUI.Controls.Windows
                 ProdWindowNative.MoveWindowNative((IntPtr) UIAElement.Current.NativeWindowHandle, x, y, width, height);
             }
 
-            _verboseInformation.Clear();
-            _verboseInformation.Add("Y = " + y);
-            _verboseInformation.Add("X = " + x);
+            VerboseInformation.Clear();
+            VerboseInformation.Add("Y = " + y);
+            VerboseInformation.Add("X = " + x);
             LogText = "New Location";
             LogMessage();
         }
@@ -411,8 +327,8 @@ namespace ProdUI.Controls.Windows
         {
             TransformPatternHelper.Rotate(UIAElement, degrees);
 
-            _verboseInformation.Clear();
-            _verboseInformation.Add("degrees = " + degrees);
+            VerboseInformation.Clear();
+            VerboseInformation.Add("degrees = " + degrees);
             LogText = "Rotated";
             LogMessage();
         }
@@ -426,24 +342,9 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void Activate()
         {
-            try
-            {
                 NativeMethods.ShowWindowAsync((IntPtr) UIAElement.Cached.NativeWindowHandle, (int) ShowWindowCommand.SW_SHOWDEFAULT);
                 NativeMethods.ShowWindowAsync((IntPtr) UIAElement.Cached.NativeWindowHandle, (int) ShowWindowCommand.SW_SHOW);
                 NativeMethods.SetForegroundWindow((IntPtr) UIAElement.Cached.NativeWindowHandle);
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw;
-            }
-            catch (ElementNotAvailableException ex)
-            {
-                throw;
-            }
-            catch (Win32Exception ex)
-            {
-                throw;
-            }
         }
 
 
@@ -452,16 +353,16 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         private void LogMessage()
         {
-            LogMessage message;
-            if (_verboseInformation.Count == 0)
-            {
-                message = new LogMessage(LogText);
-            }
-            else
-            {
-                _verboseInformation = new List<object>();
-                message = new LogMessage(LogText, _verboseInformation);
-            }
+            //LogMessage message;
+            //if (_verboseInformation.Count == 0)
+            //{
+            //    message = new LogMessage(LogText);
+            //}
+            //else
+            //{
+            //    _verboseInformation = new List<object>();
+            //    message = new LogMessage(LogText, _verboseInformation);
+            //}
 
             //sessionLoggers.ReceiveLogMessage(message);
         }

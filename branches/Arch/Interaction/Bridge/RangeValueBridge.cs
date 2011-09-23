@@ -1,4 +1,5 @@
-﻿using System;
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+using System;
 using System.Windows.Automation;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
@@ -12,17 +13,16 @@ namespace ProdUI.Interaction.Bridge
     internal static class RangeValueBridge
     {
         /// <summary>
-        /// Gets the value.
+        ///     Gets the value.
         /// </summary>
-        /// <param name="theValue">The extension interface.</param>
-        /// <param name="control">The base ProdUI control.</param>
+        /// <param name = "theValue">The extension interface.</param>
+        /// <param name = "control">The base ProdUI control.</param>
         /// <returns>
-        /// Current value of the control
+        ///     Current value of the control
         /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static double GetValueBridge(this IRangeValue theValue, BaseProdControl control)
         {
-
             try
             {
                 return UiaGetValue(control);
@@ -39,15 +39,14 @@ namespace ProdUI.Interaction.Bridge
             {
                 return NativeGetValue(control);
             }
-
         }
 
         private static double NativeGetValue(BaseProdControl control)
         {
             if (control.UIAElement.Current.ControlType == ControlType.Spinner)
-                return ProdSliderNative.GetValueNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+                return ProdSliderNative.GetValueNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
 
-            return ProdSliderNative.GetValueNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+            return ProdSliderNative.GetValueNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
         }
 
         private static double UiaGetValue(BaseProdControl control)
@@ -56,15 +55,14 @@ namespace ProdUI.Interaction.Bridge
             LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
 
             return retVal;
-
         }
 
         /// <summary>
-        /// Sets the value of the specified control.
+        ///     Sets the value of the specified control.
         /// </summary>
-        /// <param name="theValue">The extension interface</param>
-        /// <param name="control">The base ProdUI control.</param>
-        /// <param name="value">The value to set control to.</param>
+        /// <param name = "theValue">The extension interface</param>
+        /// <param name = "control">The base ProdUI control.</param>
+        /// <param name = "value">The value to set control to.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SetValueBridge(this IRangeValue theValue, BaseProdControl control, double value)
         {
@@ -84,15 +82,14 @@ namespace ProdUI.Interaction.Bridge
             {
                 NativeSetValue(control, value);
             }
-
         }
 
         private static void NativeSetValue(BaseProdControl control, double value)
         {
             if (control.UIAElement.Current.ControlType == ControlType.Spinner)
-                ProdSpinnerNative.SetValueNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, value);
+                ProdSpinnerNative.SetValueNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, value);
 
-            ProdSliderNative.SetValueNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, value);
+            ProdSliderNative.SetValueNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, value);
         }
 
         private static void UiaSetValue(BaseProdControl control, double value)
@@ -105,10 +102,10 @@ namespace ProdUI.Interaction.Bridge
 
 
         /// <summary>
-        /// Gets the maximum value of the control.
+        ///     Gets the maximum value of the control.
         /// </summary>
-        /// <param name="theValue">The extension interface.</param>
-        /// <param name="control">The base ProdUI control.</param>
+        /// <param name = "theValue">The extension interface.</param>
+        /// <param name = "control">The base ProdUI control.</param>
         /// <returns>The maximum value of the control</returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static double GetMaxValueBridge(this IRangeValue theValue, BaseProdControl control)
@@ -129,15 +126,14 @@ namespace ProdUI.Interaction.Bridge
             {
                 return NativeGetMaxValue(control);
             }
-
         }
 
         private static double NativeGetMaxValue(BaseProdControl control)
         {
             if (control.UIAElement.Current.ControlType == ControlType.Spinner)
-                return ProdSpinnerNative.GetMaximumNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+                return ProdSpinnerNative.GetMaximumNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
 
-            return (double)ProdSliderNative.GetSmallChangeNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+            return (double) ProdSliderNative.GetSmallChangeNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
         }
 
         private static double UiaGetMaxValue(BaseProdControl control)
@@ -148,12 +144,11 @@ namespace ProdUI.Interaction.Bridge
         }
 
 
-
         /// <summary>
-        /// Gets the minimum value of the control.
+        ///     Gets the minimum value of the control.
         /// </summary>
-        /// <param name="theValue">The extension interface.</param>
-        /// <param name="control">The base ProdUI control.</param>
+        /// <param name = "theValue">The extension interface.</param>
+        /// <param name = "control">The base ProdUI control.</param>
         /// <returns>The minimum value of the control.</returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static double GetMinValueBridge(this IRangeValue theValue, BaseProdControl control)
@@ -174,15 +169,14 @@ namespace ProdUI.Interaction.Bridge
             {
                 return NativeGetMinValue(control);
             }
-
         }
 
         private static double NativeGetMinValue(BaseProdControl control)
         {
             if (control.UIAElement.Current.ControlType == ControlType.Spinner)
-                return ProdSpinnerNative.GetMinimumNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+                return ProdSpinnerNative.GetMinimumNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
 
-            return (double)ProdSliderNative.GetMinimumNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+            return ProdSliderNative.GetMinimumNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
         }
 
         private static double UiaGetMinValue(BaseProdControl control)
@@ -193,12 +187,11 @@ namespace ProdUI.Interaction.Bridge
         }
 
 
-
         /// <summary>
-        /// Gets the large change value for the control.
+        ///     Gets the large change value for the control.
         /// </summary>
-        /// <param name="theValue">The extension interface.</param>
-        /// <param name="control">The base ProdUI control.</param>
+        /// <param name = "theValue">The extension interface.</param>
+        /// <param name = "control">The base ProdUI control.</param>
         /// <returns>A number indicating the increment of a large change</returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static double GetLargeChangeBridge(this IRangeValue theValue, BaseProdControl control)
@@ -219,12 +212,11 @@ namespace ProdUI.Interaction.Bridge
             {
                 return NativeGetLargeChange(control);
             }
-
         }
 
         private static double NativeGetLargeChange(BaseProdControl control)
         {
-            return (double)ProdSliderNative.GetLargeChangeNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+            return (double) ProdSliderNative.GetLargeChangeNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
         }
 
         private static double UiaGetLargeChange(BaseProdControl control)
@@ -235,12 +227,11 @@ namespace ProdUI.Interaction.Bridge
         }
 
 
-
         /// <summary>
-        /// Gets the small change value for the control.
+        ///     Gets the small change value for the control.
         /// </summary>
-        /// <param name="theValue">The extension interface.</param>
-        /// <param name="control">The base ProdUI control.</param>
+        /// <param name = "theValue">The extension interface.</param>
+        /// <param name = "control">The base ProdUI control.</param>
         /// <returns>A number indicating the increment of a small change</returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static double GetSmallChangeBridge(this IRangeValue theValue, BaseProdControl control)
@@ -261,13 +252,11 @@ namespace ProdUI.Interaction.Bridge
             {
                 return NativeGetSmallChange(control);
             }
-
-
         }
 
         private static double NativeGetSmallChange(BaseProdControl control)
         {
-            return (double)ProdSliderNative.GetSmallChangeNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+            return (double) ProdSliderNative.GetSmallChangeNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
         }
 
         private static double UiaGetSmallChange(BaseProdControl control)
@@ -276,8 +265,5 @@ namespace ProdUI.Interaction.Bridge
             LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
             return retVal;
         }
-
-
-
     }
 }

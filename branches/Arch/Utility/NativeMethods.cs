@@ -134,6 +134,16 @@ namespace ProdUI.Utility
         internal static extern int GetWindowLong(IntPtr hWnd, int nIndex);
 
         /// <summary>
+        /// Retrieves the show state and the restored, minimized, and maximized positions of the specified window
+        /// </summary>
+        /// <param name="hWnd">A handle to the window.</param>
+        /// <param name="lpwndpl">A pointer to the WINDOWPLACEMENT structure that receives the show state and position information. </param>
+        /// <returns>If the function succeeds, the return value is nonzero.</returns>
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetWindowPlacement(IntPtr hWnd, WindowPlacement lpwndpl);
+
+        /// <summary>
         ///     Copies the text of the specified window's title bar (if it has one) into a buffer
         /// </summary>
         /// <param name = "windowHandle">A handle to the window or control containing the text</param>

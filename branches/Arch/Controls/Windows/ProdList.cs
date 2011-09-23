@@ -96,10 +96,10 @@ namespace ProdUI.Controls.Windows
         #region single select specific
 
         /// <summary>
-        ///     Gets the index of the selected item.
+        /// Gets the index of the selected item.
         /// </summary>
         /// <returns>
-        ///     The zero based index of the selected item
+        /// The zero based index of the selected item
         /// </returns>
         public int GetSelectedIndex()
         {
@@ -114,8 +114,7 @@ namespace ProdUI.Controls.Windows
         /// </returns>
         public AutomationElement GetSelectedItem()
         {
-            AutomationElement retVal = this.GetSelectedItemBridge(this);
-            return retVal;
+            return this.GetSelectedItemBridge(this);
         }
 
 
