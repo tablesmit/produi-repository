@@ -3,13 +3,7 @@
 //  */
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Windows.Automation;
-using ProdUI.Exceptions;
-using ProdUI.Interaction.Native;
-using ProdUI.Interaction.UIAPatterns;
-using ProdUI.Logging;
-using ProdUI.Utility;
 using ProdUI.Interaction.Bridge;
 
 /* Notes
@@ -91,8 +85,6 @@ namespace ProdUI.Controls.Windows
             return this.GetItemsBridge(this);
         }
 
-
-
         /// <summary>
         /// Gets the number of child tabs contained in the tab control
         /// </summary>
@@ -133,57 +125,28 @@ namespace ProdUI.Controls.Windows
             this.SetSelectedItemBridge(this, text);
         }
 
-
-
         /// <summary>
-        ///     Determines whether the Tab with the specified index is selected.
+        /// Determines whether the Tab with the specified index is selected.
         /// </summary>
-        /// <param name = "index">The zero based index of the tab to check.</param>
+        /// <param name="index">The zero based index of the tab to check.</param>
         /// <returns>
-        ///     <c>true</c> if the specified index is selected; otherwise, <c>false</c>.
+        ///   <c>true</c> if the specified index is selected; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public bool IsSelected(int index)
         {
-            try
-            {
-                bool ret = SelectionPatternHelper.IsSelected(SelectionPatternHelper.FindItemByIndex(UIAElement, index));
-
-                LogText = ret.ToString(CultureInfo.CurrentCulture);
-                LogMessage();
-
-                return ret;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+            return this.IsItemSelectedBridge(this,index);
         }
 
         /// <summary>
-        ///     Determines whether the Tab with the specified title is selected.
+        /// Determines whether the Tab with the specified title is selected.
         /// </summary>
-        /// <param name = "itemText">The item text of the tab to check.</param>
+        /// <param name="itemText">The item text of the tab to check.</param>
         /// <returns>
-        ///     <c>true</c> if the specified item text is selected; otherwise, <c>false</c>.
+        ///   <c>true</c> if the specified item text is selected; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public bool IsSelected(string itemText)
         {
-            try
-            {
-                bool ret = SelectionPatternHelper.IsSelected(SelectionPatternHelper.FindItemByText(UIAElement, itemText));
-
-                LogText = ret.ToString(CultureInfo.CurrentCulture);
-                LogMessage();
-
-                return ret;
-            }
-            catch (ProdOperationException err)
-            {
-                throw;
-            }
+                return this.IsItemSelectedBridge(this, itemText);
         }
     }
 }

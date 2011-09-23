@@ -1,20 +1,14 @@
-﻿// /* License Rider:
-//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
-//  */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text;
-using ProdUI.Configuration;
-using ProdUI.Exceptions;
+using ProdUI.Logging;
 using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
 {
     internal sealed class ProdComboBoxNative
     {
-        private const int CB_ERR = -1;
-
         /// <summary>
         ///     Gets the selected index from the ComboBox list.
         /// </summary>
@@ -22,21 +16,8 @@ namespace ProdUI.Interaction.Native
         /// <returns>The index of the selected list item</returns>
         internal static int GetSelectedIndexNative(IntPtr windowHandle)
         {
-            try
-            {
-                int ret = (int) NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBGETCURSEL, 0, 0);
-
-                const string logmessage = "GetSelectedIndex using SendMessage";
-
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-
-                return ret;
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            return (int)NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBGETCURSEL, 0, 0);
         }
 
         /// <summary>
@@ -46,58 +27,27 @@ namespace ProdUI.Interaction.Native
         /// <param name = "index">Zero based index of item to select</param>
         internal static void SelectItemNative(IntPtr windowHandle, int index)
         {
-            try
-            {
-                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSHOWDROPDOWN, 1, 0);
-                int sndReturn = (int) NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSETCURSEL, index, 0);
-                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSHOWDROPDOWN, 1, 0);
-                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSHOWDROPDOWN, 0, 0);
-                if (index != -1 && sndReturn == CB_ERR)
-                {
-                    throw new ProdOperationException("Could not select item");
-                }
-
-                const string logmessage = "SelectItemNative using SendMessage";
-
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBSHOWDROPDOWN, 1, 0);
+            NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBSETCURSEL, index, 0);
+            NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBSHOWDROPDOWN, 1, 0);
+            NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBSHOWDROPDOWN, 0, 0);
         }
 
         /// <summary>
-        ///     Uses SendMessage to select an item in the ComboBox, deselecting all other items
+        /// Uses SendMessage to select an item in the ComboBox, deselecting all other items
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to ComboBox</param>
-        /// <param name = "itemText">String to search ComboBox for. Case insensitive</param>
+        /// <param name="windowHandle">NativeWindowHandle to ComboBox</param>
+        /// <param name="itemText">String to search ComboBox for. Case insensitive</param>
         internal static void SelectItemNative(IntPtr windowHandle, string itemText)
         {
-            try
-            {
-                int stringIndex = FindString(windowHandle, itemText);
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            int stringIndex = FindString(windowHandle, itemText);
 
-                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSHOWDROPDOWN, 1, 0);
-                int sndReturn = (int) NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSETCURSEL, stringIndex, 0);
-                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSHOWDROPDOWN, 1, 0);
-                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBSHOWDROPDOWN, 0, 0);
-
-                if (sndReturn == CB_ERR)
-                {
-                    throw new ProdOperationException("Could not select item");
-                }
-
-                const string logmessage = "SelectItemNative using SendMessage";
-
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBSHOWDROPDOWN, 1, 0);
+            NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBSETCURSEL, stringIndex, 0);
+            NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBSHOWDROPDOWN, 1, 0);
+            NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBSHOWDROPDOWN, 0, 0);
         }
 
         /// <summary>
@@ -108,19 +58,8 @@ namespace ProdUI.Interaction.Native
         /// <returns></returns>
         private static int FindString(IntPtr windowHandle, string itemText)
         {
-            int stringIndex = NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBFINDSTRING, -1, itemText);
-
-            if (stringIndex == CB_ERR)
-            {
-                throw new ProdOperationException("Could not find item");
-            }
-
-            string logmessage = "FindString using SendMessage: " + stringIndex;
-
-            if (ProdStaticSession._Configuration != null)
-                ProdStaticSession.Log(logmessage);
-
-            return stringIndex;
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            return NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBFINDSTRING, -1, itemText);
         }
 
         /// <summary>
@@ -130,36 +69,27 @@ namespace ProdUI.Interaction.Native
         /// <returns>A string collection containing each item in the ComboBox</returns>
         internal static List<object> GetItemsNative(IntPtr windowHandle)
         {
-            try
-            {
-                int itemCount = GetItemCountNative(windowHandle);
-                return GetAllItems(windowHandle, itemCount);
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            int itemCount = GetItemCountNative(windowHandle);
+            return GetAllItems(windowHandle, itemCount);
         }
 
         /// <summary>
-        ///     Gets all items in the ComboBox List.
+        /// Gets all items in the ComboBox List.
         /// </summary>
-        /// <param name = "windowHandle">The window handle.</param>
-        /// <param name = "itemCount">The item count.</param>
-        /// <returns>A collection of all the items in the list</returns>
+        /// <param name="windowHandle">The window handle.</param>
+        /// <param name="itemCount">The item count.</param>
+        /// <returns>
+        /// A collection of all the items in the list
+        /// </returns>
         private static List<object> GetAllItems(IntPtr windowHandle, int itemCount)
         {
             StringBuilder sb = new StringBuilder();
             List<object> returnCollection = new List<object>();
-
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
             for (int i = 0; i < itemCount - 1; i++)
             {
-                NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBGETLBTEXT, i, sb);
-
-                const string logmessage = "GetAllItems using SendMessage";
-
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
+                NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBGETLBTEXT, i, sb);
 
                 returnCollection.Add(sb.ToString());
                 sb.Clear();
@@ -169,31 +99,16 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Uses SendMessage to get # of items in ComboBox
+        /// Uses SendMessage to get # of items in ComboBox
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to the control</param>
-        /// <returns>Number of items in the ComboBox</returns>
+        /// <param name="windowHandle">NativeWindowHandle to the control</param>
+        /// <returns>
+        /// Number of items in the ComboBox
+        /// </returns>
         internal static int GetItemCountNative(IntPtr windowHandle)
         {
-            try
-            {
-                int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) ComboBoxMessage.CBGETCOUNT, 0, 0);
-                if (retVal == CB_ERR)
-                {
-                    throw new ProdOperationException("Native call fail");
-                }
-
-                string logmessage = "GetItemCountNative using SendMessage: " + retVal;
-
-                if (ProdStaticSession._Configuration != null)
-                    ProdStaticSession.Log(logmessage);
-
-                return retVal;
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            return (int)NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBGETCOUNT, 0, 0);
         }
     }
 }

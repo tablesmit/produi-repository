@@ -1,29 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+using System;
+using System.Windows.Automation;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
-using System.Windows.Automation;
-using ProdUI.Logging;
-using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Interaction.Native;
+using ProdUI.Interaction.UIAPatterns;
+using ProdUI.Logging;
 using ProdUI.Verification;
 
 namespace ProdUI.Interaction.Bridge
 {
     /// <summary>
-    /// Handles non-list related items that use the SelectionPatterns
+    ///     Handles non-list related items that use the SelectionPatterns
     /// </summary>
     internal static class SelectionBridge
     {
         /// <summary>
-        /// Gets a value indicating if a RadioButton is selected
+        ///     Gets a value indicating if a RadioButton is selected
         /// </summary>
-        /// <param name="theInterface">The extension interface.</param>
-        /// <param name="control">The base ProdUI control</param>
+        /// <param name = "theInterface">The extension interface.</param>
+        /// <param name = "control">The base ProdUI control</param>
         /// <returns>
-        ///   <c>true</c> if selected, <c>false</c> otherwise
+        ///     <c>true</c> if selected, <c>false</c> otherwise
         /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static bool GetIsSelectedBridge(this ISelection theInterface, BaseProdControl control)
@@ -49,24 +47,24 @@ namespace ProdUI.Interaction.Bridge
 
         private static bool NativeGetIsSelected(BaseProdControl control)
         {
-            return ProdRadioButtonNative.GetCheckStateNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+            return ProdRadioButtonNative.GetCheckStateNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
         }
 
         private static bool UiaGetIsSelected(BaseProdControl control)
         {
-            bool retVal = SelectionPatternHelper.IsSelected(control.UIAElement);
+            bool retVal = SelectionItemPatternHelper.IsItemSelected(control.UIAElement);
             LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
             return retVal;
         }
 
 
         /// <summary>
-        /// Selects a RadioButton
+        ///     Selects a RadioButton
         /// </summary>
-        /// <param name="theInterface">The extension interface.</param>
-        /// <param name="control">The base ProdUI control</param>
+        /// <param name = "theInterface">The extension interface.</param>
+        /// <param name = "control">The base ProdUI control</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        internal static void SetSetSelectedBridge(this ISelection theInterface, BaseProdControl control)
+        internal static void SetIsSelectedBridge(this ISelection theInterface, BaseProdControl control)
         {
             try
             {
@@ -89,13 +87,13 @@ namespace ProdUI.Interaction.Bridge
 
         private static void NativeSetSelected(BaseProdControl control)
         {
-            ProdRadioButtonNative.SetCheckStateNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+            ProdRadioButtonNative.SetCheckStateNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
         }
 
         private static void UiaSetSelected(BaseProdControl control)
         {
             AutomationEventVerifier.Register(new EventRegistrationMessage(control, SelectionItemPattern.ElementSelectedEvent));
-            SelectionPatternHelper.Select(control.UIAElement);
+            SelectionItemPatternHelper.SelectItem(control.UIAElement);
         }
     }
 }

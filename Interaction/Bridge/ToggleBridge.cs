@@ -1,8 +1,8 @@
-﻿using System;
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+using System;
 using System.Windows.Automation;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
-using ProdUI.Interaction.Bridge;
 using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
@@ -12,7 +12,6 @@ namespace ProdUI.Interaction.Bridge
 {
     internal static class ToggleBridge
     {
-        
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static ToggleState GetCheckStateBridge(this IToggle theInvoke, BaseProdControl control)
         {
@@ -34,18 +33,17 @@ namespace ProdUI.Interaction.Bridge
             }
         }
 
-        internal static ToggleState UiaGetCheckState( BaseProdControl control)
-        {         
+        internal static ToggleState UiaGetCheckState(BaseProdControl control)
+        {
             ToggleState ret = TogglePatternHelper.GetToggleState(control.UIAElement);
             LogController.ReceiveLogMessage(new LogMessage(ret.ToString()));
             return ret;
         }
 
-        internal static ToggleState NativeGetCheckState( BaseProdControl control)
+        internal static ToggleState NativeGetCheckState(BaseProdControl control)
         {
             return ProdCheckBoxNative.GetCheckStateNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
         }
-
 
 
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
@@ -53,7 +51,7 @@ namespace ProdUI.Interaction.Bridge
         {
             try
             {
-               UiaSetCheckState(control,checkstate);
+                UiaSetCheckState(control, checkstate);
             }
             catch (ArgumentNullException err)
             {
@@ -65,28 +63,27 @@ namespace ProdUI.Interaction.Bridge
             }
             catch (InvalidOperationException)
             {
-                NativeSetCheckState(control,checkstate);
+                NativeSetCheckState(control, checkstate);
             }
         }
 
-        private static void UiaSetCheckState( BaseProdControl control,ToggleState checkstate)
-        {         
+        private static void UiaSetCheckState(BaseProdControl control, ToggleState checkstate)
+        {
             AutomationEventVerifier.Register(new EventRegistrationMessage(control, TogglePatternIdentifiers.ToggleStateProperty));
             LogController.ReceiveLogMessage(new LogMessage(checkstate.ToString()));
             TogglePatternHelper.SetToggleState(control.UIAElement, checkstate);
         }
 
-        private static void NativeSetCheckState( BaseProdControl control,ToggleState checkstate)
+        private static void NativeSetCheckState(BaseProdControl control, ToggleState checkstate)
         {
             ProdCheckBoxNative.SetCheckStateNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, checkstate);
         }
-        
-      
-        
+
+
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static void ToggleCheckStateBridge(this IToggle theInvoke, BaseProdControl control)
         {
-             try
+            try
             {
                 UiaToggleCheckState(control);
             }
@@ -113,7 +110,7 @@ namespace ProdUI.Interaction.Bridge
 
         internal static void NativeToggleCheckState(BaseProdControl control)
         {
-            ProdCheckBoxNative.ToggleCheckStateNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+            ProdCheckBoxNative.ToggleCheckStateNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
         }
     }
 }

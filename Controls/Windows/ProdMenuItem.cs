@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Automation;
-using ProdUI.Controls.Static;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Utility;

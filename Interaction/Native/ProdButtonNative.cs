@@ -1,6 +1,4 @@
-﻿// /* License Rider:
-//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
-//  */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using ProdUI.Logging;
 using ProdUI.Utility;
@@ -8,10 +6,10 @@ using ProdUI.Utility;
 namespace ProdUI.Interaction.Native
 {
     /// <summary>
-    /// Methods to work with Button controls using the UI Automation framework
+    ///     Methods to work with Button controls using the UI Automation framework
     /// </summary>
     /// <remarks>
-    /// Uses InvokeBridge
+    ///     Uses InvokeBridge
     /// </remarks>
     internal sealed class ProdButtonNative
     {
@@ -22,7 +20,7 @@ namespace ProdUI.Interaction.Native
         internal static void Click(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
-            NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMCLICK, 0, 0); 
+            NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMCLICK, 0, 0);
         }
     }
 }

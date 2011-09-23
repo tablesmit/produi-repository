@@ -1,6 +1,4 @@
-﻿// /* License Rider:
-//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
-//  */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 
 namespace ProdUI.Interaction.Native
@@ -119,7 +117,7 @@ namespace ProdUI.Interaction.Native
         /// </summary>
         BSTDROPDOWNPUSHED = 0x0400
     }
-    
+
     /// <summary>
     ///     Win32 button message constants
     /// </summary>
@@ -238,9 +236,9 @@ namespace ProdUI.Interaction.Native
         LBRESETCONTENT = 0x0184,
 
         /// <summary>
-        /// Gets the application-defined value associated with the specified list box item.
-        /// wParam The index of the item
-        /// lParam This parameter is not used
+        ///     Gets the application-defined value associated with the specified list box item.
+        ///     wParam The index of the item
+        ///     lParam This parameter is not used
         /// </summary>
         LBGETITEMDATA = 0x0199
     }

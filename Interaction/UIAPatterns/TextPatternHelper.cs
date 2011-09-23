@@ -1,6 +1,4 @@
-﻿// /* License Rider:
-//  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
-//  */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Automation;
@@ -17,7 +15,7 @@ namespace ProdUI.Interaction.UIAPatterns
     {
         internal static object GetTextAttribute(AutomationElement control, AutomationTextAttribute attribute)
         {
-            TextPattern pat = (TextPattern)CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
+            TextPattern pat = (TextPattern) CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
             object retVal = pat.DocumentRange.GetAttributeValue(attribute);
 
             return retVal;
@@ -25,7 +23,7 @@ namespace ProdUI.Interaction.UIAPatterns
 
         internal static TextPatternRange[] GetSelection(AutomationElement control)
         {
-            TextPattern pat = (TextPattern)CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
+            TextPattern pat = (TextPattern) CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
             return pat.GetSelection();
         }
 
@@ -38,7 +36,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <returns></returns>
         internal static TextPatternRange GetDocumentRange(AutomationElement control)
         {
-            TextPattern pat = (TextPattern)CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
+            TextPattern pat = (TextPattern) CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
             if (pat == null)
             {
                 return null;
@@ -57,7 +55,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static SupportedTextSelection GetSupportedTextSelection(AutomationElement control)
         {
-            TextPattern pat = (TextPattern)CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
+            TextPattern pat = (TextPattern) CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
             return pat.SupportedTextSelection;
         }
 
@@ -86,7 +84,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static TextPatternRange[] GetVisibleRanges(AutomationElement control)
         {
-            TextPattern pat = (TextPattern)CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
+            TextPattern pat = (TextPattern) CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
             return pat.GetVisibleRanges();
         }
 
@@ -99,7 +97,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static TextPatternRange GetRangeFromChild(AutomationElement control)
         {
-            TextPattern pat = (TextPattern)CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
+            TextPattern pat = (TextPattern) CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
             return pat.RangeFromChild(control);
         }
 
@@ -113,7 +111,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static TextPatternRange GetRangeFromPoint(AutomationElement control, Point screenLocation)
         {
-            TextPattern pat = (TextPattern)CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
+            TextPattern pat = (TextPattern) CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
             return pat.RangeFromPoint(screenLocation);
         }
 
@@ -128,7 +126,6 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name = "targetRange">The target range to add to the selections.</param>
         internal static void AddToSelection(AutomationElement control, TextPatternRange targetRange)
         {
-
             CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
             targetRange.AddToSelection();
         }
@@ -184,7 +181,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name = "unit">The textual unit.</param>
         internal static void ExpandToEnclosingUnit(AutomationElement control, TextUnit unit)
         {
-            TextPattern pat = (TextPattern)CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
+            TextPattern pat = (TextPattern) CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
             TextPatternRange[] selection = pat.GetSelection();
             selection[0].ExpandToEnclosingUnit(unit);
         }
@@ -216,7 +213,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <returns>A text range matching the specified text; otherwise null </returns>
         internal static TextPatternRange FindText(AutomationElement control, string find, bool searchBackward, bool ignoreCase)
         {
-            TextPattern pat = (TextPattern)CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
+            TextPattern pat = (TextPattern) CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
             return pat.DocumentRange.FindText(find, searchBackward, ignoreCase);
         }
 
@@ -275,7 +272,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static string GetText(AutomationElement control, int maxLength)
         {
-            TextPattern pat = (TextPattern)CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
+            TextPattern pat = (TextPattern) CommonUIAPatternHelpers.CheckPatternSupport(TextPattern.Pattern, control);
             return pat.DocumentRange.GetText(maxLength);
         }
 
