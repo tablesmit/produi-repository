@@ -1,7 +1,9 @@
-﻿using System;
-
+﻿
 namespace ProdUI.Interaction.Native
 {
+    /// <summary>
+    /// 
+    /// </summary>
     internal enum ComboBoxMessage
     {
         /// <summary>

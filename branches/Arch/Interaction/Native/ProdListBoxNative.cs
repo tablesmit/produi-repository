@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using ProdUI.Logging;
-using ProdUI.Utility;
+using ProdUI.Verification;
 
 namespace ProdUI.Interaction.Native
 {
@@ -58,6 +58,8 @@ namespace ProdUI.Interaction.Native
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
             NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSETCURSEL, index, 0);
+
+            ValueVerifier<int, int>.Verify(index, GetSelectedIndexNative(windowHandle));
         }
 
         internal static string GetSelectedItemNative(IntPtr windowHandle)
@@ -79,6 +81,8 @@ namespace ProdUI.Interaction.Native
             int stringIndex = FindString(windowHandle, itemText);
 
             NativeMethods.SendMessage(windowHandle, (int) ListboxMessage.LBSETCURSEL, stringIndex, 0);
+
+            ValueVerifier<int, int>.Verify(stringIndex, GetSelectedIndexNative(windowHandle));
         }
 
         /// <summary>

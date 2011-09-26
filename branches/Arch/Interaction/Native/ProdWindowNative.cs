@@ -4,10 +4,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Automation;
-using ProdUI.Configuration;
-using ProdUI.Exceptions;
 using ProdUI.Logging;
-using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
 {

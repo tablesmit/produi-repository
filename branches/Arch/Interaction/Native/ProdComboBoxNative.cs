@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using ProdUI.Logging;
-using ProdUI.Utility;
+using ProdUI.Verification;
 
 namespace ProdUI.Interaction.Native
 {
@@ -32,6 +32,8 @@ namespace ProdUI.Interaction.Native
             NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBSETCURSEL, index, 0);
             NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBSHOWDROPDOWN, 1, 0);
             NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBSHOWDROPDOWN, 0, 0);
+
+            ValueVerifier<int, int>.Verify(index, GetSelectedIndexNative(windowHandle));
         }
 
         /// <summary>
@@ -48,6 +50,8 @@ namespace ProdUI.Interaction.Native
             NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBSETCURSEL, stringIndex, 0);
             NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBSHOWDROPDOWN, 1, 0);
             NativeMethods.SendMessage(windowHandle, (int)ComboBoxMessage.CBSHOWDROPDOWN, 0, 0);
+
+            ValueVerifier<int, int>.Verify(stringIndex, GetSelectedIndexNative(windowHandle));
         }
 
         /// <summary>

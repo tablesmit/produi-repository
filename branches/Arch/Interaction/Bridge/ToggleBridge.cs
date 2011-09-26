@@ -12,7 +12,7 @@ namespace ProdUI.Interaction.Bridge
 {
     internal static class ToggleBridge
     {
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        
         internal static ToggleState GetCheckStateBridge(this IToggle theInvoke, BaseProdControl control)
         {
             try
@@ -46,7 +46,7 @@ namespace ProdUI.Interaction.Bridge
         }
 
 
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        
         internal static void SetCheckStateBridge(this IToggle theInvoke, BaseProdControl control, ToggleState checkstate)
         {
             try
@@ -80,7 +80,7 @@ namespace ProdUI.Interaction.Bridge
         }
 
 
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        
         internal static void ToggleCheckStateBridge(this IToggle theInvoke, BaseProdControl control)
         {
             try

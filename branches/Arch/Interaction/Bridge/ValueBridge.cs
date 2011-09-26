@@ -14,12 +14,11 @@ namespace ProdUI.Interaction.Bridge
     internal static class ValueBridge
     {
         /// <summary>
-        ///     Appends text to a text input control
+        /// Appends text to a text input control
         /// </summary>
-        /// <param name = "theValue">The invoke.</param>
-        /// <param name = "control">The control.</param>
-        /// <param name = "newText">Text To Append</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <param name="theValue">The invoke.</param>
+        /// <param name="control">The control.</param>
+        /// <param name="newText">Text To Append</param>
         internal static void AppendTextBridge(this IValue theValue, BaseProdControl control, string newText)
         {
             try
@@ -63,11 +62,10 @@ namespace ProdUI.Interaction.Bridge
 
 
         /// <summary>
-        ///     Set text area value to an empty string
+        /// Set text area value to an empty string
         /// </summary>
-        /// <param name = "theValue">The value.</param>
-        /// <param name = "control">The control.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <param name="theValue">The value.</param>
+        /// <param name="control">The control.</param>
         internal static void ClearTextBridge(this IValue theValue, BaseProdControl control)
         {
             try
@@ -112,17 +110,16 @@ namespace ProdUI.Interaction.Bridge
 
 
         /// <summary>
-        ///     Gets the number of characters in textbox
+        /// Gets the number of characters in textbox
         /// </summary>
-        /// <param name = "theValue">The value.</param>
-        /// <param name = "control">The control.</param>
+        /// <param name="theValue">The value.</param>
+        /// <param name="control">The control.</param>
         /// <returns>
-        ///     The number of characters in the ProdTextBox
+        /// The number of characters in the ProdTextBox
         /// </returns>
         /// <remarks>
-        ///     Will attempt to match AutomationId, then ReadOnly
+        /// Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static int GetLengthBridge(this IValue theValue, BaseProdControl control)
         {
             try
@@ -160,14 +157,13 @@ namespace ProdUI.Interaction.Bridge
 
 
         /// <summary>
-        ///     Gets or sets the text contained in the current TextBox
+        /// Gets or sets the text contained in the current TextBox
         /// </summary>
-        /// <param name = "theValue">The value.</param>
-        /// <param name = "control">The control.</param>
+        /// <param name="theValue">The value.</param>
+        /// <param name="control">The control.</param>
         /// <returns>
-        ///     The text currently in the ProdTextBox
+        /// The text currently in the ProdTextBox
         /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static string GetTextBridge(this IValue theValue, BaseProdControl control)
         {
             try
@@ -203,13 +199,12 @@ namespace ProdUI.Interaction.Bridge
 
 
         /// <summary>
-        ///     inserts the supplied string to the existing textBox text
+        /// inserts the supplied string to the existing textBox text
         /// </summary>
-        /// <param name = "theValue">The value.</param>
-        /// <param name = "control">The control.</param>
-        /// <param name = "newText">Text to append to TextBox value</param>
-        /// <param name = "index">Zero based index of string to insert text into</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <param name="theValue">The value.</param>
+        /// <param name="control">The control.</param>
+        /// <param name="newText">Text to append to TextBox value</param>
+        /// <param name="index">Zero based index of string to insert text into</param>
         internal static void InsertTextBridge(this IValue theValue, BaseProdControl control, string newText, int index)
         {
             if ((bool) control.UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty)) throw new ProdOperationException("TextBox is Read Only");
@@ -247,12 +242,11 @@ namespace ProdUI.Interaction.Bridge
 
 
         /// <summary>
-        ///     Sets the text contained in the current TextBox
+        /// Sets the text contained in the current TextBox
         /// </summary>
-        /// <param name = "theValue">The value.</param>
-        /// <param name = "control">The control.</param>
-        /// <param name = "text">The text to place into the ProdTextBox.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <param name="theValue">The value.</param>
+        /// <param name="control">The control.</param>
+        /// <param name="text">The text to place into the ProdTextBox.</param>
         internal static void SetTextBridge(this IValue theValue, BaseProdControl control, string text)
         {
             if ((bool) control.UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty)) throw new ProdOperationException("TextBox is Read Only");

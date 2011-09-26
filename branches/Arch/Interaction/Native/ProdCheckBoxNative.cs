@@ -2,9 +2,8 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Automation;
-using ProdUI.Exceptions;
 using ProdUI.Logging;
-using ProdUI.Utility;
+using ProdUI.Verification;
 
 namespace ProdUI.Interaction.Native
 {
@@ -43,7 +42,7 @@ namespace ProdUI.Interaction.Native
             NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMSETSTATE, (int) bst, 0);
 
             /* Verify it */
-            if (GetCheckStateNative(windowHandle) != isChecked) throw new ProdVerificationException("SetCheckStateNative verification failed");
+            ValueVerifier<ToggleState, ToggleState>.Verify(GetCheckStateNative(windowHandle), isChecked);
         }
 
         internal static void ToggleCheckStateNative(IntPtr windowHandle)
@@ -58,17 +57,21 @@ namespace ProdUI.Interaction.Native
                     try
                     {
                         NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMSETSTATE, (int) ButtonStates.BSTINDETERMINATE, 0);
+                        ValueVerifier<ToggleState, ToggleState>.Verify(GetCheckStateNative(windowHandle), ToggleState.Indeterminate);
                     }
                     catch (Win32Exception)
                     {
                         NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMSETSTATE, (int) ButtonStates.BSTCHECKED, 0);
+                        ValueVerifier<ToggleState, ToggleState>.Verify(GetCheckStateNative(windowHandle), ToggleState.On);
                     }
                     break;
                 case (int) ButtonStates.BSTCHECKED:
                     NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMSETSTATE, (int) ButtonStates.BSTUNCHECKED, 0);
+                    ValueVerifier<ToggleState, ToggleState>.Verify(GetCheckStateNative(windowHandle), ToggleState.Off);
                     break;
                 case (int) ButtonStates.BSTINDETERMINATE:
                     NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMSETSTATE, (int) ButtonStates.BSTCHECKED, 0);
+                    ValueVerifier<ToggleState, ToggleState>.Verify(GetCheckStateNative(windowHandle), ToggleState.On);
                     break;
             }
         }
@@ -119,18 +122,6 @@ namespace ProdUI.Interaction.Native
                 default:
                     return ToggleState.Indeterminate;
             }
-        }
-
-        internal static void ClickIt(IntPtr windowHandle)
-        {
-            ToggleState currState = GetCheckStateNative(windowHandle);
-
-            if (currState == ToggleState.On)
-            {
-                SetCheckStateNative(windowHandle, ToggleState.Off);
-                return;
-            }
-            SetCheckStateNative(windowHandle, ToggleState.On);
         }
     }
 }

@@ -3,6 +3,7 @@
 //  */
 using System;
 using ProdUI.Interaction.Bridge;
+using ProdUI.Logging;
 
 /* Notes
  * Supported Patterns: 
@@ -63,6 +64,7 @@ namespace ProdUI.Controls.Windows
         /// Sets the value.
         /// </summary>
         /// <param name="value">The value.</param>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetValue(double value)
         {
             this.SetValueBridge(this, value);
@@ -72,6 +74,7 @@ namespace ProdUI.Controls.Windows
         /// Gets the value.
         /// </summary>
         /// <returns>The current value of the slider</returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public double GetValue()
         {
             return this.GetValueBridge(this);
@@ -83,6 +86,7 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         /// The maximum value of the control
         /// </returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public double GetMaxValue()
         {
             return this.GetMaxValueBridge(this);
@@ -94,6 +98,7 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         /// The minimum value of the control
         /// </returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public double GetMinValue()
         {
             return this.GetMinValueBridge(this);

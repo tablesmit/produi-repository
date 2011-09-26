@@ -6,7 +6,6 @@ using ProdUI.Exceptions;
 using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
-using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Bridge
 {
@@ -17,14 +16,14 @@ namespace ProdUI.Interaction.Bridge
         /// Gets the window visual state of the window.
         /// </summary>
         /// <param name="theInterface">The interface.</param>
-        /// <param name="BaseControl">The ProdWindow.</param>
+        /// <param name="baseControl">The ProdWindow.</param>
         /// <returns></returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        internal static WindowVisualState GetWindowVisualStateBridge(this IWindow theInterface, ProdWindow BaseControl)
+        
+        internal static WindowVisualState GetWindowVisualStateBridge(this IWindow theInterface, ProdWindow baseControl)
         {
             try
             {
-                return UiaGetWindowVisualState(BaseControl);
+                return UiaGetWindowVisualState(baseControl);
             }
             catch (ArgumentNullException err)
             {
@@ -36,7 +35,7 @@ namespace ProdUI.Interaction.Bridge
             }
             catch (InvalidOperationException)
             {
-                return NativeGetWindowVisualState(BaseControl);
+                return NativeGetWindowVisualState(baseControl);
             }
 
         }
@@ -59,16 +58,15 @@ namespace ProdUI.Interaction.Bridge
         /// Gets whether the current window is modal or not
         /// </summary>
         /// <param name="theInterface">The interface.</param>
-        /// <param name="BaseControl">The ProdWindow.</param>
+        /// <param name="baseControl">The ProdWindow.</param>
         /// <returns>
         ///   <c>true</c> if this instance is modal; otherwise, <c>false</c>.
         /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        internal static bool GetIsModalBridge(this IWindow theInterface, ProdWindow BaseControl)
+        internal static bool GetIsModalBridge(this IWindow theInterface, ProdWindow baseControl)
         {
             try
             {
-                return UiaGetIsModal(BaseControl);
+                return UiaGetIsModal(baseControl);
             }
             catch (ArgumentNullException err)
             {
@@ -98,16 +96,15 @@ namespace ProdUI.Interaction.Bridge
         /// Gets a value whether a window is set to be topmost in the z-order
         /// </summary>
         /// <param name="theInterface">The interface.</param>
-        /// <param name="BaseControl">The ProdWindow.</param>
+        /// <param name="baseControl">The ProdWindow.</param>
         /// <returns>
         ///   <c>true</c> if topmost; otherwise, <c>false</c>.
         /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        internal static bool GetIsTopmostBridge(this IWindow theInterface, ProdWindow BaseControl)
+        internal static bool GetIsTopmostBridge(this IWindow theInterface, ProdWindow baseControl)
         {
             try
             {
-                return UiaGetIsTopmost(BaseControl);
+                return UiaGetIsTopmost(baseControl);
             }
             catch (ArgumentNullException err)
             {
@@ -119,7 +116,7 @@ namespace ProdUI.Interaction.Bridge
             }
             catch (InvalidOperationException)
             {
-                return NativeGetIsTopmost(BaseControl);
+                return NativeGetIsTopmost(baseControl);
             }
         }
 
@@ -142,16 +139,15 @@ namespace ProdUI.Interaction.Bridge
         /// Gets the state of the current window.
         /// </summary>
         /// <param name="theInterface">The interface.</param>
-        /// <param name="BaseControl">The base control.</param>
+        /// <param name="baseControl">The base control.</param>
         /// <returns>
         /// The WindowState
         /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        internal static WindowInteractionState GetWindowStateBridge(this IWindow theInterface, ProdWindow BaseControl)
+        internal static WindowInteractionState GetWindowStateBridge(this IWindow theInterface, ProdWindow baseControl)
         {
             try
             {
-                return UiaGetWindowState(BaseControl);
+                return UiaGetWindowState(baseControl);
             }
             catch (ArgumentNullException err)
             {
@@ -167,9 +163,9 @@ namespace ProdUI.Interaction.Bridge
             }
         }
 
-        private static WindowInteractionState UiaGetWindowState(ProdWindow BaseControl)
+        private static WindowInteractionState UiaGetWindowState(ProdWindow baseControl)
         {
-            WindowInteractionState state = WindowPatternHelper.GetInteractionState(BaseControl.UIAElement);
+            WindowInteractionState state = WindowPatternHelper.GetInteractionState(baseControl.UIAElement);
             LogController.ReceiveLogMessage(new LogMessage(state.ToString()));
             return state;
         }
@@ -181,14 +177,13 @@ namespace ProdUI.Interaction.Bridge
         /// Gets the specified windows title
         /// </summary>
         /// <param name="theInterface">The interface.</param>
-        /// <param name="BaseControl">The base control.</param>
+        /// <param name="baseControl">The base control.</param>
         /// <returns></returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        internal static string GetTitleBridge(this IWindow theInterface, ProdWindow BaseControl)
+        internal static string GetTitleBridge(this IWindow theInterface, ProdWindow baseControl)
         {
             try
             {
-                return UiaGetTitle(BaseControl);
+                return UiaGetTitle(baseControl);
             }
             catch (ArgumentNullException err)
             {
@@ -200,20 +195,20 @@ namespace ProdUI.Interaction.Bridge
             }
             catch (InvalidOperationException)
             {
-                return NativeGetTitle(BaseControl);
+                return NativeGetTitle(baseControl);
             }
         }
 
-        private static string UiaGetTitle(ProdWindow BaseControl)
+        private static string UiaGetTitle(ProdWindow baseControl)
         {
-            string retVal = BaseControl.WindowTitle;
+            string retVal = baseControl.WindowTitle;
             LogController.ReceiveLogMessage(new LogMessage(retVal));
             return retVal;
         }
 
-        private static string NativeGetTitle(ProdWindow BaseControl)
+        private static string NativeGetTitle(ProdWindow baseControl)
         {
-            return ProdWindowNative.GetWindowTitleNative(BaseControl.NativeHandle);
+            return ProdWindowNative.GetWindowTitleNative(baseControl.NativeHandle);
         }
 
 
@@ -223,14 +218,13 @@ namespace ProdUI.Interaction.Bridge
         /// Sets the specified windows title
         /// </summary>
         /// <param name="theInterface">The interface.</param>
-        /// <param name="BaseControl">The base control.</param>
+        /// <param name="baseControl">The base control.</param>
         /// <param name="title">The title.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        internal static void SetTitleBridge(this IWindow theInterface, ProdWindow BaseControl, string title)
+        internal static void SetTitleBridge(this IWindow theInterface, ProdWindow baseControl, string title)
         {
             try
             {
-                NativeSetTitle(BaseControl, title);
+                NativeSetTitle(baseControl, title);
             }
             catch (ArgumentNullException err)
             {
@@ -247,9 +241,9 @@ namespace ProdUI.Interaction.Bridge
 
         }
 
-        private static void NativeSetTitle(ProdWindow BaseControl, string title)
+        private static void NativeSetTitle(ProdWindow baseControl, string title)
         {
-            ProdWindowNative.SetWindowTitleNative(BaseControl.NativeHandle, title);
+            ProdWindowNative.SetWindowTitleNative(baseControl.NativeHandle, title);
         }
 
 
@@ -259,14 +253,13 @@ namespace ProdUI.Interaction.Bridge
         /// Minimizes the current window
         /// </summary>
         /// <param name="theInterface">The interface.</param>
-        /// <param name="BaseControl">The base control.</param>
+        /// <param name="baseControl">The base control.</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        internal static void MinimizeWindowBridge(this IWindow theInterface, ProdWindow BaseControl)
+        internal static void MinimizeWindowBridge(this IWindow theInterface, ProdWindow baseControl)
         {
             try
             {
-                UiaMinimizeWindow(BaseControl);
+                UiaMinimizeWindow(baseControl);
             }
             catch (ArgumentNullException err)
             {
@@ -278,19 +271,19 @@ namespace ProdUI.Interaction.Bridge
             }
             catch (InvalidOperationException)
             {
-                NativeMinimizeWindow(BaseControl);
+                NativeMinimizeWindow(baseControl);
             }
 
         }
 
-        private static void NativeMinimizeWindow(ProdWindow BaseControl)
+        private static void NativeMinimizeWindow(ProdWindow baseControl)
         {
-            ProdWindowNative.MinimizeWindowNative(BaseControl.NativeHandle);
+            ProdWindowNative.MinimizeWindowNative(baseControl.NativeHandle);
         }
 
-        private static int UiaMinimizeWindow(ProdWindow BaseControl)
+        private static int UiaMinimizeWindow(ProdWindow baseControl)
         {
-            int retVal = WindowPatternHelper.SetVisualState(BaseControl.UIAElement, WindowVisualState.Minimized);
+            int retVal = WindowPatternHelper.SetVisualState(baseControl.UIAElement, WindowVisualState.Minimized);
             LogController.ReceiveLogMessage(new LogMessage("minimized"));
             return retVal;
         }
@@ -301,14 +294,13 @@ namespace ProdUI.Interaction.Bridge
         /// Maximizes the window bridge.
         /// </summary>
         /// <param name="theInterface">The interface.</param>
-        /// <param name="BaseControl">The base control.</param>
+        /// <param name="baseControl">The base control.</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        internal static void MaximizeWindowBridge(this IWindow theInterface, ProdWindow BaseControl)
+        internal static void MaximizeWindowBridge(this IWindow theInterface, ProdWindow baseControl)
         {
             try
             {
-                UiaMaximizeWindow(BaseControl);
+                UiaMaximizeWindow(baseControl);
             }
             catch (ArgumentNullException err)
             {
@@ -320,19 +312,19 @@ namespace ProdUI.Interaction.Bridge
             }
             catch (InvalidOperationException)
             {
-                NativeMaximizeWindow(BaseControl);
+                NativeMaximizeWindow(baseControl);
             }
 
         }
 
-        private static void NativeMaximizeWindow(ProdWindow BaseControl)
+        private static void NativeMaximizeWindow(ProdWindow baseControl)
         {
-            ProdWindowNative.MaximizeWindowNative(BaseControl.NativeHandle);
+            ProdWindowNative.MaximizeWindowNative(baseControl.NativeHandle);
         }
 
-        private static int UiaMaximizeWindow(ProdWindow BaseControl)
+        private static int UiaMaximizeWindow(ProdWindow baseControl)
         {
-            int retVal = WindowPatternHelper.SetVisualState(BaseControl.UIAElement, WindowVisualState.Maximized);
+            int retVal = WindowPatternHelper.SetVisualState(baseControl.UIAElement, WindowVisualState.Maximized);
             LogController.ReceiveLogMessage(new LogMessage("maximized"));
             return retVal;
         }
@@ -343,14 +335,14 @@ namespace ProdUI.Interaction.Bridge
         /// Restores the window bridge.
         /// </summary>
         /// <param name="theInterface">The interface.</param>
-        /// <param name="BaseControl">The base control.</param>
+        /// <param name="baseControl">The base control.</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        internal static void RestoreWindowBridge(this IWindow theInterface, ProdWindow BaseControl)
+        internal static void RestoreWindowBridge(this IWindow theInterface, ProdWindow baseControl)
         {
             try
             {
-                UiaRestoreWindow(BaseControl);
+                UiaRestoreWindow(baseControl);
             }
             catch (ArgumentNullException err)
             {
@@ -362,19 +354,19 @@ namespace ProdUI.Interaction.Bridge
             }
             catch (InvalidOperationException)
             {
-                NativeRestoreWindow(BaseControl);
+                NativeRestoreWindow(baseControl);
             }
 
         }
 
-        private static void NativeRestoreWindow(ProdWindow BaseControl)
+        private static void NativeRestoreWindow(ProdWindow baseControl)
         {
-            ProdWindowNative.ShowWindowNative(BaseControl.NativeHandle);
+            ProdWindowNative.ShowWindowNative(baseControl.NativeHandle);
         }
 
-        private static int UiaRestoreWindow(ProdWindow BaseControl)
+        private static int UiaRestoreWindow(ProdWindow baseControl)
         {
-            int retVal = WindowPatternHelper.SetVisualState(BaseControl.UIAElement, WindowVisualState.Normal);
+            int retVal = WindowPatternHelper.SetVisualState(baseControl.UIAElement, WindowVisualState.Normal);
             LogController.ReceiveLogMessage(new LogMessage("restored"));
             return retVal;
         }
@@ -385,13 +377,13 @@ namespace ProdUI.Interaction.Bridge
         /// Closes the current window
         /// </summary>
         /// <param name="theInterface">The interface.</param>
-        /// <param name="BaseControl">The base control.</param>
+        /// <param name="baseControl">The base control.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        internal static void CloseWindowBridge(this IWindow theInterface, ProdWindow BaseControl)
+        internal static void CloseWindowBridge(this IWindow theInterface, ProdWindow baseControl)
         {
             try
             {
-                UiaCloseWindow(BaseControl);
+                UiaCloseWindow(baseControl);
             }
             catch (ArgumentNullException err)
             {
@@ -403,19 +395,19 @@ namespace ProdUI.Interaction.Bridge
             }
             catch (InvalidOperationException)
             {
-                NativeCloseWindow(BaseControl);
+                NativeCloseWindow(baseControl);
             }
         }
 
-        private static void NativeCloseWindow(ProdWindow BaseControl)
+        private static void NativeCloseWindow(ProdWindow baseControl)
         {
-            ProdWindowNative.CloseWindowNative(BaseControl.NativeHandle);
+            ProdWindowNative.CloseWindowNative(baseControl.NativeHandle);
         }
 
-        private static void UiaCloseWindow(ProdWindow BaseControl)
+        private static void UiaCloseWindow(ProdWindow baseControl)
         {
             LogController.ReceiveLogMessage(new LogMessage("closing"));
-            WindowPatternHelper.CloseWindow(BaseControl.UIAElement);
+            WindowPatternHelper.CloseWindow(baseControl.UIAElement);
         }
 
 
@@ -424,16 +416,16 @@ namespace ProdUI.Interaction.Bridge
         /// Causes the calling code to block for the specified time or until the associated process enters an idle state, whichever completes first
         /// </summary>
         /// <param name="theInterface">The interface.</param>
-        /// <param name="BaseControl">The base control.</param>
+        /// <param name="baseControl">The base control.</param>
         /// <param name="delay">Time, in milliseconds to wait for an idle state</param>
         /// <returns>
         ///   <c>true</c> if the window has entered the idle state. <c>false</c> if the timeout occurred
         /// </returns>
-        internal static bool WaitForInputIdleBridge(this IWindow theInterface, ProdWindow BaseControl, int delay)
+        internal static bool WaitForInputIdleBridge(this IWindow theInterface, ProdWindow baseControl, int delay)
         {
             try
             {
-                return UiaWaitForInputIdle(BaseControl, delay);
+                return UiaWaitForInputIdle(baseControl, delay);
             }
             catch (ArgumentNullException err)
             {
@@ -449,9 +441,9 @@ namespace ProdUI.Interaction.Bridge
             }
         }
 
-        private static bool UiaWaitForInputIdle(ProdWindow BaseControl, int delay)
+        private static bool UiaWaitForInputIdle(ProdWindow baseControl, int delay)
         {
-            bool retVal = WindowPatternHelper.WaitForInputIdle(BaseControl.UIAElement, delay);
+            bool retVal = WindowPatternHelper.WaitForInputIdle(baseControl.UIAElement, delay);
             LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
             return retVal;
         }
@@ -463,15 +455,14 @@ namespace ProdUI.Interaction.Bridge
         /// Resize the window
         /// </summary>
         /// <param name="theInterface">The interface.</param>
-        /// <param name="BaseControl">The base control.</param>
+        /// <param name="baseControl">The base control.</param>
         /// <param name="width">The new width of the window, in pixels</param>
         /// <param name="height">The new height of the window, in pixels</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        internal static void ResizeWindowBridge(this IWindow theInterface, ProdWindow BaseControl, double width, double height)
+        internal static void ResizeWindowBridge(this IWindow theInterface, ProdWindow baseControl, double width, double height)
         {
             try
             {
-                UiaResizeWindow(BaseControl, width, height);
+                UiaResizeWindow(baseControl, width, height);
             }
             catch (ArgumentNullException err)
             {
@@ -483,26 +474,27 @@ namespace ProdUI.Interaction.Bridge
             }
             catch (InvalidOperationException)
             {
-                NativeResizeWindow(BaseControl, width, height);
+                NativeResizeWindow(baseControl, width, height);
             }
 
         }
 
-        private static void NativeResizeWindow(ProdWindow BaseControl, double width, double height)
+        private static void NativeResizeWindow(ProdWindow baseControl, double width, double height)
         {
-            double x = BaseControl.UIAElement.Current.BoundingRectangle.X;
-            double y = BaseControl.UIAElement.Current.BoundingRectangle.Y;
-            ProdWindowNative.MoveWindowNative(BaseControl.NativeHandle, x, y, width, height);
+            double x = baseControl.UIAElement.Current.BoundingRectangle.X;
+            double y = baseControl.UIAElement.Current.BoundingRectangle.Y;
+            ProdWindowNative.MoveWindowNative(baseControl.NativeHandle, x, y, width, height);
         }
 
-        private static void UiaResizeWindow(ProdWindow BaseControl, double width, double height)
+        private static void UiaResizeWindow(ProdWindow baseControl, double width, double height)
         {
-            List<object> VerboseInformation = new List<object>();
-            VerboseInformation.Add("Width = " + width);
-            VerboseInformation.Add("Height = " + height);
-            LogController.ReceiveLogMessage(new LogMessage("resize", VerboseInformation));
+            List<object> verboseInformation = new List<object> {
+                                                                   "Width = " + width,
+                                                                   "Height = " + height
+                                                               };
+            LogController.ReceiveLogMessage(new LogMessage("resize", verboseInformation));
 
-            TransformPatternHelper.Resize(BaseControl.UIAElement, width, height);
+            TransformPatternHelper.Resize(baseControl.UIAElement, width, height);
         }
 
 
@@ -512,15 +504,14 @@ namespace ProdUI.Interaction.Bridge
         /// Moves the window to the specified location
         /// </summary>
         /// <param name="theInterface">The interface.</param>
-        /// <param name="BaseControl">The base control.</param>
+        /// <param name="baseControl">The base control.</param>
         /// <param name="x">Absolute screen coordinates of the left side of the window</param>
         /// <param name="y">Absolute screen coordinates of the top of the window</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        internal static void MoveWindowBridge(this IWindow theInterface, ProdWindow BaseControl, double x, double y)
+        internal static void MoveWindowBridge(this IWindow theInterface, ProdWindow baseControl, double x, double y)
         {
             try
             {
-                UiaMoveWindow(BaseControl, x, y);
+                UiaMoveWindow(baseControl, x, y);
             }
             catch (ArgumentNullException err)
             {
@@ -532,25 +523,26 @@ namespace ProdUI.Interaction.Bridge
             }
             catch (InvalidOperationException)
             {
-                NativeMoveWindow(BaseControl, x, y);
+                NativeMoveWindow(baseControl, x, y);
             }
         }
 
-        private static void NativeMoveWindow(ProdWindow BaseControl, double x, double y)
+        private static void NativeMoveWindow(ProdWindow baseControl, double x, double y)
         {
-            double width = BaseControl.UIAElement.Current.BoundingRectangle.Width;
-            double height = BaseControl.UIAElement.Current.BoundingRectangle.Height;
-            ProdWindowNative.MoveWindowNative(BaseControl.NativeHandle, x, y, width, height);
+            double width = baseControl.UIAElement.Current.BoundingRectangle.Width;
+            double height = baseControl.UIAElement.Current.BoundingRectangle.Height;
+            ProdWindowNative.MoveWindowNative(baseControl.NativeHandle, x, y, width, height);
         }
 
-        private static void UiaMoveWindow(ProdWindow BaseControl, double x, double y)
+        private static void UiaMoveWindow(ProdWindow baseControl, double x, double y)
         {
-            List<object> VerboseInformation = new List<object>();
-            VerboseInformation.Add("Y = " + y);
-            VerboseInformation.Add("X = " + x);
-            LogController.ReceiveLogMessage(new LogMessage("move", VerboseInformation));
+            List<object> verboseInformation = new List<object> {
+                                                                   "Y = " + y,
+                                                                   "X = " + x
+                                                               };
+            LogController.ReceiveLogMessage(new LogMessage("move", verboseInformation));
 
-            TransformPatternHelper.Move(BaseControl.UIAElement, x, y);
+            TransformPatternHelper.Move(baseControl.UIAElement, x, y);
         }
 
 
@@ -559,15 +551,14 @@ namespace ProdUI.Interaction.Bridge
         /// Rotates the window
         /// </summary>
         /// <param name="theInterface">The interface.</param>
-        /// <param name="BaseControl">The base control.</param>
+        /// <param name="baseControl">The base control.</param>
         /// <param name="degrees">The number of degrees to rotate the element. A positive number rotates clockwise;
         /// a negative number rotates counterclockwise</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        internal static void RotateWindowBridge(this IWindow theInterface, ProdWindow BaseControl, double degrees)
+        internal static void RotateWindowBridge(this IWindow theInterface, ProdWindow baseControl, double degrees)
         {
             try
             {
-                UiaRotateWindow(BaseControl, degrees);
+                UiaRotateWindow(baseControl, degrees);
             }
             catch (ArgumentNullException err)
             {
@@ -584,31 +575,28 @@ namespace ProdUI.Interaction.Bridge
 
         }
 
-        private static void UiaRotateWindow(ProdWindow BaseControl, double degrees)
+        private static void UiaRotateWindow(ProdWindow baseControl, double degrees)
         {
-            List<object> VerboseInformation = new List<object>();
-            VerboseInformation.Add("degrees = " + degrees);
-            LogController.ReceiveLogMessage(new LogMessage("Rotated", VerboseInformation));
-            TransformPatternHelper.Rotate(BaseControl.UIAElement, degrees);
+            List<object> verboseInformation = new List<object> {
+                                                                   "degrees = " + degrees
+                                                               };
+            LogController.ReceiveLogMessage(new LogMessage("Rotated", verboseInformation));
+            TransformPatternHelper.Rotate(baseControl.UIAElement, degrees);
         }
 
 
-
-
         /// <summary>
-        ///     Register to make a window the active window.
+        /// Register to make a window the active window.
         /// </summary>
-        /// <exception cref = "InvalidOperationException">The exception that is thrown when a method call is invalid for the object's current state</exception>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        /// <exception cref = "Win32Exception">Throws an exception for a Win32 error code</exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        internal static void ActivateWindowBridge(this IWindow theInterface, ProdWindow BaseControl)
+        /// <param name="theInterface">The interface.</param>
+        /// <param name="baseControl">The base control.</param>
+        internal static void ActivateWindowBridge(this IWindow theInterface, ProdWindow baseControl)
         {
             try
             {
-                NativeMethods.ShowWindowAsync(BaseControl.NativeHandle, (int)ShowWindowCommand.SW_SHOWDEFAULT);
-                NativeMethods.ShowWindowAsync(BaseControl.NativeHandle, (int)ShowWindowCommand.SW_SHOW);
-                NativeMethods.SetForegroundWindow(BaseControl.NativeHandle);
+                NativeMethods.ShowWindowAsync(baseControl.NativeHandle, (int)ShowWindowCommand.SW_SHOWDEFAULT);
+                NativeMethods.ShowWindowAsync(baseControl.NativeHandle, (int)ShowWindowCommand.SW_SHOW);
+                NativeMethods.SetForegroundWindow(baseControl.NativeHandle);
             }
             catch (ArgumentNullException err)
             {

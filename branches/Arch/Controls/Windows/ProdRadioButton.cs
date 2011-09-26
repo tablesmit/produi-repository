@@ -3,6 +3,7 @@
 //  */
 using System;
 using ProdUI.Interaction.Bridge;
+using ProdUI.Logging;
 
 namespace ProdUI.Controls.Windows
 {
@@ -21,7 +22,8 @@ namespace ProdUI.Controls.Windows
         /// <remarks>
         ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
-        public ProdRadioButton(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
+        public ProdRadioButton(ProdWindow prodWindow, string automationId)
+            : base(prodWindow, automationId)
         {
         }
 
@@ -30,7 +32,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
-        public ProdRadioButton(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
+        public ProdRadioButton(ProdWindow prodWindow, int treePosition)
+            : base(prodWindow, treePosition)
         {
         }
 
@@ -39,7 +42,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "controlHandle">Window handle of the control</param>
-        public ProdRadioButton(ProdWindow prodWindow, IntPtr controlHandle) : base(prodWindow, controlHandle)
+        public ProdRadioButton(ProdWindow prodWindow, IntPtr controlHandle)
+            : base(prodWindow, controlHandle)
         {
         }
 
@@ -50,14 +54,16 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <returns></returns>
         /// <value><c>true</c> if checked; otherwise, <c>false</c>.</value>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public bool GetChecked()
         {
             return this.GetIsSelectedBridge(this);
         }
 
         /// <summary>
-        ///     Selects a radio button, deselecting others in its group
+        /// Selects a radio button, deselecting others in its group
         /// </summary>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void Select()
         {
             this.SetIsSelectedBridge(this);

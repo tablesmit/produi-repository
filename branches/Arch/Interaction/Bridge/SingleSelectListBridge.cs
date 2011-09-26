@@ -16,12 +16,11 @@ namespace ProdUI.Interaction.Bridge
     internal static class SingleSelectListBridge
     {
         /// <summary>
-        ///     Gets the list items.
+        /// Gets the list items.
         /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The control.</param>
+        /// <param name="theInterface">The interface.</param>
+        /// <param name="control">The control.</param>
         /// <returns></returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         internal static List<object> GetItemsBridge(this ISingleSelectList theInterface, BaseProdControl control)
         {
             try
@@ -60,7 +59,6 @@ namespace ProdUI.Interaction.Bridge
         }
 
 
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static int GetItemCountBridge(this ISingleSelectList theInterface, BaseProdControl control)
         {
             try
@@ -100,12 +98,11 @@ namespace ProdUI.Interaction.Bridge
 
 
         /// <summary>
-        ///     Gets the selected index ex.
+        /// Gets the selected index ex.
         /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The control.</param>
+        /// <param name="theInterface">The interface.</param>
+        /// <param name="control">The control.</param>
         /// <returns></returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static int GetSelectedIndexBridge(this ISingleSelectList theInterface, BaseProdControl control)
         {
             try
@@ -145,14 +142,13 @@ namespace ProdUI.Interaction.Bridge
 
 
         /// <summary>
-        ///     Gets the selected list item.
+        /// Gets the selected list item.
         /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The control.</param>
+        /// <param name="theInterface">The interface.</param>
+        /// <param name="control">The control.</param>
         /// <returns>
-        ///     The selected List element
+        /// The selected List element
         /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static AutomationElement GetSelectedItemBridge(this ISingleSelectList theInterface, BaseProdControl control)
         {
             try
@@ -189,12 +185,11 @@ namespace ProdUI.Interaction.Bridge
 
 
         /// <summary>
-        ///     Sets the selected list item.
+        /// Sets the selected list item.
         /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The control.</param>
-        /// <param name = "index">The zero-based index of the item to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <param name="theInterface">The interface.</param>
+        /// <param name="control">The control.</param>
+        /// <param name="index">The zero-based index of the item to select.</param>
         internal static void SetSelectedIndexBridge(this ISingleSelectList theInterface, BaseProdControl control, int index)
         {
             try
@@ -234,12 +229,11 @@ namespace ProdUI.Interaction.Bridge
 
 
         /// <summary>
-        ///     Sets the selected list item.
+        /// Sets the selected list item.
         /// </summary>
-        /// <param name = "theInterface">The interface.</param>
-        /// <param name = "control">The control.</param>
-        /// <param name = "itemText">The text of the item to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <param name="theInterface">The interface.</param>
+        /// <param name="control">The control.</param>
+        /// <param name="itemText">The text of the item to select.</param>
         internal static void SetSelectedItemBridge(this ISingleSelectList theInterface, BaseProdControl control, string itemText)
         {
             try
@@ -278,7 +272,6 @@ namespace ProdUI.Interaction.Bridge
         }
 
 
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static bool IsItemSelectedBridge(this ISingleSelectList theInterface, BaseProdControl control, int index)
         {
             try
@@ -324,7 +317,6 @@ namespace ProdUI.Interaction.Bridge
         }
 
 
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static bool IsItemSelectedBridge(this ISingleSelectList theInterface, BaseProdControl control, string text)
         {
             try
@@ -346,6 +338,12 @@ namespace ProdUI.Interaction.Bridge
             }
         }
 
+        /// <summary>
+        /// Gets selection status of the item.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <param name="text">The text.</param>
+        /// <returns></returns>
         private static bool UiaIsItemSelected(BaseProdControl control, string text)
         {
             AutomationElement element = SelectionItemPatternHelper.FindItemByText(control.UIAElement, text);

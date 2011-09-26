@@ -3,7 +3,6 @@ using System;
 using System.ComponentModel;
 using ProdUI.Configuration;
 using ProdUI.Exceptions;
-using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
 {
