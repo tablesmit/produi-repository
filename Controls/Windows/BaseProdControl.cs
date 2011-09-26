@@ -174,45 +174,6 @@ namespace ProdUI.Controls.Windows
             return UIAElement.GetCurrentPropertyValue(property);
         }
 
-        /////
-        ///// <summary>
-        /////     Creates and sends the proper LogMessage.
-        ///// </summary>
-        //protected void LogMessage()
-        //{
-        //    LogMessage message;
-        //    if (VerboseInformation.Count == 0)
-        //    {
-        //        message = new LogMessage(LogText);
-        //    }
-        //    else
-        //    {
-        //        VerboseInformation = new List<object>();
-        //        message = new LogMessage(LogText, VerboseInformation);
-        //    }
-
-        //    LogController.ReceiveLogMessage(message);
-        //}
-
-        /////// <summary>
-        /////// Registers an action event event.
-        /////// </summary>
-        /////// <param name="eventType">Type of the event.</param>
-        //internal void RegisterEvent(AutomationEvent eventType)
-        //{
-        //    // AutomationEventVerifier.Register(new EventRegistrationMessage(this, eventType));
-        //}
-
-        /////// <summary>
-        /////// Registers a property change event.
-        /////// </summary>
-        /////// <param name="property">The property to monitor.</param>
-        //internal void RegisterEvent(AutomationProperty property)
-        //{
-        //    /* create message to pass */
-        //    //AutomationEventVerifier.Register(new EventRegistrationMessage(this, property));
-        //}
-
         /// <summary>
         ///     Receives the event notification message.
         /// </summary>

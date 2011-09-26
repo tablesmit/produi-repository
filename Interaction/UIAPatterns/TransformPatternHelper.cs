@@ -28,7 +28,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <returns>
         ///     Whether the control can be resized, null if InvalidOperationException is raised
         /// </returns>
-        internal static bool? CanResize(AutomationElement control)
+        internal static bool CanResize(AutomationElement control)
         {
             TransformPattern pat = (TransformPattern) CommonUIAPatternHelpers.CheckPatternSupport(TransformPattern.Pattern, control);
             return pat.Current.CanResize;
@@ -41,7 +41,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <returns>
         ///     Whether control can be rotated, null if InvalidOperationException is raised
         /// </returns>
-        internal static bool? CanRotate(AutomationElement control)
+        internal static bool CanRotate(AutomationElement control)
         {
             TransformPattern pat = (TransformPattern) CommonUIAPatternHelpers.CheckPatternSupport(TransformPattern.Pattern, control);
             return pat.Current.CanRotate;

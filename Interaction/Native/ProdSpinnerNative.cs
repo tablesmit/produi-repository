@@ -1,6 +1,7 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using ProdUI.Logging;
+using ProdUI.Verification;
 
 namespace ProdUI.Interaction.Native
 {
@@ -10,6 +11,7 @@ namespace ProdUI.Interaction.Native
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
             NativeMethods.SendMessage(windowHandle, (int) SpinnerMessages.UDMSETPOS32, 0, (int) value);
+            ValueVerifier<double, double>.Verify(value, GetValueNative(windowHandle));
         }
 
         internal static double GetValueNative(IntPtr windowHandle)

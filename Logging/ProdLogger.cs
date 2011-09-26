@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using ProdUI.Configuration;
 
 namespace ProdUI.Logging
 {
@@ -13,14 +12,14 @@ namespace ProdUI.Logging
     /// </summary>
     public class ProdLogger
     {
-        private readonly List<LoggerParameters> _loggerParams;
+        private readonly List<ProdLoggerInputParameters> _loggerParams;
 
-        public ProdLogger(ProdSessionConfig config, ILogTarget target)
+        public ProdLogger(LoggingConfiguration config, ILogTarget target)
         {
-            LogLevel = (LoggingLevels) config.Loggers[0].LogLevel;
-            _loggerParams = config.Loggers[0].Parameters;
-            LogFormat = config.Loggers[0].LogFormat;
-            LogDateFormat = config.Loggers[0].LogDateFormat;
+            LogLevel = (LoggingLevels) config.LoggerParameters[0].LogLevel;
+            _loggerParams = config.LoggerParameters[0].Parameters;
+            LogFormat = config.LoggerParameters[0].LogFormat;
+            LogDateFormat = config.LoggerParameters[0].LogDateFormat;
             LogTarget = target;
         }
 

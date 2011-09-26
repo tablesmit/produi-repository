@@ -3,11 +3,11 @@
 //  */
 using System;
 using System.Windows.Automation;
-using ProdUI.Configuration;
 using ProdUI.Controls.Windows;
+using ProdUI.Interaction.Bridge;
 using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
-using ProdUI.Utility;
+using ProdUI.Logging;
 
 namespace ProdUI.Controls.Static
 {
@@ -26,14 +26,8 @@ namespace ProdUI.Controls.Static
             AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
             StaticEvents.RegisterEvent(RangeValuePattern.ValueProperty, control);
 
-            int ret = RangeValuePatternHelper.SetValue(control, value);
-            if (ret == -1)
-            {
-                ProdSliderNative.SetValueNative(controlHandle, value);
-            }
-
-            string logmessage = "Control Text: " + control.Current.Name + " Value to set: " + value;
-            ProdStaticSession.Log(logmessage);
+            RangeValuePatternHelper.SetValue(control, value);
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
         }
 
         /// <summary>
@@ -47,17 +41,8 @@ namespace ProdUI.Controls.Static
         /// </remarks>
         public static void SliderSetValue(ProdWindow prodwindow, string automationId, double value)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            StaticEvents.RegisterEvent(RangeValuePattern.ValueProperty, control);
-
-            int ret = RangeValuePatternHelper.SetValue(control, value);
-            if (ret == -1 && control.Current.NativeWindowHandle != 0)
-            {
-                RangeValuePatternHelper.SetValue(control, value);
-            }
-
-            string logmessage = "Control Text: " + control.Current.Name + " Value to set: " + value;
-            ProdStaticSession.Log(logmessage);
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            RangeValueBridge.SetValueBridge(null, control, value);
         }
 
         /// <summary>
@@ -81,9 +66,7 @@ namespace ProdUI.Controls.Static
                 ProdSliderNative.GetValueNative(controlHandle);
             }
 
-            string logmessage = "Control Text: " + control.Current.Name + " Value: " + retVal;
-            ProdStaticSession.Log(logmessage);
-
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name + " Value: " + retVal));
             return retVal;
         }
 
@@ -100,18 +83,8 @@ namespace ProdUI.Controls.Static
         /// </remarks>
         public static double SliderGetValue(ProdWindow prodwindow, string automationId)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            double retVal = RangeValuePatternHelper.GetValue(control);
-
-            if (retVal == -1 && control.Current.NativeWindowHandle != 0)
-            {
-                ProdSliderNative.GetValueNative((IntPtr) control.Current.NativeWindowHandle);
-            }
-
-            string logmessage = "Control Text: " + control.Current.Name + " Value: " + retVal;
-            ProdStaticSession.Log(logmessage);
-
-            return retVal;
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            return RangeValueBridge.GetValueBridge(null, control);
         }
 
         /// <summary>
@@ -126,8 +99,7 @@ namespace ProdUI.Controls.Static
             AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
 
             double retVal = RangeValuePatternHelper.GetLargeChange(control);
-            string logmessage = "Control Text: " + control.Current.Name + " Value: " + retVal;
-            ProdStaticSession.Log(logmessage);
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name + " Value: " + retVal));
             return retVal;
         }
 
@@ -141,13 +113,8 @@ namespace ProdUI.Controls.Static
         /// </returns>
         public static double SliderGetLargeChange(ProdWindow prodwindow, string automationId)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            double retVal = RangeValuePatternHelper.GetLargeChange(control);
-
-            string logmessage = "Control Text: " + control.Current.Name + " Value: " + retVal;
-            ProdStaticSession.Log(logmessage);
-
-            return retVal;
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            return RangeValueBridge.GetLargeChangeBridge(null, control);
         }
 
         /// <summary>
@@ -162,8 +129,7 @@ namespace ProdUI.Controls.Static
             AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
             double retVal = RangeValuePatternHelper.GetSmallChange(control);
 
-            string logmessage = "Control Text: " + control.Current.Name + " Value: " + retVal;
-            ProdStaticSession.Log(logmessage);
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name + " Value: " + retVal));
 
             return retVal;
         }
@@ -178,13 +144,8 @@ namespace ProdUI.Controls.Static
         /// </returns>
         public static double SliderGetSmallChange(ProdWindow prodwindow, string automationId)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            double retVal = RangeValuePatternHelper.GetSmallChange(control);
-
-            string logmessage = "Control Text: " + control.Current.Name + " Value: " + retVal;
-            ProdStaticSession.Log(logmessage);
-
-            return retVal;
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            return RangeValueBridge.GetSmallChangeBridge(null, control);
         }
 
         /// <summary>
@@ -204,8 +165,7 @@ namespace ProdUI.Controls.Static
                 ProdSliderNative.GetMaximumNative(controlHandle);
             }
 
-            string logmessage = "Control Text: " + control.Current.Name + " value: " + retVal;
-            ProdStaticSession.Log(logmessage);
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name + " Value: " + retVal));
 
             return retVal;
         }
@@ -220,18 +180,8 @@ namespace ProdUI.Controls.Static
         /// </returns>
         public static double SliderGetMaxValue(ProdWindow prodwindow, string automationId)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            double retVal = RangeValuePatternHelper.GetMaximum(control);
-
-            if (retVal == -1 && control.Current.NativeWindowHandle != 0)
-            {
-                ProdSliderNative.GetMaximumNative((IntPtr) control.Current.NativeWindowHandle);
-            }
-
-            string logmessage = "Control Text: " + control.Current.Name + " value: " + retVal;
-            ProdStaticSession.Log(logmessage);
-
-            return retVal;
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            return RangeValueBridge.GetMaxValueBridge(null, control);
         }
 
         /// <summary>
@@ -251,8 +201,7 @@ namespace ProdUI.Controls.Static
                 ProdSliderNative.GetMinimumNative(controlHandle);
             }
 
-            string logmessage = "Control Text: " + control.Current.Name + " value: " + retVal;
-            ProdStaticSession.Log(logmessage);
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name + " Value: " + retVal));
 
             return retVal;
         }
@@ -267,18 +216,8 @@ namespace ProdUI.Controls.Static
         /// </returns>
         public static double SliderGetMinValue(ProdWindow prodwindow, string automationId)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            double retVal = RangeValuePatternHelper.GetMinimum(control);
-
-            if (retVal == -1 && control.Current.NativeWindowHandle != 0)
-            {
-                ProdSliderNative.GetMinimumNative((IntPtr) control.Current.NativeWindowHandle);
-            }
-
-            string logmessage = "Control Text: " + control.Current.Name + " value: " + retVal;
-            ProdStaticSession.Log(logmessage);
-
-            return retVal;
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            return RangeValueBridge.GetMinValueBridge(null, control);
         }
     }
 }

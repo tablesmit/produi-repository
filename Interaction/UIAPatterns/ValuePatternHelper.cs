@@ -1,6 +1,6 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
-using System;
 using System.Windows.Automation;
+using ProdUI.Verification;
 
 namespace ProdUI.Interaction.UIAPatterns
 {
@@ -10,11 +10,11 @@ namespace ProdUI.Interaction.UIAPatterns
     internal static class ValuePatternHelper
     {
         /// <summary>
-        ///     Gets the current string value in the supplied TextBox
+        /// Gets the current string value in the supplied TextBox
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
-        ///     String value in TextBox, or <c>null</c> if InvalidOperationException is raised
+        /// String value in TextBox, or <c>null</c> if InvalidOperationException is raised
         /// </returns>
         internal static string GetValue(AutomationElement control)
         {
@@ -23,40 +23,40 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Sets the TextBox value to the supplied value, overwriting any existing text
+        /// Sets the TextBox value to the supplied value, overwriting any existing text
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "text">Text to set Textbox value to</param>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="text">Text to set Textbox value to</param>
         internal static void SetValue(AutomationElement control, string text)
         {
             ValuePattern pattern = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
             pattern.SetValue(text);
 
-            VerifyText(control, text);
+            ValueVerifier<string, string>.Verify(text, GetValue(control));
         }
 
 
         /// <summary>
-        ///     Appends the supplied string to the existing textBox text
+        /// Appends the supplied string to the existing textBox text
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "text">Text to append to TextBox value</param>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="text">Text to append to TextBox value</param>
         internal static void AppendValue(AutomationElement control, string text)
         {
             ValuePattern pattern = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
-
-            string appText = pattern.Current.Value + text;
+            string originalText = pattern.Current.Value;
+            string appText = originalText + text;
             pattern.SetValue(appText);
 
-            VerifyText(control, appText);
+            ValueVerifier<string, string>.Verify(appText, GetValue(control));
         }
 
         /// <summary>
-        ///     Inserts supplied text into existing string beginning at the specified index
+        /// Inserts supplied text into existing string beginning at the specified index
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "text">Text to insert into to TextBox value</param>
-        /// <param name = "index">Index into string where to begin insertion</param>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="text">Text to insert into to TextBox value</param>
+        /// <param name="index">Index into string where to begin insertion</param>
         internal static void InsertValue(AutomationElement control, string text, int index)
         {
             ValuePattern pattern = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
@@ -68,29 +68,7 @@ namespace ProdUI.Interaction.UIAPatterns
                 string insString = baseText.Insert(index, text);
                 SetValue(control, insString);
             }
-
-            /* Time to verify */
-            VerifyText(control, GetValue(control));
-        }
-
-        /// <summary>
-        ///     Verifies that supplied text matches what is currently in the control
-        /// </summary>
-        /// <param name = "control">control to verify</param>
-        /// <param name = "text">the text to verify</param>
-        /// <returns>
-        ///     0 if match, anything else otherwise
-        /// </returns>
-        private static int VerifyText(AutomationElement control, string text)
-        {
-            ValuePattern pattern = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
-            string currentText = pattern.Current.Value;
-
-            if (text.Length == 0 || currentText.Length == 0)
-            {
-                return 0;
-            }
-            return String.Compare(text, currentText, StringComparison.Ordinal);
+            //TODO: Find an insert text verification
         }
     }
 }

@@ -2,7 +2,6 @@
 //  * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 //  */
 using System.Collections.Generic;
-using ProdUI.Configuration;
 
 namespace ProdUI.Logging
 {
@@ -17,14 +16,14 @@ namespace ProdUI.Logging
         /// <value>
         ///     The return parameters used by the Logger.
         /// </value>
-        List<LoggerParameters> ReturnParameters { get; set; }
+        List<ProdLoggerInputParameters> ReturnParameters { get; set; }
 
         /// <summary>
         ///     Writes a message to the target output
         /// </summary>
         /// <param name = "message">The LogMessage.</param>
         /// <param name = "parameters">Any extra parameters.</param>
-        void Write(LogMessage message, List<LoggerParameters> parameters);
+        void Write(LogMessage message, List<ProdLoggerInputParameters> parameters);
 
         /// <summary>
         ///     Calls the parameter form, if the logger requires it

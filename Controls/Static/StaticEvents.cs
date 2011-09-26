@@ -3,7 +3,7 @@
 //  */
 using System.Windows.Automation;
 
-namespace ProdUI.Configuration
+namespace ProdUI.Controls.Static
 {
     internal static class StaticEvents
     {

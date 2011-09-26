@@ -1,6 +1,7 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using ProdUI.Logging;
+using ProdUI.Verification;
 
 namespace ProdUI.Interaction.Native
 {
@@ -44,6 +45,7 @@ namespace ProdUI.Interaction.Native
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
             NativeMethods.SendMessage(windowHandle, (int) TabControlMessage.TCMSETCURSEL, index, 0);
+            ValueVerifier<int, int>.Verify(index, GetSelectedTab(windowHandle));
         }
     }
 }

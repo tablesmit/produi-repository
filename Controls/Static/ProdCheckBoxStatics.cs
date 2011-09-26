@@ -3,7 +3,6 @@
 //  */
 using System;
 using System.Windows.Automation;
-using ProdUI.Configuration;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.Native;
@@ -39,8 +38,7 @@ namespace ProdUI.Controls.Static
                 ret = ProdCheckBoxNative.GetCheckStateNative(controlHandle);
             }
 
-            string logmessage = "Control Text: " + control.Current.Name + " Value: " + ret;
-            ProdStaticSession.Log(logmessage);
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
 
             return ret;
         }
@@ -64,8 +62,7 @@ namespace ProdUI.Controls.Static
 
             ToggleState ret = TogglePatternHelper.GetToggleState(control);
 
-            string logmessage = "Control Text: " + control.Current.Name + " Value: " + ret;
-            ProdStaticSession.Log(logmessage);
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
 
             return ret;
         }
@@ -86,14 +83,10 @@ namespace ProdUI.Controls.Static
             AutomationElement control = CommonUIAPatternHelpers.Prologue(TogglePattern.Pattern, controlHandle);
             StaticEvents.RegisterEvent(TogglePattern.ToggleStateProperty, control);
 
-            int ret = TogglePatternHelper.SetToggleState(control, isChecked);
-            if (ret == -1)
-            {
-                ProdCheckBoxNative.SetCheckStateNative(controlHandle, isChecked);
-            }
+            TogglePatternHelper.SetToggleState(control, isChecked);
 
-            string logmessage = "Control Text: " + control.Current.Name + " Value to set: " + isChecked;
-            ProdStaticSession.Log(logmessage);
+
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
         }
 
         /// <summary>
@@ -113,8 +106,7 @@ namespace ProdUI.Controls.Static
 
             TogglePatternHelper.SetToggleState(control, isChecked);
 
-            string logmessage = "Control Text: " + control.Current.Name + " Value to set: " + isChecked;
-            ProdStaticSession.Log(logmessage);
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
         }
 
 
@@ -134,8 +126,7 @@ namespace ProdUI.Controls.Static
 
             TogglePatternHelper.Toggle(AutomationElement.FromHandle(controlHandle));
 
-            string logmessage = "Control Text: " + control.Current.Name + " Toggled";
-            ProdStaticSession.Log(logmessage);
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
         }
 
         /// <summary>
@@ -154,8 +145,7 @@ namespace ProdUI.Controls.Static
 
             TogglePatternHelper.Toggle(control);
 
-            string logmessage = "Control Text: " + control.Current.Name + " Toggled";
-            ProdStaticSession.Log(logmessage);
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
         }
 
         /// <summary>
@@ -167,14 +157,9 @@ namespace ProdUI.Controls.Static
             AutomationElement control = CommonUIAPatternHelpers.Prologue(TogglePattern.Pattern, controlHandle);
             StaticEvents.RegisterEvent(TogglePattern.ToggleStateProperty, control);
 
-            int ret = TogglePatternHelper.Toggle(control);
-            if (ret == -1)
-            {
-                ProdCheckBoxNative.ClickIt(controlHandle);
-            }
+            TogglePatternHelper.Toggle(control);
 
-            string logmessage = "Control Text: " + control.Current.Name;
-            ProdStaticSession.Log(logmessage);
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
         }
 
         /// <summary>
@@ -192,8 +177,7 @@ namespace ProdUI.Controls.Static
 
             TogglePatternHelper.Toggle(control);
 
-            string logmessage = "Control Text: " + control.Current.Name;
-            ProdStaticSession.Log(logmessage);
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
         }
     }
 }

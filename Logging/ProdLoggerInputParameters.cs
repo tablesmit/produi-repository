@@ -3,12 +3,12 @@
 //  */
 using System.Xml.Serialization;
 
-namespace ProdUI.Configuration
+namespace ProdUI.Logging
 {
     /// <summary>
     ///     Used to pass parameters between the session and a ILogTarget
     /// </summary>
-    public class LoggerParameters
+    public class ProdLoggerInputParameters
     {
         /// <summary>
         ///     Stores a list of strings representing the name of a parameter

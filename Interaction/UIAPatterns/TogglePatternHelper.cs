@@ -1,6 +1,7 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System.Runtime.CompilerServices;
 using System.Windows.Automation;
+using ProdUI.Verification;
 
 [assembly: InternalsVisibleTo("ProdUITests")]
 
@@ -56,24 +57,8 @@ namespace ProdUI.Interaction.UIAPatterns
                 TogglePattern pattern = (TogglePattern) control.GetCurrentPattern(TogglePattern.Pattern);
                 pattern.Toggle();
             }
+            ValueVerifier<ToggleState, ToggleState>.Verify(toggleState, GetToggleState(control));
 
-            VerifyCheckState(control, toggleState);
-        }
-
-        /// <summary>
-        ///     Verifies the toggle state.
-        /// </summary>
-        /// <param name = "control">The control to verify.</param>
-        /// <param name = "toggleState">Desired toggleState</param>
-        /// <returns>
-        ///     <c>true</c> if verified, <c>false</c> if failure
-        /// </returns>
-        private static bool VerifyCheckState(AutomationElement control, ToggleState toggleState)
-        {
-            /* now verify toggle */
-            if (GetToggleState(control) == toggleState)
-                return true;
-            return false;
         }
 
         #endregion
