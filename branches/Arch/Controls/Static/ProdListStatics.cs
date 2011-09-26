@@ -5,13 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Automation;
-using ProdUI.Configuration;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 using ProdUI.Utility;
+using ProdUI.Interaction.Bridge;
 
 namespace ProdUI.Controls.Static
 {
@@ -35,6 +35,7 @@ namespace ProdUI.Controls.Static
         public static bool CanSelectMultiple(IntPtr controlHandle)
         {
             AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
             return SelectionPatternHelper.CanSelectMultiple(control);
         }
 
@@ -71,7 +72,7 @@ namespace ProdUI.Controls.Static
         public static List<object> GetItems(IntPtr controlHandle)
         {
             AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-            AutomationElementCollection convRet = SelectionPatternHelper.GetListItems(control);
+            AutomationElementCollection convRet = SelectionItemPatternHelper.GetListItems(control);
 
             List<object> ret = InternalUtilities.AutomationCollToObjectList(convRet);
 
@@ -80,7 +81,7 @@ namespace ProdUI.Controls.Static
                 ProdListBoxNative.GetItemsNative(controlHandle);
             }
 
-            ProdStaticSession.Log("List items: ", ret);
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name,ret));
             return ret;
         }
 
@@ -99,13 +100,8 @@ namespace ProdUI.Controls.Static
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public static List<object> GetItems(ProdWindow prodwindow, string automationId)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            AutomationElementCollection convRet = SelectionPatternHelper.GetListItems(control);
-
-            List<object> ret = InternalUtilities.AutomationCollToObjectList(convRet);
-
-            ProdStaticSession.Log("List items: ", ret);
-            return ret;
+            BaseProdControl control = new BaseProdControl(prodwindow,automationId);
+            return SingleSelectListBridge.GetItemsBridge(null, control);
         }
 
         /// <summary>
@@ -123,8 +119,7 @@ namespace ProdUI.Controls.Static
         public static int GetItemCount(IntPtr controlHandle)
         {
             AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-            AutomationElementCollection aec = SelectionPatternHelper.GetListCollectionUtility(control);
-            int ret = aec.Count;
+            int ret = SelectionItemPatternHelper.GetListItemCount(control);
 
             if (ret == -1)
             {
@@ -138,7 +133,7 @@ namespace ProdUI.Controls.Static
                 }
             }
 
-            ProdStaticSession.Log("List item count: " + ret);
+            LogController.ReceiveLogMessage(new LogMessage(ret.ToString()));
             return ret;
         }
 
@@ -154,12 +149,8 @@ namespace ProdUI.Controls.Static
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static int GetItemCount(ProdWindow prodwindow, string automationId)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            AutomationElementCollection aec = SelectionPatternHelper.GetListCollectionUtility(control);
-            int ret = aec.Count;
-
-            ProdStaticSession.Log("List item count: " + ret);
-            return ret;
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            return SingleSelectListBridge.GetItemCountBridge(null, control);
         }
 
         #region Single Select specific
@@ -180,13 +171,13 @@ namespace ProdUI.Controls.Static
         {
             AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
             AutomationElement[] element = SelectionPatternHelper.GetSelection(control);
-            int ret = SelectionPatternHelper.FindIndexByItem(control, element[0].Current.Name);
+            int ret = SelectionItemPatternHelper.FindIndexByItem(control, element[0].Current.Name);
             if (ret == -1)
             {
                 /* Call native function */
                 ret = ProdListBoxNative.GetSelectedIndexNative(controlHandle);
             }
-            ProdStaticSession.Log("Selected List item index: " + ret);
+            LogController.ReceiveLogMessage(new LogMessage(ret.ToString()));
             return ret;
         }
 
@@ -205,12 +196,8 @@ namespace ProdUI.Controls.Static
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static int GetSelectedIndex(ProdWindow prodwindow, string automationId)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            AutomationElement[] element = SelectionPatternHelper.GetSelection(control);
-            int ret = SelectionPatternHelper.FindIndexByItem(control, element[0].Current.Name);
-
-            ProdStaticSession.Log("Selected List item index: " + ret);
-            return ret;
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            return SingleSelectListBridge.GetSelectedIndexBridge(null, control);
         }
 
         /// <summary>
@@ -236,7 +223,7 @@ namespace ProdUI.Controls.Static
                 throw new ProdOperationException("Unable to select Item");
             }
 
-            ProdStaticSession.Log("Selected List item: " + ret);
+            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
             return ret;
         }
 
@@ -252,17 +239,8 @@ namespace ProdUI.Controls.Static
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static object GetSelectedItem(ProdWindow prodwindow, string automationId)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            AutomationElement[] retVal = SelectionPatternHelper.GetSelection(control);
-
-            AutomationElement ret = retVal[0];
-            if (ret == null)
-            {
-                throw new ProdOperationException("Unable to select Item");
-            }
-
-            ProdStaticSession.Log("Selected List item: " + ret);
-            return ret;
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            return SingleSelectListBridge.GetSelectedItemBridge(null, control);
         }
 
         /// <summary>
@@ -282,10 +260,10 @@ namespace ProdUI.Controls.Static
                 AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
                 StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
 
-                AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(control, index);
-                SelectionPatternHelper.Select(indexedItem);
+                AutomationElement indexedItem = SelectionItemPatternHelper.FindItemByIndex(control, index);
+                SelectionItemPatternHelper.SelectItem(indexedItem);
 
-                ProdStaticSession.Log("List item Selected: " + index);
+                LogController.ReceiveLogMessage(new LogMessage(index.ToString()));
             }
             catch (InvalidOperationException)
             {
@@ -310,10 +288,10 @@ namespace ProdUI.Controls.Static
                 AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
                 StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
 
-                AutomationElement indexedItem = SelectionPatternHelper.FindItemByText(control, itemText);
-                SelectionPatternHelper.Select(indexedItem);
+                AutomationElement indexedItem = SelectionItemPatternHelper.FindItemByText(control, itemText);
+                SelectionItemPatternHelper.SelectItem(indexedItem);
 
-                ProdStaticSession.Log("List item Selected: " + itemText);
+                LogController.ReceiveLogMessage(new LogMessage(itemText));
             }
             catch (InvalidOperationException)
             {
@@ -329,15 +307,10 @@ namespace ProdUI.Controls.Static
         /// <param name = "index">The zero-based index of the item to select</param>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public static void SetSelectedItem(ProdWindow prodwindow, string automationId, int index)
+        public static void SetSelectedIndex(ProdWindow prodwindow, string automationId, int index)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
-
-            AutomationElement indexedItem = SelectionPatternHelper.FindItemByIndex(control, index);
-            SelectionPatternHelper.Select(indexedItem);
-
-            ProdStaticSession.Log("List item Selected: " + index);
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            SingleSelectListBridge.SetSelectedIndexBridge(null, control, index);
         }
 
         /// <summary>
@@ -350,13 +323,8 @@ namespace ProdUI.Controls.Static
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SetSelectedItem(ProdWindow prodwindow, string automationId, string itemText)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
-
-            AutomationElement indexedItem = SelectionPatternHelper.FindItemByText(control, itemText);
-            SelectionPatternHelper.Select(indexedItem);
-
-            ProdStaticSession.Log("List item Selected: " + itemText);
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            SingleSelectListBridge.SetSelectedItemBridge(null, control, itemText);
         }
 
         #endregion
@@ -378,12 +346,12 @@ namespace ProdUI.Controls.Static
             try
             {
                 AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-                AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(control, index);
+                AutomationElement itemToSelect = SelectionItemPatternHelper.FindItemByIndex(control, index);
 
                 StaticEvents.RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
-                SelectionPatternHelper.AddToSelection(control, index);
+                SelectionItemPatternHelper.AddToSelection(control, index);
 
-                ProdStaticSession.Log("List Item selected: " + index);
+                LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
             }
             catch (InvalidOperationException)
             {
@@ -407,12 +375,12 @@ namespace ProdUI.Controls.Static
             try
             {
                 AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-                AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(control, itemText);
+                AutomationElement itemToSelect = SelectionItemPatternHelper.FindItemByText(control, itemText);
 
                 StaticEvents.RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
-                SelectionPatternHelper.AddToSelection(control, itemText);
+                SelectionItemPatternHelper.AddToSelection(control, itemText);
 
-                ProdStaticSession.Log("List Item selected: " + itemText);
+                LogController.ReceiveLogMessage(new LogMessage("List Item selected: " + itemText));
             }
             catch (InvalidOperationException)
             {
@@ -434,13 +402,8 @@ namespace ProdUI.Controls.Static
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void AddToSelection(ProdWindow prodwindow, string automationId, int index)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(control, index);
-
-            StaticEvents.RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
-            SelectionPatternHelper.AddToSelection(control, index);
-
-            ProdStaticSession.Log("List Item selected: " + index);
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            MultipleSelectListBridge.AddToSelectionBridge(null, control, index);
         }
 
         /// <summary>
@@ -456,13 +419,8 @@ namespace ProdUI.Controls.Static
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void AddToSelection(ProdWindow prodwindow, string automationId, string itemText)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(control, itemText);
-
-            StaticEvents.RegisterEvent(SelectionItemPattern.ElementAddedToSelectionEvent, control);
-            SelectionPatternHelper.AddToSelection(control, itemText);
-
-            ProdStaticSession.Log("List Item selected: " + itemText);
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            MultipleSelectListBridge.AddToSelectionBridge(null, control, itemText);
         }
 
         /// <summary>
@@ -480,12 +438,12 @@ namespace ProdUI.Controls.Static
             try
             {
                 AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-                AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(control, index);
+                AutomationElement itemToSelect = SelectionItemPatternHelper.FindItemByIndex(control, index);
 
                 StaticEvents.RegisterEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent, control);
-                SelectionPatternHelper.RemoveFromSelection(itemToSelect);
+                SelectionItemPatternHelper.RemoveFromSelection(itemToSelect);
 
-                ProdStaticSession.Log("List Item deselected: " + index);
+                LogController.ReceiveLogMessage(new LogMessage("List Item deselected: " + index));
             }
             catch (InvalidOperationException)
             {
@@ -509,12 +467,12 @@ namespace ProdUI.Controls.Static
             try
             {
                 AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-                AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(control, itemText);
+                AutomationElement itemToSelect = SelectionItemPatternHelper.FindItemByText(control, itemText);
 
                 StaticEvents.RegisterEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent, control);
-                SelectionPatternHelper.RemoveFromSelection(itemToSelect);
+                SelectionItemPatternHelper.RemoveFromSelection(itemToSelect);
 
-                ProdStaticSession.Log("List Item deselected: " + itemText);
+                LogController.ReceiveLogMessage(new LogMessage("List Item deselected: " + itemText));
             }
             catch (InvalidOperationException)
             {
@@ -535,13 +493,8 @@ namespace ProdUI.Controls.Static
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void DeselectItem(ProdWindow prodwindow, string automationId, int index)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            AutomationElement itemToSelect = SelectionPatternHelper.FindItemByIndex(control, index);
-
-            StaticEvents.RegisterEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent, control);
-            SelectionPatternHelper.RemoveFromSelection(itemToSelect);
-
-            ProdStaticSession.Log("List Item deselected: " + index);
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            MultipleSelectListBridge.RemoveFromSelectionBridge(null, control, index);
         }
 
         /// <summary>
@@ -556,13 +509,8 @@ namespace ProdUI.Controls.Static
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void DeselectItem(ProdWindow prodwindow, string automationId, string itemText)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            AutomationElement itemToSelect = SelectionPatternHelper.FindItemByText(control, itemText);
-
-            StaticEvents.RegisterEvent(SelectionItemPattern.ElementRemovedFromSelectionEvent, control);
-            SelectionPatternHelper.RemoveFromSelection(itemToSelect);
-
-            ProdStaticSession.Log("List Item deselected: " + itemText);
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            MultipleSelectListBridge.RemoveFromSelectionBridge(null, control, itemText);
         }
 
         /// <summary>
@@ -597,7 +545,7 @@ namespace ProdUI.Controls.Static
                 }
             }
 
-            ProdStaticSession.Log("List selection count: " + selectedItems.Length);
+            LogController.ReceiveLogMessage(new LogMessage("List selection count: " + selectedItems.Length));
             return selectedItems.Length;
         }
 
@@ -615,11 +563,8 @@ namespace ProdUI.Controls.Static
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static int SelectedItemCount(ProdWindow prodwindow, string automationId)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(control);
-
-            ProdStaticSession.Log("List selection count: " + selectedItems.Length);
-            return selectedItems.Length;
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            return MultipleSelectListBridge.GetSelectedItemCountBridge(null, control);
         }
 
         /// <summary>
@@ -642,10 +587,10 @@ namespace ProdUI.Controls.Static
             }
 
             AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-            AutomationElementCollection convRet = SelectionPatternHelper.GetSelectedItems(control);
+            AutomationElementCollection convRet = SelectionItemPatternHelper.GetSelectedItems(control);
 
             List<object> ret = InternalUtilities.AutomationCollToObjectList(convRet);
-            ProdStaticSession.Log("List selected items: ", ret);
+            LogController.ReceiveLogMessage(new LogMessage("List selected items: ", ret));
 
             return ret;
         }
@@ -674,7 +619,7 @@ namespace ProdUI.Controls.Static
             AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(control);
             List<object> retList = new List<object>(selectedItems);
 
-            ProdStaticSession.Log("List selected items: ", retList);
+            LogController.ReceiveLogMessage(new LogMessage("List selected items: ", retList));
 
             return retList;
         }
@@ -695,19 +640,8 @@ namespace ProdUI.Controls.Static
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public static List<object> GetSelectedItems(ProdWindow prodwindow, string automationId)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            if (!CanSelectMultiple((IntPtr) control.Current.NativeWindowHandle))
-            {
-                return null;
-            }
-
-
-            AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(control);
-            List<object> retList = new List<object>(selectedItems);
-
-            ProdStaticSession.Log("List selected items: ", retList);
-
-            return retList;
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            return MultipleSelectListBridge.GetSelectedItemsBridge(null, control);
         }
 
         /// <summary>
@@ -723,20 +657,10 @@ namespace ProdUI.Controls.Static
         ///     Only valid for multiple selection list controls. This is the WPF version
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public static List<object> GetSelectedIndexes(ProdWindow prodwindow, string automationId)
+        public static List<int> GetSelectedIndexes(ProdWindow prodwindow, string automationId)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            if (!CanSelectMultiple((IntPtr) control.Current.NativeWindowHandle))
-            {
-                return null;
-            }
-
-
-            AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(control);
-            List<object> retList = new List<object>(selectedItems);
-
-            ProdStaticSession.Log("List selected items: ", retList);
-            return retList;
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            return MultipleSelectListBridge.GetSelectedIndexesBridge(null, control);
         }
 
         /// <summary>
@@ -763,7 +687,7 @@ namespace ProdUI.Controls.Static
                 }
 
                 List<object> retList = new List<object>(items);
-                ProdStaticSession.Log("List items Selected: ", retList);
+                LogController.ReceiveLogMessage(new LogMessage("List items Selected: ", retList));
             }
             catch (InvalidOperationException)
             {
@@ -810,7 +734,7 @@ namespace ProdUI.Controls.Static
                 List<object> retList = new List<object> {
                                                             indexes
                                                         };
-                ProdStaticSession.Log("List items Selected: ", retList);
+                LogController.ReceiveLogMessage(new LogMessage("List items Selected: ", retList));
             }
             catch (InvalidOperationException)
             {
@@ -832,20 +756,8 @@ namespace ProdUI.Controls.Static
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public static void SetSelectedItems(ProdWindow prodwindow, string automationId, Collection<string> items)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            if (!CanSelectMultiple((IntPtr) control.Current.NativeWindowHandle))
-            {
-                return;
-            }
-
-
-            foreach (string item in items)
-            {
-                AddToSelection(prodwindow, automationId, item);
-            }
-
-            List<object> retList = new List<object>(items);
-            ProdStaticSession.Log("List items Selected: ", retList);
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            MultipleSelectListBridge.SetSelectedItemsBridge(null, control, items);
         }
 
         /// <summary>
@@ -859,24 +771,10 @@ namespace ProdUI.Controls.Static
         ///     Only valid for multiple selection list controls
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public static void SetSelectedIndexes(ProdWindow prodwindow, string automationId, Collection<int> indexes)
+        public static void SetSelectedIndexes(ProdWindow prodwindow, string automationId, List<int> indexes)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            if (!CanSelectMultiple((IntPtr) control.Current.NativeWindowHandle))
-            {
-                return;
-            }
-
-
-            foreach (int index in indexes)
-            {
-                AddToSelection(prodwindow, automationId, index);
-            }
-
-            List<object> retList = new List<object> {
-                                                        indexes
-                                                    };
-            ProdStaticSession.Log("List items Selected: ", retList);
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            MultipleSelectListBridge.SetSelectedIndexesBridge(null, control, indexes);
         }
 
         #endregion

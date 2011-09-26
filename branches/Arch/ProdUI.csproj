@@ -111,12 +111,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\LoggerParameters.cs" />
-    <Compile Include="Configuration\ProdSession.cs" />
-    <Compile Include="Configuration\ProdSessionConfig.cs" />
-    <Compile Include="Configuration\ProdStaticSession.cs" />
-    <Compile Include="Configuration\SessionLoggerConfig.cs" />
-    <Compile Include="Configuration\StaticEvents.cs" />
+    <Compile Include="Logging\ProdLoggerInputParameters.cs" />
+    <Compile Include="Logging\LoggingConfiguration.cs" />
+    <Compile Include="Logging\ProdLoggerParameters.cs" />
+    <Compile Include="Controls\Static\StaticEvents.cs" />
     <Compile Include="Interaction\Bridge\IInvoke.cs" />
     <Compile Include="Interaction\Bridge\IMultipleSelectionList.cs" />
     <Compile Include="Interaction\Bridge\InvokeBridge.cs" />
@@ -151,7 +149,7 @@
     <Compile Include="Interaction\UIAPatterns\SelectionPatternHelper.cs" />
     <Compile Include="Interaction\UIAPatterns\TextPatternHelper.cs" />
     <Compile Include="Interaction\Native\MessageConstants\WindowConstants.cs" />
-    <None Include="Controls\Static\ProdButtonStatics.cs" />
+    <Compile Include="Controls\Static\ProdButtonStatics.cs" />
     <Compile Include="Controls\Windows\BaseProdControl.cs" />
     <None Include="Controls\Windows\ProdText.cs" />
     <Compile Include="Verification\EventListener.cs" />
@@ -162,15 +160,15 @@
     <Compile Include="Interaction\Native\ProdTreeViewNative.cs" />
     <Compile Include="Interaction\Native\MessageConstants\SpinnerConstants.cs" />
     <Compile Include="Interaction\Native\MessageConstants\TreeViewConstants.cs" />
-    <None Include="Controls\Static\ProdCheckBoxStatics.cs" />
-    <None Include="Controls\Static\ProdListStatics.cs" />
-    <None Include="Controls\Static\ProdMenuStatic.cs" />
-    <None Include="Controls\Static\ProdRadioButtonStatics.cs" />
-    <None Include="Controls\Static\ProdSliderStatics.cs" />
-    <None Include="Controls\Static\ProdSpinnerStatics.cs" />
-    <None Include="Controls\Static\ProdTabStatics.cs" />
-    <None Include="Controls\Static\ValuePatternStatics.cs" />
-    <None Include="Controls\Static\WindowPatternsStatics.cs" />
+    <Compile Include="Controls\Static\ProdCheckBoxStatics.cs" />
+    <Compile Include="Controls\Static\ProdListStatics.cs" />
+    <Compile Include="Controls\Static\ProdMenuStatic.cs" />
+    <Compile Include="Controls\Static\ProdRadioButtonStatics.cs" />
+    <Compile Include="Controls\Static\ProdSliderStatics.cs" />
+    <Compile Include="Controls\Static\ProdSpinnerStatics.cs" />
+    <Compile Include="Controls\Static\ProdTabStatics.cs" />
+    <Compile Include="Controls\Static\ValuePatternStatics.cs" />
+    <Compile Include="Controls\Static\WindowPatternsStatics.cs" />
     <Compile Include="Controls\Windows\ProdCalendar.cs" />
     <None Include="Controls\Windows\ProdDataGrid.cs" />
     <None Include="Controls\Windows\ProdRibbonElement.cs" />
@@ -184,7 +182,7 @@
     <Compile Include="Controls\Windows\ProdButton.cs" />
     <Compile Include="Controls\Windows\ProdCheckBox.cs" />
     <Compile Include="Controls\Windows\ProdComboBox.cs" />
-    <None Include="Controls\Static\ProdFunctions.cs" />
+    <Compile Include="Controls\Static\ProdFunctions.cs" />
     <Compile Include="Controls\Windows\ProdList.cs" />
     <None Include="Controls\Windows\ProdMenuItem.cs" />
     <Compile Include="Controls\Windows\ProdRadioButton.cs" />
@@ -237,6 +235,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Configuration\" />
     <Folder Include="obj\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -255,7 +254,7 @@ REM Create all the sancastle stuff
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_IncrementBeforeBuild="False" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_BuildAction="Build" />
+      <UserProperties BuildVersion_BuildAction="Build" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_IncrementBeforeBuild="False" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

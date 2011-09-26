@@ -4,13 +4,14 @@
 using System;
 using System.Collections;
 using System.Windows.Automation;
-using ProdUI.Configuration;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 using ProdUI.Utility;
+using ProdUI.Interaction.Bridge;
+using System.Collections.Generic;
 
 namespace ProdUI.Controls.Static
 {
@@ -29,7 +30,7 @@ namespace ProdUI.Controls.Static
             try
             {
                 AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-                AutomationElementCollection aec = SelectionPatternHelper.GetListItems(control);
+                AutomationElementCollection aec = SelectionItemPatternHelper.GetListItems(control);
                 return InternalUtilities.AutomationCollToArrayList(aec);
             }
             catch (InvalidOperationException err)
@@ -51,22 +52,10 @@ namespace ProdUI.Controls.Static
         ///     list containing all items
         /// </returns>
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        public static ArrayList TabsGet(ProdWindow prodwindow, string automationId)
+        public static List<object> TabsGet(ProdWindow prodwindow, string automationId)
         {
-            try
-            {
-                AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-                AutomationElementCollection aec = SelectionPatternHelper.GetListItems(control);
-                return InternalUtilities.AutomationCollToArrayList(aec);
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err);
-            }
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            return SingleSelectListBridge.GetItemsBridge(null, control);
         }
 
         /// <summary>
@@ -83,7 +72,7 @@ namespace ProdUI.Controls.Static
             try
             {
                 AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-                bool ret = SelectionPatternHelper.IsSelected(SelectionPatternHelper.FindItemByIndex(control, index));
+                bool ret = SelectionItemPatternHelper.SelectItem(SelectionItemPatternHelper.FindItemByIndex(control, index));
                 return ret;
             }
             catch (InvalidOperationException err)
@@ -110,7 +99,7 @@ namespace ProdUI.Controls.Static
             try
             {
                 AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-                bool ret = SelectionPatternHelper.IsSelected(SelectionPatternHelper.FindItemByText(control, itemText));
+                bool ret = SelectionPatternHelper.GetSelection(control) (SelectionItemPatternHelper.FindItemByText(control, itemText));
                 return ret;
             }
             catch (InvalidOperationException err)
@@ -135,20 +124,8 @@ namespace ProdUI.Controls.Static
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static bool TabIsSelected(ProdWindow prodwindow, string automationId, int index)
         {
-            try
-            {
-                AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-                bool ret = SelectionPatternHelper.IsSelected(SelectionPatternHelper.FindItemByIndex(control, index));
-                return ret;
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err);
-            }
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            return SingleSelectListBridge.IsItemSelectedBridge(null, control,index);
         }
 
         /// <summary>
@@ -163,20 +140,8 @@ namespace ProdUI.Controls.Static
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static bool TabIsSelected(ProdWindow prodwindow, string automationId, string itemText)
         {
-            try
-            {
-                AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-                bool ret = SelectionPatternHelper.IsSelected(SelectionPatternHelper.FindItemByText(control, itemText));
-                return ret;
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err);
-            }
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            return SingleSelectListBridge.IsItemSelectedBridge(null, control, itemText);
         }
 
         /// <summary>
@@ -192,8 +157,7 @@ namespace ProdUI.Controls.Static
             try
             {
                 AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-                AutomationElementCollection aec = SelectionPatternHelper.GetListCollectionUtility(control);
-                int retVal = aec.Count;
+                int retVal = SelectionItemPatternHelper.GetListItemCount(control);
 
                 if (retVal == -1)
                 {
@@ -222,22 +186,8 @@ namespace ProdUI.Controls.Static
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static int TabGetCount(ProdWindow prodwindow, string automationId)
         {
-            try
-            {
-                AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-                AutomationElementCollection aec = SelectionPatternHelper.GetListCollectionUtility(control);
-                int retVal = aec.Count;
-
-                return retVal;
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err);
-            }
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            return SingleSelectListBridge.GetItemCountBridge(null, control);
         }
 
         /// <summary>
@@ -277,20 +227,8 @@ namespace ProdUI.Controls.Static
         /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
         public static object TabGetSelected(ProdWindow prodwindow, string automationId)
         {
-            try
-            {
-                AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-                AutomationElement[] retVal = SelectionPatternHelper.GetSelection(control);
-                return retVal[0];
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err);
-            }
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            return SingleSelectListBridge.GetSelectedItemBridge(null, control);
         }
 
         /// <summary>
@@ -305,17 +243,16 @@ namespace ProdUI.Controls.Static
             try
             {
                 AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-                AutomationElementCollection aec = SelectionPatternHelper.GetListItems(control);
+                AutomationElementCollection aec = SelectionItemPatternHelper.GetListItems(control);
 
                 /* When using the GetListItems() methods, item index 0 is the tab control itself, so add on to get to correct TabItem */
                 int adjustedIndex = index + 1;
                 string itemText = aec[adjustedIndex].Current.Name;
 
                 StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
-                SelectionPatternHelper.Select(SelectionPatternHelper.FindItemByText(control, itemText));
+                SelectionItemPatternHelper.SelectItem(SelectionItemPatternHelper.FindItemByText(control, itemText));
 
-                string logmessage = "Control Text: " + control.Current.Name + " Selection verified";
-                ProdStaticSession.Log(logmessage);
+                LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));              
             }
             catch (InvalidOperationException)
             {
@@ -338,10 +275,9 @@ namespace ProdUI.Controls.Static
                 AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
 
                 StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
-                SelectionPatternHelper.Select(SelectionPatternHelper.FindItemByText(control, itemText));
+                SelectionItemPatternHelper.SelectItem(SelectionItemPatternHelper.FindItemByText(control, itemText));
 
-                string logmessage = "Control Text: " + control.Current.Name + " Selection verified";
-                ProdStaticSession.Log(logmessage);
+                LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
             }
             catch (InvalidOperationException err)
             {
@@ -363,29 +299,8 @@ namespace ProdUI.Controls.Static
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void TabSelect(ProdWindow prodwindow, string automationId, int index)
         {
-            try
-            {
-                AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-                AutomationElementCollection aec = SelectionPatternHelper.GetListItems(control);
-
-                /* When using the GetListItems() methods, item index 0 is the tab control itself, so add on to get to correct TabItem */
-                int adjustedIndex = index + 1;
-                string itemText = aec[adjustedIndex].Current.Name;
-
-                StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
-                SelectionPatternHelper.Select(SelectionPatternHelper.FindItemByText(control, itemText));
-
-                string logmessage = "Control Text: " + control.Current.Name + " Selection verified";
-                ProdStaticSession.Log(logmessage);
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err);
-            }
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            SingleSelectListBridge.SetSelectedIndexBridge(null, control, index);
         }
 
         /// <summary>
@@ -398,24 +313,8 @@ namespace ProdUI.Controls.Static
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void TabSelect(ProdWindow prodwindow, string automationId, string itemText)
         {
-            try
-            {
-                AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-
-                StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
-                SelectionPatternHelper.Select(SelectionPatternHelper.FindItemByText(control, itemText));
-
-                string logmessage = "Control Text: " + control.Current.Name + " Selection verified";
-                ProdStaticSession.Log(logmessage);
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err);
-            }
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            SingleSelectListBridge.SetSelectedItemBridge(null, control, itemText);
         }
     }
 }

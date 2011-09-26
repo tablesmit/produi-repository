@@ -1,5 +1,6 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System.Windows.Automation;
+using ProdUI.Verification;
 
 namespace ProdUI.Interaction.UIAPatterns
 {
@@ -67,15 +68,14 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <returns>
         ///     -1 if in error
         /// </returns>
-        internal static int SetVisualState(AutomationElement control, WindowVisualState state)
+        internal static void SetVisualState(AutomationElement control, WindowVisualState state)
         {
             WindowPattern pattern = (WindowPattern) CommonUIAPatternHelpers.CheckPatternSupport(WindowPattern.Pattern, control);
             if (pattern.Current.WindowInteractionState == WindowInteractionState.ReadyForUserInteraction)
             {
                 SetState(state, pattern);
-                return VerifyState(pattern, state);
+                ValueVerifier<WindowVisualState, WindowVisualState>.Verify(state,GetVisualState(control));
             }
-            return -1;
         }
 
         /// <summary>
@@ -135,28 +135,6 @@ namespace ProdUI.Interaction.UIAPatterns
                     wp.SetWindowVisualState(WindowVisualState.Normal);
                     break;
             }
-        }
-
-        /// <summary>
-        ///     Verifies the window is closed.
-        /// </summary>
-        /// <param name = "pattern">The WindowPattern of the current control</param>
-        /// <param name = "state">The desired <see cref = "WindowVisualState" /></param>
-        /// <returns>
-        ///     0 if ok, -1 if error
-        /// </returns>
-        private static int VerifyState(WindowPattern pattern, WindowVisualState state)
-        {
-            if (false == pattern.WaitForInputIdle(10000))
-            {
-                return -1;
-            }
-
-            if (pattern.Current.WindowVisualState != state)
-            {
-                return -1;
-            }
-            return 0;
         }
 
     }

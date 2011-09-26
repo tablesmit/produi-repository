@@ -4,19 +4,19 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace ProdUI.Configuration
+namespace ProdUI.Logging
 {
     /// <summary>
-    ///     Represents parameters for any ProdLoggers in the config file
+    ///     Represents parameters for any ProdLoggers in the configuration file
     /// </summary>
-    public class SessionLoggerConfig
+    public class ProdLoggerParameters
     {
         /// <summary>
         ///     List of verbose information
         /// </summary>
         [XmlArray("parameters")]
         [XmlArrayItem("parameter")]
-        public List<LoggerParameters> Parameters;
+        public List<ProdLoggerInputParameters> Parameters;
 
         /// <summary>
         ///     Gets or sets the type of LoggingTarget.

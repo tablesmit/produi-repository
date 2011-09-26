@@ -281,11 +281,10 @@ namespace ProdUI.Interaction.Bridge
             ProdWindowNative.MinimizeWindowNative(baseControl.NativeHandle);
         }
 
-        private static int UiaMinimizeWindow(ProdWindow baseControl)
+        private static void UiaMinimizeWindow(ProdWindow baseControl)
         {
-            int retVal = WindowPatternHelper.SetVisualState(baseControl.UIAElement, WindowVisualState.Minimized);
+            WindowPatternHelper.SetVisualState(baseControl.UIAElement, WindowVisualState.Minimized);
             LogController.ReceiveLogMessage(new LogMessage("minimized"));
-            return retVal;
         }
 
 
@@ -322,11 +321,10 @@ namespace ProdUI.Interaction.Bridge
             ProdWindowNative.MaximizeWindowNative(baseControl.NativeHandle);
         }
 
-        private static int UiaMaximizeWindow(ProdWindow baseControl)
+        private static void UiaMaximizeWindow(ProdWindow baseControl)
         {
-            int retVal = WindowPatternHelper.SetVisualState(baseControl.UIAElement, WindowVisualState.Maximized);
+            WindowPatternHelper.SetVisualState(baseControl.UIAElement, WindowVisualState.Maximized);
             LogController.ReceiveLogMessage(new LogMessage("maximized"));
-            return retVal;
         }
 
 
@@ -364,11 +362,10 @@ namespace ProdUI.Interaction.Bridge
             ProdWindowNative.ShowWindowNative(baseControl.NativeHandle);
         }
 
-        private static int UiaRestoreWindow(ProdWindow baseControl)
+        private static void UiaRestoreWindow(ProdWindow baseControl)
         {
-            int retVal = WindowPatternHelper.SetVisualState(baseControl.UIAElement, WindowVisualState.Normal);
+            WindowPatternHelper.SetVisualState(baseControl.UIAElement, WindowVisualState.Normal);
             LogController.ReceiveLogMessage(new LogMessage("restored"));
-            return retVal;
         }
 
 
