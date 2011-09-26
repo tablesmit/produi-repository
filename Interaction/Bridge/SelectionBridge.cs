@@ -11,19 +11,18 @@ using ProdUI.Verification;
 namespace ProdUI.Interaction.Bridge
 {
     /// <summary>
-    ///     Handles non-list related items that use the SelectionPatterns
+    /// Handles non-list related items that use the SelectionPatterns
     /// </summary>
     internal static class SelectionBridge
     {
         /// <summary>
-        ///     Gets a value indicating if a RadioButton is selected
+        /// Gets a value indicating if a RadioButton is selected
         /// </summary>
-        /// <param name = "theInterface">The extension interface.</param>
-        /// <param name = "control">The base ProdUI control</param>
+        /// <param name="theInterface">The extension interface.</param>
+        /// <param name="control">The base ProdUI control</param>
         /// <returns>
-        ///     <c>true</c> if selected, <c>false</c> otherwise
+        ///   <c>true</c> if selected, <c>false</c> otherwise
         /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static bool GetIsSelectedBridge(this ISelection theInterface, BaseProdControl control)
         {
             try
@@ -47,7 +46,7 @@ namespace ProdUI.Interaction.Bridge
 
         private static bool NativeGetIsSelected(BaseProdControl control)
         {
-            return ProdRadioButtonNative.GetCheckStateNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            return ProdRadioButtonNative.GetCheckStateNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
 
         private static bool UiaGetIsSelected(BaseProdControl control)
@@ -59,11 +58,10 @@ namespace ProdUI.Interaction.Bridge
 
 
         /// <summary>
-        ///     Selects a RadioButton
+        /// Selects a RadioButton
         /// </summary>
-        /// <param name = "theInterface">The extension interface.</param>
-        /// <param name = "control">The base ProdUI control</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <param name="theInterface">The extension interface.</param>
+        /// <param name="control">The base ProdUI control</param>
         internal static void SetIsSelectedBridge(this ISelection theInterface, BaseProdControl control)
         {
             try
@@ -87,7 +85,7 @@ namespace ProdUI.Interaction.Bridge
 
         private static void NativeSetSelected(BaseProdControl control)
         {
-            ProdRadioButtonNative.SetCheckStateNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            ProdRadioButtonNative.SetCheckStateNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
 
         private static void UiaSetSelected(BaseProdControl control)

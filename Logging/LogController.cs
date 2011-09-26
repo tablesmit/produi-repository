@@ -5,18 +5,18 @@ using System.Collections.Generic;
 
 namespace ProdUI.Logging
 {
-    internal static class LogController
+    public static class LogController
     {
-        internal static List<ProdLogger> ActiveLoggers;
+        internal static List<ProdLogger> ActiveLoggers = new List<ProdLogger>();
         private static LogMessage _CurrentMessage;
 
-        internal static void AddActiveLogger(List<ProdLogger> loggers)
+        public static void AddActiveLogger(List<ProdLogger> loggers)
         {
             if (loggers == null) return;
             ActiveLoggers.AddRange(loggers);
         }
 
-        internal static  void AddActiveLogger(ProdLogger newLogger)
+        public static  void AddActiveLogger(ProdLogger newLogger)
         {
             if (newLogger == null) return;
             ActiveLoggers.Add(newLogger);

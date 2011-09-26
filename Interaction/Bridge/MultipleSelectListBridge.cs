@@ -20,7 +20,6 @@ namespace ProdUI.Interaction.Bridge
         /// <param name = "theInterface">The extension interface.</param>
         /// <param name = "control">The base ProdUI control.</param>
         /// <param name = "index">The zero-based index of the item to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static void AddToSelectionBridge(this IMultipleSelectionList theInterface, BaseProdControl control, int index)
         {
             try
@@ -73,7 +72,6 @@ namespace ProdUI.Interaction.Bridge
         /// <param name = "theInterface">The extension interface.</param>
         /// <param name = "control">The base ProdUI control.</param>
         /// <param name = "itemText">The text of the item to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static void AddToSelectionBridge(this IMultipleSelectionList theInterface, BaseProdControl control, string itemText)
         {
             try
@@ -128,7 +126,6 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         ///     A List of all the indexes of currently selected list items.
         /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         internal static List<int> GetSelectedIndexesBridge(this IMultipleSelectionList theInterface, BaseProdControl control)
         {
             try
@@ -191,7 +188,6 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         ///     A List of all currently selected list items
         /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         internal static List<object> GetSelectedItemsBridge(this IMultipleSelectionList theInterface, BaseProdControl control)
         {
             try
@@ -233,7 +229,6 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         ///     The count of selected items
         /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static int GetSelectedItemCountBridge(this IMultipleSelectionList theInterface, BaseProdControl control)
         {
             try
@@ -274,7 +269,6 @@ namespace ProdUI.Interaction.Bridge
         /// <param name = "theInterface">The extension interface.</param>
         /// <param name = "control">The base ProdUI control.</param>
         /// <param name = "index">The index of the item to deselect.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static void RemoveFromSelectionBridge(this IMultipleSelectionList theInterface, BaseProdControl control, int index)
         {
             try
@@ -317,7 +311,6 @@ namespace ProdUI.Interaction.Bridge
         /// <param name = "theInterface">The extension interface.</param>
         /// <param name = "control">The base ProdUI control.</param>
         /// <param name = "itemText">The text of the item to deselect.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static void RemoveFromSelectionBridge(this IMultipleSelectionList theInterface, BaseProdControl control, string itemText)
         {
             try
@@ -359,7 +352,6 @@ namespace ProdUI.Interaction.Bridge
         /// </summary>
         /// <param name = "theInterface">The extension interface.</param>
         /// <param name = "control">The base ProdUI control.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         internal static void SelectAllBridge(this IMultipleSelectionList theInterface, BaseProdControl control)
         {
             try
@@ -397,7 +389,6 @@ namespace ProdUI.Interaction.Bridge
         /// <param name = "theInterface">The extension interface.</param>
         /// <param name = "control">The base ProdUI control.</param>
         /// <param name = "indexes">The indexes to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         internal static void SetSelectedIndexesBridge(this IMultipleSelectionList theInterface, BaseProdControl control, List<int> indexes)
         {
             try
@@ -446,7 +437,6 @@ namespace ProdUI.Interaction.Bridge
         /// <param name = "theInterface">The extension interface.</param>
         /// <param name = "control">The base ProdUI control.</param>
         /// <param name = "items">The text of the items to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         internal static void SetSelectedItemsBridge(this IMultipleSelectionList theInterface, BaseProdControl control, Collection<string> items)
         {
             try

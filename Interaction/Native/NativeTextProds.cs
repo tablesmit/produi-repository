@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Text;
 using ProdUI.Configuration;
 using ProdUI.Exceptions;
-using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Native
 {

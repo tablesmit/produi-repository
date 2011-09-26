@@ -3,6 +3,7 @@
 //  */
 using System;
 using ProdUI.Interaction.Bridge;
+using ProdUI.Logging;
 
 /* Notes
  * Supported Patterns: 
@@ -52,8 +53,9 @@ namespace ProdUI.Controls.Windows
         #endregion
 
         /// <summary>
-        ///     Performs a "Click" on the current ProdButton
+        /// Performs a "Click" on the current ProdButton
         /// </summary>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void Click()
         {
             this.ClickBridge(this);

@@ -3,6 +3,7 @@
 //  */
 using System;
 using ProdUI.Interaction.Bridge;
+using ProdUI.Logging;
 
 namespace ProdUI.Controls.Windows
 {
@@ -49,6 +50,7 @@ namespace ProdUI.Controls.Windows
         /// Gets the value.
         /// </summary>
         /// <returns>The current value of the slider</returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]        
         public double GetValue()
         {
             return this.GetValueBridge(this);
@@ -58,6 +60,7 @@ namespace ProdUI.Controls.Windows
         /// Sets the value.
         /// </summary>
         /// <param name="value">The value.</param>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetValue(double value)
         {
             this.SetValueBridge(this,value);
@@ -69,6 +72,7 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         /// The maximum value of the control
         /// </returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public double GetMaxValue()
         {
             return this.GetMaxValueBridge(this);
@@ -80,6 +84,7 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         /// The minimum value of the control
         /// </returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public double GetMinValue()
         {
            return this.GetMinValueBridge(this);
@@ -91,6 +96,7 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         /// A number indicating the increment of a large change.
         /// </returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public double GetLargeChange()
         {
             return this.GetLargeChangeBridge(this);
@@ -102,6 +108,7 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         /// A number indicating the increment of a small change.
         /// </returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public double GetSmallChange()
         {
             return this.GetSmallChangeBridge(this);

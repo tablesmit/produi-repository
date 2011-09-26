@@ -4,7 +4,7 @@
 using System;
 using System.Windows.Automation;
 using ProdUI.Interaction.Bridge;
-
+using ProdUI.Logging;
 
 
 namespace ProdUI.Controls.Windows
@@ -52,9 +52,12 @@ namespace ProdUI.Controls.Windows
         #endregion
 
         /// <summary>
-        /// Gets the currentToggleState
+        /// Gets the current ToggleState
         /// </summary>
-        /// <returns>The state of the checkbox.</returns>
+        /// <returns>
+        /// The state of the checkbox.
+        /// </returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public ToggleState GetCheckState()
         {
             return this.GetCheckStateBridge(this);
@@ -64,6 +67,7 @@ namespace ProdUI.Controls.Windows
         /// Sets the current CheckBoxes state.
         /// </summary>
         /// <param name="checkstate">The ProdCheckState.</param>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetCheckState(ToggleState checkstate)
         {
             this.SetCheckStateBridge(this, checkstate);
@@ -72,6 +76,7 @@ namespace ProdUI.Controls.Windows
         /// <summary>
         /// Changes the CheckState of checkbox to next valid CheckState
         /// </summary>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void ToggleCheckState()
         {
             this.ToggleCheckStateBridge(this);

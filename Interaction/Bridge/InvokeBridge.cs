@@ -15,12 +15,10 @@ namespace ProdUI.Interaction.Bridge
         private const string CLICK_MSG = @"Performing Click";
 
         /// <summary>
-        ///     Handles the invoke event
+        /// Handles the invoke event
         /// </summary>
-        /// <param name = "theInvoke">The extension interface.</param>
-        /// <param name = "control">The base ProdUI control.</param>
-        /// <exception cref = "ProdOperationException"></exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        /// <param name="theInvoke">The extension interface.</param>
+        /// <param name="control">The base ProdUI control.</param>
         internal static void ClickBridge(this IInvoke theInvoke, BaseProdControl control)
         {
             try
@@ -44,9 +42,9 @@ namespace ProdUI.Interaction.Bridge
         }
 
         /// <summary>
-        ///     Handles the UIA version of the invoke event
+        /// Handles the UIA version of the invoke event
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
+        /// <param name="control">The UI Automation element</param>
         private static void UiaInvoke(BaseProdControl control)
         {
             AutomationEventVerifier.Register(new EventRegistrationMessage(control, InvokePattern.InvokedEvent));
@@ -56,9 +54,9 @@ namespace ProdUI.Interaction.Bridge
         }
 
         /// <summary>
-        ///     Handles the native version of the invoke event
+        /// Handles the native version of the invoke event
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
+        /// <param name="control">The UI Automation element</param>
         private static void NativeInvoke(AutomationElement control)
         {
             int hWnd = control.Current.NativeWindowHandle;

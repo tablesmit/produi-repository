@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Automation;
 using ProdUI.Interaction.Bridge;
+using ProdUI.Logging;
 
 /* Notes
  * --ListBox Portion--
@@ -80,6 +81,7 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         /// The number of items in the list
         /// </returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public int GetItemCount()
         {
             return this.GetItemCountBridge(this);
@@ -91,6 +93,7 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         /// The currently selected item
         /// </returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public AutomationElement GetSelectedItem()
         {
             return this.GetSelectedItemBridge(this);
@@ -102,6 +105,7 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         /// The zero based index of the selected item in the list
         /// </returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public int GetSelectedIndex()
         {
             return this.GetSelectedIndexBridge(this);
@@ -111,6 +115,7 @@ namespace ProdUI.Controls.Windows
         ///     Selects the item by its index.
         /// </summary>
         /// <param name = "index">The index of the item to select.</param>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetSelectedIndex(int index)
         {
             this.SetSelectedIndexBridge(this,index);
@@ -120,6 +125,7 @@ namespace ProdUI.Controls.Windows
         /// Selects the item.
         /// </summary>
         /// <param name="itemText">The item text.</param>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetSelectedItem(string itemText)
         {
             this.SetSelectedItemBridge(this,itemText);
@@ -132,6 +138,7 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         ///   <c>true</c> if the specified index is selected; otherwise, <c>false</c>.
         /// </returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public bool IsSelected(int index)
         {
             return this.IsItemSelectedBridge(this, index);
@@ -144,6 +151,7 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         ///   <c>true</c> if the specified item text is selected; otherwise, <c>false</c>.
         /// </returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public bool IsSelected(string text)
         {
             return this.IsItemSelectedBridge(this, text);
@@ -155,6 +163,7 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         /// List containing text of all items in the list control
         /// </returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public List<object> GetItems()
         {
             return this.GetItemsBridge(this);
@@ -170,6 +179,7 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         /// The length of the string in the TextBox (if supported)
         /// </returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public int Length()
         {
             return this.GetLengthBridge(this);
@@ -181,6 +191,7 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         /// The string in the Textbox (if supported)
         /// </returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public string GetText()
         {
             return this.GetTextBridge(this);
@@ -190,6 +201,7 @@ namespace ProdUI.Controls.Windows
         /// Sets the text contained in the current TextBox
         /// </summary>
         /// <param name="text">The text to set the TextBox to (if supported)</param>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetText(string text)
         {
             this.SetTextBridge(this, text);
@@ -198,6 +210,7 @@ namespace ProdUI.Controls.Windows
         /// <summary>
         /// Set text area value to an empty string
         /// </summary>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void Clear()
         {
             this.ClearTextBridge(this);
@@ -207,6 +220,7 @@ namespace ProdUI.Controls.Windows
         /// Appends text to a text input control
         /// </summary>
         /// <param name="text">The text.</param>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void AppendText(string text)
         {
             this.AppendTextBridge(this, text);
