@@ -1,7 +1,6 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System.Collections.Generic;
+using System.Windows.Forms;
 using ProdUI.Logging;
 
 /// <summary>
@@ -9,13 +8,14 @@ using ProdUI.Logging;
 /// </summary>
 public sealed class MboxLogger : ILogTarget
 {
+    #region ILogTarget Members
 
     /// <summary>
     /// Writes a message to the target output
     /// </summary>
     /// <param name="message">The message object to log</param>
     /// <param name="parameters">Any additional verbose information</param>
-    public void Write(LogMessage message, List<ProdUI.Session.LoggerParameters> parameters)
+    public void Write(LogMessage message, List<ProdLoggerInputParameters> parameters)
     {
         string messageString = message.ToString();
 
@@ -26,7 +26,7 @@ public sealed class MboxLogger : ILogTarget
                 messageString += "\n" + item;
             }
         }
-        System.Windows.Forms.MessageBox.Show(messageString, "ProdUI");
+        MessageBox.Show(messageString, "ProdUI");
     }
 
     /// <summary>
@@ -35,16 +35,10 @@ public sealed class MboxLogger : ILogTarget
     /// <value>
     /// Not used in this log target
     /// </value>
-    public List<ProdUI.Session.LoggerParameters> ReturnParameters
+    public List<ProdLoggerInputParameters> ReturnParameters
     {
-        get
-        {
-            return null;
-        }
-        set
-        {
-
-        }
+        get { return null; }
+        set { }
     }
 
     /// <summary>
@@ -58,4 +52,5 @@ public sealed class MboxLogger : ILogTarget
         return 0;
     }
 
+    #endregion ILogTarget Members
 }

@@ -1,12 +1,6 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
-/* Example use:
-ProdTextTemplate template = new ProdTextTemplate("ProdButton", "7", "Click",string.Empty,string.Empty,"WindowName");
-TextGenerator gen = new TextGenerator();
-code =  gen.GenerateProd(template, OutputLanguage.CSharp);
-*/
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+using Microsoft.VisualStudio.TextTemplating;
+using ProdCodeGenerator.Properties;
 
 namespace ProdCodeGenerator
 {
@@ -34,7 +28,6 @@ namespace ProdCodeGenerator
     /// </summary>
     public class TextGenerator
     {
-
         /// <summary>
         /// Generates the prod code.
         /// </summary>
@@ -67,26 +60,25 @@ namespace ProdCodeGenerator
         /// <returns>The generated code</returns>
         private static string csGenerateProd(ProdTextTemplate template)
         {
-            csProd cs = new csProd {
-                                       Session = new Microsoft.VisualStudio.TextTemplating.TextTemplatingSession()
-                                   };
+            csProd cs = new csProd
+            {
+                Session = new TextTemplatingSession()
+            };
 
-            cs.Session[Properties.Resources.WINDOW_NAME] = template.WindowName;
-            cs.Session[Properties.Resources.CONTROL_TYPE] = template.ControlType;
-            cs.Session[Properties.Resources.CONTROL_NAME] = template.ControlName;
-            cs.Session[Properties.Resources.METHOD_NAME] = template.MethodName;
-            cs.Session[Properties.Resources.METHOD_PARAMS] = template.MethodParameters;
+            cs.Session[Resources.WINDOW_NAME] = template.WindowName;
+            cs.Session[Resources.CONTROL_TYPE] = template.ControlType;
+            cs.Session[Resources.CONTROL_NAME] = template.ControlName;
+            cs.Session[Resources.METHOD_NAME] = template.MethodName;
+            cs.Session[Resources.METHOD_PARAMS] = template.MethodParameters;
 
             /* This seems to be an easier way to handle a void instead of in the template */
             if (template.ReturnType == "System.Void")
-                cs.Session[Properties.Resources.RET_TYPE] = string.Empty;
+                cs.Session[Resources.RET_TYPE] = string.Empty;
             else
-                cs.Session[Properties.Resources.RET_TYPE] = template.ReturnType;
+                cs.Session[Resources.RET_TYPE] = template.ReturnType;
 
             cs.Initialize();
             return cs.TransformText();
-
         }
-
     }
 }

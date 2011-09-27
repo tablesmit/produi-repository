@@ -1,6 +1,4 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System.Collections.Generic;
 using System.Diagnostics;
 using ProdUI.Logging;
@@ -10,22 +8,21 @@ using ProdUI.Logging;
 /// </summary>
 public sealed class DebugLogger : ILogTarget
 {
+    #region ILogTarget Members
 
     /// <summary>
     /// Writes the specified message.
     /// </summary>
     /// <param name="message">The message object to log</param>
     /// <param name="parameters">Any additional verbose information</param>
-    public void Write(LogMessage message, List<ProdUI.Session.LoggerParameters> parameters)
+    public void Write(LogMessage message, List<ProdLoggerInputParameters> parameters)
     {
-
         Debug.WriteLine(message.ToString());
 
         if (message.VerboseInformation == null)
         {
             return;
         }
-
 
         foreach (string item in message.VerboseInformation)
         {
@@ -44,7 +41,6 @@ public sealed class DebugLogger : ILogTarget
         return 0;
     }
 
-
     /// <summary>
     /// Gets or sets the return parameters.
     /// </summary>
@@ -54,13 +50,11 @@ public sealed class DebugLogger : ILogTarget
     /// <remarks>
     /// Not used in this logger
     /// </remarks>
-    public List<ProdUI.Session.LoggerParameters> ReturnParameters
+    public List<ProdLoggerInputParameters> ReturnParameters
     {
-        get
-        {
-            return null;
-        }
-        set
-        { }
+        get { return null; }
+        set { }
     }
+
+    #endregion ILogTarget Members
 }
