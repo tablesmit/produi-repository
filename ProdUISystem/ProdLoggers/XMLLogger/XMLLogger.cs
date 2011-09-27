@@ -1,133 +1,139 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
-using ProdUI.Logging;
-using ProdUI.Session;
 using ProdUI.Exceptions;
+using ProdUI.Logging;
+
+/// <summary>
+/// Provides for logging to an XML file
+/// </summary>
+public sealed class XMLLogger : ILogTarget
+{
+    /* Stuff for writing output */
+    private string _outfile;
 
     /// <summary>
-    /// Provides for logging to an XML file
+    /// Initializes a new instance of the <see cref="XMLLogger"/> class.
     /// </summary>
-    public sealed class XMLLogger : ILogTarget
+    public XMLLogger()
     {
-        /* Stuff for writing output */
-        private string _outfile;
+        ReturnParameters = new List<ProdLoggerInputParameters>();
+    }
 
-        /// <summary>
-        /// Gets or sets the return parameters.
-        /// </summary>
-        /// <value>
-        /// The return parameters.
-        /// </value>
-        public List<LoggerParameters> ReturnParameters { get; set; }
+    #region ILogTarget Members
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="XMLLogger"/> class.
-        /// </summary>
-        public XMLLogger()
+    /// <summary>
+    /// Gets or sets the return parameters.
+    /// </summary>
+    /// <value>
+    /// The return parameters.
+    /// </value>
+    public List<ProdLoggerInputParameters> ReturnParameters { get; set; }
+
+    /// <summary>
+    /// Calls the form to get the output path.
+    /// </summary>
+    /// <returns>
+    /// 1 for success
+    /// </returns>
+    public int CallParameterForm()
+    {
+        ParameterForm frm = new ParameterForm();
+        try
         {
-            ReturnParameters = new List<LoggerParameters>();
+            frm.ShowDialog();
+            ProdLoggerInputParameters t = new ProdLoggerInputParameters
+            {
+                ParamName = "OutputFile",
+                ParamType = "string",
+                ParamValue = frm.SavePath
+            };
+            ReturnParameters.Add(t);
+
+            return 1;
         }
-
-        /// <summary>
-        /// Calls the form to get the output path.
-        /// </summary>
-        /// <returns>
-        /// 1 for success
-        /// </returns>
-        public int CallParameterForm()
+        finally
         {
-            ParameterForm frm = new ParameterForm();
-            try
-            {
-                frm.ShowDialog();
-                LoggerParameters t = new LoggerParameters { ParamName = "OutputFile", ParamType = "string", ParamValue = frm.SavePath };
-                ReturnParameters.Add(t);
-
-                return 1;
-            }
-            finally
-            {
-                frm.Dispose();
-            }
-        }
-
-        /// <summary>
-        /// Puts together data to be written out as an XMLEntry, then calls serialize.
-        /// </summary>
-        /// <param name="message">The message to be written to the file</param>
-        /// <param name="inputParameters">The input parameters.</param>
-        public void Write(LogMessage message, List<LoggerParameters> inputParameters)
-        {
-            /* make sure we have a filename */
-            if (inputParameters == null || (inputParameters[0].ParamName != null && String.IsNullOrEmpty(inputParameters[0].ParamName)))
-            {
-                throw new ProdOperationException("A valid file path must be specified");
-            }
-
-            _outfile = inputParameters[0].ParamValue.ToString();
-
-            /* add message entry */
-            WriteXML(message);
-        }
-
-        /// <summary>
-        /// Writes the XML file entry.
-        /// </summary>
-        /// <param name="message">The message to be written to the file.</param>
-        private void WriteXML(LogMessage message)
-        {
-            /* Make a new entry */
-            XMLEntry ent = new XMLEntry {
-                                            LogTime = message.LogTime,
-                                            Message = message.Message,
-                                            MessageLevel = message.MessageLevel.ToString(),
-                                            CallingMethod = message.CallingMethod
-                                        };
-
-            /* if we have verbose info, write it, otherwise, forget it */
-            if (message.VerboseInformation.Count > 0)
-            {
-                string output = string.Empty;
-                foreach (string item in message.VerboseInformation)
-                {
-                    output += item + "\n";
-                }
-                ent.ExtraInformation = output;
-            }
-
-            /* Serialize as append */
-            SaveConfig();
-        }
-
-        /// <summary>
-        /// Serializes the  current XMLEntry data. Note, this is in Append mode.
-        /// </summary>
-        public void SaveConfig()
-        {
-            FileStream fs = null;
-            try
-            {
-                fs = new FileStream(_outfile, FileMode.Append);
-                XmlSerializer serializer = new XmlSerializer(typeof(XMLEntry));
-                serializer.Serialize(fs, this);
-            }
-            catch (Exception err)
-            {
-                throw new Exception(err.Message, err);
-            }
-            finally
-            {
-                if (fs != null)
-                    fs.Close();
-            }
+            frm.Dispose();
         }
     }
+
+    /// <summary>
+    /// Puts together data to be written out as an XMLEntry, then calls serialize.
+    /// </summary>
+    /// <param name="message">The message to be written to the file</param>
+    /// <param name="inputParameters">The input parameters.</param>
+    public void Write(LogMessage message, List<ProdLoggerInputParameters> inputParameters)
+    {
+        /* make sure we have a filename */
+        if (inputParameters == null || (inputParameters[0].ParamName != null && String.IsNullOrEmpty(inputParameters[0].ParamName)))
+        {
+            throw new ProdOperationException("A valid file path must be specified");
+        }
+
+        _outfile = inputParameters[0].ParamValue.ToString();
+
+        /* add message entry */
+        WriteXML(message);
+    }
+
+    #endregion ILogTarget Members
+
+    /// <summary>
+    /// Writes the XML file entry.
+    /// </summary>
+    /// <param name="message">The message to be written to the file.</param>
+    private void WriteXML(LogMessage message)
+    {
+        /* Make a new entry */
+        XMLEntry ent = new XMLEntry
+        {
+            LogTime = message.LogTime,
+            Message = message.Message,
+            MessageLevel = message.MessageLevel.ToString(),
+            CallingMethod = message.CallingMethod
+        };
+
+        /* if we have verbose info, write it, otherwise, forget it */
+        if (message.VerboseInformation.Count > 0)
+        {
+            string output = string.Empty;
+            foreach (string item in message.VerboseInformation)
+            {
+                output += item + "\n";
+            }
+            ent.ExtraInformation = output;
+        }
+
+        /* Serialize as append */
+        SaveConfig();
+    }
+
+    /// <summary>
+    /// Serializes the  current XMLEntry data. Note, this is in Append mode.
+    /// </summary>
+    public void SaveConfig()
+    {
+        FileStream fs = null;
+        try
+        {
+            fs = new FileStream(_outfile, FileMode.Append);
+            XmlSerializer serializer = new XmlSerializer(typeof(XMLEntry));
+            serializer.Serialize(fs, this);
+        }
+        catch (Exception err)
+        {
+            throw new Exception(err.Message, err);
+        }
+        finally
+        {
+            if (fs != null)
+                fs.Close();
+        }
+    }
+}
 
 /* Example of XML log output
 <?xml version="1.0" encoding="utf-8" ?>

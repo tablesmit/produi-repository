@@ -1,7 +1,4 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -46,7 +43,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int ConnectPS()
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.ConnectPS;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.ConnectPS;
             int len = 1;
             int rc = 0;
 
@@ -66,10 +63,10 @@ namespace ProdEhllapi
         {
             /* Using math instead of ConvertPosition() because I cant get it to work :( */
 
-            int row = (psCoord/80) + 1;
-            int col = psCoord - ((row - 1)*80);
+            int row = (psCoord / 80) + 1;
+            int col = psCoord - ((row - 1) * 80);
 
-            int[] position = {row, col};
+            int[] position = { row, col };
 
             return position;
         }
@@ -82,7 +79,7 @@ namespace ProdEhllapi
         /// <returns> The host presentation space positional value</returns>
         public int ConvertToPSPosition(int row, int col)
         {
-            int ps = ((row - 1)*80) + col;
+            int ps = ((row - 1) * 80) + col;
 
             return ps;
         }
@@ -103,7 +100,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int DisconnectPS()
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.DisconnectPS;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.DisconnectPS;
             string dataString = string.Empty;
             int len = 0;
             int rc = 0;
@@ -128,9 +125,11 @@ namespace ProdEhllapi
         /// </returns>
         public int LockPsapi(bool lockSpace)
         {
-            int func = (int) EhllapiStructures.EhllapiFunctionCode.LockPSAPI;
+            int func = (int)EhllapiStructures.EhllapiFunctionCode.LockPSAPI;
 
-            string lockFlag = lockSpace ? "L" : "U";
+            string lockFlag = lockSpace
+                                  ? "L"
+                                  : "U";
 
             string queryData = _sessionId + string.Empty + lockFlag + "R" + string.Empty;
             int len = 3;
@@ -158,9 +157,9 @@ namespace ProdEhllapi
         /// </remarks>
         public int Pause(double length)
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.Pause;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.Pause;
             string dataString = string.Empty;
-            int len = (int) length;
+            int len = (int)length;
             int rc = 0;
 
             NativeMethods.hllapi(ref function, ref dataString, ref len, ref rc);
@@ -174,9 +173,9 @@ namespace ProdEhllapi
         /// <returns></returns>
         public StringBuilder QuerySessionStatus()
         {
-            int func = (int) EhllapiStructures.EhllapiFunctionCode.QuerySessionStatus;
+            int func = (int)EhllapiStructures.EhllapiFunctionCode.QuerySessionStatus;
 
-            //Pre-allocated target string the size of your host presentation space. This can vary depending on how your host presentation space is configured. When the Set Session Parameters (9) function with the EAB option is issued, the length of the data string must be at least twice the length of the presentation space. 
+            //Pre-allocated target string the size of your host presentation space. This can vary depending on how your host presentation space is configured. When the Set Session Parameters (9) function with the EAB option is issued, the length of the data string must be at least twice the length of the presentation space.
             StringBuilder queryData = new StringBuilder();
             int len = 20;
             int rc = 0;
@@ -203,7 +202,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int Release()
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.Release;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.Release;
             String queryData = string.Empty;
             int len = 0;
             int rc = 0;
@@ -229,7 +228,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int Reserve()
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.Reserve;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.Reserve;
             String queryData = string.Empty;
             int len = 0;
             int rc = 0;
@@ -254,7 +253,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int ResetSystem()
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.ResetSystem;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.ResetSystem;
             String queryData = string.Empty;
             int len = 0;
             int rc = 0;
@@ -282,7 +281,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int Wait()
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.Wait;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.Wait;
             String queryData = string.Empty;
             int len = 0;
             int rc = 0;
@@ -292,7 +291,7 @@ namespace ProdEhllapi
             return rc;
         }
 
-        #endregion
+        #endregion Connection and Session functions
 
         #region Searching, cursor, and text
 
@@ -319,7 +318,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int CopyStringtoPS(string text, int row, int col)
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.CopyStringtoPS;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.CopyStringtoPS;
             string dataString = text;
             int len = text.Length;
             int rc = ConvertToPSPosition(row, col);
@@ -337,8 +336,8 @@ namespace ProdEhllapi
         /// </returns>
         public StringBuilder CopyPS()
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.CopyPS;
-            //Pre allocated target string the size of your host presentation space. This can vary depending on how your host presentation space is configured. When the Set Session Parameters (9) function with the EAB option is issued, the length of the data string must be at least twice the length of the presentation space. 
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.CopyPS;
+            //Pre allocated target string the size of your host presentation space. This can vary depending on how your host presentation space is configured. When the Set Session Parameters (9) function with the EAB option is issued, the length of the data string must be at least twice the length of the presentation space.
             StringBuilder dataString = new StringBuilder(3000);
             int len = 0;
             int rc = 0;
@@ -348,11 +347,11 @@ namespace ProdEhllapi
             return dataString;
 
             /*
-            0  The host presentation space contents were copied to the application program. The target presentation space was active, and the keyboard was unlocked.  
-            1  Your program is not connected to a host session.  
-            4  The host presentation space contents were copied. The connected host presentation space was waiting for host response.  
-            5  The host presentation space was copied. The keyboard was locked.  
-            9  A system error was encountered.  
+            0  The host presentation space contents were copied to the application program. The target presentation space was active, and the keyboard was unlocked.
+            1  Your program is not connected to a host session.
+            4  The host presentation space contents were copied. The connected host presentation space was waiting for host response.
+            5  The host presentation space was copied. The keyboard was locked.
+            9  A system error was encountered.
             */
         }
 
@@ -364,7 +363,7 @@ namespace ProdEhllapi
         /// </returns>
         public int QueryCursorLocation()
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.QueryCursorLocation;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.QueryCursorLocation;
             String queryData = string.Empty;
             int len = 0;
             int rc = 0;
@@ -388,7 +387,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int QueryFieldAttribute(char sessionId, int row, int col)
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.QueryFieldAttribute;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.QueryFieldAttribute;
             String queryData = string.Empty;
             int len = 0;
             int rc = ConvertToPSPosition(row, col);
@@ -407,7 +406,7 @@ namespace ProdEhllapi
         /// </returns>
         public int SearchPS(string searchText)
         {
-            int func = (int) EhllapiStructures.EhllapiFunctionCode.SearchPS;
+            int func = (int)EhllapiStructures.EhllapiFunctionCode.SearchPS;
             StringBuilder queryData = new StringBuilder();
             queryData.Append(searchText);
             int len = searchText.Length;
@@ -444,7 +443,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int SendKey(string keyStrokes)
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.SendKey;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.SendKey;
             String queryData = keyStrokes;
             int len = keyStrokes.Length;
             int rc = 0;
@@ -473,7 +472,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int SetCursor(int row, int col)
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.SetCursor;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.SetCursor;
             String queryData = string.Empty;
             int len = 0;
             int rc = ConvertToPSPosition(row, col);
@@ -483,7 +482,7 @@ namespace ProdEhllapi
             return rc;
         }
 
-        #endregion
+        #endregion Searching, cursor, and text
 
         #region field formatted
 
@@ -512,7 +511,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int CopyStringtoField(int row, int col, string text)
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.CopyStringtoField;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.CopyStringtoField;
 
             string dataString = text;
             int len = text.Length;
@@ -520,7 +519,9 @@ namespace ProdEhllapi
 
             NativeMethods.hllapi(ref function, ref dataString, ref len, ref rc);
 
-            return rc == 0 ? len : rc;
+            return rc == 0
+                       ? len
+                       : rc;
         }
 
         /// <summary>
@@ -546,7 +547,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int CopyStringtoField(string text)
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.CopyStringtoField;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.CopyStringtoField;
 
             string dataString = text;
             int len = text.Length;
@@ -565,7 +566,7 @@ namespace ProdEhllapi
         /// <returns></returns>
         public string CopyFieldtoString(int row, int col)
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.CopyFieldtoString;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.CopyFieldtoString;
 
             StringBuilder dataString = new StringBuilder(20);
             int len = dataString.Length;
@@ -573,7 +574,9 @@ namespace ProdEhllapi
 
             NativeMethods.hllapi(ref function, dataString, ref len, ref rc);
 
-            return rc == 0 ? dataString.ToString() : null;
+            return rc == 0
+                       ? dataString.ToString()
+                       : null;
         }
 
         /// <summary>
@@ -582,7 +585,7 @@ namespace ProdEhllapi
         /// <returns></returns>
         public string CopyFieldtoString()
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.CopyFieldtoString;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.CopyFieldtoString;
 
             StringBuilder dataString = new StringBuilder(20);
             int len = dataString.Length;
@@ -590,7 +593,9 @@ namespace ProdEhllapi
 
             NativeMethods.hllapi(ref function, dataString, ref len, ref rc);
 
-            return rc == 0 ? dataString.ToString() : null;
+            return rc == 0
+                       ? dataString.ToString()
+                       : null;
         }
 
         /// <summary>
@@ -606,7 +611,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int FindFieldPosition(int row, int col)
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.FindFieldPosition;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.FindFieldPosition;
 
             string dataString = "T ";
             int len = 0;
@@ -629,7 +634,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int FindFieldPosition()
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.FindFieldPosition;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.FindFieldPosition;
 
             string dataString = "T ";
             int len = 0;
@@ -657,10 +662,12 @@ namespace ProdEhllapi
             int rc = ConvertToPSPosition(row, col);
             string dataString = "T ";
             int len = 0;
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.FindFieldLength;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.FindFieldLength;
             NativeMethods.hllapi(ref function, ref dataString, ref len, ref rc);
 
-            return rc == 0 ? len : rc;
+            return rc == 0
+                       ? len
+                       : rc;
         }
 
         /// <summary>
@@ -677,10 +684,12 @@ namespace ProdEhllapi
             int rc = QueryCursorLocation();
             string dataString = "T ";
             int len = 0;
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.FindFieldLength;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.FindFieldLength;
             NativeMethods.hllapi(ref function, ref dataString, ref len, ref rc);
 
-            return rc == 0 ? len : rc;
+            return rc == 0
+                       ? len
+                       : rc;
         }
 
         /// <summary>
@@ -697,7 +706,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int SearchField(int row, int col, string searchText)
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.SearchField;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.SearchField;
             string dataString = searchText;
             int len = searchText.Length;
             int rc = ConvertToPSPosition(row, col);
@@ -718,7 +727,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int SearchField(string searchText)
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.SearchField;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.SearchField;
             string dataString = searchText;
             int len = searchText.Length;
             int rc = QueryCursorLocation();
@@ -727,7 +736,7 @@ namespace ProdEhllapi
             return len;
         }
 
-        #endregion
+        #endregion field formatted
 
         #region Window Services
 
@@ -751,7 +760,7 @@ namespace ProdEhllapi
         internal int ActivateEmulatorWindow()
         {
             string dataString = _sessionId + string.Empty + "010080";
-            int func = (int) EhllapiStructures.EhllapiFunctionCode.WindowStatus;
+            int func = (int)EhllapiStructures.EhllapiFunctionCode.WindowStatus;
             int len = 17;
             int rc = 0;
 
@@ -780,7 +789,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int ConnectWindowServices()
         {
-            int func = (int) EhllapiStructures.EhllapiFunctionCode.ConnectWindowServices;
+            int func = (int)EhllapiStructures.EhllapiFunctionCode.ConnectWindowServices;
             int len = 1;
             int rc = 0;
 
@@ -806,7 +815,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int DisconnectWindowService()
         {
-            int func = (int) EhllapiStructures.EhllapiFunctionCode.DisconnectWindowService;
+            int func = (int)EhllapiStructures.EhllapiFunctionCode.DisconnectWindowService;
             int len = 1;
             int rc = 0;
 
@@ -837,9 +846,11 @@ namespace ProdEhllapi
         /// </remarks>
         public int LockWindowServicesApi(bool lockSpace)
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.LockWindowServicesAPI;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.LockWindowServicesAPI;
 
-            string lockFlag = lockSpace ? "L" : "U";
+            string lockFlag = lockSpace
+                                  ? "L"
+                                  : "U";
 
             string queryData = _sessionId + string.Empty + lockFlag + "R" + string.Empty;
             int len = 3;
@@ -874,7 +885,7 @@ namespace ProdEhllapi
         public string QueryWindowCoordinates()
         {
             string dataString = _sessionId.ToString(CultureInfo.CurrentCulture);
-            int func = (int) EhllapiStructures.EhllapiFunctionCode.QueryWindowCoordinates;
+            int func = (int)EhllapiStructures.EhllapiFunctionCode.QueryWindowCoordinates;
             int len = 17;
             int rc = 0;
 
@@ -883,7 +894,7 @@ namespace ProdEhllapi
             return dataString;
         }
 
-        #endregion
+        #endregion Window Services
 
         /// <summary>
         /// Begins the process by which your EHLLAPI application program determines if the host presentation space has been updated.
@@ -902,7 +913,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int StartHostNotification()
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.StartHostNotification;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.StartHostNotification;
             string dataString = _sessionId + string.Empty + string.Empty + string.Empty + "P";
             int len = 6;
             int rc = 0;
@@ -934,7 +945,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int QueryHostUpdate()
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.QueryHostUpdate;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.QueryHostUpdate;
             string dataString = _sessionId.ToString(CultureInfo.CurrentCulture);
             int len = 1;
             int rc = 0;
@@ -961,7 +972,7 @@ namespace ProdEhllapi
         /// </remarks>
         public int StopHostNotification()
         {
-            int function = (int) EhllapiStructures.EhllapiFunctionCode.StopHostNotification;
+            int function = (int)EhllapiStructures.EhllapiFunctionCode.StopHostNotification;
             string dataString = _sessionId + string.Empty;
             int len = 1;
             int rc = 0;
