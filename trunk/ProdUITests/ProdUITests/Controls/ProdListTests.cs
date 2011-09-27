@@ -2,10 +2,8 @@
 using System.Threading;
 using System.Windows.Automation;
 using NUnit.Framework;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls;
-using ProdUI.Session;
 using ProdUI.Utility;
+using ProdUI.Controls.Windows;
 
 namespace ProdUITests
 {
@@ -15,14 +13,13 @@ namespace ProdUITests
         const string WIN_TITLE = "WPF Test Form";
         private static List<string> singleBoxItems = new List<string>() {"Blue", "Black","Red" };
         private static List<string> multiBoxItems = new List<string>() { "Iowa", "Wisconsin", "Utah", "Texas" };
-        private static ProdSession session;
+
         private static ProdWindow window;
 
         [SetUp]
         public static void Init()
         {
-            session = new ProdSession("test.ses");
-            window = new ProdWindow(WIN_TITLE, session.Loggers);
+            window = new ProdWindow(WIN_TITLE);
         }
 
         [Test]
@@ -60,7 +57,7 @@ namespace ProdUITests
         public void CanSelectMultipleOnMultiple()
         {
             ProdList list = new ProdList(window, "listBoxMultipleTest");
-            bool retVal = list.CanSelectMultiple();
+            bool retVal = (bool)list.GetUIAPropertyValue(SelectionPattern.CanSelectMultipleProperty);
 
             Assert.That(retVal);
         }

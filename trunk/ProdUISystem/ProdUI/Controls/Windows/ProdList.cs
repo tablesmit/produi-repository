@@ -97,6 +97,11 @@ namespace ProdUI.Controls.Windows
             return this.GetItemCountBridge(this);
         }
 
+        public bool CanSelectMutiple()
+        {
+            return this.CanSelectMultipleBridge(this);
+        }
+
         #region single select specific
 
         /// <summary>

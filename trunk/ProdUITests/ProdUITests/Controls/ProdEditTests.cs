@@ -1,9 +1,7 @@
 ﻿using System.Threading;
 using System.Windows.Forms;
 using NUnit.Framework;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls;
-using ProdUI.Session;
+using ProdUI.Controls.Windows;
 
 namespace ProdUITests
 {
@@ -11,14 +9,12 @@ namespace ProdUITests
     class ProdEditTests
     {
         const string WIN_TITLE = "WPF Test Form";
-        private static ProdSession session;
         private static ProdWindow window;
 
         [SetUp]
         public static void Init()
         {
-            session = new ProdSession("test.ses");
-            window = new ProdWindow(WIN_TITLE, session.Loggers);
+            window = new ProdWindow(WIN_TITLE);
         }
 
         [Test]
@@ -27,7 +23,7 @@ namespace ProdUITests
             const string testString = "Random Text";
             ProdEdit edit = new ProdEdit(window, "textBoxText");
 
-            ValuePatternHelper.SetValue(edit.ThisElement, testString);
+            edit.SetText(testString);
             string result = edit.GetText();
 
             Assert.That(result.Length, Is.EqualTo(testString.Length));
@@ -39,7 +35,7 @@ namespace ProdUITests
             const string testString = "Random Text";
             ProdEdit edit = new ProdEdit(window, "textBoxText");
 
-            ValuePatternHelper.SetValue(edit.ThisElement, testString);
+            edit.SetText(testString);
 
             string result = edit.GetText();
             Assert.That(result, Is.EqualTo(testString));
@@ -53,7 +49,7 @@ namespace ProdUITests
 
             edit.SetText(testString);
 
-            string currentText = ValuePatternHelper.GetValue(edit.ThisElement);
+            string currentText = edit.GetText();
 
             Assert.That(currentText, Is.EqualTo(testString));
 
@@ -68,7 +64,7 @@ namespace ProdUITests
             edit.SetText(testString);
 
             Thread.Sleep(2000);
-            Assert.That(edit.eventTriggered, Is.True);
+            Assert.That(edit.EventVerified, Is.True);
 
         }
 
@@ -79,7 +75,7 @@ namespace ProdUITests
 
             edit.Clear();
 
-            string result = ValuePatternHelper.GetValue(edit.ThisElement);
+            string result = edit.GetText();
 
             Assert.That(result.Length, Is.EqualTo(0));
         }
@@ -93,7 +89,7 @@ namespace ProdUITests
             edit.Clear();
 
             Thread.Sleep(2000);
-            Assert.That(edit.eventTriggered);
+            Assert.That(edit.EventVerified);
         }
 
         [Test]
@@ -103,12 +99,12 @@ namespace ProdUITests
 
             ProdEdit edit = new ProdEdit(window, "textBoxText");
 
-            string original = ValuePatternHelper.GetValue(edit.ThisElement);
+            string original = edit.GetText();
             int len = original.Length;
 
             edit.AppendText(testString);
 
-            string newString = ValuePatternHelper.GetValue(edit.ThisElement);
+            string newString = edit.GetText();
             int newlen = len + 9;
 
             Assert.That(newString.Length == newlen);
@@ -124,7 +120,7 @@ namespace ProdUITests
             edit.AppendText(testString);
 
             Thread.Sleep(2000);
-            Assert.That(edit.eventTriggered);
+            Assert.That(edit.EventVerified);
         }
 
         [Test]
@@ -136,7 +132,7 @@ namespace ProdUITests
             ProdEdit edit = new ProdEdit(window, "textBoxText");
 
             edit.SetText(targetstring);
-            int len = edit.GetLength();
+            int len = edit.GetTextLength();
 
             edit.InsertText(testString, len - 9);
             int newL = edit.GetText().Length;
@@ -153,7 +149,7 @@ namespace ProdUITests
             ProdEdit edit = new ProdEdit(window, "textBoxText");
 
             edit.SetText("Here is");
-            int len = edit.GetLength();
+            int len = edit.GetTextLength();
             edit.InsertText(testString, len - 9);
 
         }
@@ -166,12 +162,12 @@ namespace ProdUITests
 
             ProdEdit edit = new ProdEdit(window, "textBoxText");
             edit.SetText(targetstring);
-            int len = edit.GetLength();
+            int len = edit.GetTextLength();
             Thread.Sleep(500);
             edit.InsertText(testString, len);
 
             Thread.Sleep(2000);
-            Assert.That(edit.eventTriggered);
+            Assert.That(edit.EventVerified);
 
         }
 

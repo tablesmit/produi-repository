@@ -1,8 +1,6 @@
 ﻿using System.Threading;
 using NUnit.Framework;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls;
-using ProdUI.Session;
+using ProdUI.Controls.Windows;
 
 namespace ProdUITests
 {
@@ -10,22 +8,19 @@ namespace ProdUITests
     class ProdRadioButtonTests
     {
         const string WIN_TITLE = "WPF Test Form";
-        private static ProdSession session;
         private static ProdWindow window;
 
         [SetUp]
         public static void Init()
         {
-            session = new ProdSession("test.ses");
-            window = new ProdWindow(WIN_TITLE, session.Loggers);
+            window = new ProdWindow(WIN_TITLE);
         }
 
         [Test]
         public void GetCheckedWhenChecked()
         {
             ProdRadioButton radio = new ProdRadioButton(window, "radioButtonTestB");
-            SelectionPatternHelper.Select(radio.ThisElement);
-
+            radio.Select();
             Assert.That(radio.GetChecked(),Is.EqualTo(true));
         }
 
@@ -59,7 +54,7 @@ namespace ProdUITests
             radioB.Select();
 
             Thread.Sleep(2000);
-            Assert.That(radioB.eventTriggered, Is.True);
+            Assert.That(radioB.EventVerified, Is.True);
         }
     }
 }

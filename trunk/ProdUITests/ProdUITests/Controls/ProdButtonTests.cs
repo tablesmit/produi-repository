@@ -2,7 +2,9 @@
 using System.Threading;
 using NUnit.Framework;
 using ProdUI.Controls;
-using ProdUI.Session;
+using ProdUI.Controls.Windows;
+using ProdUI.Controls.Static;
+
 
 namespace ProdUITests
 {
@@ -10,14 +12,13 @@ namespace ProdUITests
     public class ProdButtonTest
     {
         const string WIN_TITLE = "WPF Test Form";
-        private static ProdSession session;
+
         private static ProdWindow window;
 
         [SetUp]
         public static void Init()
         {
-            session = new ProdSession("test.ses");
-            window = new ProdWindow(WIN_TITLE, session.Loggers);         
+            window = new ProdWindow(WIN_TITLE);         
         }
 
         [Test]
@@ -62,7 +63,7 @@ namespace ProdUITests
             button.Click();
             
             Thread.Sleep(2000);
-            Assert.That(button.eventTriggered);     
+            Assert.That(button.EventVerified);     
         }
     }
 }

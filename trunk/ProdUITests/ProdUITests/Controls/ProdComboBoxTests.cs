@@ -2,9 +2,8 @@
 using System.Threading;
 using System.Windows.Automation;
 using NUnit.Framework;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls;
-using ProdUI.Session;
+using ProdUI.Controls.Windows;
+using ProdUI.Interaction.UIAPatterns;
 
 namespace ProdUITests
 {
@@ -12,14 +11,12 @@ namespace ProdUITests
     class ProdComboBoxTests
     {
         const string WIN_TITLE = "WPF Test Form";
-        private static ProdSession session;
         private static ProdWindow window;
 
         [SetUp]
         public static void Init()
         {
-            session = new ProdSession("test.ses");
-            window = new ProdWindow(WIN_TITLE, session.Loggers);
+            window = new ProdWindow(WIN_TITLE);
         }
 
         [Test]
@@ -27,9 +24,9 @@ namespace ProdUITests
         {
             /* there are currently 3 items in the test-forms ComboBox */
             ProdComboBox combo = new ProdComboBox(window, "comboBoxTest");
-            AutomationElementCollection aec = SelectionPatternHelper.GetListCollectionUtility(combo.ThisElement);
 
-            Assert.That(aec.Count, Is.EqualTo(combo.GetItemCount()));
+
+            Assert.That(3, Is.EqualTo(combo.GetItemCount()));
         }
 
         [Test]
@@ -39,9 +36,7 @@ namespace ProdUITests
             ProdComboBox combo = new ProdComboBox(window, "comboBoxTest");
             combo.SetSelectedItem(itemText);
 
-            AutomationElement[] retVal = SelectionPatternHelper.GetSelection(combo.ThisElement);
-
-            Assert.That(retVal[0].Current.Name, Is.EqualTo(itemText));
+            Assert.That(combo.GetSelectedItem().Current.Name, Is.EqualTo(itemText));
         }
 
         [Test]
@@ -50,10 +45,7 @@ namespace ProdUITests
             ProdComboBox combo = new ProdComboBox(window, "comboBoxTest");
             combo.SetSelectedIndex(index);
 
-            AutomationElement[] element = SelectionPatternHelper.GetSelection(combo.ThisElement);
-            int retVal = SelectionPatternHelper.FindIndexByItem(combo.ThisElement, element[0].Current.Name);
-
-            Assert.That(retVal, Is.EqualTo(index));
+            Assert.That(combo.GetSelectedIndex(), Is.EqualTo(index));
         }
 
         [Test]
@@ -83,7 +75,7 @@ namespace ProdUITests
             combo.SetSelectedIndex(index);
 
             Thread.Sleep(2000);
-            Assert.That(combo.eventTriggered);
+            Assert.That(combo.EventVerified);
         }
 
         [Test]
@@ -111,7 +103,7 @@ namespace ProdUITests
             combo.SetSelectedItem(itemText);
 
             Thread.Sleep(2000);
-            Assert.That(combo.eventTriggered);
+            Assert.That(combo.EventVerified);
         }
 
         [Test]
@@ -151,9 +143,9 @@ namespace ProdUITests
 
             /* Make sure ComboBox supports this pattern */
             object pattern;
-            Assert.That(combo.ThisElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern), Is.True, "Control doesnt support ValuePattern");
+            Assert.That(combo.UIAElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern), Is.True, "Control doesnt support ValuePattern");
 
-            ValuePatternHelper.SetValue(combo.ThisElement, testString);
+            combo.SetText(testString);
 
             string result = combo.GetText();
             Assert.That(result.Length, Is.EqualTo(testString.Length));
@@ -167,9 +159,9 @@ namespace ProdUITests
 
             /* Make sure ComboBox supports this pattern */
             object pattern;
-            Assert.That(combo.ThisElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern), Is.True, "Control doesnt support ValuePattern");
+            Assert.That(combo.UIAElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern), Is.True, "Control doesnt support ValuePattern");
 
-            ValuePatternHelper.SetValue(combo.ThisElement, testString);
+            ValuePatternHelper.SetValue(combo.UIAElement, testString);
 
             string result = combo.GetText();
             Assert.That(result, Is.EqualTo(testString));
@@ -183,11 +175,11 @@ namespace ProdUITests
 
             /* Make sure ComboBox supports this pattern */
             object pattern;
-            Assert.That(combo.ThisElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern), Is.True, "Control doesnt support ValuePattern");
+            Assert.That(combo.UIAElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern), Is.True, "Control doesnt support ValuePattern");
 
             combo.SetText(testString);
 
-            string currentText = ValuePatternHelper.GetValue(combo.ThisElement);
+            string currentText = combo.GetText();
 
             Assert.That(currentText,Is.EqualTo(testString));
 
@@ -201,12 +193,12 @@ namespace ProdUITests
 
             /* Make sure ComboBox supports this pattern */
             object pattern;
-            Assert.That(combo.ThisElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern), Is.True, "Control doesnt support ValuePattern");
+            Assert.That(combo.UIAElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern), Is.True, "Control doesnt support ValuePattern");
 
             combo.SetText(testString);
 
             Thread.Sleep(2000);
-            Assert.That(combo.eventTriggered);
+            Assert.That(combo.EventVerified);
 
         }
 
@@ -217,11 +209,11 @@ namespace ProdUITests
 
             /* Make sure ComboBox supports this pattern */
             object pattern;
-            Assert.That(combo.ThisElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern), Is.True, "Control doesnt support ValuePattern");
+            Assert.That(combo.UIAElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern), Is.True, "Control doesnt support ValuePattern");
 
             combo.Clear();
 
-            string result = ValuePatternHelper.GetValue(combo.ThisElement);
+            string result = combo.GetText();
 
             Assert.That(result.Length, Is.EqualTo(0));
         }
@@ -233,12 +225,12 @@ namespace ProdUITests
 
             /* Make sure ComboBox supports this pattern */
             object pattern;
-            Assert.That(combo.ThisElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern), Is.True, "Control doesnt support ValuePattern");
+            Assert.That(combo.UIAElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern), Is.True, "Control doesnt support ValuePattern");
 
             combo.Clear();
 
             Thread.Sleep(2000);
-            Assert.That(combo.eventTriggered);
+            Assert.That(combo.EventVerified);
         }
 
         [Test]
@@ -250,12 +242,12 @@ namespace ProdUITests
 
             /* Make sure ComboBox supports this pattern */
             object pattern;
-            Assert.That(combo.ThisElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern), Is.True, "Control doesnt support ValuePattern");
+            Assert.That(combo.UIAElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern), Is.True, "Control doesnt support ValuePattern");
 
-            string original = ValuePatternHelper.GetValue(combo.ThisElement);
+            string original = ValuePatternHelper.GetValue(combo.UIAElement);
             combo.AppendText(testString);
 
-            string newString = ValuePatternHelper.GetValue(combo.ThisElement);
+            string newString = ValuePatternHelper.GetValue(combo.UIAElement);
 
             Assert.That(newString, Is.EqualTo(original + testString));
         }
@@ -267,12 +259,12 @@ namespace ProdUITests
 
             ProdComboBox combo = new ProdComboBox(window, "comboBoxTest");
             object pattern;
-            Assert.That(combo.ThisElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern), Is.True, "Control doesnt support ValuePattern");
+            Assert.That(combo.UIAElement.TryGetCurrentPattern(ValuePattern.Pattern, out pattern), Is.True, "Control doesnt support ValuePattern");
 
             combo.AppendText(testString);
 
             Thread.Sleep(2000);
-            Assert.That(combo.eventTriggered);
+            Assert.That(combo.EventVerified);
         }
 
         #endregion

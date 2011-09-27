@@ -1,12 +1,7 @@
-﻿using NUnit.Framework;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls;
-using ProdUI.Session;
-using System;
-using System.Windows.Automation;
-using ProdUI.Utility;
-using System.Globalization;
-using System.Collections.Generic;
+﻿using System;
+using NUnit.Framework;
+using ProdUI.Controls.Windows;
+using ProdUI.Controls.Static;
 
 namespace ProdUITests
 {
@@ -14,14 +9,12 @@ namespace ProdUITests
     class ProdCalendarTests
     {
         const string WIN_TITLE = "WPF Test Form";
-        private static ProdSession session;
         private static ProdWindow window;
 
         [SetUp]
         public static void Init()
         {
-            session = new ProdSession("test.ses");
-            window = new ProdWindow(WIN_TITLE, session.Loggers);
+            window = new ProdWindow(WIN_TITLE);
         }
 
         [Test]
