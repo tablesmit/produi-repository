@@ -17,7 +17,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <returns>An array of Column Header elements</returns>
         internal static AutomationElement[] GetColumnHeaders(AutomationElement control)
         {
-            TablePattern pat = (TablePattern) CommonUIAPatternHelpers.CheckPatternSupport(TablePattern.Pattern, control);
+            TablePattern pat = (TablePattern)CommonUIAPatternHelpers.CheckPatternSupport(TablePattern.Pattern, control);
             return pat.Current.GetColumnHeaders();
         }
 
@@ -28,7 +28,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <returns>An array of Row Header elements</returns>
         internal static AutomationElement[] GetRowHeaders(AutomationElement control)
         {
-            TablePattern pat = (TablePattern) CommonUIAPatternHelpers.CheckPatternSupport(TablePattern.Pattern, control);
+            TablePattern pat = (TablePattern)CommonUIAPatternHelpers.CheckPatternSupport(TablePattern.Pattern, control);
             return pat.Current.GetRowHeaders();
         }
 
@@ -39,7 +39,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <returns>The number of columns</returns>
         internal static int GetColumnCount(AutomationElement control)
         {
-            TablePattern pat = (TablePattern) CommonUIAPatternHelpers.CheckPatternSupport(TablePattern.Pattern, control);
+            TablePattern pat = (TablePattern)CommonUIAPatternHelpers.CheckPatternSupport(TablePattern.Pattern, control);
             return pat.Current.ColumnCount;
         }
 
@@ -54,7 +54,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static AutomationElement GetItem(AutomationElement control, int row, int column)
         {
-            TablePattern pat = (TablePattern) CommonUIAPatternHelpers.CheckPatternSupport(TablePattern.Pattern, control);
+            TablePattern pat = (TablePattern)CommonUIAPatternHelpers.CheckPatternSupport(TablePattern.Pattern, control);
             return pat.GetItem(row, column);
         }
 
@@ -66,17 +66,17 @@ namespace ProdUI.Interaction.UIAPatterns
         internal static int GetRowCount(AutomationElement control)
         {
             /* move to next state */
-            TablePattern pat = (TablePattern) CommonUIAPatternHelpers.CheckPatternSupport(TablePattern.Pattern, control);
+            TablePattern pat = (TablePattern)CommonUIAPatternHelpers.CheckPatternSupport(TablePattern.Pattern, control);
             return pat.Current.RowCount;
         }
 
         internal static RowOrColumnMajor GetRowOrColumnMajor(AutomationElement control)
         {
-            TablePattern pat = (TablePattern) CommonUIAPatternHelpers.CheckPatternSupport(TablePattern.Pattern, control);
+            TablePattern pat = (TablePattern)CommonUIAPatternHelpers.CheckPatternSupport(TablePattern.Pattern, control);
             return pat.Current.RowOrColumnMajor;
         }
 
-        #endregion
+        #endregion ITableProvider Implentation
 
         #region ITableItemProvider Implementation
 
@@ -88,7 +88,7 @@ namespace ProdUI.Interaction.UIAPatterns
         public static object[] GetColumnHeaderItems(AutomationElement control)
         {
             /* move to next state */
-            TableItemPattern pat = (TableItemPattern) CommonUIAPatternHelpers.CheckPatternSupport(TableItemPattern.Pattern, control);
+            TableItemPattern pat = (TableItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(TableItemPattern.Pattern, control);
             return pat.Current.GetColumnHeaderItems();
         }
 
@@ -100,7 +100,7 @@ namespace ProdUI.Interaction.UIAPatterns
         public static object[] GetRowHeaderItems(AutomationElement control)
         {
             /* move to next state */
-            TableItemPattern pat = (TableItemPattern) CommonUIAPatternHelpers.CheckPatternSupport(TableItemPattern.Pattern, control);
+            TableItemPattern pat = (TableItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(TableItemPattern.Pattern, control);
             return pat.Current.GetRowHeaderItems();
         }
 
@@ -112,7 +112,7 @@ namespace ProdUI.Interaction.UIAPatterns
         public static int GetColumn(AutomationElement control)
         {
             /* move to next state */
-            TableItemPattern pat = (TableItemPattern) CommonUIAPatternHelpers.CheckPatternSupport(TableItemPattern.Pattern, control);
+            TableItemPattern pat = (TableItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(TableItemPattern.Pattern, control);
             return pat.Current.Column;
         }
 
@@ -124,7 +124,7 @@ namespace ProdUI.Interaction.UIAPatterns
         public static int GetColumnSpan(AutomationElement control)
         {
             /* move to next state */
-            TableItemPattern pat = (TableItemPattern) CommonUIAPatternHelpers.CheckPatternSupport(TableItemPattern.Pattern, control);
+            TableItemPattern pat = (TableItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(TableItemPattern.Pattern, control);
             return pat.Current.ColumnSpan;
         }
 
@@ -136,7 +136,7 @@ namespace ProdUI.Interaction.UIAPatterns
         public static AutomationElement GetContainingGrid(AutomationElement control)
         {
             /* move to next state */
-            TableItemPattern pat = (TableItemPattern) CommonUIAPatternHelpers.CheckPatternSupport(TableItemPattern.Pattern, control);
+            TableItemPattern pat = (TableItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(TableItemPattern.Pattern, control);
             return pat.Current.ContainingGrid;
         }
 
@@ -148,7 +148,7 @@ namespace ProdUI.Interaction.UIAPatterns
         public static int GetRow(AutomationElement control)
         {
             /* move to next state */
-            TableItemPattern pat = (TableItemPattern) CommonUIAPatternHelpers.CheckPatternSupport(TableItemPattern.Pattern, control);
+            TableItemPattern pat = (TableItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(TableItemPattern.Pattern, control);
             return pat.Current.Row;
         }
 
@@ -160,10 +160,10 @@ namespace ProdUI.Interaction.UIAPatterns
         public static int GetRowSpan(AutomationElement control)
         {
             /* move to next state */
-            TableItemPattern pat = (TableItemPattern) CommonUIAPatternHelpers.CheckPatternSupport(TableItemPattern.Pattern, control);
+            TableItemPattern pat = (TableItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(TableItemPattern.Pattern, control);
             return pat.Current.RowSpan;
         }
 
-        #endregion
+        #endregion ITableItemProvider Implementation
     }
 }

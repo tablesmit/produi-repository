@@ -11,14 +11,13 @@ namespace ProdUI.Interaction.Bridge
 {
     internal static class WindowBridge
     {
-
         /// <summary>
         /// Gets the window visual state of the window.
         /// </summary>
         /// <param name="theInterface">The interface.</param>
         /// <param name="baseControl">The ProdWindow.</param>
         /// <returns></returns>
-        
+
         internal static WindowVisualState GetWindowVisualStateBridge(this IWindow theInterface, ProdWindow baseControl)
         {
             try
@@ -37,7 +36,6 @@ namespace ProdUI.Interaction.Bridge
             {
                 return NativeGetWindowVisualState(baseControl);
             }
-
         }
 
         private static WindowVisualState UiaGetWindowVisualState(ProdWindow control)
@@ -51,8 +49,6 @@ namespace ProdUI.Interaction.Bridge
         {
             return ProdWindowNative.GetVisualStateNative(control.NativeHandle);
         }
-
-
 
         /// <summary>
         /// Gets whether the current window is modal or not
@@ -88,9 +84,6 @@ namespace ProdUI.Interaction.Bridge
             LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
             return retVal;
         }
-
-
-
 
         /// <summary>
         /// Gets a value whether a window is set to be topmost in the z-order
@@ -132,9 +125,6 @@ namespace ProdUI.Interaction.Bridge
             return ProdWindowNative.GetIsTopmostNative(control.NativeHandle);
         }
 
-
-
-
         /// <summary>
         /// Gets the state of the current window.
         /// </summary>
@@ -169,9 +159,6 @@ namespace ProdUI.Interaction.Bridge
             LogController.ReceiveLogMessage(new LogMessage(state.ToString()));
             return state;
         }
-
-
-
 
         /// <summary>
         /// Gets the specified windows title
@@ -211,9 +198,6 @@ namespace ProdUI.Interaction.Bridge
             return ProdWindowNative.GetWindowTitleNative(baseControl.NativeHandle);
         }
 
-
-
-
         /// <summary>
         /// Sets the specified windows title
         /// </summary>
@@ -238,16 +222,12 @@ namespace ProdUI.Interaction.Bridge
             {
                 throw new ProdOperationException(err);
             }
-
         }
 
         private static void NativeSetTitle(ProdWindow baseControl, string title)
         {
             ProdWindowNative.SetWindowTitleNative(baseControl.NativeHandle, title);
         }
-
-
-
 
         /// <summary>
         /// Minimizes the current window
@@ -273,7 +253,6 @@ namespace ProdUI.Interaction.Bridge
             {
                 NativeMinimizeWindow(baseControl);
             }
-
         }
 
         private static void NativeMinimizeWindow(ProdWindow baseControl)
@@ -286,8 +265,6 @@ namespace ProdUI.Interaction.Bridge
             WindowPatternHelper.SetVisualState(baseControl.UIAElement, WindowVisualState.Minimized);
             LogController.ReceiveLogMessage(new LogMessage("minimized"));
         }
-
-
 
         /// <summary>
         /// Maximizes the window bridge.
@@ -313,7 +290,6 @@ namespace ProdUI.Interaction.Bridge
             {
                 NativeMaximizeWindow(baseControl);
             }
-
         }
 
         private static void NativeMaximizeWindow(ProdWindow baseControl)
@@ -326,8 +302,6 @@ namespace ProdUI.Interaction.Bridge
             WindowPatternHelper.SetVisualState(baseControl.UIAElement, WindowVisualState.Maximized);
             LogController.ReceiveLogMessage(new LogMessage("maximized"));
         }
-
-
 
         /// <summary>
         /// Restores the window bridge.
@@ -354,7 +328,6 @@ namespace ProdUI.Interaction.Bridge
             {
                 NativeRestoreWindow(baseControl);
             }
-
         }
 
         private static void NativeRestoreWindow(ProdWindow baseControl)
@@ -367,8 +340,6 @@ namespace ProdUI.Interaction.Bridge
             WindowPatternHelper.SetVisualState(baseControl.UIAElement, WindowVisualState.Normal);
             LogController.ReceiveLogMessage(new LogMessage("restored"));
         }
-
-
 
         /// <summary>
         /// Closes the current window
@@ -407,8 +378,6 @@ namespace ProdUI.Interaction.Bridge
             WindowPatternHelper.CloseWindow(baseControl.UIAElement);
         }
 
-
-
         /// <summary>
         /// Causes the calling code to block for the specified time or until the associated process enters an idle state, whichever completes first
         /// </summary>
@@ -445,9 +414,6 @@ namespace ProdUI.Interaction.Bridge
             return retVal;
         }
 
-
-
-
         /// <summary>
         /// Resize the window
         /// </summary>
@@ -473,7 +439,6 @@ namespace ProdUI.Interaction.Bridge
             {
                 NativeResizeWindow(baseControl, width, height);
             }
-
         }
 
         private static void NativeResizeWindow(ProdWindow baseControl, double width, double height)
@@ -493,9 +458,6 @@ namespace ProdUI.Interaction.Bridge
 
             TransformPatternHelper.Resize(baseControl.UIAElement, width, height);
         }
-
-
-
 
         /// <summary>
         /// Moves the window to the specified location
@@ -542,8 +504,6 @@ namespace ProdUI.Interaction.Bridge
             TransformPatternHelper.Move(baseControl.UIAElement, x, y);
         }
 
-
-
         /// <summary>
         /// Rotates the window
         /// </summary>
@@ -569,7 +529,6 @@ namespace ProdUI.Interaction.Bridge
             {
                 throw new ProdOperationException(err);
             }
-
         }
 
         private static void UiaRotateWindow(ProdWindow baseControl, double degrees)
@@ -580,7 +539,6 @@ namespace ProdUI.Interaction.Bridge
             LogController.ReceiveLogMessage(new LogMessage("Rotated", verboseInformation));
             TransformPatternHelper.Rotate(baseControl.UIAElement, degrees);
         }
-
 
         /// <summary>
         /// Register to make a window the active window.

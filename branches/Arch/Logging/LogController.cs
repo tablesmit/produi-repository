@@ -16,7 +16,7 @@ namespace ProdUI.Logging
             ActiveLoggers.AddRange(loggers);
         }
 
-        public static  void AddActiveLogger(ProdLogger newLogger)
+        public static void AddActiveLogger(ProdLogger newLogger)
         {
             if (newLogger == null) return;
             ActiveLoggers.Add(newLogger);
@@ -35,15 +35,15 @@ namespace ProdUI.Logging
             ProcessMessage();
         }
 
-        private static  void ProcessMessage()
+        private static void ProcessMessage()
         {
             foreach (ProdLogger logger in ActiveLoggers)
             {
                 /* determine whether to log */
-                int z = (int) logger.LogLevel;
-                int y = (int) _CurrentMessage.MessageLevel;
+                int z = (int)logger.LogLevel;
+                int y = (int)_CurrentMessage.MessageLevel;
                 int x = (z | y);
-                if (x == (int) logger.LogLevel)
+                if (x == (int)logger.LogLevel)
                     logger.Log(_CurrentMessage);
             }
         }

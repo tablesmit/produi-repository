@@ -1,6 +1,4 @@
-﻿
-
-namespace ProdUI.Interaction.Bridge
+﻿namespace ProdUI.Interaction.Bridge
 {
     internal interface IWindow
     {

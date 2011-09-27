@@ -19,7 +19,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static double GetHorizontalScrollPercent(AutomationElement control)
         {
-            ScrollPattern pat = (ScrollPattern) CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
+            ScrollPattern pat = (ScrollPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
             return pat.Current.HorizontalScrollPercent;
         }
 
@@ -32,7 +32,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static double GetHorizontalViewSize(AutomationElement control)
         {
-            ScrollPattern pat = (ScrollPattern) CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
+            ScrollPattern pat = (ScrollPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
             return pat.Current.HorizontalViewSize;
         }
 
@@ -45,7 +45,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static bool GetHorizontallyScrollable(AutomationElement control)
         {
-            ScrollPattern pat = (ScrollPattern) CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
+            ScrollPattern pat = (ScrollPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
             return pat.Current.HorizontallyScrollable;
         }
 
@@ -57,7 +57,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name = "verticalAmount">The vertical increment specific to the control. NoScroll (-1) should be passed in if the control cannot be scrolled in this direction</param>
         internal static void Scroll(AutomationElement control, ScrollAmount horizontalAmount, ScrollAmount verticalAmount)
         {
-            ScrollPattern pat = (ScrollPattern) CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
+            ScrollPattern pat = (ScrollPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
             pat.Scroll(horizontalAmount, verticalAmount);
         }
 
@@ -69,7 +69,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name = "verticalPercent">The vertical position as a percentage of the content area's total range.NoScroll (-1) should be passed in if the control cannot be scrolled in this direction</param>
         internal static void SetScrollPercent(AutomationElement control, double horizontalPercent, double verticalPercent)
         {
-            ScrollPattern pat = (ScrollPattern) CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
+            ScrollPattern pat = (ScrollPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
             pat.SetScrollPercent(horizontalPercent, verticalPercent);
         }
 
@@ -82,7 +82,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static double GetVerticalScrollPercent(AutomationElement control)
         {
-            ScrollPattern pat = (ScrollPattern) CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
+            ScrollPattern pat = (ScrollPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
             return pat.Current.VerticalScrollPercent;
         }
 
@@ -95,7 +95,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static double GetVerticalViewSize(AutomationElement control)
         {
-            ScrollPattern pat = (ScrollPattern) CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
+            ScrollPattern pat = (ScrollPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
             return pat.Current.VerticalViewSize;
         }
 
@@ -108,11 +108,11 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static bool GetVerticallyScrollable(AutomationElement control)
         {
-            ScrollPattern pat = (ScrollPattern) CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
+            ScrollPattern pat = (ScrollPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
             return pat.Current.VerticallyScrollable;
         }
 
-        #endregion
+        #endregion ScrollItemPattern Implementation
 
         #region IScrollItemProvider Implentation
 
@@ -125,10 +125,10 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </remarks>
         internal static void ScrollIntoView(AutomationElement control)
         {
-            ScrollItemPattern pat = (ScrollItemPattern) CommonUIAPatternHelpers.CheckPatternSupport(ScrollItemPattern.Pattern, control);
+            ScrollItemPattern pat = (ScrollItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollItemPattern.Pattern, control);
             pat.ScrollIntoView();
         }
 
-        #endregion
+        #endregion IScrollItemProvider Implentation
     }
 }

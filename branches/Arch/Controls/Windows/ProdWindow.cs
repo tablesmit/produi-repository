@@ -19,7 +19,6 @@ namespace ProdUI.Controls.Windows
         internal AutomationElement UIAElement;
         internal string WindowTitle;
 
-
         #region Constructors
 
         /// <summary>
@@ -90,8 +89,7 @@ namespace ProdUI.Controls.Windows
             }
         }
 
-        #endregion
-
+        #endregion Constructors
 
         /// <summary>
         /// Register to make a window the active window.
@@ -204,8 +202,6 @@ namespace ProdUI.Controls.Windows
             this.RestoreWindowBridge(this);
         }
 
-
-
         /// <summary>
         /// Causes the calling code to block for the specified time or until the associated process enters an idle state, whichever completes first
         /// </summary>
@@ -251,8 +247,5 @@ namespace ProdUI.Controls.Windows
         {
             this.RotateWindowBridge(this, degrees);
         }
-
-
-
     }
 }

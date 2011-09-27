@@ -57,9 +57,8 @@ namespace ProdUI.Interaction.Bridge
                 /* If it doesn't have one, send keys, then */
                 InternalUtilities.SendKeysAppendText(control.UIAElement, newText);
 
-            ProdEditNative.AppendTextNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, newText);
+            ProdEditNative.AppendTextNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, newText);
         }
-
 
         /// <summary>
         /// Set text area value to an empty string
@@ -100,14 +99,13 @@ namespace ProdUI.Interaction.Bridge
             int hwnd = control.UIAElement.Current.NativeWindowHandle;
             if (hwnd != 0)
             {
-                ProdEditNative.ClearTextNative((IntPtr) hwnd);
+                ProdEditNative.ClearTextNative((IntPtr)hwnd);
             }
 
             /* If it doesn't have one, send keys, then */
             InternalUtilities.SendKeysSetText(control.UIAElement, "^a");
             InternalUtilities.SendKeysSetText(control.UIAElement, "{Backspace}");
         }
-
 
         /// <summary>
         /// Gets the number of characters in textbox
@@ -151,10 +149,9 @@ namespace ProdUI.Interaction.Bridge
 
         private static int NativeGetLength(BaseProdControl control)
         {
-            string txt = NativeTextProds.GetTextNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            string txt = NativeTextProds.GetTextNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
             return txt.Length;
         }
-
 
         /// <summary>
         /// Gets or sets the text contained in the current TextBox
@@ -194,9 +191,8 @@ namespace ProdUI.Interaction.Bridge
 
         private static string NativeGetText(BaseProdControl control)
         {
-            return NativeTextProds.GetTextNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            return NativeTextProds.GetTextNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
-
 
         /// <summary>
         /// inserts the supplied string to the existing textBox text
@@ -207,7 +203,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="index">Zero based index of string to insert text into</param>
         internal static void InsertTextBridge(this IValue theValue, BaseProdControl control, string newText, int index)
         {
-            if ((bool) control.UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty)) throw new ProdOperationException("TextBox is Read Only");
+            if ((bool)control.UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty)) throw new ProdOperationException("TextBox is Read Only");
 
             try
             {
@@ -237,9 +233,8 @@ namespace ProdUI.Interaction.Bridge
 
         private static void NativeInsertText(BaseProdControl control, string newText, int index)
         {
-            NativeTextProds.InsertTextNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, newText, index);
+            NativeTextProds.InsertTextNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, newText, index);
         }
-
 
         /// <summary>
         /// Sets the text contained in the current TextBox
@@ -249,7 +244,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="text">The text to place into the ProdTextBox.</param>
         internal static void SetTextBridge(this IValue theValue, BaseProdControl control, string text)
         {
-            if ((bool) control.UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty)) throw new ProdOperationException("TextBox is Read Only");
+            if ((bool)control.UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty)) throw new ProdOperationException("TextBox is Read Only");
             try
             {
                 UiaSetText(control, text);
@@ -278,13 +273,12 @@ namespace ProdUI.Interaction.Bridge
 
         private static void NativeSetText(BaseProdControl control, string text)
         {
-            NativeTextProds.SetTextNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, text);
+            NativeTextProds.SetTextNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, text);
         }
-
 
         private static bool GetReadOnly(AutomationElement control)
         {
-            return (bool) control.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty);
+            return (bool)control.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace ProdUI.Logging
 
         public ProdLogger(LoggingConfiguration config, ILogTarget target)
         {
-            LogLevel = (LoggingLevels) config.LoggerParameters[0].LogLevel;
+            LogLevel = (LoggingLevels)config.LoggerParameters[0].LogLevel;
             _loggerParams = config.LoggerParameters[0].Parameters;
             LogFormat = config.LoggerParameters[0].LogFormat;
             LogDateFormat = config.LoggerParameters[0].LogDateFormat;
@@ -44,10 +44,12 @@ namespace ProdUI.Logging
         }
 
         public ILogTarget LogTarget { get; set; }
-        public LoggingLevels LogLevel { get; set; }
-        public string LogFormat { get; set; }
-        public string LogDateFormat { get; set; }
 
+        public LoggingLevels LogLevel { get; set; }
+
+        public string LogFormat { get; set; }
+
+        public string LogDateFormat { get; set; }
 
         /// <summary>
         /// Logs the specified exception.
@@ -56,8 +58,8 @@ namespace ProdUI.Logging
         /// <param name="message">The message.</param>
         internal void LogException(Exception ex, LogMessage message)
         {
-            int errEnabled = (int) LogLevel | (int) LoggingLevels.Error;
-            if (errEnabled != (int) LogLevel)
+            int errEnabled = (int)LogLevel | (int)LoggingLevels.Error;
+            if (errEnabled != (int)LogLevel)
             {
                 return;
             }
@@ -81,7 +83,7 @@ namespace ProdUI.Logging
         /// </remarks>
         private void FormatOutput(ref LogMessage message)
         {
-            string[] formats = LogFormat.Split(new[] {','});
+            string[] formats = LogFormat.Split(new[] { ',' });
 
             string outString = string.Empty;
 

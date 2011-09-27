@@ -53,11 +53,10 @@ namespace ProdUI.Interaction.Bridge
         private static List<object> NativeGetItems(BaseProdControl control)
         {
             if (control.UIAElement.Current.ControlType == ControlType.ComboBox)
-            return ProdComboBoxNative.GetItemsNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+                return ProdComboBoxNative.GetItemsNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
 
-            return ProdListBoxNative.GetItemsNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            return ProdListBoxNative.GetItemsNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
-
 
         internal static int GetItemCountBridge(this ISingleSelectList theInterface, BaseProdControl control)
         {
@@ -89,13 +88,12 @@ namespace ProdUI.Interaction.Bridge
         private static int NativeGetItemCount(BaseProdControl control)
         {
             if (control.UIAElement.Current.ControlType == ControlType.Tab)
-                return ProdTabNative.GetTabCount((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+                return ProdTabNative.GetTabCount((IntPtr)control.UIAElement.Current.NativeWindowHandle);
             if (control.UIAElement.Current.ControlType == ControlType.ComboBox)
                 ProdComboBoxNative.GetItemCountNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
 
-            return ProdListBoxNative.GetItemCountNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            return ProdListBoxNative.GetItemCountNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
-
 
         /// <summary>
         /// Gets the selected index ex.
@@ -137,9 +135,8 @@ namespace ProdUI.Interaction.Bridge
             if (control.UIAElement.Current.ControlType == ControlType.ComboBox)
                 return ProdComboBoxNative.GetSelectedIndexNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
 
-            return ProdListBoxNative.GetSelectedIndexNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            return ProdListBoxNative.GetSelectedIndexNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
-
 
         /// <summary>
         /// Gets the selected list item.
@@ -178,11 +175,10 @@ namespace ProdUI.Interaction.Bridge
 
         private static AutomationElement NativeGetSelectedItem(BaseProdControl control)
         {
-            ProdListBoxNative.GetSelectedItemNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            ProdListBoxNative.GetSelectedItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
             //Note: This can not return an AutomationElement...
             return control.UIAElement;
         }
-
 
         /// <summary>
         /// Sets the selected list item.
@@ -222,11 +218,10 @@ namespace ProdUI.Interaction.Bridge
         private static void NativeSetSelectedIndex(BaseProdControl control, int index)
         {
             if (control.UIAElement.Current.ControlType == ControlType.ComboBox)
-            ProdComboBoxNative.SelectItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, index);
+                ProdComboBoxNative.SelectItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, index);
 
-            ProdListBoxNative.SetSelectedIndexNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, index);
+            ProdListBoxNative.SetSelectedIndexNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, index);
         }
-
 
         /// <summary>
         /// Sets the selected list item.
@@ -268,9 +263,8 @@ namespace ProdUI.Interaction.Bridge
             if (control.UIAElement.Current.ControlType == ControlType.ComboBox)
                 ProdComboBoxNative.SelectItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, itemText);
 
-            ProdListBoxNative.SelectItemNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, itemText);
+            ProdListBoxNative.SelectItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, itemText);
         }
-
 
         internal static bool IsItemSelectedBridge(this ISingleSelectList theInterface, BaseProdControl control, int index)
         {
@@ -298,11 +292,11 @@ namespace ProdUI.Interaction.Bridge
 
             if (control.UIAElement.Current.ControlType == ControlType.ComboBox)
             {
-                selectedIndex = ProdComboBoxNative.GetSelectedIndexNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+                selectedIndex = ProdComboBoxNative.GetSelectedIndexNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
             }
             else
             {
-                selectedIndex = ProdTabNative.GetSelectedTab((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+                selectedIndex = ProdTabNative.GetSelectedTab((IntPtr)control.UIAElement.Current.NativeWindowHandle);
             }
 
             return selectedIndex == index;
@@ -315,7 +309,6 @@ namespace ProdUI.Interaction.Bridge
             LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
             return retVal;
         }
-
 
         internal static bool IsItemSelectedBridge(this ISingleSelectList theInterface, BaseProdControl control, string text)
         {

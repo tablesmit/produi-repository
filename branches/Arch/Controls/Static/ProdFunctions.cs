@@ -10,32 +10,29 @@ using System.Windows.Forms;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.Native;
-using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 using ProdUI.Utility;
 
 namespace ProdUI.Controls.Static
 {
     /// <summary>
-    ///     Functions that are available to most UI Elements
+    /// Functions that are available to most UI Elements
     /// </summary>
     public static partial class Prod
     {
         /// <summary>
-        ///     Register to make a window the active window by passing partial title.
+        /// Register to make a window the active window by passing partial title.
         /// </summary>
-        /// <param name = "partialTitle">The title of the window to search for (partial names are acceptable, though less accurate)</param>
-        /// <exception cref = "InvalidOperationException">The exception that is thrown when a method call is invalid for the object's current state</exception>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
-        /// <exception cref = "Win32Exception">Throws an exception for a Win32 error code</exception>
+        /// <param name="partialTitle">The title of the window to search for (partial names are acceptable, though less accurate)</param>
+        /// <exception cref="ProdOperationException"></exception>
         [ProdLogging(LoggingLevels.Warn, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void ActivateWindow(string partialTitle)
         {
             try
             {
                 IntPtr windowHandle = InternalUtilities.FindWindowPartial(partialTitle);
-                NativeMethods.ShowWindowAsync(windowHandle, (int) ShowWindowCommand.SW_SHOWDEFAULT);
-                NativeMethods.ShowWindowAsync(windowHandle, (int) ShowWindowCommand.SW_SHOW);
+                NativeMethods.ShowWindowAsync(windowHandle, (int)ShowWindowCommand.SW_SHOWDEFAULT);
+                NativeMethods.ShowWindowAsync(windowHandle, (int)ShowWindowCommand.SW_SHOW);
                 NativeMethods.SetForegroundWindow(windowHandle);
             }
             catch (InvalidOperationException ierr)
@@ -53,41 +50,40 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Brings the specified window to the foreground and activates it
+        /// Brings the specified window to the foreground and activates it
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to the target window</param>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" /></exception>
+        /// <param name="windowHandle">NativeWindowHandle to the target window</param>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/></exception>
         [ProdLogging(LoggingLevels.Warn, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void ActivateWindow(IntPtr windowHandle)
         {
-            if ((int) windowHandle == 0)
+            if ((int)windowHandle == 0)
             {
                 throw new ProdOperationException("NativeWindowHandle not found.", new ElementNotEnabledException());
             }
 
-            NativeMethods.ShowWindowAsync(windowHandle, (int) ShowWindowCommand.SW_SHOWDEFAULT);
-            NativeMethods.ShowWindowAsync(windowHandle, (int) ShowWindowCommand.SW_SHOW);
+            NativeMethods.ShowWindowAsync(windowHandle, (int)ShowWindowCommand.SW_SHOWDEFAULT);
+            NativeMethods.ShowWindowAsync(windowHandle, (int)ShowWindowCommand.SW_SHOW);
             NativeMethods.SetForegroundWindow(windowHandle);
         }
 
-
         /// <summary>
-        ///     Copies an object in the specified format to the windows Clipboard.
+        /// Copies an object in the specified format to the windows Clipboard.
         /// </summary>
-        /// <param name = "format">The <see cref = "System.Windows.Forms.DataFormats" /></param>
-        /// <param name = "item">The object to place on the Clipboard buffer.</param>
-        public static void CopyToCltargetipBoard(DataFormats format, object item)
+        /// <param name="format">The <see cref="System.Windows.Forms.DataFormats"/></param>
+        /// <param name="item">The object to place on the Clipboard buffer.</param>
+        public static void CopyToClipBoard(DataFormats format, object item)
         {
             Clipboard.SetData(format.ToString(), item);
         }
 
         /// <summary>
-        ///     Waits a specified amount of time for the specified control to be ready for interaction.
+        /// Waits a specified amount of time for the specified control to be ready for interaction.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "delay">Time, in seconds, to wait for window to exist. -1 to wait forever</param>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="delay">Time, in seconds, to wait for window to exist. -1 to wait forever</param>
         /// <returns>
-        ///     <c>true</c> if ready, <c>false</c> if not ready within time limit
+        ///   <c>true</c> if ready, <c>false</c> if not ready within time limit
         /// </returns>
         public static bool ControlWaitReady(BaseProdControl control, int delay = -1)
         {
@@ -107,16 +103,16 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets control caption
+        /// Gets control caption
         /// </summary>
-        /// <param name = "controlHandle">NativeWindowHandle to the button</param>
+        /// <param name="controlHandle">NativeWindowHandle to the button</param>
         /// <returns>
-        ///     The caption of the current control
+        /// The caption of the current control
         /// </returns>
-        /// <exception cref = "ProdOperationException">
-        ///     Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" />
-        ///     Thrown if call is invalid for the object's current state <seealso cref = "InvalidOperationException" />
-        /// </exception>
+        /// <exception cref="ProdOperationException">
+        /// Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/>
+        /// Thrown if call is invalid for the object's current state <seealso cref="InvalidOperationException"/>
+        ///   </exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static string GetCaption(IntPtr controlHandle)
         {
@@ -137,14 +133,14 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets current controls handle
+        /// Gets current controls handle
         /// </summary>
-        /// <param name = "parentHandle">NativeWindowHandle to the parent window</param>
-        /// <param name = "controlId">Resource Id of the control</param>
+        /// <param name="parentHandle">NativeWindowHandle to the parent window</param>
+        /// <param name="controlId">Resource Id of the control</param>
         /// <returns>
-        ///     NativeWindowHandle to the current control
+        /// NativeWindowHandle to the current control
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" /></exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/></exception>
         [ProdLogging(LoggingLevels.Info, VerbositySupport = LoggingVerbosity.Minimum)]
         public static IntPtr GetControlHandle(IntPtr parentHandle, int controlId)
         {
@@ -164,14 +160,14 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets current controls handle
+        /// Gets current controls handle
         /// </summary>
-        /// <param name = "parentHandle">NativeWindowHandle to the parent window.</param>
-        /// <param name = "controlText">The control text to match.</param>
+        /// <param name="parentHandle">NativeWindowHandle to the parent window.</param>
+        /// <param name="controlText">The control text to match.</param>
         /// <returns>
-        ///     NativeWindowHandle to the current control
+        /// NativeWindowHandle to the current control
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" /></exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/></exception>
         [ProdLogging(LoggingLevels.Info, VerbositySupport = LoggingVerbosity.Minimum)]
         public static IntPtr GetControlHandle(IntPtr parentHandle, string controlText)
         {
@@ -191,31 +187,31 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets the handle from controls position in the forms UI control tree.
+        /// Gets the handle from controls position in the forms UI control tree.
         /// </summary>
-        /// <param name = "windowHandle">The applications window handle.</param>
-        /// <param name = "position">The position of the control.</param>
+        /// <param name="windowHandle">The applications window handle.</param>
+        /// <param name="position">The position of the control.</param>
         /// <returns>
-        ///     The window handle to the selected control
+        /// The window handle to the selected control
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" /></exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/></exception>
         /// <remarks>
-        ///     The position of the control tree can be found through the use of ProdSpy. This function is especially useful for those controls that have no name, label, or resourceID
-        ///     However, WPF controls do NOT have a handle, so this will return a 0
+        /// The position of the control tree can be found through the use of ProdSpy. This function is especially useful for those controls that have no name, label, or resourceID
+        /// However, WPF controls do NOT have a handle, so this will return a 0
         /// </remarks>
         public static IntPtr GetHandleFromTree(IntPtr windowHandle, int position)
         {
             ControlTree tree = new ControlTree(windowHandle);
 
-            return (IntPtr) tree.Find(position);
+            return (IntPtr)tree.Find(position);
         }
 
         /// <summary>
-        ///     Register to return a handle to the window with a partial title matching the string provided.
+        /// Register to return a handle to the window with a partial title matching the string provided.
         /// </summary>
-        /// <param name = "partialTitle">The title of the window to search for (partial names are acceptable, though less accurate)</param>
+        /// <param name="partialTitle">The title of the window to search for (partial names are acceptable, though less accurate)</param>
         /// <returns>
-        ///     NativeWindowHandle to the window if successful. IntPtr.Zero if not found
+        /// NativeWindowHandle to the window if successful. IntPtr.Zero if not found
         /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static IntPtr GetWindowHandle(string partialTitle)
@@ -225,20 +221,20 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Determines if control is able to accept input
+        /// Determines if control is able to accept input
         /// </summary>
-        /// <param name = "controlHandle">NativeWindowHandle to the control to investigate</param>
+        /// <param name="controlHandle">NativeWindowHandle to the control to investigate</param>
         /// <returns>
-        ///     <c>true</c> if enabled, <c>false</c> otherwise
+        ///   <c>true</c> if enabled, <c>false</c> otherwise
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static bool IsEnabled(IntPtr controlHandle)
         {
             try
             {
                 AutomationElement control = AutomationElement.FromHandle(controlHandle);
-                bool retVal = (bool) control.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty);
+                bool retVal = (bool)control.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty);
                 return retVal;
             }
             catch (InvalidOperationException err)
@@ -252,16 +248,16 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Determines if control is able to accept input
+        /// Determines if control is able to accept input
         /// </summary>
-        /// <param name = "control">The <see cref = "System.Windows.Automation.AutomationElement" /> to investigate</param>
+        /// <param name="control">The <see cref="System.Windows.Automation.AutomationElement"/> to investigate</param>
         /// <returns>
-        ///     <c>true</c> if enabled, <c>false</c> otherwise
+        ///   <c>true</c> if enabled, <c>false</c> otherwise
         /// </returns>
-        /// <exception cref = "ProdOperationException">
-        ///     Thrown if call is invalid for the object's current state <seealso cref = "InvalidOperationException" />
-        ///     Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" />
-        /// </exception>
+        /// <exception cref="ProdOperationException">
+        /// Thrown if call is invalid for the object's current state <seealso cref="InvalidOperationException"/>
+        /// Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/>
+        ///   </exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static bool IsEnabled(AutomationElement control)
         {
@@ -272,7 +268,7 @@ namespace ProdUI.Controls.Static
 
             try
             {
-                bool retVal = (bool) control.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty);
+                bool retVal = (bool)control.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty);
                 return retVal;
             }
             catch (InvalidOperationException err)
@@ -282,20 +278,20 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Moves the mouse to control.
+        /// Moves the mouse to control.
         /// </summary>
-        /// <param name = "controlHandle">The control handle of the element to snap to.</param>
-        /// <exception cref = "ProdOperationException">
-        ///     Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" />
-        ///     Thrown when GetClickablePoint is called on a UI Automation element that has no clickable point <seealso cref = "NoClickablePointException" />
-        /// </exception>
+        /// <param name="controlHandle">The control handle of the element to snap to.</param>
+        /// <exception cref="ProdOperationException">
+        /// Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/>
+        /// Thrown when GetClickablePoint is called on a UI Automation element that has no clickable point <seealso cref="NoClickablePointException"/>
+        ///   </exception>
         public static void MoveMouseToControl(IntPtr controlHandle)
         {
             try
             {
                 AutomationElement control = AutomationElement.FromHandle(controlHandle);
                 control.SetFocus();
-                Point p = new Point((int) control.GetClickablePoint().X, (int) control.GetClickablePoint().Y);
+                Point p = new Point((int)control.GetClickablePoint().X, (int)control.GetClickablePoint().Y);
                 InternalUtilities.MoveMouseToPoint(p);
             }
             catch (NoClickablePointException err)
@@ -309,18 +305,18 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Moves the mouse to control.
+        /// Moves the mouse to control.
         /// </summary>
-        /// <param name = "control">The UI Automation element to snap the mouse to</param>
-        /// <exception cref = "ProdOperationException">Thrown if:
-        ///     Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" />
-        ///     Thrown when GetClickablePoint is called on a UI Automation element that has no clickable point <seealso cref = "NoClickablePointException" />
-        /// </exception>
+        /// <param name="control">The UI Automation element to snap the mouse to</param>
+        /// <exception cref="ProdOperationException">Thrown if:
+        /// Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/>
+        /// Thrown when GetClickablePoint is called on a UI Automation element that has no clickable point <seealso cref="NoClickablePointException"/>
+        ///   </exception>
         public static void MoveMouseToControl(AutomationElement control)
         {
             try
             {
-                Point p = new Point((int) control.GetClickablePoint().X, (int) control.GetClickablePoint().Y);
+                Point p = new Point((int)control.GetClickablePoint().X, (int)control.GetClickablePoint().Y);
                 control.SetFocus();
                 InternalUtilities.MoveMouseToPoint(p);
             }
@@ -335,14 +331,14 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Used to send a set of keys to a focused window or control
+        /// Used to send a set of keys to a focused window or control
         /// </summary>
-        /// <param name = "partialTitle">Title of window to focus upon, then send keys to</param>
-        /// <param name = "theKeys">The keys to send. <seealso cref = "System.Windows.Forms.SendKeys.Send" /></param>
-        /// <exception cref = "ProdOperationException">
-        ///     Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" />
-        ///     Thrown if call is invalid for the object's current state <seealso cref = "InvalidOperationException" />
-        /// </exception>
+        /// <param name="partialTitle">Title of window to focus upon, then send keys to</param>
+        /// <param name="theKeys">The keys to send. <seealso cref="System.Windows.Forms.SendKeys.Send"/></param>
+        /// <exception cref="ProdOperationException">
+        /// Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/>
+        /// Thrown if call is invalid for the object's current state <seealso cref="InvalidOperationException"/>
+        ///   </exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SendKeysTo(string partialTitle, string theKeys)
         {
@@ -362,18 +358,18 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Used to send a set of keys to a focused window or control
+        /// Used to send a set of keys to a focused window or control
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to the window to focus upon, then send keys to</param>
-        /// <param name = "theKeys">The keys to send. <seealso cref = "System.Windows.Forms.SendKeys.Send" /></param>
-        /// <exception cref = "ProdOperationException">
-        ///     Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" />
-        ///     Thrown if call is invalid for the object's current state <seealso cref = "InvalidOperationException" />
-        /// </exception>
+        /// <param name="windowHandle">NativeWindowHandle to the window to focus upon, then send keys to</param>
+        /// <param name="theKeys">The keys to send. <seealso cref="System.Windows.Forms.SendKeys.Send"/></param>
+        /// <exception cref="ProdOperationException">
+        /// Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/>
+        /// Thrown if call is invalid for the object's current state <seealso cref="InvalidOperationException"/>
+        ///   </exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SendKeysTo(IntPtr windowHandle, string theKeys)
         {
-            if ((int) windowHandle == 0)
+            if ((int)windowHandle == 0)
             {
                 throw new ProdOperationException("NativeWindowHandle not found.", new ElementNotEnabledException());
             }
@@ -394,19 +390,19 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Moves the mouse to a control and sends the specified mouse click.
+        /// Moves the mouse to a control and sends the specified mouse click.
         /// </summary>
-        /// <param name = "control">The UI Automation element to click</param>
-        /// <param name = "clickType">Type of the click. <see cref = "ProdUI.Utility.MouseClick" /></param>
-        /// <exception cref = "ProdOperationException">Thrown if:
-        ///     Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" />
-        ///     Thrown when GetClickablePoint is called on a UI Automation element that has no clickable point <seealso cref = "NoClickablePointException" />
-        /// </exception>
+        /// <param name="control">The UI Automation element to click</param>
+        /// <param name="clickType">Type of the click. <see cref="MouseClick"/></param>
+        /// <exception cref="ProdOperationException">Thrown if:
+        /// Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/>
+        /// Thrown when GetClickablePoint is called on a UI Automation element that has no clickable point <seealso cref="NoClickablePointException"/>
+        ///   </exception>
         public static void SendMouseClick(AutomationElement control, MouseClick clickType)
         {
             try
             {
-                Point p = new Point((int) control.GetClickablePoint().X, (int) control.GetClickablePoint().Y);
+                Point p = new Point((int)control.GetClickablePoint().X, (int)control.GetClickablePoint().Y);
                 control.SetFocus();
                 InternalUtilities.MoveMouseToPoint(p);
 
@@ -449,7 +445,7 @@ namespace ProdUI.Controls.Static
             {
                 throw new ProdOperationException("NativeWindowHandle not found.", new ElementNotEnabledException());
             }
-            if (control.Current.IsEnabled && (bool) control.GetCurrentPropertyValue(AutomationElement.IsKeyboardFocusableProperty, true))
+            if (control.Current.IsEnabled && (bool)control.GetCurrentPropertyValue(AutomationElement.IsKeyboardFocusableProperty, true))
             {
                 control.SetFocus();
             }
@@ -465,7 +461,7 @@ namespace ProdUI.Controls.Static
             try
             {
                 AutomationElement control = AutomationElement.FromHandle(controlHandle);
-                if (control.Current.IsEnabled && (bool) control.GetCurrentPropertyValue(AutomationElement.IsKeyboardFocusableProperty, true))
+                if (control.Current.IsEnabled && (bool)control.GetCurrentPropertyValue(AutomationElement.IsKeyboardFocusableProperty, true))
                 {
                     control.SetFocus();
                 }
@@ -483,7 +479,7 @@ namespace ProdUI.Controls.Static
         public static void TimeDelay(double seconds)
         {
             double wait = seconds * 1000;
-            Thread.Sleep((int) wait);
+            Thread.Sleep((int)wait);
         }
 
         /// <summary>

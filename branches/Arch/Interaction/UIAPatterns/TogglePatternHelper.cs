@@ -23,7 +23,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </remarks>
         internal static void Toggle(AutomationElement control)
         {
-            TogglePattern pattern = (TogglePattern) CommonUIAPatternHelpers.CheckPatternSupport(TogglePattern.Pattern, control);
+            TogglePattern pattern = (TogglePattern)CommonUIAPatternHelpers.CheckPatternSupport(TogglePattern.Pattern, control);
             pattern.Toggle();
         }
 
@@ -36,11 +36,11 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static ToggleState GetToggleState(AutomationElement control)
         {
-            TogglePattern pattern = (TogglePattern) CommonUIAPatternHelpers.CheckPatternSupport(TogglePattern.Pattern, control);
+            TogglePattern pattern = (TogglePattern)CommonUIAPatternHelpers.CheckPatternSupport(TogglePattern.Pattern, control);
             return pattern.Current.ToggleState;
         }
 
-        #endregion
+        #endregion IToggleProvider Implementation
 
         #region Custom functions
 
@@ -54,13 +54,12 @@ namespace ProdUI.Interaction.UIAPatterns
             /* Only need to change it if it needs-a-changin' */
             if (GetToggleState(control) != toggleState)
             {
-                TogglePattern pattern = (TogglePattern) control.GetCurrentPattern(TogglePattern.Pattern);
+                TogglePattern pattern = (TogglePattern)control.GetCurrentPattern(TogglePattern.Pattern);
                 pattern.Toggle();
             }
             ValueVerifier<ToggleState, ToggleState>.Verify(toggleState, GetToggleState(control));
-
         }
 
-        #endregion
+        #endregion Custom functions
     }
 }

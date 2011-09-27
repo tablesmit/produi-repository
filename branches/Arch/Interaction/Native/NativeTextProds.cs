@@ -79,7 +79,5 @@ namespace ProdUI.Interaction.Native
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
             NativeMethods.SendMessage(windowHandle, (int)WindowMessages.WM_CLEAR, 0, 0);
         }
-
-
     }
 }

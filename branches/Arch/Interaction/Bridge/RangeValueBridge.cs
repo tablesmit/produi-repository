@@ -43,9 +43,9 @@ namespace ProdUI.Interaction.Bridge
         private static double NativeGetValue(BaseProdControl control)
         {
             if (control.UIAElement.Current.ControlType == ControlType.Spinner)
-                return ProdSliderNative.GetValueNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+                return ProdSliderNative.GetValueNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
 
-            return ProdSliderNative.GetValueNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            return ProdSliderNative.GetValueNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
 
         private static double UiaGetValue(BaseProdControl control)
@@ -85,9 +85,9 @@ namespace ProdUI.Interaction.Bridge
         private static void NativeSetValue(BaseProdControl control, double value)
         {
             if (control.UIAElement.Current.ControlType == ControlType.Spinner)
-                ProdSpinnerNative.SetValueNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, value);
+                ProdSpinnerNative.SetValueNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, value);
 
-            ProdSliderNative.SetValueNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, value);
+            ProdSliderNative.SetValueNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, value);
         }
 
         private static void UiaSetValue(BaseProdControl control, double value)
@@ -97,7 +97,6 @@ namespace ProdUI.Interaction.Bridge
             AutomationEventVerifier.Register(new EventRegistrationMessage(control, RangeValuePattern.ValueProperty));
             RangeValuePatternHelper.SetValue(control.UIAElement, value);
         }
-
 
         /// <summary>
         /// Gets the maximum value of the control.
@@ -130,9 +129,9 @@ namespace ProdUI.Interaction.Bridge
         private static double NativeGetMaxValue(BaseProdControl control)
         {
             if (control.UIAElement.Current.ControlType == ControlType.Spinner)
-                return ProdSpinnerNative.GetMaximumNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+                return ProdSpinnerNative.GetMaximumNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
 
-            return (double) ProdSliderNative.GetSmallChangeNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            return (double)ProdSliderNative.GetSmallChangeNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
 
         private static double UiaGetMaxValue(BaseProdControl control)
@@ -141,7 +140,6 @@ namespace ProdUI.Interaction.Bridge
             LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
             return retVal;
         }
-
 
         /// <summary>
         /// Gets the minimum value of the control.
@@ -174,9 +172,9 @@ namespace ProdUI.Interaction.Bridge
         private static double NativeGetMinValue(BaseProdControl control)
         {
             if (control.UIAElement.Current.ControlType == ControlType.Spinner)
-                return ProdSpinnerNative.GetMinimumNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+                return ProdSpinnerNative.GetMinimumNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
 
-            return ProdSliderNative.GetMinimumNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            return ProdSliderNative.GetMinimumNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
 
         private static double UiaGetMinValue(BaseProdControl control)
@@ -185,7 +183,6 @@ namespace ProdUI.Interaction.Bridge
             LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
             return retVal;
         }
-
 
         /// <summary>
         /// Gets the large change value for the control.
@@ -217,7 +214,7 @@ namespace ProdUI.Interaction.Bridge
 
         private static double NativeGetLargeChange(BaseProdControl control)
         {
-            return (double) ProdSliderNative.GetLargeChangeNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            return (double)ProdSliderNative.GetLargeChangeNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
 
         private static double UiaGetLargeChange(BaseProdControl control)
@@ -226,7 +223,6 @@ namespace ProdUI.Interaction.Bridge
             LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
             return retVal;
         }
-
 
         /// <summary>
         /// Gets the small change value for the control.
@@ -258,7 +254,7 @@ namespace ProdUI.Interaction.Bridge
 
         private static double NativeGetSmallChange(BaseProdControl control)
         {
-            return (double) ProdSliderNative.GetSmallChangeNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            return (double)ProdSliderNative.GetSmallChangeNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
 
         private static double UiaGetSmallChange(BaseProdControl control)

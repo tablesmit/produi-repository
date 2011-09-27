@@ -9,21 +9,21 @@ using ProdUI.Logging;
 
 /* Notes
  * --ListBox Portion--
- * Supported Patterns: 
- * ISelectionProvider 
- * IExpandCollapseProvider 
- * 
+ * Supported Patterns:
+ * ISelectionProvider
+ * IExpandCollapseProvider
+ *
  * Proposed functionality:
  * SetSelectedItem - index and text
  * GetSelectedItem - index and text
  * Item count
  * Get all items
  * additem
- * 
+ *
  * --Textbox portion--
  * Supported Pattern:
- * IValueProvider 
- * 
+ * IValueProvider
+ *
  * Proposed functionality:
  * is editing supported
  * gettext
@@ -49,7 +49,8 @@ namespace ProdUI.Controls.Windows
         /// <remarks>
         ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
-        public ProdComboBox(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
+        public ProdComboBox(ProdWindow prodWindow, string automationId)
+            : base(prodWindow, automationId)
         {
         }
 
@@ -58,7 +59,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
-        public ProdComboBox(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
+        public ProdComboBox(ProdWindow prodWindow, int treePosition)
+            : base(prodWindow, treePosition)
         {
         }
 
@@ -67,11 +69,12 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "controlHandle">Window handle of the control</param>
-        public ProdComboBox(ProdWindow prodWindow, IntPtr controlHandle) : base(prodWindow, controlHandle)
+        public ProdComboBox(ProdWindow prodWindow, IntPtr controlHandle)
+            : base(prodWindow, controlHandle)
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         #region List Instance Methods
 
@@ -118,7 +121,7 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetSelectedIndex(int index)
         {
-            this.SetSelectedIndexBridge(this,index);
+            this.SetSelectedIndexBridge(this, index);
         }
 
         /// <summary>
@@ -128,7 +131,7 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetSelectedItem(string itemText)
         {
-            this.SetSelectedItemBridge(this,itemText);
+            this.SetSelectedItemBridge(this, itemText);
         }
 
         /// <summary>
@@ -169,7 +172,7 @@ namespace ProdUI.Controls.Windows
             return this.GetItemsBridge(this);
         }
 
-        #endregion
+        #endregion List Instance Methods
 
         #region Textbox Instance Methods
 
@@ -226,6 +229,6 @@ namespace ProdUI.Controls.Windows
             this.AppendTextBridge(this, text);
         }
 
-        #endregion
+        #endregion Textbox Instance Methods
     }
 }

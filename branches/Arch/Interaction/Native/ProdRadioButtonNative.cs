@@ -17,9 +17,9 @@ namespace ProdUI.Interaction.Native
         internal static bool GetCheckStateNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
-            int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMGETCHECK, 0, 0);
+            int retVal = (int)NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMGETCHECK, 0, 0);
 
-            return retVal == (int) ButtonStates.BSTCHECKED;
+            return retVal == (int)ButtonStates.BSTCHECKED;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace ProdUI.Interaction.Native
         internal static void SetCheckStateNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
-            NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMSETCHECK, (int) ButtonStates.BSTCHECKED, 0);
+            NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMSETCHECK, (int)ButtonStates.BSTCHECKED, 0);
             ValueVerifier<bool, bool>.Verify(true, GetCheckStateNative(windowHandle));
         }
     }

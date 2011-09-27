@@ -17,7 +17,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static bool CanSelectMultiple(AutomationElement control)
         {
-            SelectionPattern pattern = (SelectionPattern) CommonUIAPatternHelpers.CheckPatternSupport(SelectionPattern.Pattern, control);
+            SelectionPattern pattern = (SelectionPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionPattern.Pattern, control);
             return pattern.Current.CanSelectMultiple;
         }
 
@@ -28,7 +28,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <returns>An AutomationElement array of all selected items</returns>
         internal static AutomationElement[] GetSelection(AutomationElement control)
         {
-            SelectionPattern pattern = (SelectionPattern) CommonUIAPatternHelpers.CheckPatternSupport(SelectionPattern.Pattern, control);
+            SelectionPattern pattern = (SelectionPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionPattern.Pattern, control);
             return pattern.Current.GetSelection();
         }
 
@@ -41,7 +41,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static bool IsSelectionRequired(AutomationElement control)
         {
-            SelectionPattern pattern = (SelectionPattern) CommonUIAPatternHelpers.CheckPatternSupport(SelectionPattern.Pattern, control);
+            SelectionPattern pattern = (SelectionPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionPattern.Pattern, control);
             return pattern.Current.IsSelectionRequired;
         }
 
@@ -51,7 +51,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name = "control">The UI Automation identifier (ID) for the element</param>
         internal static void SelectItem(AutomationElement control)
         {
-            SelectionItemPattern pattern = (SelectionItemPattern) CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
+            SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
             pattern.Select();
         }
     }

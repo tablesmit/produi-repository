@@ -12,7 +12,6 @@ namespace ProdUI.Interaction.Bridge
 {
     internal static class ToggleBridge
     {
-        
         internal static ToggleState GetCheckStateBridge(this IToggle theInvoke, BaseProdControl control)
         {
             try
@@ -42,11 +41,9 @@ namespace ProdUI.Interaction.Bridge
 
         internal static ToggleState NativeGetCheckState(BaseProdControl control)
         {
-            return ProdCheckBoxNative.GetCheckStateNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            return ProdCheckBoxNative.GetCheckStateNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
 
-
-        
         internal static void SetCheckStateBridge(this IToggle theInvoke, BaseProdControl control, ToggleState checkstate)
         {
             try
@@ -76,11 +73,9 @@ namespace ProdUI.Interaction.Bridge
 
         private static void NativeSetCheckState(BaseProdControl control, ToggleState checkstate)
         {
-            ProdCheckBoxNative.SetCheckStateNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, checkstate);
+            ProdCheckBoxNative.SetCheckStateNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, checkstate);
         }
 
-
-        
         internal static void ToggleCheckStateBridge(this IToggle theInvoke, BaseProdControl control)
         {
             try
@@ -110,7 +105,7 @@ namespace ProdUI.Interaction.Bridge
 
         internal static void NativeToggleCheckState(BaseProdControl control)
         {
-            ProdCheckBoxNative.ToggleCheckStateNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            ProdCheckBoxNative.ToggleCheckStateNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
     }
 }

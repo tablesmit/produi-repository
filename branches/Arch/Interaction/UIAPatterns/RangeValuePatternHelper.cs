@@ -18,7 +18,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static double GetValue(AutomationElement control)
         {
-            RangeValuePattern pattern = (RangeValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
+            RangeValuePattern pattern = (RangeValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
             return pattern.Current.Value;
         }
 
@@ -29,7 +29,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name = "value">The value to set the control to.</param>
         internal static void SetValue(AutomationElement control, double value)
         {
-            RangeValuePattern pattern = (RangeValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
+            RangeValuePattern pattern = (RangeValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
             pattern.SetValue(value);
             ValueVerifier<double, double>.Verify(value, GetValue(control));
         }
@@ -43,7 +43,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static double GetMaximum(AutomationElement control)
         {
-            RangeValuePattern pattern = (RangeValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
+            RangeValuePattern pattern = (RangeValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
             return pattern.Current.Maximum;
         }
 
@@ -56,7 +56,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static double GetMinimum(AutomationElement control)
         {
-            RangeValuePattern pattern = (RangeValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
+            RangeValuePattern pattern = (RangeValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
             return pattern.Current.Minimum;
         }
 
@@ -69,7 +69,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static double GetLargeChange(AutomationElement control)
         {
-            RangeValuePattern pattern = (RangeValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
+            RangeValuePattern pattern = (RangeValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
             return pattern.Current.LargeChange;
         }
 
@@ -82,7 +82,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static double GetSmallChange(AutomationElement control)
         {
-            RangeValuePattern pattern = (RangeValuePattern) CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
+            RangeValuePattern pattern = (RangeValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
             return pattern.Current.SmallChange;
         }
     }

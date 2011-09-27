@@ -17,7 +17,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static int Collapse(AutomationElement control)
         {
-            ExpandCollapsePattern pat = (ExpandCollapsePattern) CommonUIAPatternHelpers.CheckPatternSupport(ExpandCollapsePattern.Pattern, control);
+            ExpandCollapsePattern pat = (ExpandCollapsePattern)CommonUIAPatternHelpers.CheckPatternSupport(ExpandCollapsePattern.Pattern, control);
             pat.Collapse();
             return 0;
         }
@@ -31,7 +31,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static int Expand(AutomationElement control)
         {
-            ExpandCollapsePattern pat = (ExpandCollapsePattern) CommonUIAPatternHelpers.CheckPatternSupport(ExpandCollapsePattern.Pattern, control);
+            ExpandCollapsePattern pat = (ExpandCollapsePattern)CommonUIAPatternHelpers.CheckPatternSupport(ExpandCollapsePattern.Pattern, control);
             pat.Expand();
             return 0;
         }
@@ -45,7 +45,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static ExpandCollapseState ExpandCollapseState(AutomationElement control)
         {
-            return (ExpandCollapseState) control.GetCurrentPropertyValue(ExpandCollapsePattern.ExpandCollapseStateProperty);
+            return (ExpandCollapseState)control.GetCurrentPropertyValue(ExpandCollapsePattern.ExpandCollapseStateProperty);
         }
     }
 }

@@ -19,7 +19,6 @@ namespace ProdUI.Logging
         private ProdLogger _tempLogger;
         private LoggingConfiguration Configuration;
 
-
         /// <summary>
         ///     A List containing the parameters for any loggers set in the configuration file
         /// </summary>
@@ -30,9 +29,8 @@ namespace ProdUI.Logging
         [XmlArrayItem("logger")]
         public List<ProdLoggerParameters> LoggerParameters { get; set; }
 
-        [XmlIgnore()]
+        [XmlIgnore]
         public List<ProdLogger> LoadedLoggers { get; private set; }
-
 
         /// <summary>
         /// De-serializes the specified configuration file.
@@ -45,8 +43,8 @@ namespace ProdUI.Logging
             try
             {
                 fs = new FileStream(configFile, FileMode.Open);
-                XmlSerializer serializer = new XmlSerializer(typeof (LoggingConfiguration));
-                Configuration =  (LoggingConfiguration) serializer.Deserialize(fs);
+                XmlSerializer serializer = new XmlSerializer(typeof(LoggingConfiguration));
+                Configuration = (LoggingConfiguration)serializer.Deserialize(fs);
                 GetLoggers();
             }
             catch (Exception err)
@@ -60,7 +58,6 @@ namespace ProdUI.Logging
             }
         }
 
-
         /// <summary>
         /// Serializes the  current ProdSessionConfig, then writes out to the specified configuration file.
         /// </summary>
@@ -71,7 +68,7 @@ namespace ProdUI.Logging
             try
             {
                 fs = new FileStream(configFile, FileMode.Open);
-                XmlSerializer serializer = new XmlSerializer(typeof (LoggingConfiguration));
+                XmlSerializer serializer = new XmlSerializer(typeof(LoggingConfiguration));
                 serializer.Serialize(fs, this);
             }
             catch (Exception err)
@@ -113,7 +110,6 @@ namespace ProdUI.Logging
                 _tempLogger = new ProdLogger(Configuration, tst);
                 LoadedLoggers.Add(_tempLogger);
             }
-
         }
 
         /// <summary>

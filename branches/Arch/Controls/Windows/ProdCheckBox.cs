@@ -6,7 +6,6 @@ using System.Windows.Automation;
 using ProdUI.Interaction.Bridge;
 using ProdUI.Logging;
 
-
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
@@ -49,7 +48,7 @@ namespace ProdUI.Controls.Windows
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         /// <summary>
         /// Gets the current ToggleState

@@ -1,7 +1,5 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
-using System.ComponentModel;
-using ProdUI.Exceptions;
 
 namespace ProdUI.Interaction.Native
 {
@@ -9,18 +7,9 @@ namespace ProdUI.Interaction.Native
     {
         internal static int GetNodeCountNative(IntPtr windowHandle)
         {
-            try
-            {
-                int retVal = (int) NativeMethods.SendMessage(windowHandle, (int) TreeViewMessages.TVMGetcount, 0, 0);
+            int retVal = (int)NativeMethods.SendMessage(windowHandle, (int)TreeViewMessages.TVMGetcount, 0, 0);
 
-                const string logmessage = "GetNodeCountNative using SendMessage";
-
-                return retVal;
-            }
-            catch (Win32Exception err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
+            return retVal;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name="control">The UI Automation element.</param>
         internal static void CloseWindow(AutomationElement control)
         {
-            WindowPattern pattern = (WindowPattern) CommonUIAPatternHelpers.CheckPatternSupport(WindowPattern.Pattern, control);
+            WindowPattern pattern = (WindowPattern)CommonUIAPatternHelpers.CheckPatternSupport(WindowPattern.Pattern, control);
             pattern.Close();
         }
 
@@ -28,7 +28,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static WindowInteractionState GetInteractionState(AutomationElement control)
         {
-            WindowPattern pattern = (WindowPattern) CommonUIAPatternHelpers.CheckPatternSupport(WindowPattern.Pattern, control);
+            WindowPattern pattern = (WindowPattern)CommonUIAPatternHelpers.CheckPatternSupport(WindowPattern.Pattern, control);
             return false == pattern.WaitForInputIdle(10000)
                        ? WindowInteractionState.NotResponding
                        : pattern.Current.WindowInteractionState;
@@ -43,7 +43,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static bool GetIsModal(AutomationElement control)
         {
-            WindowPattern pattern = (WindowPattern) CommonUIAPatternHelpers.CheckPatternSupport(WindowPattern.Pattern, control);
+            WindowPattern pattern = (WindowPattern)CommonUIAPatternHelpers.CheckPatternSupport(WindowPattern.Pattern, control);
             return pattern.Current.IsModal;
         }
 
@@ -56,26 +56,21 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static bool GetIsTopmost(AutomationElement control)
         {
-            WindowPattern pattern = (WindowPattern) CommonUIAPatternHelpers.CheckPatternSupport(WindowPattern.Pattern, control);
+            WindowPattern pattern = (WindowPattern)CommonUIAPatternHelpers.CheckPatternSupport(WindowPattern.Pattern, control);
             return pattern.Current.IsTopmost;
         }
 
         /// <summary>
-        ///     Sets the visual state of the window
+        /// Sets the visual state of the window
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "state">The <see cref = "WindowVisualState" /> of the current window</param>
-        /// <returns>
-        ///     -1 if in error
-        /// </returns>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="state">The <see cref="WindowVisualState"/> of the current window</param>
         internal static void SetVisualState(AutomationElement control, WindowVisualState state)
         {
-            WindowPattern pattern = (WindowPattern) CommonUIAPatternHelpers.CheckPatternSupport(WindowPattern.Pattern, control);
-            if (pattern.Current.WindowInteractionState == WindowInteractionState.ReadyForUserInteraction)
-            {
-                SetState(state, pattern);
-                ValueVerifier<WindowVisualState, WindowVisualState>.Verify(state,GetVisualState(control));
-            }
+            WindowPattern pattern = (WindowPattern)CommonUIAPatternHelpers.CheckPatternSupport(WindowPattern.Pattern, control);
+            if (pattern.Current.WindowInteractionState != WindowInteractionState.ReadyForUserInteraction) return;
+            SetState(state, pattern);
+            ValueVerifier<WindowVisualState, WindowVisualState>.Verify(state, GetVisualState(control));
         }
 
         /// <summary>
@@ -87,7 +82,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static WindowVisualState GetVisualState(AutomationElement control)
         {
-            WindowPattern pattern = (WindowPattern) CommonUIAPatternHelpers.CheckPatternSupport(WindowPattern.Pattern, control);
+            WindowPattern pattern = (WindowPattern)CommonUIAPatternHelpers.CheckPatternSupport(WindowPattern.Pattern, control);
             return pattern.Current.WindowVisualState;
         }
 
@@ -101,15 +96,15 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static bool WaitForInputIdle(AutomationElement control, int delay)
         {
-            WindowPattern pattern = (WindowPattern) CommonUIAPatternHelpers.CheckPatternSupport(WindowPattern.Pattern, control);
+            WindowPattern pattern = (WindowPattern)CommonUIAPatternHelpers.CheckPatternSupport(WindowPattern.Pattern, control);
             return pattern.WaitForInputIdle(delay);
         }
 
         /// <summary>
-        ///     Sets the state of the window
+        /// Sets the state of the window
         /// </summary>
-        /// <param name = "state">The <see cref = "WindowVisualState" /> of the current window</param>
-        /// <param name = "wp">The WindowPattern of the target window.</param>
+        /// <param name="state">The <see cref="WindowVisualState"/> of the current window</param>
+        /// <param name="wp">The WindowPattern of the target window.</param>
         private static void SetState(WindowVisualState state, WindowPattern wp)
         {
             switch (state)
@@ -136,6 +131,5 @@ namespace ProdUI.Interaction.UIAPatterns
                     break;
             }
         }
-
     }
 }

@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using ProdUI.Exceptions;
 
 namespace ProdUI.Verification
 {
-    internal static class ValueVerifier<T,K> where T: IComparable
+    internal static class ValueVerifier<T, K> where T : IComparable
     {
         internal static bool Verify(T expectedValue, K actualValue)
         {

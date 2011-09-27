@@ -24,7 +24,8 @@ namespace ProdUI.Exceptions
         ///     Provide a description of error
         /// </summary>
         /// <param name = "message">The message that describes the error</param>
-        public ProdOperationException(string message) : base(message)
+        public ProdOperationException(string message)
+            : base(message)
         {
         }
 
@@ -32,7 +33,8 @@ namespace ProdUI.Exceptions
         ///     if you need to pass the exception up the chain, but want to add to the description
         /// </summary>
         /// <param name = "inner">The exception that is the cause of the current exception</param>
-        public ProdOperationException(Exception inner) : base(inner.Message, inner)
+        public ProdOperationException(Exception inner)
+            : base(inner.Message, inner)
         {
         }
 
@@ -41,10 +43,10 @@ namespace ProdUI.Exceptions
         /// </summary>
         /// <param name = "message">The message that describes the error</param>
         /// <param name = "inner">The exception that is the cause of the current exception</param>
-        public ProdOperationException(string message, Exception inner) : base(message, inner)
+        public ProdOperationException(string message, Exception inner)
+            : base(message, inner)
         {
         }
-
 
         /// <summary>
         ///     Initializes a new instance of the Exception class with serialized data.
@@ -54,7 +56,8 @@ namespace ProdUI.Exceptions
         /// <exception cref = "T:System.ArgumentNullException">The <paramref name = "info" /> parameter is null. </exception>
         /// <exception cref = "T:System.Runtime.Serialization.SerializationException">The class name is null or <see cref = "P:System.Exception.HResult" /> is zero (0). </exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        protected ProdOperationException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected ProdOperationException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
     }

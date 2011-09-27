@@ -21,7 +21,6 @@ namespace ProdUI.Controls.Static
         /// </remarks>
         public static void ButtonClick(IntPtr controlHandle)
         {
-
             AutomationElement control = CommonUIAPatternHelpers.Prologue(InvokePattern.Pattern, controlHandle);
             StaticEvents.RegisterEvent(InvokePattern.InvokedEvent, control);
             InvokePatternHelper.Invoke(control);
@@ -38,9 +37,8 @@ namespace ProdUI.Controls.Static
         /// </remarks>
         public static void ButtonClick(ProdWindow prodwindow, string automationId)
         {
-            BaseProdControl control = new BaseProdControl(prodwindow,automationId);
-            LogController.ReceiveLogMessage(new LogMessage(control.UIAElement.Current.Name));
-            InvokeBridge.ClickBridge(null, control);           
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+            InvokeBridge.ClickBridge(null, control);
         }
     }
 }

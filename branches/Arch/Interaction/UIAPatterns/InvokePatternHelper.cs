@@ -14,7 +14,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name = "element">The element.</param>
         internal static void Invoke(AutomationElement element)
         {
-            InvokePattern pattern = (InvokePattern) CommonUIAPatternHelpers.CheckPatternSupport(InvokePattern.Pattern, element);
+            InvokePattern pattern = (InvokePattern)CommonUIAPatternHelpers.CheckPatternSupport(InvokePattern.Pattern, element);
             pattern.Invoke();
         }
     }

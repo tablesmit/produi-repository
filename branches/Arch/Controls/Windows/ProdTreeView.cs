@@ -50,7 +50,8 @@ namespace ProdUI.Controls.Windows
         /// <remarks>
         ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
-        public ProdTreeView(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
+        public ProdTreeView(ProdWindow prodWindow, string automationId)
+            : base(prodWindow, automationId)
         {
             AllNodes = new Collection<AutomationElement>();
             AutomationElement aeNode = TreeWalker.ControlViewWalker.GetFirstChild(UIAElement);
@@ -62,7 +63,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
-        public ProdTreeView(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
+        public ProdTreeView(ProdWindow prodWindow, int treePosition)
+            : base(prodWindow, treePosition)
         {
         }
 
@@ -71,7 +73,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "controlHandle">Window handle of the control</param>
-        public ProdTreeView(ProdWindow prodWindow, IntPtr controlHandle) : base(prodWindow, controlHandle)
+        public ProdTreeView(ProdWindow prodWindow, IntPtr controlHandle)
+            : base(prodWindow, controlHandle)
         {
         }
 

@@ -33,11 +33,11 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Sets the value of the spinner control.
+        /// Sets the value of the spinner control.
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow.</param>
-        /// <param name = "automationId">The automation id (or caption).</param>
-        /// <param name = "value">The desired value.</param>
+        /// <param name="prodwindow">The containing ProdWindow.</param>
+        /// <param name="automationId">The automation id (or caption).</param>
+        /// <param name="value">The desired value.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SpinnerSetValue(ProdWindow prodwindow, string automationId, double value)
         {

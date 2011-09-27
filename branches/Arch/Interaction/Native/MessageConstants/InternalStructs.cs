@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 
 namespace ProdUI.Interaction.Native
 {
-
     #region Union Structs for SendInput Call
 
     /// <summary>
@@ -257,10 +256,10 @@ namespace ProdUI.Interaction.Native
         InputHardware
     }
 
-    #endregion
+    #endregion Union Structs for SendInput Call
 
     /// <summary>
-    /// Contains information about the placement of a window on the screen. 
+    /// Contains information about the placement of a window on the screen.
     /// </summary>
     internal struct WindowPlacement
     {

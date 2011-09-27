@@ -10,7 +10,7 @@ namespace ProdUI.Controls.Windows
     /// <summary>
     ///     Methods to work with Slider (or Track Bar) controls using the UI Automation framework
     /// </summary>
-    public sealed class ProdSlider : BaseProdControl,IRangeValue
+    public sealed class ProdSlider : BaseProdControl, IRangeValue
     {
         #region Constructors
 
@@ -22,7 +22,8 @@ namespace ProdUI.Controls.Windows
         /// <remarks>
         ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
-        public ProdSlider(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
+        public ProdSlider(ProdWindow prodWindow, string automationId)
+            : base(prodWindow, automationId)
         {
         }
 
@@ -31,7 +32,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
-        public ProdSlider(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
+        public ProdSlider(ProdWindow prodWindow, int treePosition)
+            : base(prodWindow, treePosition)
         {
         }
 
@@ -40,17 +42,18 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "controlHandle">Window handle of the control</param>
-        public ProdSlider(ProdWindow prodWindow, IntPtr controlHandle) : base(prodWindow, controlHandle)
+        public ProdSlider(ProdWindow prodWindow, IntPtr controlHandle)
+            : base(prodWindow, controlHandle)
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         /// <summary>
         /// Gets the value.
         /// </summary>
         /// <returns>The current value of the slider</returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]        
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public double GetValue()
         {
             return this.GetValueBridge(this);
@@ -63,7 +66,7 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetValue(double value)
         {
-            this.SetValueBridge(this,value);
+            this.SetValueBridge(this, value);
         }
 
         /// <summary>
@@ -87,7 +90,7 @@ namespace ProdUI.Controls.Windows
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public double GetMinValue()
         {
-           return this.GetMinValueBridge(this);
+            return this.GetMinValueBridge(this);
         }
 
         /// <summary>
