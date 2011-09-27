@@ -4,12 +4,10 @@
 using System;
 using System.Windows.Automation;
 using ProdUI.Controls.Windows;
-using ProdUI.Exceptions;
+using ProdUI.Interaction.Bridge;
 using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
-using ProdUI.Utility;
-using ProdUI.Interaction.Bridge;
 
 namespace ProdUI.Controls.Static
 {
@@ -43,7 +41,7 @@ namespace ProdUI.Controls.Static
                 AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
                 StaticEvents.RegisterEvent(SelectionItemPattern.ElementSelectedEvent, control);
 
-                TogglePatternHelper.SetToggleState(control,ToggleState.On);
+                TogglePatternHelper.SetToggleState(control, ToggleState.On);
 
                 LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
             }
@@ -76,7 +74,7 @@ namespace ProdUI.Controls.Static
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SelectRadio(ProdWindow prodwindow, string automationId)
         {
-            BaseProdControl control = new BaseProdControl(prodwindow,automationId);
+            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
             ToggleBridge.SetCheckStateBridge(null, control, ToggleState.On);
         }
     }

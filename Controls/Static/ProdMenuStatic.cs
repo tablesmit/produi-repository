@@ -103,7 +103,7 @@ namespace ProdUI.Controls.Static
             }
         }
 
-        #endregion
+        #endregion Static Methods
 
         /// <summary>
         ///     Gets the main menu bar attached to the target window.
@@ -145,7 +145,6 @@ namespace ProdUI.Controls.Static
                 throw new ProdOperationException(err.Message, err);
             }
         }
-
 
         /// <summary>
         ///     Gets the all of menu items attached to a MenuBar.

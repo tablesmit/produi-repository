@@ -77,7 +77,7 @@ namespace ProdUI.Logging
             SetMessageParams(messageLevel);
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Properties
 
@@ -111,7 +111,7 @@ namespace ProdUI.Logging
         /// </summary>
         internal List<object> VerboseInformation { get; set; }
 
-        #endregion
+        #endregion Properties
 
         /// <summary>
         ///     Sets the message parameters for verbosity and log level
@@ -125,7 +125,7 @@ namespace ProdUI.Logging
                 CallingMethod = sf.GetMethod().Name;
 
                 /* get method attributes, which at this point only support ProdLoggingAttribute */
-                object[] attributes = sf.GetMethod().GetCustomAttributes(typeof (ProdLoggingAttribute), false);
+                object[] attributes = sf.GetMethod().GetCustomAttributes(typeof(ProdLoggingAttribute), false);
 
                 if (attributes.Length <= 0)
                 {
@@ -136,8 +136,8 @@ namespace ProdUI.Logging
                 {
                     if (attributes[0] is ProdLoggingAttribute)
                     {
-                        Verbosity = ((ProdLoggingAttribute) attributes[0]).VerbositySupport;
-                        MessageLevel = ((ProdLoggingAttribute) attributes[0]).LogLevel;
+                        Verbosity = ((ProdLoggingAttribute)attributes[0]).VerbositySupport;
+                        MessageLevel = ((ProdLoggingAttribute)attributes[0]).LogLevel;
                     }
                 }
             }
@@ -158,7 +158,7 @@ namespace ProdUI.Logging
             CallingMethod = sf.GetMethod().Name;
 
             /* get method attributes, which at this point only support ProdLoggingAttribute */
-            object[] attributes = sf.GetMethod().GetCustomAttributes(typeof (ProdLoggingAttribute), false);
+            object[] attributes = sf.GetMethod().GetCustomAttributes(typeof(ProdLoggingAttribute), false);
 
             if (attributes.Length <= 0)
             {
@@ -177,8 +177,8 @@ namespace ProdUI.Logging
                 /* See if there are function attributes to use, then use em */
                 if (attributes[0] is ProdLoggingAttribute)
                 {
-                    Verbosity = ((ProdLoggingAttribute) attributes[0]).VerbositySupport;
-                    MessageLevel = ((ProdLoggingAttribute) attributes[0]).LogLevel;
+                    Verbosity = ((ProdLoggingAttribute)attributes[0]).VerbositySupport;
+                    MessageLevel = ((ProdLoggingAttribute)attributes[0]).LogLevel;
                 }
             }
         }

@@ -28,7 +28,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </summary>
         private static readonly PropertyCondition ConditionIsSelected = new PropertyCondition(SelectionItemPattern.IsSelectedProperty, true);
 
-        #endregion
+        #endregion Search Conditions
 
         /// <summary>
         ///     Utility to get all of the items in a List control
@@ -70,7 +70,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static bool IsItemSelected(AutomationElement control)
         {
-            SelectionItemPattern pattern = (SelectionItemPattern) CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
+            SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
             return pattern.Current.IsSelected;
         }
 
@@ -80,7 +80,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name = "control">The UI Automation identifier (ID) for the element</param>
         internal static void SelectItem(AutomationElement control)
         {
-            SelectionItemPattern pattern = (SelectionItemPattern) CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
+            SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
             pattern.Select();
         }
 
@@ -138,7 +138,6 @@ namespace ProdUI.Interaction.UIAPatterns
             return firstMatch;
         }
 
-
         /* Multiple selection only */
 
         /// <summary>
@@ -148,13 +147,13 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name = "index">The index.</param>
         internal static void AddToSelection(AutomationElement control, int index)
         {
-            SelectionItemPattern pattern = (SelectionItemPattern) CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
+            SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
             pattern.AddToSelection();
         }
 
         internal static void AddToSelection(AutomationElement control, string itemText)
         {
-            SelectionItemPattern pattern = (SelectionItemPattern) CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
+            SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
             pattern.AddToSelection();
         }
 
@@ -175,7 +174,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name = "control">The UI Automation identifier (ID) for the element</param>
         internal static void RemoveFromSelection(AutomationElement control)
         {
-            SelectionItemPattern pattern = (SelectionItemPattern) CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
+            SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
             pattern.RemoveFromSelection();
         }
     }

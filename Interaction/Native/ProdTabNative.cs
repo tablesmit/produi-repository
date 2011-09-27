@@ -20,7 +20,7 @@ namespace ProdUI.Interaction.Native
         internal static int GetTabCount(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
-            return (int) NativeMethods.SendMessage(windowHandle, (int) TabControlMessage.TCMGETITEMCOUNT, 0, 0);
+            return (int)NativeMethods.SendMessage(windowHandle, (int)TabControlMessage.TCMGETITEMCOUNT, 0, 0);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace ProdUI.Interaction.Native
         internal static int GetSelectedTab(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
-            return (int) NativeMethods.SendMessage(windowHandle, (int) TabControlMessage.TCMGETCURSEL, 0, 0);
+            return (int)NativeMethods.SendMessage(windowHandle, (int)TabControlMessage.TCMGETCURSEL, 0, 0);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace ProdUI.Interaction.Native
         internal static void SetSelectedTab(IntPtr windowHandle, int index)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
-            NativeMethods.SendMessage(windowHandle, (int) TabControlMessage.TCMSETCURSEL, index, 0);
+            NativeMethods.SendMessage(windowHandle, (int)TabControlMessage.TCMSETCURSEL, index, 0);
             ValueVerifier<int, int>.Verify(index, GetSelectedTab(windowHandle));
         }
     }

@@ -5,7 +5,7 @@ using ProdUI.Verification;
 namespace ProdUI.Interaction.UIAPatterns
 {
     /// <summary>
-    ///     Used for controls that support the ValuePattern control pattern. implements IValueProvider
+    /// Used for controls that support the ValuePattern control pattern. implements IValueProvider
     /// </summary>
     internal static class ValuePatternHelper
     {
@@ -35,7 +35,6 @@ namespace ProdUI.Interaction.UIAPatterns
             ValueVerifier<string, string>.Verify(text, GetValue(control));
         }
 
-
         /// <summary>
         /// Appends the supplied string to the existing textBox text
         /// </summary>
@@ -63,11 +62,9 @@ namespace ProdUI.Interaction.UIAPatterns
             string baseText = pattern.Current.Value;
 
             /* If index is out of range, defer to ProdErrorManager */
-            if (baseText != null)
-            {
-                string insString = baseText.Insert(index, text);
-                SetValue(control, insString);
-            }
+            if (baseText == null) return;
+            string insString = baseText.Insert(index, text);
+            SetValue(control, insString);
             //TODO: Find an insert text verification
         }
     }

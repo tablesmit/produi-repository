@@ -56,7 +56,6 @@ namespace ProdUI.Interaction.Bridge
             return retVal;
         }
 
-
         /// <summary>
         /// Selects a RadioButton
         /// </summary>

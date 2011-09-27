@@ -4,19 +4,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Text;
+using System.Threading;
 using System.Windows.Automation;
+using System.Windows.Forms;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.Native;
-using System.Windows.Forms;
-using System.Threading;
 
 namespace ProdUI.Utility
 {
@@ -35,7 +34,7 @@ namespace ProdUI.Utility
         /// </summary>
         internal static Hashtable ChildList;
 
-        #endregion
+        #endregion Fields
 
         #region Callbacks
 
@@ -92,7 +91,7 @@ namespace ProdUI.Utility
             return true;
         }
 
-        #endregion
+        #endregion Callbacks
 
         #region Top-Level Window Functions
 
@@ -113,7 +112,7 @@ namespace ProdUI.Utility
                 {
                     if (de.Value.ToString().Contains(thePartialTitle))
                     {
-                        return (IntPtr) de.Key;
+                        return (IntPtr)de.Key;
                     }
                 }
                 return IntPtr.Zero;
@@ -158,27 +157,29 @@ namespace ProdUI.Utility
             {
                 if (de.Value.ToString().Contains(thePartialTitle))
                 {
-                    return (IntPtr) de.Key;
+                    return (IntPtr)de.Key;
                 }
             }
 
             return IntPtr.Zero;
         }
 
-        #endregion
+        #endregion Top-Level Window Functions
 
         #region Child Window Functions
 
         /// <summary>
-        ///     Enumerates child windows and fills the Hashtable
+        /// Enumerates child windows and fills the Hashtable
         /// </summary>
-        /// <param name = "theParentHandle">NativeWindowHandle to the parent window</param>
-        /// <param name = "theChildTitle">The text associated with the desired child control</param>
-        /// <returns>the handle to the window, or zero pointer if not found</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" /></exception>
+        /// <param name="theParentHandle">NativeWindowHandle to the parent window</param>
+        /// <param name="theChildTitle">The text associated with the desired child control</param>
+        /// <returns>
+        /// the handle to the window, or zero pointer if not found
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/></exception>
         internal static IntPtr GetChildWindow(IntPtr theParentHandle, string theChildTitle)
         {
-            if ((int) theParentHandle == 0)
+            if ((int)theParentHandle == 0)
             {
                 throw new ProdOperationException("NativeWindowHandle Not found", new ElementNotAvailableException());
             }
@@ -186,7 +187,7 @@ namespace ProdUI.Utility
             IntPtr retVal = NativeMethods.FindWindowEX(theParentHandle, IntPtr.Zero, null, theChildTitle);
             if (retVal == IntPtr.Zero)
             {
-                /* heres another method, just in case */
+                /* here's another method, just in case */
                 ChildList = new Hashtable();
                 NativeMethods.EnumChildWindows(theParentHandle, EnumChildProc, IntPtr.Zero);
                 return EnumerateExistingChildren(theChildTitle);
@@ -196,15 +197,17 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///     finds window handle of control with corresponding ID
+        /// finds window handle of control with corresponding ID
         /// </summary>
-        /// <param name = "theParentHandle">NativeWindowHandle to the window containing the control</param>
-        /// <param name = "controlId">Resource Id of the control</param>
-        /// <returns>NativeWindowHandle to the window if successful, 0 if not</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" /></exception>
+        /// <param name="theParentHandle">NativeWindowHandle to the window containing the control</param>
+        /// <param name="controlId">Resource Id of the control</param>
+        /// <returns>
+        /// NativeWindowHandle to the window if successful, 0 if not
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/></exception>
         public static IntPtr GetChildHandle(IntPtr theParentHandle, int controlId)
         {
-            if ((int) theParentHandle == 0)
+            if ((int)theParentHandle == 0)
             {
                 throw new ProdOperationException("NativeWindowHandle Not found", new ElementNotAvailableException());
             }
@@ -213,7 +216,7 @@ namespace ProdUI.Utility
             NativeMethods.EnumChildWindows(theParentHandle, EnumChildProc, IntPtr.Zero);
             foreach (DictionaryEntry item in ChildList)
             {
-                inp = NativeMethods.GetDlgItem(NativeMethods.GetParent((IntPtr) item.Key), controlId);
+                inp = NativeMethods.GetDlgItem(NativeMethods.GetParent((IntPtr)item.Key), controlId);
                 if (inp != IntPtr.Zero)
                 {
                     break;
@@ -223,21 +226,22 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///     Gets control handle that contains the specified text
+        /// Gets control handle that contains the specified text
         /// </summary>
-        /// <param name = "theParentHandle">NativeWindowHandle to the window containing the control</param>
-        /// <param name = "theControlText">The text to match</param>
-        /// <returns>NativeWindowHandle to the window if successful, 0 if not</returns>
-        /// <exception cref = "ProdOperationException">Thrown if call is invalid for the object's current state <seealso cref = "InvalidOperationException" /></exception>
+        /// <param name="theParentHandle">NativeWindowHandle to the window containing the control</param>
+        /// <param name="theControlText">The text to match</param>
+        /// <returns>
+        /// NativeWindowHandle to the window if successful, 0 if not
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if call is invalid for the object's current state <seealso cref="InvalidOperationException"/></exception>
         public static IntPtr GetChildHandle(IntPtr theParentHandle, string theControlText)
         {
             AutomationElement control;
 
-            if ((int) theParentHandle == 0)
+            if ((int)theParentHandle == 0)
             {
                 throw new ProdOperationException("NativeWindowHandle Not found", new ElementNotAvailableException());
             }
-
 
             /* try the automation ID */
             try
@@ -265,7 +269,7 @@ namespace ProdUI.Utility
                     return ptr;
                 }
 
-                return (IntPtr) retVal;
+                return (IntPtr)retVal;
             }
             catch (InvalidOperationException err)
             {
@@ -274,11 +278,13 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///     Enumerates the existing child windows stored in the ChildList table.
+        /// Enumerates the existing child windows stored in the ChildList table.
         /// </summary>
-        /// <param name = "theChildTitle">The child title.</param>
-        /// <returns>Window handle to the matching control</returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available <seealso cref = "NullReferenceException" /></exception>
+        /// <param name="theChildTitle">The child title.</param>
+        /// <returns>
+        /// Window handle to the matching control
+        /// </returns>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available <seealso cref="NullReferenceException"/></exception>
         private static IntPtr EnumerateExistingChildren(string theChildTitle)
         {
             try
@@ -287,7 +293,7 @@ namespace ProdUI.Utility
                 {
                     if (de.Value.ToString().Contains(theChildTitle))
                     {
-                        return (IntPtr) de.Key;
+                        return (IntPtr)de.Key;
                     }
                 }
             }
@@ -299,7 +305,7 @@ namespace ProdUI.Utility
             return IntPtr.Zero;
         }
 
-        #endregion
+        #endregion Child Window Functions
 
         #region Conversion Methods
 
@@ -374,8 +380,7 @@ namespace ProdUI.Utility
             return finalAccel;
         }
 
-        #endregion
-
+        #endregion Conversion Methods
 
         /// <summary>
         ///     Moves the mouse to the specified point.
@@ -408,16 +413,16 @@ namespace ProdUI.Utility
         /// </remarks>
         internal static void SendMouseInput(double x, double y, int data, MOUSEEVENTF flags)
         {
-            int intflags = (int) flags;
+            int intflags = (int)flags;
 
             try
             {
-                if ((intflags & (int) MOUSEEVENTF.MouseeventfAbsolute) != 0)
+                if ((intflags & (int)MOUSEEVENTF.MouseeventfAbsolute) != 0)
                 {
-                    int vscreenWidth = NativeMethods.GetSystemMetrics((int) SystemMetric.SMCxvirtualscreen);
-                    int vscreenHeight = NativeMethods.GetSystemMetrics((int) SystemMetric.SMCyvirtualscreen);
-                    int vscreenLeft = NativeMethods.GetSystemMetrics((int) SystemMetric.SMXvirtualscreen);
-                    int vscreenTop = NativeMethods.GetSystemMetrics((int) SystemMetric.SMYvirtualscreen);
+                    int vscreenWidth = NativeMethods.GetSystemMetrics((int)SystemMetric.SMCxvirtualscreen);
+                    int vscreenHeight = NativeMethods.GetSystemMetrics((int)SystemMetric.SMCyvirtualscreen);
+                    int vscreenLeft = NativeMethods.GetSystemMetrics((int)SystemMetric.SMXvirtualscreen);
+                    int vscreenTop = NativeMethods.GetSystemMetrics((int)SystemMetric.SMYvirtualscreen);
 
                     // Absolute input requires that input is in 'normalized' coords - with the entire
                     // desktop being (0,0)...(65535,65536). Need to convert input x,y coords to this
@@ -442,15 +447,15 @@ namespace ProdUI.Utility
                     x = ((x - vscreenLeft) * 65536) / vscreenWidth + 65536 / (vscreenWidth * 2);
                     y = ((y - vscreenTop) * 65536) / vscreenHeight + 65536 / (vscreenHeight * 2);
 
-                    intflags |= (int) MOUSEEVENTF.MouseeventfVirtualdesk;
+                    intflags |= (int)MOUSEEVENTF.MouseeventfVirtualdesk;
                 }
 
-
-                NPUT mi = new NPUT {
-                                       Type = (int) InputStructType.InputMouse
-                                   };
-                mi.Union.MouseInput.DX = (int) x;
-                mi.Union.MouseInput.DY = (int) y;
+                NPUT mi = new NPUT
+                {
+                    Type = (int)InputStructType.InputMouse
+                };
+                mi.Union.MouseInput.DX = (int)x;
+                mi.Union.MouseInput.DY = (int)y;
                 mi.Union.MouseInput.MouseData = data;
                 mi.Union.MouseInput.DWFlags = intflags;
                 mi.Union.MouseInput.Time = 0;

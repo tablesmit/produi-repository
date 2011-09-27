@@ -47,7 +47,7 @@ namespace ProdUI.Controls.Windows
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         /// <summary>
         /// Gets a value indicating whether the control is checked

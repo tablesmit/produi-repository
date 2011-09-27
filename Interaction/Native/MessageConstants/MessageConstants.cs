@@ -62,5 +62,4 @@ namespace ProdUI.Interaction.Native
         /// </summary>
         BMGETIMAGE = 0x00F6
     }
-
 }

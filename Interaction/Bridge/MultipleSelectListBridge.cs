@@ -62,9 +62,8 @@ namespace ProdUI.Interaction.Bridge
         /// <param name = "index">Zero based index of the item.</param>
         private static void NativeAddToSelection(BaseProdControl control, int index)
         {
-            ProdListBoxNative.AddSelectedItemNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, index);
+            ProdListBoxNative.AddSelectedItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, index);
         }
-
 
         /// <summary>
         ///     Adds the list item to the current selection.
@@ -114,9 +113,8 @@ namespace ProdUI.Interaction.Bridge
         /// <param name = "itemText">The text of the item to select.</param>
         private static void NativeAddToSelection(BaseProdControl control, string itemText)
         {
-            ProdListBoxNative.AddSelectedItemNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, itemText);
+            ProdListBoxNative.AddSelectedItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, itemText);
         }
-
 
         /// <summary>
         ///     Gets the selected indexes.
@@ -176,9 +174,8 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>A List of all the indexes of currently selected list items.</returns>
         private static List<int> NativeGetSelectedIndexes(BaseProdControl control)
         {
-            return ProdListBoxNative.GetSelectedIndexesNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            return ProdListBoxNative.GetSelectedIndexesNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
-
 
         /// <summary>
         ///     Gets the selected items.
@@ -220,7 +217,6 @@ namespace ProdUI.Interaction.Bridge
             return retList;
         }
 
-
         /// <summary>
         ///     Gets the selected item count.
         /// </summary>
@@ -251,7 +247,7 @@ namespace ProdUI.Interaction.Bridge
 
         private static int NativeGetSelectedItemCount(BaseProdControl control)
         {
-            return ProdListBoxNative.GetSelectedItemCountNative((IntPtr) control.UIAElement.Current.NativeWindowHandle);
+            return ProdListBoxNative.GetSelectedItemCountNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
 
         private static int UiaGetSelectedItemCount(BaseProdControl control)
@@ -261,7 +257,6 @@ namespace ProdUI.Interaction.Bridge
             LogController.ReceiveLogMessage(new LogMessage("Count: " + selectedItems.Length));
             return selectedItems.Length;
         }
-
 
         /// <summary>
         ///     Removes the selected list item from the current selection.
@@ -291,7 +286,7 @@ namespace ProdUI.Interaction.Bridge
 
         private static void NativeRemoveFromSelection(BaseProdControl control, int index)
         {
-            ProdListBoxNative.DeSelectItemNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, index);
+            ProdListBoxNative.DeSelectItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, index);
         }
 
         private static void UiaRemoveFromSelection(BaseProdControl control, int index)
@@ -303,7 +298,6 @@ namespace ProdUI.Interaction.Bridge
             LogController.ReceiveLogMessage(new LogMessage("Removing " + index));
             SelectionItemPatternHelper.RemoveFromSelection(itemToSelect);
         }
-
 
         /// <summary>
         ///     Removes the selected list item from the current selection.
@@ -333,7 +327,7 @@ namespace ProdUI.Interaction.Bridge
 
         private static void NativeRemoveFromSelection(BaseProdControl control, string itemText)
         {
-            ProdListBoxNative.DeSelectItemNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, itemText);
+            ProdListBoxNative.DeSelectItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, itemText);
         }
 
         private static void UiaRemoveFromSelection(BaseProdControl control, string itemText)
@@ -345,7 +339,6 @@ namespace ProdUI.Interaction.Bridge
             LogController.ReceiveLogMessage(new LogMessage("Removing " + itemText));
             SelectionItemPatternHelper.RemoveFromSelection(itemToSelect);
         }
-
 
         /// <summary>
         ///     Selects all items in a ListBox.
@@ -426,10 +419,9 @@ namespace ProdUI.Interaction.Bridge
         {
             foreach (int index in indexes)
             {
-                ProdListBoxNative.SetSelectedIndexNative((IntPtr) control.UIAElement.Current.NativeWindowHandle, index);
+                ProdListBoxNative.SetSelectedIndexNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, index);
             }
         }
-
 
         /// <summary>
         ///     Sets the selected items from a supplied list.

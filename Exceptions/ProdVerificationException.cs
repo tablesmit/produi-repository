@@ -27,7 +27,8 @@ namespace ProdUI.Exceptions
         /// </summary>
         /// <param name = "message">The message that describes the error</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public ProdVerificationException(string message) : base(message)
+        public ProdVerificationException(string message)
+            : base(message)
         {
         }
 
@@ -37,7 +38,8 @@ namespace ProdUI.Exceptions
         /// <param name = "message">The message that describes the error</param>
         /// <param name = "ex">The exeption to pass up</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public ProdVerificationException(string message, Exception ex) : base(message, ex)
+        public ProdVerificationException(string message, Exception ex)
+            : base(message, ex)
         {
         }
 
@@ -46,7 +48,8 @@ namespace ProdUI.Exceptions
         /// </summary>
         /// <param name = "control">The control.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public ProdVerificationException(AutomationElement control) : base(control.Current.Name)
+        public ProdVerificationException(AutomationElement control)
+            : base(control.Current.Name)
         {
         }
 
@@ -58,7 +61,8 @@ namespace ProdUI.Exceptions
         /// <exception cref = "T:System.ArgumentNullException">The <paramref name = "info" /> parameter is null. </exception>
         /// <exception cref = "T:System.Runtime.Serialization.SerializationException">The class name is null or <see cref = "P:System.Exception.HResult" /> is zero (0). </exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        protected ProdVerificationException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected ProdVerificationException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
     }

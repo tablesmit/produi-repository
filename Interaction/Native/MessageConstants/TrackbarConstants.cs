@@ -28,14 +28,14 @@ namespace ProdUI.Interaction.Native
         TBMGETRANGEMIN = 0x0401,
         /// <summary>
         ///     This message retrieves the size of the page for a TrackBar
-        ///     wParam Not used. 
+        ///     wParam Not used.
         ///     lParam Not used
         ///     Returns a 32-bit value that specifies the page size for the TrackBar
         /// </summary>
         TBMGETPAGESIZE = (TBMGETPOS + 22),
         /// <summary>
         ///     This message retrieves the size of the line for a TrackBar
-        ///     wParam Not used. 
+        ///     wParam Not used.
         ///     lParam Not used
         ///     Returns a 32-bit value that specifies the line size for the TrackBar
         /// </summary>

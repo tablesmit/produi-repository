@@ -9,13 +9,13 @@ namespace ProdUI.Interaction.Native
         TVFirst = 0x1100,
         /// <summary>
         ///     Inserts a new item in a tree-view control.
-        ///     wParam = Must be zero. 
+        ///     wParam = Must be zero.
         ///     lParam = Pointer to a TVINSERTSTRUCT structure that specifies the attributes of the tree-view item.
         /// </summary>
         TVMInsertitem = TVFirst + 50,
         /// <summary>
         ///     Removes an item and all its children from a tree-view control.
-        ///     wParam = Must be zero. 
+        ///     wParam = Must be zero.
         ///     lParam = HTREEITEM handle to the item to delete. If lParam is set to TVI_ROOT or to NULL, all items are deleted.
         /// </summary>
         TVMDeleteitem = TVFirst + 1,
@@ -27,7 +27,7 @@ namespace ProdUI.Interaction.Native
         TVMExpand = TVFirst + 2,
         /// <summary>
         ///     Retrieves a count of the items in a tree-view control
-        ///     wParam = Must be zero. 
+        ///     wParam = Must be zero.
         ///     lParam = Must be zero.
         /// </summary>
         TVMGetcount = TVFirst + 5,
@@ -76,7 +76,7 @@ namespace ProdUI.Interaction.Native
         /// </summary>
         TVE_TOGGLE = 0x0003,
         /// <summary>
-        ///     Partially expands the list. In this state the child items are visible and the parent item's plus sign (+), 
+        ///     Partially expands the list. In this state the child items are visible and the parent item's plus sign (+),
         ///     indicating that it can be expanded, is displayed. This flag must be used in combination with the TVE_EXPAND flag
         /// </summary>
         TVE_EXPANDPARTIAL = 0x4000,

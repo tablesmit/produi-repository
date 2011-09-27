@@ -17,7 +17,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static bool? CanMove(AutomationElement control)
         {
-            TransformPattern pat = (TransformPattern) CommonUIAPatternHelpers.CheckPatternSupport(TransformPattern.Pattern, control);
+            TransformPattern pat = (TransformPattern)CommonUIAPatternHelpers.CheckPatternSupport(TransformPattern.Pattern, control);
             return pat.Current.CanMove;
         }
 
@@ -30,7 +30,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static bool CanResize(AutomationElement control)
         {
-            TransformPattern pat = (TransformPattern) CommonUIAPatternHelpers.CheckPatternSupport(TransformPattern.Pattern, control);
+            TransformPattern pat = (TransformPattern)CommonUIAPatternHelpers.CheckPatternSupport(TransformPattern.Pattern, control);
             return pat.Current.CanResize;
         }
 
@@ -43,7 +43,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static bool CanRotate(AutomationElement control)
         {
-            TransformPattern pat = (TransformPattern) CommonUIAPatternHelpers.CheckPatternSupport(TransformPattern.Pattern, control);
+            TransformPattern pat = (TransformPattern)CommonUIAPatternHelpers.CheckPatternSupport(TransformPattern.Pattern, control);
             return pat.Current.CanRotate;
         }
 
@@ -58,7 +58,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static int Move(AutomationElement control, double x, double y)
         {
-            TransformPattern pat = (TransformPattern) CommonUIAPatternHelpers.CheckPatternSupport(TransformPattern.Pattern, control);
+            TransformPattern pat = (TransformPattern)CommonUIAPatternHelpers.CheckPatternSupport(TransformPattern.Pattern, control);
             if (pat.Current.CanMove)
             {
                 pat.Move(x, y);
@@ -78,7 +78,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static int Resize(AutomationElement control, double width, double height)
         {
-            TransformPattern pat = (TransformPattern) CommonUIAPatternHelpers.CheckPatternSupport(TransformPattern.Pattern, control);
+            TransformPattern pat = (TransformPattern)CommonUIAPatternHelpers.CheckPatternSupport(TransformPattern.Pattern, control);
             if (pat.Current.CanResize)
             {
                 pat.Resize(width, height);
@@ -97,7 +97,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static int Rotate(AutomationElement control, double degrees)
         {
-            TransformPattern pat = (TransformPattern) CommonUIAPatternHelpers.CheckPatternSupport(TransformPattern.Pattern, control);
+            TransformPattern pat = (TransformPattern)CommonUIAPatternHelpers.CheckPatternSupport(TransformPattern.Pattern, control);
             if (pat.Current.CanRotate)
             {
                 pat.Rotate(degrees);

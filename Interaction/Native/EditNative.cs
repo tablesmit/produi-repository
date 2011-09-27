@@ -23,7 +23,7 @@ namespace ProdUI.Interaction.Native
             StringBuilder sb = new StringBuilder();
 
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
-            NativeMethods.SendMessage(windowHandle, (int) WindowMessages.WM_GETTEXT, sb.Capacity, sb);
+            NativeMethods.SendMessage(windowHandle, (int)WindowMessages.WM_GETTEXT, sb.Capacity, sb);
             return sb.ToString();
         }
 
@@ -35,9 +35,8 @@ namespace ProdUI.Interaction.Native
         /// <returns>true if successful, false if failure</returns>
         internal static void SetTextNative(IntPtr windowHandle, string text)
         {
-           
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
-            NativeMethods.SendMessage(windowHandle, (int) WindowMessages.WM_SETTEXT, 0, text);
+            NativeMethods.SendMessage(windowHandle, (int)WindowMessages.WM_SETTEXT, 0, text);
 
             string currentValue = GetTextNative(windowHandle);
             ValueVerifier<string, string>.Verify(currentValue, text);
@@ -80,12 +79,10 @@ namespace ProdUI.Interaction.Native
         internal static void ClearTextNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
-            NativeMethods.SendMessage(windowHandle, (int) WindowMessages.WM_CLEAR, 0, 0);
+            NativeMethods.SendMessage(windowHandle, (int)WindowMessages.WM_CLEAR, 0, 0);
 
             string currentValue = GetTextNative(windowHandle);
             ValueVerifier<string, string>.Verify(currentValue, "");
         }
-
-
     }
 }

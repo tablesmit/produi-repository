@@ -141,7 +141,6 @@ namespace ProdUI.Interaction.Native
             return ((int)topHandle == (int)windowHandle);
         }
 
-
         /// <summary>
         /// conversion utility ShowCmdFlags -> WindowVisualState
         /// </summary>

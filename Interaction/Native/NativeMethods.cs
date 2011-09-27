@@ -33,7 +33,6 @@ namespace ProdUI.Interaction.Native
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool DestroyWindow(IntPtr windowHandle);
 
-
         /// <summary>
         ///     Enumerates the child windows that belong to the specified parent window by passing the handle
         ///     to each child window, in turn, to an application-defined callback function. EnumChildWindows
@@ -62,7 +61,6 @@ namespace ProdUI.Interaction.Native
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool EnumDesktopWindows(IntPtr hDesktop, EnumWindowsCallBack lpfn, IntPtr lParam);
-
 
         /// <summary>
         ///     Retrieves a handle to the top-level window whose class name and window name match the specified strings. This function does not search child windows. This function does not perform a case-sensitive search
@@ -121,16 +119,14 @@ namespace ProdUI.Interaction.Native
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern int GetSystemMetrics(int nIndex);
 
-
         /// <summary>
-        /// Examines the Z order of the child windows associated with the specified parent window and retrieves a handle to the child window at the top of the Z order. 
+        /// Examines the Z order of the child windows associated with the specified parent window and retrieves a handle to the child window at the top of the Z order.
         /// </summary>
-        /// <param name="hWnd">A handle to the parent window whose child windows are to be examined. 
+        /// <param name="hWnd">A handle to the parent window whose child windows are to be examined.
         /// If this parameter is NULL, the function returns a handle to the window at the top of the Z order.</param>
         /// <returns>If the function succeeds, the return value is a handle to the child window at the top of the Z order. If the specified window has no child windows, the return value is NULL</returns>
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern IntPtr GetTopWindow(IntPtr hWnd);
-
 
         /// <summary>
         ///     Retrieves information about the specified window. The function also retrieves the 32-bit (DWORD) value at the specified offset into the extra window memory.

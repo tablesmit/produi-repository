@@ -58,7 +58,7 @@ namespace ProdUI.Controls.Windows
                 ParentWindow = prodWindow;
                 //SessionLoggers = ParentWindow.AttachedSession.logController;
                 GetSupportedProperties();
-                NativeWindowHandle = (IntPtr) UIAElement.Current.NativeWindowHandle;
+                NativeWindowHandle = (IntPtr)UIAElement.Current.NativeWindowHandle;
             }
             catch (ElementNotAvailableException err)
             {
@@ -80,12 +80,12 @@ namespace ProdUI.Controls.Windows
 
             try
             {
-                ControlTree tree = new ControlTree((IntPtr) prodWindow.UIAElement.Current.NativeWindowHandle);
+                ControlTree tree = new ControlTree((IntPtr)prodWindow.UIAElement.Current.NativeWindowHandle);
                 UIAElement = tree.FindElement(treePosition);
                 ParentWindow = prodWindow;
                 //SessionLoggers = ParentWindow.AttachedSession.logController;
                 GetSupportedProperties();
-                NativeWindowHandle = (IntPtr) UIAElement.Current.NativeWindowHandle;
+                NativeWindowHandle = (IntPtr)UIAElement.Current.NativeWindowHandle;
             }
             catch (ElementNotAvailableException err)
             {
@@ -106,7 +106,7 @@ namespace ProdUI.Controls.Windows
                 ParentWindow = prodWindow;
                 //SessionLoggers = ParentWindow.AttachedSession.logController;
                 GetSupportedProperties();
-                NativeWindowHandle = (IntPtr) UIAElement.Current.NativeWindowHandle;
+                NativeWindowHandle = (IntPtr)UIAElement.Current.NativeWindowHandle;
             }
             catch (ElementNotAvailableException err)
             {
@@ -114,7 +114,7 @@ namespace ProdUI.Controls.Windows
             }
         }
 
-        #endregion
+        #endregion Constructors
 
         //unused vars
         //internal LogController SessionLoggers;
@@ -126,7 +126,7 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         public bool IsEnabled
         {
-            get { return (bool) UIAElement.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty); }
+            get { return (bool)UIAElement.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty); }
         }
 
         private void GetSupportedProperties()
@@ -157,7 +157,7 @@ namespace ProdUI.Controls.Windows
 
             while (ctr <= limit)
             {
-                if ((bool) UIAElement.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty))
+                if ((bool)UIAElement.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty))
                 {
                     return;
                 }

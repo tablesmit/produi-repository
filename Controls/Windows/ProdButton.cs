@@ -6,8 +6,8 @@ using ProdUI.Interaction.Bridge;
 using ProdUI.Logging;
 
 /* Notes
- * Supported Patterns: 
- * IInvokeProvider 
+ * Supported Patterns:
+ * IInvokeProvider
  * (IToggleProvider) -> ToggleButton
  */
 
@@ -28,7 +28,8 @@ namespace ProdUI.Controls.Windows
         /// <remarks>
         ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
-        public ProdButton(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
+        public ProdButton(ProdWindow prodWindow, string automationId)
+            : base(prodWindow, automationId)
         {
         }
 
@@ -37,7 +38,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
-        public ProdButton(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
+        public ProdButton(ProdWindow prodWindow, int treePosition)
+            : base(prodWindow, treePosition)
         {
         }
 
@@ -46,11 +48,12 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "controlHandle">Window handle of the control</param>
-        public ProdButton(ProdWindow prodWindow, IntPtr controlHandle) : base(prodWindow, controlHandle)
+        public ProdButton(ProdWindow prodWindow, IntPtr controlHandle)
+            : base(prodWindow, controlHandle)
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         /// <summary>
         /// Performs a "Click" on the current ProdButton

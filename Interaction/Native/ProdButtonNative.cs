@@ -19,7 +19,7 @@ namespace ProdUI.Interaction.Native
         internal static void Click(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
-            NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMCLICK, 0, 0);
+            NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMCLICK, 0, 0);
         }
     }
 }

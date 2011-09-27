@@ -29,7 +29,6 @@ namespace ProdUI.Interaction.Native
         /// </summary>
         LBGETSELCOUNT = 0x0190,
 
-
         /* Single Select Only */
         /// <summary>
         ///     Gets the index of the currently selected item, if any, in a single-selection list box
@@ -45,7 +44,6 @@ namespace ProdUI.Interaction.Native
         ///     Use this message only with single-selection list boxes. You cannot use it to set or remove a selection in a multiple-selection list box
         /// </summary>
         LBSELECTSTRING = 0x018C,
-
 
         /* Either */
         /// <summary>
@@ -98,5 +96,4 @@ namespace ProdUI.Interaction.Native
         /// </summary>
         LBGETITEMDATA = 0x0199
     }
-
 }

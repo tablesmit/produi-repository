@@ -19,7 +19,7 @@ namespace ProdUI.Interaction.UIAPatterns
         {
             object pat;
             control.TryGetCurrentPattern(GridItemPattern.Pattern, out pat);
-            return (GridItemPattern) pat;
+            return (GridItemPattern)pat;
         }
 
         #region IGridProvider Implementation
@@ -33,7 +33,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static int GetColumnCount(AutomationElement control)
         {
-            GridPattern pat = (GridPattern) CommonUIAPatternHelpers.CheckPatternSupport(GridPattern.Pattern, control);
+            GridPattern pat = (GridPattern)CommonUIAPatternHelpers.CheckPatternSupport(GridPattern.Pattern, control);
             return pat.Current.ColumnCount;
         }
 
@@ -48,7 +48,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static AutomationElement GetItem(AutomationElement control, int row, int column)
         {
-            GridPattern pat = (GridPattern) CommonUIAPatternHelpers.CheckPatternSupport(GridPattern.Pattern, control);
+            GridPattern pat = (GridPattern)CommonUIAPatternHelpers.CheckPatternSupport(GridPattern.Pattern, control);
             return pat.GetItem(row, column);
         }
 
@@ -61,11 +61,11 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static int GetRowCount(AutomationElement control)
         {
-            GridPattern pat = (GridPattern) CommonUIAPatternHelpers.CheckPatternSupport(GridPattern.Pattern, control);
+            GridPattern pat = (GridPattern)CommonUIAPatternHelpers.CheckPatternSupport(GridPattern.Pattern, control);
             return pat.Current.RowCount;
         }
 
-        #endregion
+        #endregion IGridProvider Implementation
 
         #region IGridItemProvider Implementation
 
@@ -134,6 +134,6 @@ namespace ProdUI.Interaction.UIAPatterns
             return pat.Current.RowSpan;
         }
 
-        #endregion
+        #endregion IGridItemProvider Implementation
     }
 }

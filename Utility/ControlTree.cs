@@ -61,7 +61,7 @@ namespace ProdUI.Utility
         /// </summary>
         private void LoadControlTree()
         {
-            if ((int) _rootHandle == 0)
+            if ((int)_rootHandle == 0)
             {
                 return;
             }

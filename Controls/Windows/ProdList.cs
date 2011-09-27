@@ -10,10 +10,10 @@ using ProdUI.Interaction.Bridge;
 using ProdUI.Logging;
 
 /* Notes
- * Supported Patterns: 
- * ISelectionProvider 
- * IExpandCollapseProvider 
- * 
+ * Supported Patterns:
+ * ISelectionProvider
+ * IExpandCollapseProvider
+ *
  * Proposed functionality:
  * SetSelectedItem - index and text
  * GetSelectedItem - index and text
@@ -26,7 +26,7 @@ using ProdUI.Logging;
  * AddToSelection
  * RemoveFromSelection
  * ClearItems
- * 
+ *
  * ListBoxes can support non-text items
  */
 
@@ -72,7 +72,7 @@ namespace ProdUI.Controls.Windows
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         /// <summary>
         ///     Gets the items in a List control.
@@ -125,7 +125,6 @@ namespace ProdUI.Controls.Windows
             return this.GetSelectedItemBridge(this);
         }
 
-
         /// <summary>
         ///     Sets the selected list item.
         /// </summary>
@@ -135,7 +134,6 @@ namespace ProdUI.Controls.Windows
         {
             this.SetSelectedIndexBridge(this, index);
         }
-
 
         /// <summary>
         ///     Sets the selected list item.
@@ -147,7 +145,7 @@ namespace ProdUI.Controls.Windows
             this.SetSelectedItemBridge(this, itemText);
         }
 
-        #endregion
+        #endregion single select specific
 
         #region Multi Select specific
 
@@ -256,6 +254,6 @@ namespace ProdUI.Controls.Windows
             this.SetSelectedItemsBridge(this, items);
         }
 
-        #endregion
+        #endregion Multi Select specific
     }
 }

@@ -25,7 +25,8 @@ namespace ProdUI.Controls.Windows
         /// <remarks>
         ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
-        public ProdText(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
+        public ProdText(ProdWindow prodWindow, string automationId)
+            : base(prodWindow, automationId)
         {
         }
 
@@ -34,7 +35,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
-        public ProdText(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
+        public ProdText(ProdWindow prodWindow, int treePosition)
+            : base(prodWindow, treePosition)
         {
         }
 
@@ -43,7 +45,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "controlHandle">Window handle of the control</param>
-        public ProdText(ProdWindow prodWindow, IntPtr controlHandle) : base(prodWindow, controlHandle)
+        public ProdText(ProdWindow prodWindow, IntPtr controlHandle)
+            : base(prodWindow, controlHandle)
         {
         }
 
@@ -53,8 +56,8 @@ namespace ProdUI.Controls.Windows
         {
             get
             {
-                TextPattern tp = (TextPattern) UIAElement.GetCurrentPattern(TextPattern.Pattern);
-                return (bool) tp.DocumentRange.GetAttributeValue(TextPattern.IsReadOnlyAttribute);
+                TextPattern tp = (TextPattern)UIAElement.GetCurrentPattern(TextPattern.Pattern);
+                return (bool)tp.DocumentRange.GetAttributeValue(TextPattern.IsReadOnlyAttribute);
             }
         }
 

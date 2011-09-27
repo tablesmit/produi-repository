@@ -1,6 +1,5 @@
 ﻿namespace ProdUI.Interaction.Native
 {
-
     /// <summary>
     ///     Used for the nIndex parameter in the GetSystemMetrics call. this is only a partial list. http://msdn.microsoft.com/en-us/library/ms724385(VS.85).aspx
     /// </summary>

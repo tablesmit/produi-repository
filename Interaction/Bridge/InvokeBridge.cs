@@ -64,7 +64,7 @@ namespace ProdUI.Interaction.Bridge
             if (control.Current.ControlType != ControlType.Button) return;
 
             /* should throw with no handle */
-            ProdButtonNative.Click((IntPtr) hWnd);
+            ProdButtonNative.Click((IntPtr)hWnd);
         }
     }
 }

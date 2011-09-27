@@ -16,7 +16,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodwindow">The ProdWindow that contains this control.</param>
         /// <param name = "automationId">The UI Automation identifier (ID) for the element.</param>
-        public ProdRibbonElement(ProdWindow prodwindow, string automationId) : base(prodwindow, automationId)
+        public ProdRibbonElement(ProdWindow prodwindow, string automationId)
+            : base(prodwindow, automationId)
         {
         }
 
@@ -25,7 +26,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree</param>
-        public ProdRibbonElement(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
+        public ProdRibbonElement(ProdWindow prodWindow, int treePosition)
+            : base(prodWindow, treePosition)
         {
         }
 

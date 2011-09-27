@@ -79,7 +79,6 @@ namespace ProdUI.Controls.Static
                 return;
             }
 
-
             RemoveHandler();
         }
 
@@ -99,7 +98,6 @@ namespace ProdUI.Controls.Static
             {
                 return;
             }
-
 
             RemovePropertyChangeHandler();
         }

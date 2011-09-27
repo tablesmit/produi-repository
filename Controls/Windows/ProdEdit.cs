@@ -4,11 +4,11 @@
 using System;
 using ProdUI.Interaction.Bridge;
 
-/* 
- * Supported Patterns: 
- * IValueProvider 
- * ITextProvider 
- * 
+/*
+ * Supported Patterns:
+ * IValueProvider
+ * ITextProvider
+ *
  */
 
 namespace ProdUI.Controls.Windows
@@ -25,7 +25,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "automationId">The UI Automation identifier (ID) for the element.</param>
-        public ProdEdit(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
+        public ProdEdit(ProdWindow prodWindow, string automationId)
+            : base(prodWindow, automationId)
         {
         }
 
@@ -34,7 +35,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
-        public ProdEdit(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
+        public ProdEdit(ProdWindow prodWindow, int treePosition)
+            : base(prodWindow, treePosition)
         {
         }
 
@@ -43,11 +45,12 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "controlHandle">Window handle of the control</param>
-        public ProdEdit(ProdWindow prodWindow, IntPtr controlHandle) : base(prodWindow, controlHandle)
+        public ProdEdit(ProdWindow prodWindow, IntPtr controlHandle)
+            : base(prodWindow, controlHandle)
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         /// <summary>
         /// Appends text to a text input control
@@ -102,6 +105,5 @@ namespace ProdUI.Controls.Windows
         {
             this.SetTextBridge(this, text);
         }
-
     }
 }

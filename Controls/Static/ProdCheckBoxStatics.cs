@@ -67,7 +67,6 @@ namespace ProdUI.Controls.Static
             return ret;
         }
 
-
         /// <summary>
         ///     Sets the CheckState of the specified checkbox
         /// </summary>
@@ -84,7 +83,6 @@ namespace ProdUI.Controls.Static
             StaticEvents.RegisterEvent(TogglePattern.ToggleStateProperty, control);
 
             TogglePatternHelper.SetToggleState(control, isChecked);
-
 
             LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
         }
@@ -108,7 +106,6 @@ namespace ProdUI.Controls.Static
 
             LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
         }
-
 
         /// <summary>
         ///     Toggles the state of the specified checkbox

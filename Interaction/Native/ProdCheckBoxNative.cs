@@ -23,7 +23,7 @@ namespace ProdUI.Interaction.Native
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
             /* get valid ButtonCheckStates */
-            int bcs = (int) NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMGETCHECK, 0, 0);
+            int bcs = (int)NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMGETCHECK, 0, 0);
             return ConvertButtonStates(bcs);
         }
 
@@ -39,7 +39,7 @@ namespace ProdUI.Interaction.Native
             ButtonStates bst = ConvertToggleStates(isChecked);
 
             /* send the message */
-            NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMSETSTATE, (int) bst, 0);
+            NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMSETSTATE, (int)bst, 0);
 
             /* Verify it */
             ValueVerifier<ToggleState, ToggleState>.Verify(GetCheckStateNative(windowHandle), isChecked);
@@ -50,27 +50,27 @@ namespace ProdUI.Interaction.Native
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
 
             /* A control will cycle through its ToggleState in this order: On, Off and, if supported, Indeterminate.*/
-            int currentState = (int) NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMGETCHECK, 0, 0);
+            int currentState = (int)NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMGETCHECK, 0, 0);
             switch (currentState)
             {
-                case (int) ButtonStates.BSTUNCHECKED:
+                case (int)ButtonStates.BSTUNCHECKED:
                     try
                     {
-                        NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMSETSTATE, (int) ButtonStates.BSTINDETERMINATE, 0);
+                        NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMSETSTATE, (int)ButtonStates.BSTINDETERMINATE, 0);
                         ValueVerifier<ToggleState, ToggleState>.Verify(GetCheckStateNative(windowHandle), ToggleState.Indeterminate);
                     }
                     catch (Win32Exception)
                     {
-                        NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMSETSTATE, (int) ButtonStates.BSTCHECKED, 0);
+                        NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMSETSTATE, (int)ButtonStates.BSTCHECKED, 0);
                         ValueVerifier<ToggleState, ToggleState>.Verify(GetCheckStateNative(windowHandle), ToggleState.On);
                     }
                     break;
-                case (int) ButtonStates.BSTCHECKED:
-                    NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMSETSTATE, (int) ButtonStates.BSTUNCHECKED, 0);
+                case (int)ButtonStates.BSTCHECKED:
+                    NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMSETSTATE, (int)ButtonStates.BSTUNCHECKED, 0);
                     ValueVerifier<ToggleState, ToggleState>.Verify(GetCheckStateNative(windowHandle), ToggleState.Off);
                     break;
-                case (int) ButtonStates.BSTINDETERMINATE:
-                    NativeMethods.SendMessage(windowHandle, (int) ButtonMessage.BMSETSTATE, (int) ButtonStates.BSTCHECKED, 0);
+                case (int)ButtonStates.BSTINDETERMINATE:
+                    NativeMethods.SendMessage(windowHandle, (int)ButtonMessage.BMSETSTATE, (int)ButtonStates.BSTCHECKED, 0);
                     ValueVerifier<ToggleState, ToggleState>.Verify(GetCheckStateNative(windowHandle), ToggleState.On);
                     break;
             }
@@ -113,11 +113,11 @@ namespace ProdUI.Interaction.Native
         {
             switch (bcs)
             {
-                case (int) ButtonStates.BSTUNCHECKED:
+                case (int)ButtonStates.BSTUNCHECKED:
                     return ToggleState.Off;
-                case (int) ButtonStates.BSTCHECKED:
+                case (int)ButtonStates.BSTCHECKED:
                     return ToggleState.On;
-                case (int) ButtonStates.BSTINDETERMINATE:
+                case (int)ButtonStates.BSTINDETERMINATE:
                     return ToggleState.Indeterminate;
                 default:
                     return ToggleState.Indeterminate;

@@ -14,12 +14,12 @@ namespace ProdUI.Controls.Static
     public static partial class Prod
     {
         /// <summary>
-        ///     Set value of control
+        /// Set value of control
         /// </summary>
-        /// <param name = "controlHandle">NativeWindowHandle to the target control</param>
-        /// <param name = "value">The value to set the slider to.</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target control</param>
+        /// <param name="value">The value to set the slider to.</param>
         /// <remarks>
-        ///     Invalid for WPF controls
+        /// Invalid for WPF controls
         /// </remarks>
         public static void SliderSetValue(IntPtr controlHandle, double value)
         {
@@ -31,13 +31,13 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Set value of control
+        /// Set value of control
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow.</param>
-        /// <param name = "automationId">The automation id (or caption)</param>
-        /// <param name = "value">The value to set the slider to.</param>
+        /// <param name="prodwindow">The containing ProdWindow.</param>
+        /// <param name="automationId">The automation id (or caption)</param>
+        /// <param name="value">The value to set the slider to.</param>
         /// <remarks>
-        ///     This is the WPF version
+        /// This is the WPF version
         /// </remarks>
         public static void SliderSetValue(ProdWindow prodwindow, string automationId, double value)
         {
@@ -46,14 +46,14 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets the value of the current slider control
+        /// Gets the value of the current slider control
         /// </summary>
-        /// <param name = "controlHandle">NativeWindowHandle to the target control</param>
+        /// <param name="controlHandle">NativeWindowHandle to the target control</param>
         /// <returns>
-        ///     Value of the control
+        /// Value of the control
         /// </returns>
         /// <remarks>
-        ///     Invalid for WPF controls
+        /// Invalid for WPF controls
         /// </remarks>
         public static double SliderGetValue(IntPtr controlHandle)
         {
@@ -71,15 +71,15 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets the value of the current slider control
+        /// Gets the value of the current slider control
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow</param>
-        /// <param name = "automationId">The automation id (or caption)</param>
+        /// <param name="prodwindow">The containing ProdWindow</param>
+        /// <param name="automationId">The automation id (or caption)</param>
         /// <returns>
-        ///     Value of the control
+        /// Value of the control
         /// </returns>
         /// <remarks>
-        ///     This is the WPF version
+        /// This is the WPF version
         /// </remarks>
         public static double SliderGetValue(ProdWindow prodwindow, string automationId)
         {
@@ -88,11 +88,11 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets the control-specific large-change value which is added to or subtracted from the Value property
+        /// Gets the control-specific large-change value which is added to or subtracted from the Value property
         /// </summary>
-        /// <param name = "controlHandle">The target controls handle.</param>
+        /// <param name="controlHandle">The target controls handle.</param>
         /// <returns>
-        ///     The large-change value or null if the element does not support LargeChange
+        /// The large-change value or null if the element does not support LargeChange
         /// </returns>
         public static double SliderGetLargeChange(IntPtr controlHandle)
         {
@@ -104,12 +104,12 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets the control-specific large-change value which is added to or subtracted from the Value property
+        /// Gets the control-specific large-change value which is added to or subtracted from the Value property
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow.</param>
-        /// <param name = "automationId">The automation id (or caption).</param>
+        /// <param name="prodwindow">The containing ProdWindow.</param>
+        /// <param name="automationId">The automation id (or caption).</param>
         /// <returns>
-        ///     The large-change value or null if the element does not support LargeChange
+        /// The large-change value or null if the element does not support LargeChange
         /// </returns>
         public static double SliderGetLargeChange(ProdWindow prodwindow, string automationId)
         {
@@ -118,11 +118,11 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets the control-specific small-change value which is added to or subtracted from the Value property
+        /// Gets the control-specific small-change value which is added to or subtracted from the Value property
         /// </summary>
-        /// <param name = "controlHandle">The target controls handle.</param>
+        /// <param name="controlHandle">The target controls handle.</param>
         /// <returns>
-        ///     The small-change value or null if the element does not support SmallChange
+        /// The small-change value or null if the element does not support SmallChange
         /// </returns>
         public static double SliderGetSmallChange(IntPtr controlHandle)
         {
@@ -135,12 +135,12 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets the control-specific small-change value which is added to or subtracted from the Value property.
+        /// Gets the control-specific small-change value which is added to or subtracted from the Value property.
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow</param>
-        /// <param name = "automationId">The automation id (or caption).</param>
+        /// <param name="prodwindow">The containing ProdWindow</param>
+        /// <param name="automationId">The automation id (or caption).</param>
         /// <returns>
-        ///     The small-change value or null if the element does not support SmallChange
+        /// The small-change value or null if the element does not support SmallChange
         /// </returns>
         public static double SliderGetSmallChange(ProdWindow prodwindow, string automationId)
         {
@@ -149,11 +149,11 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets the maximum range value supported.
+        /// Gets the maximum range value supported.
         /// </summary>
-        /// <param name = "controlHandle">The target controls handle.</param>
+        /// <param name="controlHandle">The target controls handle.</param>
         /// <returns>
-        ///     The maximum value supported by the UI Automation element or null if the element does not support Maximum
+        /// The maximum value supported by the UI Automation element or null if the element does not support Maximum
         /// </returns>
         public static double SliderGetMaxValue(IntPtr controlHandle)
         {
@@ -171,12 +171,12 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets the maximum range value supported
+        /// Gets the maximum range value supported
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow</param>
-        /// <param name = "automationId">The automation id (or caption).</param>
+        /// <param name="prodwindow">The containing ProdWindow</param>
+        /// <param name="automationId">The automation id (or caption).</param>
         /// <returns>
-        ///     The maximum value supported by the UI Automation element or null if the element does not support Maximum
+        /// The maximum value supported by the UI Automation element or null if the element does not support Maximum
         /// </returns>
         public static double SliderGetMaxValue(ProdWindow prodwindow, string automationId)
         {
@@ -185,11 +185,11 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets the minimum range value supported.
+        /// Gets the minimum range value supported.
         /// </summary>
-        /// <param name = "controlHandle">The target controls handle.</param>
+        /// <param name="controlHandle">The target controls handle.</param>
         /// <returns>
-        ///     The minimum value supported by the UI Automation element or null if the element does not support Minimum
+        /// The minimum value supported by the UI Automation element or null if the element does not support Minimum
         /// </returns>
         public static double SliderGetMinValue(IntPtr controlHandle)
         {
@@ -207,12 +207,12 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets the minimum range value supported
+        /// Gets the minimum range value supported
         /// </summary>
-        /// <param name = "prodwindow">The containing ProdWindow.</param>
-        /// <param name = "automationId">The automation id (or caption).</param>
+        /// <param name="prodwindow">The containing ProdWindow.</param>
+        /// <param name="automationId">The automation id (or caption).</param>
         /// <returns>
-        ///     The minimum value supported by the UI Automation element or null if the element does not support Minimum
+        /// The minimum value supported by the UI Automation element or null if the element does not support Minimum
         /// </returns>
         public static double SliderGetMinValue(ProdWindow prodwindow, string automationId)
         {

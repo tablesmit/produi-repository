@@ -17,7 +17,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// </returns>
         internal static DockPosition GetDockPosition(AutomationElement control)
         {
-            DockPattern pat = (DockPattern) CommonUIAPatternHelpers.CheckPatternSupport(DockPattern.Pattern, control);
+            DockPattern pat = (DockPattern)CommonUIAPatternHelpers.CheckPatternSupport(DockPattern.Pattern, control);
             return pat.Current.DockPosition;
         }
 
@@ -28,7 +28,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name = "dockPosition">The <see cref = "DockPosition" />.</param>
         internal static void SetDockPosition(AutomationElement control, DockPosition dockPosition)
         {
-            DockPattern pat = (DockPattern) CommonUIAPatternHelpers.CheckPatternSupport(DockPattern.Pattern, control);
+            DockPattern pat = (DockPattern)CommonUIAPatternHelpers.CheckPatternSupport(DockPattern.Pattern, control);
             pat.SetDockPosition(dockPosition);
         }
     }

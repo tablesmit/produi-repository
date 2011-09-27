@@ -4,15 +4,14 @@
 using System;
 
 /* Notes
- * Supported Patterns: 
- * ExpandCollapsePattern 
+ * Supported Patterns:
+ * ExpandCollapsePattern
  * DockPattern
- * TransformPattern 
- * 
+ * TransformPattern
+ *
  * Proposed funtionality:
- * 
+ *
  */
-
 
 //TODO: Not Implemented
 
@@ -33,7 +32,8 @@ namespace ProdUI.Controls.Windows
         /// <remarks>
         ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
-        public ProdToolBar(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
+        public ProdToolBar(ProdWindow prodWindow, string automationId)
+            : base(prodWindow, automationId)
         {
         }
 
@@ -42,7 +42,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
-        public ProdToolBar(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
+        public ProdToolBar(ProdWindow prodWindow, int treePosition)
+            : base(prodWindow, treePosition)
         {
         }
 
@@ -51,10 +52,11 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "controlHandle">Window handle of the control</param>
-        public ProdToolBar(ProdWindow prodWindow, IntPtr controlHandle) : base(prodWindow, controlHandle)
+        public ProdToolBar(ProdWindow prodWindow, IntPtr controlHandle)
+            : base(prodWindow, controlHandle)
         {
         }
 
-        #endregion
+        #endregion Constructors
     }
 }

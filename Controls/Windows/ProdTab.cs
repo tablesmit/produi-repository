@@ -7,10 +7,10 @@ using System.Windows.Automation;
 using ProdUI.Interaction.Bridge;
 
 /* Notes
- * Supported Patterns: 
- * ISelectionProvider  
- * IScrollProvider 
- * 
+ * Supported Patterns:
+ * ISelectionProvider
+ * IScrollProvider
+ *
  * Proposed functionality:
  * SelectTab by item/index
  * getSelectedTab
@@ -61,7 +61,7 @@ namespace ProdUI.Controls.Windows
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         /// <summary>
         /// Gets the number of tabs in a TabControl.
@@ -134,7 +134,7 @@ namespace ProdUI.Controls.Windows
         /// </returns>
         public bool IsSelected(int index)
         {
-            return this.IsItemSelectedBridge(this,index);
+            return this.IsItemSelectedBridge(this, index);
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace ProdUI.Controls.Windows
         /// </returns>
         public bool IsSelected(string itemText)
         {
-                return this.IsItemSelectedBridge(this, itemText);
+            return this.IsItemSelectedBridge(this, itemText);
         }
     }
 }

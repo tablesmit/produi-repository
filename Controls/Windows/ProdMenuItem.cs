@@ -49,7 +49,8 @@ namespace ProdUI.Controls.Windows
         /// <param name = "automationId">The automation id.</param>
         /// <remarks>
         /// </remarks>
-        public ProdMenuItem(ProdWindow prodWindow, string automationId) : base(prodWindow, automationId)
+        public ProdMenuItem(ProdWindow prodWindow, string automationId)
+            : base(prodWindow, automationId)
         {
         }
 
@@ -58,7 +59,8 @@ namespace ProdUI.Controls.Windows
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
         /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
-        public ProdMenuItem(ProdWindow prodWindow, int treePosition) : base(prodWindow, treePosition)
+        public ProdMenuItem(ProdWindow prodWindow, int treePosition)
+            : base(prodWindow, treePosition)
         {
         }
 
@@ -97,7 +99,7 @@ namespace ProdUI.Controls.Windows
         {
             string cleaned = InternalUtilities.ConvertStringToSendKey(keyCombonation);
             ParentWindow.Activate();
-            Prod.SendKeysTo((IntPtr) ParentWindow.UIAElement.Current.NativeWindowHandle, cleaned);
+            Prod.SendKeysTo((IntPtr)ParentWindow.UIAElement.Current.NativeWindowHandle, cleaned);
         }
 
         /// <summary>
@@ -113,7 +115,7 @@ namespace ProdUI.Controls.Windows
 
             string cleaned = InternalUtilities.ConvertStringToSendKey(control.Current.AcceleratorKey);
             ParentWindow.Activate();
-            Prod.SendKeysTo((IntPtr) ParentWindow.UIAElement.Current.NativeWindowHandle, cleaned);
+            Prod.SendKeysTo((IntPtr)ParentWindow.UIAElement.Current.NativeWindowHandle, cleaned);
         }
 
         /// <summary>
@@ -128,7 +130,7 @@ namespace ProdUI.Controls.Windows
             }
 
             ParentWindow.Activate();
-            Prod.SendKeysTo((IntPtr) ParentWindow.UIAElement.Current.NativeWindowHandle, control.Current.AccessKey);
+            Prod.SendKeysTo((IntPtr)ParentWindow.UIAElement.Current.NativeWindowHandle, control.Current.AccessKey);
         }
 
 
