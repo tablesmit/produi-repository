@@ -1,10 +1,7 @@
 ﻿using System.Threading;
 using System.Windows.Automation;
 using NUnit.Framework;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls;
-using ProdUI.Session;
-using ProdUI.Exceptions;
+using ProdUI.Controls.Windows;
 
 namespace ProdUITests
 {
@@ -13,22 +10,20 @@ namespace ProdUITests
     {
 
         const string WIN_TITLE = "WPF Test Form";
-        private static ProdSession session;
         private static ProdWindow window;
 
         [SetUp]
         public static void Init()
         {
-            session = new ProdSession("test.ses");
-            window = new ProdWindow(WIN_TITLE, session.Loggers);
+            window = new ProdWindow(WIN_TITLE);
         }
 
         [Test]
         public void GetCheckStateWhenChecked()
         {
             ProdCheckBox check = new ProdCheckBox(window, "testCheckBoxA");
-            TogglePatternHelper.SetToggleState(check.ThisElement, ToggleState.On);
-            ToggleState ret = TogglePatternHelper.GetToggleState(check.ThisElement);
+            check.SetCheckState(ToggleState.On);
+            ToggleState ret = check.GetCheckState();
 
             Assert.That(ret, Is.EqualTo(ToggleState.On));
         }
@@ -37,8 +32,8 @@ namespace ProdUITests
         public void GetCheckStateWhenUnChecked()
         {
             ProdCheckBox check = new ProdCheckBox(window, "testCheckBoxB");
-            TogglePatternHelper.SetToggleState(check.ThisElement, ToggleState.Off);
-            ToggleState ret = TogglePatternHelper.GetToggleState(check.ThisElement);
+            check.SetCheckState(ToggleState.Off);
+            ToggleState ret = check.GetCheckState();
 
             Assert.That(ret, Is.EqualTo(ToggleState.Off));
         }
@@ -46,8 +41,8 @@ namespace ProdUITests
         public void GetCheckStateWhenIndeterminate()
         {
             ProdCheckBox check = new ProdCheckBox(window, "3StateCheckBox");
-            TogglePatternHelper.SetToggleState(check.ThisElement, ToggleState.Indeterminate);
-            ToggleState ret = TogglePatternHelper.GetToggleState(check.ThisElement);
+            check.SetCheckState(ToggleState.Indeterminate);
+            ToggleState ret = check.GetCheckState();
 
             Assert.That(ret, Is.EqualTo(ToggleState.Indeterminate));
         }
@@ -56,7 +51,7 @@ namespace ProdUITests
         public void SetCheckStateOn()
         {
             ProdCheckBox check = new ProdCheckBox(window, "testCheckBoxB");
-            TogglePatternHelper.SetToggleState(check.ThisElement, ToggleState.On);
+            check.SetCheckState(ToggleState.On);
 
             Thread.Sleep(1000);
 
@@ -67,7 +62,7 @@ namespace ProdUITests
         public void SetCheckStateOff()
         {
             ProdCheckBox check = new ProdCheckBox(window, "testCheckBoxB");
-            TogglePatternHelper.SetToggleState(check.ThisElement, ToggleState.Off);
+            check.SetCheckState(ToggleState.Off);
 
             Thread.Sleep(1000);
 
@@ -78,7 +73,7 @@ namespace ProdUITests
         public void SetCheckStateIndeterminate()
         {
             ProdCheckBox check = new ProdCheckBox(window, "3StateCheckBox");
-            TogglePatternHelper.SetToggleState(check.ThisElement, ToggleState.Indeterminate);
+            check.SetCheckState(ToggleState.Indeterminate);
 
             Thread.Sleep(1000);
 
@@ -89,7 +84,7 @@ namespace ProdUITests
         public void SetCheckStateIndeterminateUnsupported()
         {
             ProdCheckBox check = new ProdCheckBox(window, "testCheckBoxA");
-            TogglePatternHelper.SetToggleState(check.ThisElement, ToggleState.Indeterminate);
+            check.SetCheckState(ToggleState.Indeterminate);
 
             Thread.Sleep(1000);
 
@@ -103,7 +98,7 @@ namespace ProdUITests
             check.SetCheckState((ToggleState.On));
 
             Thread.Sleep(2000);
-            Assert.That(check.eventTriggered);
+            Assert.That(check.EventVerified);
         }
 
         [Test, Description("Checking Toggle event by verifying its effect on UI")]
@@ -112,7 +107,7 @@ namespace ProdUITests
             ProdCheckBox check = new ProdCheckBox(window, "3StateCheckBox");
 
             ToggleState origState = check.GetCheckState();
-            TogglePatternHelper.Toggle(check.ThisElement);
+            check.ToggleCheckState();
             ToggleState currentState = check.GetCheckState();
 
             Assert.AreNotEqual(origState, currentState);
@@ -126,7 +121,7 @@ namespace ProdUITests
             check.ToggleCheckState();
 
             Thread.Sleep(2000);
-            Assert.That(check.eventTriggered);
+            Assert.That(check.EventVerified);
 
         }
     }

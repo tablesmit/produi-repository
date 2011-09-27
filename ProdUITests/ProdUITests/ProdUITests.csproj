@@ -70,11 +70,11 @@
     <Compile Include="Controls\ProdCalendarTests.cs" />
     <Compile Include="Controls\ProdCheckBoxTests.cs" />
     <Compile Include="Controls\ProdComboBoxTests.cs" />
-    <Compile Include="Controls\ProdDataGridTests.cs" />
-    <Compile Include="Controls\ProdDocumentTests.cs" />
+    <None Include="Controls\ProdDataGridTests.cs" />
+    <None Include="Controls\ProdDocumentTests.cs" />
     <Compile Include="Controls\ProdEditTests.cs" />
     <Compile Include="Controls\ProdListTests.cs" />
-    <Compile Include="Controls\ProdMenuItemTests.cs" />
+    <None Include="Controls\ProdMenuItemTests.cs" />
     <Compile Include="Controls\ProdRadioButtonTests.cs" />
     <Compile Include="Controls\ProdSliderTests.cs" />
     <Compile Include="Controls\ProdTreeViewTests.cs" />
