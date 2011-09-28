@@ -119,7 +119,7 @@ namespace ProdUI.Interaction.UIAPatterns
             {
                 object pat;
                 control.TryGetCurrentPattern(pattern, out pat);
-                control.SetFocus();
+                //control.SetFocus();
                 return pat;
             }
             catch (InvalidOperationException)

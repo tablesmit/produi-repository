@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterWinformTest", "MasterWinformTest\MasterWinformTest.csproj", "{99EFA9E1-18A5-4B73-9040-593ECAFC28EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsSampleDriver", "FormsSampleDriver\FormsSampleDriver.csproj", "{F2F645C7-81E5-40F5-8182-E24C69F93037}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{99EFA9E1-18A5-4B73-9040-593ECAFC28EA}.Debug|x86.Build.0 = Debug|x86
 		{99EFA9E1-18A5-4B73-9040-593ECAFC28EA}.Release|x86.ActiveCfg = Release|x86
 		{99EFA9E1-18A5-4B73-9040-593ECAFC28EA}.Release|x86.Build.0 = Release|x86
+		{F2F645C7-81E5-40F5-8182-E24C69F93037}.Debug|x86.ActiveCfg = Debug|x86
+		{F2F645C7-81E5-40F5-8182-E24C69F93037}.Debug|x86.Build.0 = Debug|x86
+		{F2F645C7-81E5-40F5-8182-E24C69F93037}.Release|x86.ActiveCfg = Release|x86
+		{F2F645C7-81E5-40F5-8182-E24C69F93037}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

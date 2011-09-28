@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Automation;
 using ProdUI.Controls.Windows;
+using ProdUI.Exceptions;
 using ProdUI.Interaction.Bridge;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
@@ -14,15 +15,31 @@ namespace ProdUI.Controls.Static
         /// Performs a "Click" on the specified static ProdButton
         /// </summary>
         /// <param name="controlHandle">NativeWindowHandle of the target control</param>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         /// <remarks>
         /// This overload is invalid for WPF controls
         /// </remarks>
         public static void ButtonClick(IntPtr controlHandle)
         {
+            try
+            {
             AutomationElement control = CommonUIAPatternHelpers.Prologue(InvokePattern.Pattern, controlHandle);
             StaticEvents.RegisterEvent(InvokePattern.InvokedEvent, control);
             InvokePatternHelper.Invoke(control);
             LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
+            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
@@ -30,13 +47,29 @@ namespace ProdUI.Controls.Static
         /// </summary>
         /// <param name="prodwindow">The ProdWindow that contains this control..</param>
         /// <param name="automationId">The UI Automation identifier (ID) for the element.</param>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         /// <remarks>
         /// The program will also attempt to identify using the name property if the AutomationId fails
         /// </remarks>
         public static void ButtonClick(ProdWindow prodwindow, string automationId)
         {
+            try
+            {
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);
             InvokeBridge.ClickBridge(null, control);
+            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
     }
 }

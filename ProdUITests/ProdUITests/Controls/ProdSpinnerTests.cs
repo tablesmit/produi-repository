@@ -1,26 +1,21 @@
 ﻿using System.Threading;
-using System.Windows.Automation;
 using NUnit.Framework;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls;
-using ProdUI.Session;
-using ProdUI.Exceptions;
+using ProdUI.Controls.Windows;
 
-//WPF does not have equivelant
+//WPF does not have equivalent
 namespace ProdUITests
 {
     [TestFixture]
     class ProdSpinnerTests
     {
         const string WIN_TITLE = "Winforms Test Form";
-        private static ProdSession session;
+
         private static ProdWindow window;
 
         [SetUp]
         public static void Init()
         {
-            session = new ProdSession("test.ses");
-            window = new ProdWindow(WIN_TITLE, session.Loggers);
+            window = new ProdWindow(WIN_TITLE;
         }
 
         [Test]
@@ -28,7 +23,7 @@ namespace ProdUITests
         {
             ProdSpinner spin = new ProdSpinner(window, "testCheckBoxA");
             spin.SetValue(value);
-            Assert.That(RangeValuePatternHelper.GetValue(spin.ThisElement), Is.EqualTo(value));
+            Assert.That(spin.GetValue(), Is.EqualTo(value));
         }
 
         [Test]
@@ -38,14 +33,14 @@ namespace ProdUITests
             spin.SetValue(value);
 
             Thread.Sleep(2000);
-            Assert.That(spin.eventTriggered);
+            Assert.That(spin.EventVerified);
         }
 
         [Test]
         public void GetValue([Values(1.0, 12, 20)]double value)
         {
             ProdSpinner spin = new ProdSpinner(window, "testCheckBoxA");
-            RangeValuePatternHelper.SetValue(spin.ThisElement, value);
+            spin.SetValue(value);
 
             Assert.That(spin.GetValue(), Is.EqualTo(value));
         }

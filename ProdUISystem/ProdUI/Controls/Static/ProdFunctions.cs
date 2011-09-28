@@ -1,6 +1,5 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Automation;
@@ -22,7 +21,7 @@ namespace ProdUI.Controls.Static
         /// Register to make a window the active window by passing partial title.
         /// </summary>
         /// <param name="partialTitle">The title of the window to search for (partial names are acceptable, though less accurate)</param>
-        /// <exception cref="ProdOperationException"></exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         [ProdLogging(LoggingLevels.Warn, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void ActivateWindow(string partialTitle)
         {
@@ -33,17 +32,17 @@ namespace ProdUI.Controls.Static
                 NativeMethods.ShowWindowAsync(windowHandle, (int)ShowWindowCommand.SW_SHOW);
                 NativeMethods.SetForegroundWindow(windowHandle);
             }
-            catch (InvalidOperationException ierr)
+            catch (InvalidOperationException err)
             {
-                throw new ProdOperationException(ierr.Message, ierr);
+                throw new ProdOperationException(err.Message, err);
             }
             catch (ElementNotAvailableException err)
             {
                 throw new ProdOperationException(err.Message, err);
             }
-            catch (Win32Exception werr)
+            catch (ArgumentException err)
             {
-                throw new ProdOperationException(werr.Message, werr);
+                throw new ProdOperationException(err.Message, err);
             }
         }
 
@@ -51,18 +50,33 @@ namespace ProdUI.Controls.Static
         /// Brings the specified window to the foreground and activates it
         /// </summary>
         /// <param name="windowHandle">NativeWindowHandle to the target window</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/></exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         [ProdLogging(LoggingLevels.Warn, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void ActivateWindow(IntPtr windowHandle)
         {
-            if ((int)windowHandle == 0)
+            try
             {
-                throw new ProdOperationException("NativeWindowHandle not found.", new ElementNotEnabledException());
-            }
+                if ((int)windowHandle == 0)
+                {
+                    throw new ProdOperationException("NativeWindowHandle not found.", new ElementNotEnabledException());
+                }
 
-            NativeMethods.ShowWindowAsync(windowHandle, (int)ShowWindowCommand.SW_SHOWDEFAULT);
-            NativeMethods.ShowWindowAsync(windowHandle, (int)ShowWindowCommand.SW_SHOW);
-            NativeMethods.SetForegroundWindow(windowHandle);
+                NativeMethods.ShowWindowAsync(windowHandle, (int)ShowWindowCommand.SW_SHOWDEFAULT);
+                NativeMethods.ShowWindowAsync(windowHandle, (int)ShowWindowCommand.SW_SHOW);
+                NativeMethods.SetForegroundWindow(windowHandle);
+            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
@@ -70,9 +84,25 @@ namespace ProdUI.Controls.Static
         /// </summary>
         /// <param name="format">The <see cref="System.Windows.Forms.DataFormats"/></param>
         /// <param name="item">The object to place on the Clipboard buffer.</param>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static void CopyToClipBoard(DataFormats format, object item)
         {
-            Clipboard.SetData(format.ToString(), item);
+            try
+            {
+                Clipboard.SetData(format.ToString(), item);
+            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
@@ -83,21 +113,36 @@ namespace ProdUI.Controls.Static
         /// <returns>
         ///   <c>true</c> if ready, <c>false</c> if not ready within time limit
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static bool ControlWaitReady(BaseProdControl control, int delay = -1)
         {
             int tryCounter = 0;
-
-            while (tryCounter != delay || delay == -1)
+            try
             {
-                if (control.UIAElement.Current.IsEnabled)
+                while (tryCounter != delay || delay == -1)
                 {
-                    return true;
+                    if (control.UIAElement.Current.IsEnabled)
+                    {
+                        return true;
+                    }
+                    Thread.Sleep(1000);
+                    tryCounter++;
                 }
-                Thread.Sleep(1000);
-                tryCounter++;
-            }
 
-            return false;
+                return false;
+            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
@@ -107,10 +152,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// The caption of the current control
         /// </returns>
-        /// <exception cref="ProdOperationException">
-        /// Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/>
-        /// Thrown if call is invalid for the object's current state <seealso cref="InvalidOperationException"/>
-        ///   </exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static string GetCaption(IntPtr controlHandle)
         {
@@ -128,6 +170,10 @@ namespace ProdUI.Controls.Static
             {
                 throw new ProdOperationException(err.Message, err);
             }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
@@ -138,7 +184,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// NativeWindowHandle to the current control
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/></exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         [ProdLogging(LoggingLevels.Info, VerbositySupport = LoggingVerbosity.Minimum)]
         public static IntPtr GetControlHandle(IntPtr parentHandle, int controlId)
         {
@@ -147,11 +193,15 @@ namespace ProdUI.Controls.Static
                 IntPtr ret = InternalUtilities.GetChildHandle(parentHandle, controlId);
                 return ret;
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException err)
             {
-                return IntPtr.Zero;
+                throw new ProdOperationException(err.Message, err);
             }
             catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
             {
                 throw new ProdOperationException(err.Message, err);
             }
@@ -165,7 +215,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// NativeWindowHandle to the current control
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/></exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         [ProdLogging(LoggingLevels.Info, VerbositySupport = LoggingVerbosity.Minimum)]
         public static IntPtr GetControlHandle(IntPtr parentHandle, string controlText)
         {
@@ -174,11 +224,15 @@ namespace ProdUI.Controls.Static
                 IntPtr ret = InternalUtilities.GetChildHandle(parentHandle, controlText);
                 return ret;
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException err)
             {
-                return IntPtr.Zero;
+                throw new ProdOperationException(err.Message, err);
             }
             catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
             {
                 throw new ProdOperationException(err.Message, err);
             }
@@ -192,16 +246,31 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// The window handle to the selected control
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/></exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         /// <remarks>
         /// The position of the control tree can be found through the use of ProdSpy. This function is especially useful for those controls that have no name, label, or resourceID
         /// However, WPF controls do NOT have a handle, so this will return a 0
         /// </remarks>
         public static IntPtr GetHandleFromTree(IntPtr windowHandle, int position)
         {
-            ControlTree tree = new ControlTree(windowHandle);
+            try
+            {
+                ControlTree tree = new ControlTree(windowHandle);
 
-            return (IntPtr)tree.Find(position);
+                return (IntPtr)tree.Find(position);
+            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
@@ -211,11 +280,27 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// NativeWindowHandle to the window if successful. IntPtr.Zero if not found
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static IntPtr GetWindowHandle(string partialTitle)
         {
-            IntPtr retVal = InternalUtilities.FindWindowPartial(partialTitle);
-            return retVal;
+            try
+            {
+                IntPtr retVal = InternalUtilities.FindWindowPartial(partialTitle);
+                return retVal;
+            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
@@ -225,7 +310,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         ///   <c>true</c> if enabled, <c>false</c> otherwise
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static bool IsEnabled(IntPtr controlHandle)
         {
@@ -243,6 +328,10 @@ namespace ProdUI.Controls.Static
             {
                 throw new ProdOperationException(err.Message, err);
             }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
@@ -252,18 +341,10 @@ namespace ProdUI.Controls.Static
         /// <returns>
         ///   <c>true</c> if enabled, <c>false</c> otherwise
         /// </returns>
-        /// <exception cref="ProdOperationException">
-        /// Thrown if call is invalid for the object's current state <seealso cref="InvalidOperationException"/>
-        /// Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/>
-        ///   </exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static bool IsEnabled(AutomationElement control)
         {
-            if (control == null)
-            {
-                throw new ProdOperationException("NativeWindowHandle not found.", new ElementNotEnabledException());
-            }
-
             try
             {
                 bool retVal = (bool)control.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty);
@@ -273,16 +354,21 @@ namespace ProdUI.Controls.Static
             {
                 throw new ProdOperationException(err.Message, err);
             }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
         /// Moves the mouse to control.
         /// </summary>
         /// <param name="controlHandle">The control handle of the element to snap to.</param>
-        /// <exception cref="ProdOperationException">
-        /// Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/>
-        /// Thrown when GetClickablePoint is called on a UI Automation element that has no clickable point <seealso cref="NoClickablePointException"/>
-        ///   </exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static void MoveMouseToControl(IntPtr controlHandle)
         {
             try
@@ -292,11 +378,15 @@ namespace ProdUI.Controls.Static
                 Point p = new Point((int)control.GetClickablePoint().X, (int)control.GetClickablePoint().Y);
                 InternalUtilities.MoveMouseToPoint(p);
             }
-            catch (NoClickablePointException err)
+            catch (InvalidOperationException err)
             {
                 throw new ProdOperationException(err.Message, err);
             }
             catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
             {
                 throw new ProdOperationException(err.Message, err);
             }
@@ -306,10 +396,7 @@ namespace ProdUI.Controls.Static
         /// Moves the mouse to control.
         /// </summary>
         /// <param name="control">The UI Automation element to snap the mouse to</param>
-        /// <exception cref="ProdOperationException">Thrown if:
-        /// Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/>
-        /// Thrown when GetClickablePoint is called on a UI Automation element that has no clickable point <seealso cref="NoClickablePointException"/>
-        ///   </exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static void MoveMouseToControl(AutomationElement control)
         {
             try
@@ -318,11 +405,15 @@ namespace ProdUI.Controls.Static
                 control.SetFocus();
                 InternalUtilities.MoveMouseToPoint(p);
             }
-            catch (NoClickablePointException err)
+            catch (InvalidOperationException err)
             {
                 throw new ProdOperationException(err.Message, err);
             }
             catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
             {
                 throw new ProdOperationException(err.Message, err);
             }
@@ -333,10 +424,7 @@ namespace ProdUI.Controls.Static
         /// </summary>
         /// <param name="partialTitle">Title of window to focus upon, then send keys to</param>
         /// <param name="theKeys">The keys to send. <seealso cref="System.Windows.Forms.SendKeys.Send"/></param>
-        /// <exception cref="ProdOperationException">
-        /// Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/>
-        /// Thrown if call is invalid for the object's current state <seealso cref="InvalidOperationException"/>
-        ///   </exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SendKeysTo(string partialTitle, string theKeys)
         {
@@ -345,11 +433,15 @@ namespace ProdUI.Controls.Static
                 ActivateWindow(partialTitle);
                 SendKeys.SendWait(theKeys);
             }
-            catch (InvalidOperationException ierr)
+            catch (InvalidOperationException err)
             {
-                throw new ProdOperationException(ierr.Message, ierr);
+                throw new ProdOperationException(err.Message, err);
             }
             catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
             {
                 throw new ProdOperationException(err.Message, err);
             }
@@ -360,28 +452,24 @@ namespace ProdUI.Controls.Static
         /// </summary>
         /// <param name="windowHandle">NativeWindowHandle to the window to focus upon, then send keys to</param>
         /// <param name="theKeys">The keys to send. <seealso cref="System.Windows.Forms.SendKeys.Send"/></param>
-        /// <exception cref="ProdOperationException">
-        /// Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/>
-        /// Thrown if call is invalid for the object's current state <seealso cref="InvalidOperationException"/>
-        ///   </exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void SendKeysTo(IntPtr windowHandle, string theKeys)
         {
-            if ((int)windowHandle == 0)
-            {
-                throw new ProdOperationException("NativeWindowHandle not found.", new ElementNotEnabledException());
-            }
-
             try
             {
                 ActivateWindow(windowHandle);
                 SendKeys.SendWait(theKeys);
             }
-            catch (InvalidOperationException ierr)
+            catch (InvalidOperationException err)
             {
-                throw new ProdOperationException(ierr.Message, ierr);
+                throw new ProdOperationException(err.Message, err);
             }
             catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
             {
                 throw new ProdOperationException(err.Message, err);
             }
@@ -392,10 +480,7 @@ namespace ProdUI.Controls.Static
         /// </summary>
         /// <param name="control">The UI Automation element to click</param>
         /// <param name="clickType">Type of the click. <see cref="MouseClick"/></param>
-        /// <exception cref="ProdOperationException">Thrown if:
-        /// Thrown if element is no longer available <seealso cref="ElementNotAvailableException"/>
-        /// Thrown when GetClickablePoint is called on a UI Automation element that has no clickable point <seealso cref="NoClickablePointException"/>
-        ///   </exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static void SendMouseClick(AutomationElement control, MouseClick clickType)
         {
             try
@@ -433,27 +518,38 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Sets input focus to control
+        /// Sets input focus to control
         /// </summary>
-        /// <param name = "control">The <see cref = "System.Windows.Automation.AutomationElement" /> to investigate</param>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" /></exception>
+        /// <param name="control">The <see cref="System.Windows.Automation.AutomationElement"/> to investigate</param>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static void SetFocus(AutomationElement control)
         {
-            if (control == null)
+            try
             {
-                throw new ProdOperationException("NativeWindowHandle not found.", new ElementNotEnabledException());
+                if (control.Current.IsEnabled && (bool)control.GetCurrentPropertyValue(AutomationElement.IsKeyboardFocusableProperty, true))
+                {
+                    control.SetFocus();
+                }
             }
-            if (control.Current.IsEnabled && (bool)control.GetCurrentPropertyValue(AutomationElement.IsKeyboardFocusableProperty, true))
+            catch (InvalidOperationException err)
             {
-                control.SetFocus();
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
             }
         }
 
         /// <summary>
-        ///     Sets input focus to control
+        /// Sets input focus to control
         /// </summary>
-        /// <param name = "controlHandle">NativeWindowHandle to the control to investigate</param>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available <seealso cref = "ElementNotAvailableException" /></exception>
+        /// <param name="controlHandle">NativeWindowHandle to the control to investigate</param>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static void SetFocus(IntPtr controlHandle)
         {
             try
@@ -464,16 +560,24 @@ namespace ProdUI.Controls.Static
                     control.SetFocus();
                 }
             }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
             catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
             {
                 throw new ProdOperationException(err.Message, err);
             }
         }
 
         /// <summary>
-        ///     Provides a delay in processing
+        /// Provides a delay in processing
         /// </summary>
-        /// <param name = "seconds">The number of seconds to spin.</param>
+        /// <param name="seconds">The number of seconds to spin.</param>
         public static void TimeDelay(double seconds)
         {
             double wait = seconds * 1000;
@@ -481,27 +585,43 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Determines if the target window exists
+        /// Determines if the target window exists
         /// </summary>
-        /// <param name = "partialTitle">Part of the target windows title</param>
+        /// <param name="partialTitle">Part of the target windows title</param>
         /// <returns>
-        ///     <c>true</c> if enabled, <c>false</c> otherwise
+        ///   <c>true</c> if enabled, <c>false</c> otherwise
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static bool WindowExists(string partialTitle)
         {
-            bool doesWinExist = InternalUtilities.FindWindowPartial(partialTitle) != IntPtr.Zero;
+            try
+            {
+                bool doesWinExist = InternalUtilities.FindWindowPartial(partialTitle) != IntPtr.Zero;
 
-            return doesWinExist;
+                return doesWinExist;
+            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
-        ///     Waits a specified amount of time, checking for a windows existence
+        /// Waits a specified amount of time, checking for a windows existence
         /// </summary>
-        /// <param name = "partialTitle">The title of the window to search for (partial names are acceptable, though less accurate)</param>
-        /// <param name = "delay">Time, in seconds, to wait for window to exist. -1 to wait forever</param>
+        /// <param name="partialTitle">The title of the window to search for (partial names are acceptable, though less accurate)</param>
+        /// <param name="delay">Time, in seconds, to wait for window to exist. -1 to wait forever</param>
         /// <returns>
-        ///     <c>true</c> if window was verified closed, <c>false</c> otherwise
+        ///   <c>true</c> if window was verified closed, <c>false</c> otherwise
         /// </returns>
         public static bool WinWaitClose(string partialTitle, int delay = -1)
         {
@@ -524,12 +644,12 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Waits a specified amount of time for the specified window to exist
+        /// Waits a specified amount of time for the specified window to exist
         /// </summary>
-        /// <param name = "partialTitle">The title of the window to search for (partial names are acceptable, though less accurate)</param>
-        /// <param name = "delay">Time, in seconds, to wait for window to exist. -1 to wait forever</param>
+        /// <param name="partialTitle">The title of the window to search for (partial names are acceptable, though less accurate)</param>
+        /// <param name="delay">Time, in seconds, to wait for window to exist. -1 to wait forever</param>
         /// <returns>
-        ///     NativeWindowHandle to window if found, zero if not found
+        /// NativeWindowHandle to window if found, zero if not found
         /// </returns>
         public static IntPtr WinWaitExists(string partialTitle, int delay = -1)
         {
@@ -551,28 +671,44 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets the AutomationElement from the window, first by trying the automationID, then the name.
+        /// Gets the AutomationElement from the window, first by trying the automationID, then the name.
         /// </summary>
-        /// <param name = "prodwindow">The prodwindow.</param>
-        /// <param name = "automationId">The automation id.</param>
+        /// <param name="prodwindow">The prodwindow.</param>
+        /// <param name="automationId">The automation id.</param>
         /// <returns>
-        ///     The matching AutomationElement
+        /// The matching AutomationElement
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         internal static AutomationElement GetElement(ProdWindow prodwindow, string automationId)
         {
-            /* first, try using the Automation ID */
-            Condition condId = new PropertyCondition(AutomationElement.AutomationIdProperty, automationId);
-            AutomationElement control = prodwindow.UIAElement.FindFirst(TreeScope.Descendants, condId);
-
-            /* then we'll try the name...who knows? */
-            if (control == null)
+            try
             {
-                /* try the name */
-                Condition condName = new PropertyCondition(AutomationElement.NameProperty, automationId);
-                control = prodwindow.UIAElement.FindFirst(TreeScope.Descendants, condName);
-            }
+                /* first, try using the Automation ID */
+                Condition condId = new PropertyCondition(AutomationElement.AutomationIdProperty, automationId);
+                AutomationElement control = prodwindow.UIAElement.FindFirst(TreeScope.Descendants, condId);
 
-            return control;
+                /* then we'll try the name...who knows? */
+                if (control == null)
+                {
+                    /* try the name */
+                    Condition condName = new PropertyCondition(AutomationElement.NameProperty, automationId);
+                    control = prodwindow.UIAElement.FindFirst(TreeScope.Descendants, condName);
+                }
+
+                return control;
+            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
     }
 }

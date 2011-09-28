@@ -19,6 +19,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         ///   <c>true</c> if control is ReadOnly, <c>false</c> otherwise
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         /// <remarks>
         /// This overload is invalid for WPF controls
         /// </remarks>
@@ -31,7 +32,15 @@ namespace ProdUI.Controls.Static
             }
             catch (InvalidOperationException err)
             {
-                throw new ProdOperationException("Control doesn't support ValuePattern", err);
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
             }
         }
 
@@ -43,17 +52,33 @@ namespace ProdUI.Controls.Static
         /// <returns>
         ///   <c>true</c> if control is ReadOnly, <c>false</c> otherwise
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static bool GetReadOnly(ProdWindow prodwindow, string automationId)
         {
-            AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
-            return (bool)control.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty);
+            try
+            {
+                AutomationElement control = InternalUtilities.GetHandlelessElement(prodwindow, automationId);
+                return (bool)control.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty);
+            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
         /// Set text area value to an empty string
         /// </summary>
         /// <param name="controlHandle">NativeWindowHandle to the target control</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static void ClearText(IntPtr controlHandle)
         {
             if (GetReadOnly(controlHandle))
@@ -65,9 +90,17 @@ namespace ProdUI.Controls.Static
             {
                 ValuePatternHelper.SetValue(AutomationElement.FromHandle(controlHandle), string.Empty);
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException err)
             {
-                NativeTextProds.ClearTextNative(controlHandle);
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
             }
         }
 
@@ -76,6 +109,7 @@ namespace ProdUI.Controls.Static
         /// </summary>
         /// <param name="prodwindow">The containing ProdWindow.</param>
         /// <param name="automationId">The automation id (or caption).</param>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static void ClearText(ProdWindow prodwindow, string automationId)
         {
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);
@@ -89,6 +123,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// Text contained in text area
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         /// <remarks>
         /// This overload is invalid for WPF controls
         /// </remarks>
@@ -103,7 +138,15 @@ namespace ProdUI.Controls.Static
             }
             catch (InvalidOperationException err)
             {
-                throw new ProdOperationException("Control doesn't support ValuePattern", err);
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
             }
         }
 
@@ -115,6 +158,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// Text contained in text area
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static string GetText(ProdWindow prodwindow, string automationId)
         {
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);
@@ -126,7 +170,7 @@ namespace ProdUI.Controls.Static
         /// </summary>
         /// <param name="controlHandle">NativeWindowHandle to the target control</param>
         /// <param name="newText">Desired text</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static void SetText(IntPtr controlHandle, string newText)
         {
             if (GetReadOnly(controlHandle))
@@ -141,6 +185,14 @@ namespace ProdUI.Controls.Static
             catch (InvalidOperationException)
             {
                 NativeTextProds.SetTextNative(controlHandle, newText);
+                        }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
             }
         }
 
@@ -150,6 +202,7 @@ namespace ProdUI.Controls.Static
         /// <param name="prodwindow">The containing ProdWindow.</param>
         /// <param name="automationId">The automation id (or caption).</param>
         /// <param name="newText">Desired text</param>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static void SetText(ProdWindow prodwindow, string automationId, string newText)
         {
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);
@@ -157,11 +210,11 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Appends text to a .Net text input control
+        /// Appends text to a .Net text input control
         /// </summary>
-        /// <param name = "controlHandle">NativeWindowHandle to the target control</param>
-        /// <param name = "newText">Text To Append</param>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <param name="controlHandle">NativeWindowHandle to the target control</param>
+        /// <param name="newText">Text To Append</param>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static void AppendText(IntPtr controlHandle, string newText)
         {
             if (GetReadOnly(controlHandle))
@@ -174,8 +227,22 @@ namespace ProdUI.Controls.Static
             //{
             //    return;
             //}
-
+            try
+            {
             NativeTextProds.AppendTextNative(controlHandle, newText);
+            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
 
             //TODO: convert  ValuePatternHelper.SendKeysAppendText(AutomationElement.FromHandle(controlHandle), newText);
         }
@@ -186,6 +253,7 @@ namespace ProdUI.Controls.Static
         /// <param name="prodwindow">The containing ProdWindow.</param>
         /// <param name="automationId">The automation id (or caption).</param>
         /// <param name="newText">Text To Append</param>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static void AppendText(ProdWindow prodwindow, string automationId, string newText)
         {
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);
@@ -198,7 +266,7 @@ namespace ProdUI.Controls.Static
         /// <param name="controlHandle">The control to be worked with</param>
         /// <param name="newText">Text to append to TextBox value</param>
         /// <param name="insertIndex">Zero based index of string to insert text into</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static void InsertText(IntPtr controlHandle, string newText, int insertIndex)
         {
             if (GetReadOnly(controlHandle))
@@ -211,8 +279,22 @@ namespace ProdUI.Controls.Static
             //{
             //    return;
             //}
-
+            try
+            {
             NativeTextProds.InsertTextNative(controlHandle, newText, insertIndex);
+                            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
@@ -222,6 +304,7 @@ namespace ProdUI.Controls.Static
         /// <param name="automationId">The automation id.</param>
         /// <param name="newText">Text to append to TextBox value</param>
         /// <param name="insertIndex">Zero based index of string to insert text into</param>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static void InsertText(ProdWindow prodwindow, string automationId, string newText, int insertIndex)
         {
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);
