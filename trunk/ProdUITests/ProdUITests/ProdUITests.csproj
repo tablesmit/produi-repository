@@ -71,21 +71,14 @@
     <Compile Include="Controls\ProdCheckBoxTests.cs" />
     <Compile Include="Controls\ProdComboBoxTests.cs" />
     <None Include="Controls\ProdDataGridTests.cs" />
-    <None Include="Controls\ProdDocumentTests.cs" />
     <Compile Include="Controls\ProdEditTests.cs" />
     <Compile Include="Controls\ProdListTests.cs" />
-    <None Include="Controls\ProdMenuItemTests.cs" />
     <Compile Include="Controls\ProdRadioButtonTests.cs" />
     <Compile Include="Controls\ProdSliderTests.cs" />
-    <Compile Include="Controls\ProdTreeViewTests.cs" />
     <Compile Include="Controls\ProdWindowTests.cs" />
-    <Compile Include="PatternHelpers\ValuePatternHelperTest.cs" />
-    <Compile Include="PatternHelpers\WindowPatternHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\ProdSpinnerTests.cs" />
-    <Compile Include="Controls\StaticProdsTests.cs" />
     <Compile Include="Controls\TabControlTests.cs" />
-    <Compile Include="UtilityFunctions.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -109,7 +102,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="PatternHelpers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -4,13 +4,14 @@ using ProdUI.Controls.Static;
 using ProdUI.Controls.Windows;
 using ProdUI.Logging;
 
-namespace WPFSampleDriver
+namespace FormsSampleDriver
 {
-    internal class Program
+    class Program
     {
-        const string WIN_TITLE = "WPF Test Form";
 
-        private static void Main(string[] args)
+        const string WIN_TITLE = "WinForms Sample";
+
+        static void Main(string[] args)
         {
             SimpleProdExample();
         }
@@ -36,14 +37,14 @@ namespace WPFSampleDriver
                 ProdWindow window = new ProdWindow(WIN_TITLE);
 
                 /* here's the control we want to Prod */
-                ProdCheckBox chk1 = new ProdCheckBox(window, "testCheckBoxA");
+                ProdCheckBox chk1 = new ProdCheckBox(window, "checkBox1");
 
                 /* We'll monkey with the slider control */
-                ProdSlider slider = new ProdSlider(window, "sliderTest");
+                ProdSlider slider = new ProdSlider(window, "trackBarTest");
                 slider.SetValue(3);
 
                 /* here, we use a static Prod to directly set the ToggleState */
-                Prod.SetCheckState(window, "testCheckBoxB", ToggleState.On);
+                Prod.SetCheckState(window, "checkBox2", ToggleState.On);
 
                 /* and switch tabs */
                 ProdTab tabB = new ProdTab(window, "tabControl1");
@@ -53,7 +54,7 @@ namespace WPFSampleDriver
                 chk1.SetCheckState(ToggleState.On);
 
                 /* This will break, because the static checkbox can't be referenced, since its not onscreen */
-                //Prod.SetCheckState(window, "testCheckBoxC", ToggleState.Off);
+                //Prod.SetCheckState(window, "checkBox3", ToggleState.Off);
             }
             catch (ProdUI.Exceptions.ProdOperationException e)
             {

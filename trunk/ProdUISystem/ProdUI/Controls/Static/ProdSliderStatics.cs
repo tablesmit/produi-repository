@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Automation;
 using ProdUI.Controls.Windows;
+using ProdUI.Exceptions;
 using ProdUI.Interaction.Bridge;
 using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
@@ -16,16 +17,32 @@ namespace ProdUI.Controls.Static
         /// </summary>
         /// <param name="controlHandle">NativeWindowHandle to the target control</param>
         /// <param name="value">The value to set the slider to.</param>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         /// <remarks>
         /// Invalid for WPF controls
         /// </remarks>
         public static void SliderSetValue(IntPtr controlHandle, double value)
         {
-            AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
-            StaticEvents.RegisterEvent(RangeValuePattern.ValueProperty, control);
+            try
+            {
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
+                StaticEvents.RegisterEvent(RangeValuePattern.ValueProperty, control);
 
-            RangeValuePatternHelper.SetValue(control, value);
-            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
+                RangeValuePatternHelper.SetValue(control, value);
+                LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
+            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
@@ -34,6 +51,7 @@ namespace ProdUI.Controls.Static
         /// <param name="prodwindow">The containing ProdWindow.</param>
         /// <param name="automationId">The automation id (or caption)</param>
         /// <param name="value">The value to set the slider to.</param>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         /// <remarks>
         /// This is the WPF version
         /// </remarks>
@@ -50,22 +68,38 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// Value of the control
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         /// <remarks>
         /// Invalid for WPF controls
         /// </remarks>
         public static double SliderGetValue(IntPtr controlHandle)
         {
-            AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
-            StaticEvents.RegisterEvent(RangeValuePattern.ValueProperty, control);
-            double retVal = RangeValuePatternHelper.GetValue(control);
-
-            if (retVal == -1)
+            try
             {
-                ProdSliderNative.GetValueNative(controlHandle);
-            }
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
+                StaticEvents.RegisterEvent(RangeValuePattern.ValueProperty, control);
+                double retVal = RangeValuePatternHelper.GetValue(control);
 
-            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name + " Value: " + retVal));
-            return retVal;
+                if (retVal == -1)
+                {
+                    ProdSliderNative.GetValueNative(controlHandle);
+                }
+
+                LogController.ReceiveLogMessage(new LogMessage(control.Current.Name + " Value: " + retVal));
+                return retVal;
+            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
@@ -76,6 +110,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// Value of the control
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         /// <remarks>
         /// This is the WPF version
         /// </remarks>
@@ -92,13 +127,29 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// The large-change value or null if the element does not support LargeChange
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static double SliderGetLargeChange(IntPtr controlHandle)
         {
-            AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
+            try
+            {
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
 
-            double retVal = RangeValuePatternHelper.GetLargeChange(control);
-            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name + " Value: " + retVal));
-            return retVal;
+                double retVal = RangeValuePatternHelper.GetLargeChange(control);
+                LogController.ReceiveLogMessage(new LogMessage(control.Current.Name + " Value: " + retVal));
+                return retVal;
+            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
@@ -109,6 +160,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// The large-change value or null if the element does not support LargeChange
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static double SliderGetLargeChange(ProdWindow prodwindow, string automationId)
         {
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);
@@ -122,14 +174,30 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// The small-change value or null if the element does not support SmallChange
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static double SliderGetSmallChange(IntPtr controlHandle)
         {
-            AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
-            double retVal = RangeValuePatternHelper.GetSmallChange(control);
+            try
+            {
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
+                double retVal = RangeValuePatternHelper.GetSmallChange(control);
 
-            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name + " Value: " + retVal));
+                LogController.ReceiveLogMessage(new LogMessage(control.Current.Name + " Value: " + retVal));
 
-            return retVal;
+                return retVal;
+            }
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
@@ -140,6 +208,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// The small-change value or null if the element does not support SmallChange
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static double SliderGetSmallChange(ProdWindow prodwindow, string automationId)
         {
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);
@@ -153,19 +222,35 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// The maximum value supported by the UI Automation element or null if the element does not support Maximum
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static double SliderGetMaxValue(IntPtr controlHandle)
         {
-            AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
-            double retVal = RangeValuePatternHelper.GetMaximum(control);
-
-            if (retVal == -1)
+            try
             {
-                ProdSliderNative.GetMaximumNative(controlHandle);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
+                double retVal = RangeValuePatternHelper.GetMaximum(control);
+
+                if (retVal == -1)
+                {
+                    ProdSliderNative.GetMaximumNative(controlHandle);
+                }
+
+                LogController.ReceiveLogMessage(new LogMessage(control.Current.Name + " Value: " + retVal));
+
+                return retVal;
             }
-
-            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name + " Value: " + retVal));
-
-            return retVal;
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
@@ -176,6 +261,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// The maximum value supported by the UI Automation element or null if the element does not support Maximum
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static double SliderGetMaxValue(ProdWindow prodwindow, string automationId)
         {
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);
@@ -189,19 +275,35 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// The minimum value supported by the UI Automation element or null if the element does not support Minimum
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static double SliderGetMinValue(IntPtr controlHandle)
         {
-            AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
-            double retVal = RangeValuePatternHelper.GetMinimum(control);
-
-            if (retVal == -1)
+            try
             {
-                ProdSliderNative.GetMinimumNative(controlHandle);
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(RangeValuePattern.Pattern, controlHandle);
+                double retVal = RangeValuePatternHelper.GetMinimum(control);
+
+                if (retVal == -1)
+                {
+                    ProdSliderNative.GetMinimumNative(controlHandle);
+                }
+
+                LogController.ReceiveLogMessage(new LogMessage(control.Current.Name + " Value: " + retVal));
+
+                return retVal;
             }
-
-            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name + " Value: " + retVal));
-
-            return retVal;
+            catch (InvalidOperationException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
@@ -212,6 +314,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// The minimum value supported by the UI Automation element or null if the element does not support Minimum
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static double SliderGetMinValue(ProdWindow prodwindow, string automationId)
         {
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);

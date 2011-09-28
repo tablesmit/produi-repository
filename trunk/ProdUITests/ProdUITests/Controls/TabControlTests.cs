@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows.Automation;
 using NUnit.Framework;
-using ProdUI.AutomationPatterns;
-using ProdUI.Controls;
-using ProdUI.Session;
-using ProdUI.Utility;
-using System.Diagnostics;
+using ProdUI.Controls.Windows;
 
 namespace ProdUITests
 {
@@ -15,14 +12,12 @@ namespace ProdUITests
     {
         const string WIN_TITLE = "WPF Test Form";
         const int NUM_OF_TABS = 3;
-        private static ProdSession session;
         private static ProdWindow window;
 
         [SetUp]
         public static void Init()
         {
-            session = new ProdSession("test.ses");
-            window = new ProdWindow(WIN_TITLE, session.Loggers);
+            window = new ProdWindow(WIN_TITLE);
         }
 
         [Test]
@@ -71,7 +66,7 @@ namespace ProdUITests
             ProdTab tabs = new ProdTab(window, "tabControl1");
             tabs.SelectTab(itemText);
             
-            /* the function to select the tab is not case-sensative, so the test isn't either */
+            /* the function to select the tab is not case-sensitive, so the test isn't either */
             int result = string.Compare(tabs.SelectedTab().Current.Name, itemText, true);
             Assert.That(result == 0);
         }
@@ -92,7 +87,7 @@ namespace ProdUITests
             tabs.SelectTab(itemText);
             AutomationElement tab = tabs.SelectedTab();
 
-            /* the function to select the tab is not case-sensative, so the test isn't either */
+            /* the function to select the tab is not case-sensitive, so the test isn't either */
             int result = string.Compare(tab.Current.Name,itemText,true);
             Assert.That(result == 0);
         }
@@ -104,7 +99,7 @@ namespace ProdUITests
             tabs.SelectTab(index);
 
             Thread.Sleep(2000);
-            Assert.That(tabs.eventTriggered);
+            Assert.That(tabs.EventVerified);
         }
     }
 }

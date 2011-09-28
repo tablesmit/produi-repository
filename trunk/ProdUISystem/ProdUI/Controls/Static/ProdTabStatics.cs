@@ -21,7 +21,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// list containing all items
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static List<object> TabsGet(IntPtr controlHandle)
         {
             try
@@ -33,11 +33,15 @@ namespace ProdUI.Controls.Static
             }
             catch (InvalidOperationException err)
             {
-                throw new ProdOperationException(err);
+                throw new ProdOperationException(err.Message, err);
             }
             catch (ElementNotAvailableException err)
             {
-                throw new ProdOperationException(err);
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
             }
         }
 
@@ -49,6 +53,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// list containing all items
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static List<object> TabsGet(ProdWindow prodwindow, string automationId)
         {
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);
@@ -63,7 +68,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         ///   <c>true</c> if the specified index is selected; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        ///<exception cref="ProdOperationException">Examine inner exception</exception>
         public static bool TabIsSelected(IntPtr controlHandle, int index)
         {
             bool ret;
@@ -79,11 +84,15 @@ namespace ProdUI.Controls.Static
             }
             catch (InvalidOperationException err)
             {
-                throw new ProdOperationException(err);
+                throw new ProdOperationException(err.Message, err);
             }
             catch (ElementNotAvailableException err)
             {
-                throw new ProdOperationException(err);
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
             }
         }
 
@@ -95,7 +104,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         ///   <c>true</c> if the specified item text is selected; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static bool TabIsSelected(IntPtr controlHandle, string itemText)
         {
             try
@@ -108,11 +117,15 @@ namespace ProdUI.Controls.Static
             }
             catch (InvalidOperationException err)
             {
-                throw new ProdOperationException(err);
+                throw new ProdOperationException(err.Message, err);
             }
             catch (ElementNotAvailableException err)
             {
-                throw new ProdOperationException(err);
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
             }
         }
 
@@ -125,6 +138,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         ///   <c>true</c> if the specified index is selected; otherwise, <c>false</c>.
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static bool TabIsSelected(ProdWindow prodwindow, string automationId, int index)
         {
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);
@@ -140,6 +154,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         ///   <c>true</c> if the specified item text is selected; otherwise, <c>false</c>.
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static bool TabIsSelected(ProdWindow prodwindow, string automationId, string itemText)
         {
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);
@@ -153,7 +168,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// The number of tabs in a TabControl
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static int TabGetCount(IntPtr controlHandle)
         {
             try
@@ -170,11 +185,15 @@ namespace ProdUI.Controls.Static
             }
             catch (InvalidOperationException err)
             {
-                throw new ProdOperationException(err);
+                throw new ProdOperationException(err.Message, err);
             }
             catch (ElementNotAvailableException err)
             {
-                throw new ProdOperationException(err);
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
             }
         }
 
@@ -186,6 +205,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// The number of tabs contained in a TabControl
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static int TabGetCount(ProdWindow prodwindow, string automationId)
         {
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);
@@ -199,7 +219,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// Selected TabItem
         /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static AutomationElement TabGetSelected(IntPtr controlHandle)
         {
             try
@@ -211,11 +231,15 @@ namespace ProdUI.Controls.Static
             }
             catch (InvalidOperationException err)
             {
-                throw new ProdOperationException(err);
+                throw new ProdOperationException(err.Message, err);
             }
             catch (ElementNotAvailableException err)
             {
-                throw new ProdOperationException(err);
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
             }
         }
 
@@ -227,6 +251,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// Selected TabItem
         /// </returns>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static object TabGetSelected(ProdWindow prodwindow, string automationId)
         {
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);
@@ -238,7 +263,7 @@ namespace ProdUI.Controls.Static
         /// </summary>
         /// <param name="controlHandle">The target controls handle.</param>
         /// <param name="index">The zero based index of the TabItem</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void TabSelect(IntPtr controlHandle, int index)
         {
@@ -261,6 +286,14 @@ namespace ProdUI.Controls.Static
                 /* Call native function */
                 ProdTabNative.SetSelectedTab(controlHandle, index);
             }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
+            }
         }
 
         /// <summary>
@@ -268,7 +301,7 @@ namespace ProdUI.Controls.Static
         /// </summary>
         /// <param name="controlHandle">The target controls handle.</param>
         /// <param name="itemText">The TabItem text</param>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void TabSelect(IntPtr controlHandle, string itemText)
         {
@@ -283,11 +316,15 @@ namespace ProdUI.Controls.Static
             }
             catch (InvalidOperationException err)
             {
-                throw new ProdOperationException(err);
+                throw new ProdOperationException(err.Message, err);
             }
             catch (ElementNotAvailableException err)
             {
-                throw new ProdOperationException(err);
+                throw new ProdOperationException(err.Message, err);
+            }
+            catch (ArgumentException err)
+            {
+                throw new ProdOperationException(err.Message, err);
             }
         }
 
@@ -297,6 +334,7 @@ namespace ProdUI.Controls.Static
         /// <param name="prodwindow">The containing ProdWindow.</param>
         /// <param name="automationId">The automation id (or caption).</param>
         /// <param name="index">The zero based index of the TabItem</param>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void TabSelect(ProdWindow prodwindow, string automationId, int index)
         {
@@ -310,6 +348,7 @@ namespace ProdUI.Controls.Static
         /// <param name="prodwindow">The containing ProdWindow.</param>
         /// <param name="automationId">The automation id (or caption).</param>
         /// <param name="itemText">The TabItem text</param>
+        /// <exception cref="ProdOperationException">Examine inner exception</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static void TabSelect(ProdWindow prodwindow, string automationId, string itemText)
         {

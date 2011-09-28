@@ -4,6 +4,7 @@ using System.Windows.Automation;
 using NUnit.Framework;
 using ProdUI.Utility;
 using ProdUI.Controls.Windows;
+using ProdUI.Interaction.UIAPatterns;
 
 namespace ProdUITests
 {
@@ -67,7 +68,7 @@ namespace ProdUITests
         public void CanSelectMultipleOnSingle()
         {
             ProdList list = new ProdList(window, "listBoxSingleTest");
-            bool retVal = list.CanSelectMultiple();
+            bool retVal = list.CanSelectMutiple();
 
             Assert.That(!retVal);
         }
@@ -83,9 +84,7 @@ namespace ProdUITests
             ProdList list = new ProdList(window, "listBoxSingleTest");
             list.SetSelectedItem(itemText);
 
-            AutomationElement[] retVal = SelectionPatternHelper.GetSelection(list.ThisElement);
-
-            Assert.That(retVal[0].Current.Name, Is.EqualTo(itemText));
+            Assert.That(list.GetSelectedItem(), Is.EqualTo(itemText));
         }
 
         [Test, Description("Single Select")]
