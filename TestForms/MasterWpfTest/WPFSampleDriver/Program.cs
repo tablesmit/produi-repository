@@ -6,18 +6,17 @@ using ProdUI.Logging;
 
 namespace WPFSampleDriver
 {
-    class Program
+    internal class Program
     {
-
         const string WIN_TITLE = "WPF Test Form";
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             SimpleProdNoSession();
         }
 
         /// <summary>
-        /// Demonstrates creting a simple Prod using a blank session (no config file)
+        /// Demonstrates creating a simple Prod using a blank session (no config file)
         /// It also shows how to create and add an external ProdLogger as well as how a static Prod can be used
         /// to set a checkbox's value.
         /// </summary>
@@ -25,7 +24,6 @@ namespace WPFSampleDriver
         {
             try
             {
-
                 /* Create the logger and add it */
                 ProdLogger def = new ProdLogger(new DebugLogger(), LoggingLevels.Prod, "LogTime,Message Level,Calling Function,Message Text", "T");
                 LogController.AddActiveLogger(def);
@@ -42,9 +40,10 @@ namespace WPFSampleDriver
 
                 /* toggle state */
                 chk1.SetCheckState(ToggleState.On);
+                ProdSlider slider = new ProdSlider(window, "sliderTest");
+                slider.SetValue(3);
 
                 /* here, we use a static Prod to directly set the ToggleState */
-                /* All you really need to create is an empty session and get the parent window */
                 Prod.SetCheckState(window, "testCheckBoxB", ToggleState.On);
             }
             catch (ProdUI.Exceptions.ProdOperationException e)
@@ -53,9 +52,5 @@ namespace WPFSampleDriver
                 Debug.WriteLine(">>>>>>>" + e.InnerException.Message + "<<<<<<<<");
             }
         }
-
-
-
-
     }
 }
