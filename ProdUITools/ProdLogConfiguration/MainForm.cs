@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using ProdSessionConfiguration.Properties;
 using ProdUI.Logging;
-using ProdUI.Session;
 
 
 namespace ProdSessionConfiguration
@@ -25,7 +24,7 @@ namespace ProdSessionConfiguration
         private const string FILE_SAVED = @"File Saved";
 
         /* ProdSession Values */
-        private ProdSessionConfig _configuration;
+        private LoggingConfiguration _configuration;
         private string _currentFilename = string.Empty;
         private int _currentLoglevel;
         private int _currentVerbose;
@@ -96,7 +95,7 @@ namespace ProdSessionConfiguration
         {
             /* check for unsaved changes */
             if (!_isDirty) return;
-            DialogResult res = MessageBox.Show(@"Config file still has unsaved changes. Save Now?", @"Unsaved Changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+            DialogResult res = MessageBox.Show(@"Configuration file still has unsaved changes. Save Now?", @"Unsaved Changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
 
             if (res == DialogResult.Cancel)
             {
@@ -131,6 +130,7 @@ namespace ProdSessionConfiguration
             {
                 TblOutput.Controls.Add(_labels[i], i, 0);
                 TblOutput.Controls[i].Visible = true;
+                TblOutput.Controls[i].BringToFront();
                 i++;
             }
         }
@@ -146,8 +146,10 @@ namespace ProdSessionConfiguration
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void TsNewSession_Click(object sender, EventArgs e)
         {
+            TsSaveAs_Click(null, null);
             ResetUI();
-            ResetFileDefaults();
+            SetLoggerPanelState(true);
+            CmdAddLogger.Text = @"Add";
         }
 
         /// <summary>
@@ -180,7 +182,7 @@ namespace ProdSessionConfiguration
             CmdAddLogger.Enabled = true;
             TsSaveAs.Enabled = true;
             TsSave.Enabled = true;
-
+            PnlLoadedLoggers.Enabled = true;
             /* we're not dirty..we just loaded a new file in...really!  */
             SetFormClean();
             AddMru(ofd.FileName);
@@ -198,17 +200,17 @@ namespace ProdSessionConfiguration
                 return;
             }
 
-            if (!VerifyBeforeSave())
-            {
-                return;
-            }
+            if (!VerifyValidLogger()) return;
 
             if (_inLogEdit)
-                CmdRemoveLogger_Click(null, null);
+            {
+                RemoveLogger(true);
+                _configuration = SendUIToFile();
+            }
 
-            SaveConfig(_currentFilename, true);
+            SaveConfig(_currentFilename, false);
             SetFormSaved();
-            DisableLoggerPanel();
+            SetLoggerPanelState(false);
         }
 
         /// <summary>
@@ -220,10 +222,9 @@ namespace ProdSessionConfiguration
         {
             SaveFileDialog sfd = new SaveFileDialog
             {
-                Title = @"Save session as...",
+                Title = @"Save file as...",
                 ValidateNames = true,
-                FileName = TxtName.Text,
-                DefaultExt = "xml",
+                DefaultExt = "ses",
                 AddExtension = true,
                 Filter = @"Session configuration files (*.ses)|*.ses"
             };
@@ -238,15 +239,9 @@ namespace ProdSessionConfiguration
                 return;
             }
 
-            if (!VerifyBeforeSave())
-            {
-                return;
-            }
-
-
             _currentFilename = sfd.FileName;
             SaveConfig(_currentFilename, true);
-            TsSave.Enabled = true;
+            //TsSave.Enabled = true;
             Text += @" - " + Path.GetFileNameWithoutExtension(_currentFilename);
             SetFormSaved();
         }
@@ -259,7 +254,7 @@ namespace ProdSessionConfiguration
             string mruFilename = ((ToolStripItem)sender).Text;
             LoadConfig(mruFilename);
 
-            /* clear the ui and load the new file */
+            /* clear the UI and load the new file */
             ResetUI();
             ConfigFileOpen(mruFilename);
             //LoadLoggersIntoList();
@@ -267,7 +262,7 @@ namespace ProdSessionConfiguration
             CmdAddLogger.Enabled = true;
             TsSaveAs.Enabled = true;
             TsSave.Enabled = true;
-
+            PnlLoadedLoggers.Enabled = true;
             SetFormClean();
         }
 
@@ -287,32 +282,6 @@ namespace ProdSessionConfiguration
 
         /* Session Values panel */
 
-        /// <summary>Handles the ValueChanged event of the NumTimeout control.</summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void NumTimeout_ValueChanged(object sender, EventArgs e)
-        {
-            _isDirty = true;
-            TsStatusLabel.Text = SESSION_DIRTY;
-        }
-
-        /// <summary>Handles the TextChanged event of the TxtName control.</summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void TxtName_TextChanged(object sender, EventArgs e)
-        {
-            _isDirty = true;
-            TsStatusLabel.Text = SESSION_DIRTY;
-        }
-
-        /// <summary>Handles the Click event of the CtxNewGuid control to provide a new Guid for the ID</summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void CtxNewGuid_Click(object sender, EventArgs e)
-        {
-            TxtId.Text = Guid.NewGuid().ToString("N", CultureInfo.CurrentCulture);
-        }
-
         /// <summary>
         /// Handles the TextChanged event of the TxtLoggerName control.
         /// </summary>
@@ -320,6 +289,7 @@ namespace ProdSessionConfiguration
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void TxtLoggerName_TextChanged(object sender, EventArgs e)
         {
+            CmdAddLogger.Enabled = TxtLoggerName.Text.Length > 0 && TxtDllPath.Text.Length > 0;
             SetFormDirty();
         }
 
@@ -333,11 +303,14 @@ namespace ProdSessionConfiguration
 
             if (CmdAddLogger.Text == @"Add")
             {
-                EditLogger();
+                if (_inLogEdit) 
+                    EditLogger();
+                else
+                    AddLogger();
             }
             else
             {
-                AddLogger();
+                NewLogger();
             }
 
         }
@@ -350,7 +323,7 @@ namespace ProdSessionConfiguration
             if (CmdEditLogger.Text != Resources.CmdEdit_Caption) return;
             _inLogEdit = true;
             PnlLogOptions.Enabled = true;
-            CmdAddLogger.Enabled = false;
+
             CmdEditLogger.Text = Resources.CmdEdit_Caption_Cancel;
             return;
         }
@@ -360,7 +333,7 @@ namespace ProdSessionConfiguration
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void CmdRemoveLogger_Click(object sender, EventArgs e)
         {
-            RemoveLogger();
+            RemoveLogger(true);
         }
 
 
@@ -377,6 +350,7 @@ namespace ProdSessionConfiguration
             {
                 ofd.InitialDirectory = TxtDllPath.Tag.ToString();
                 ofd.FileName = TxtDllPath.Text;
+                ofd.RestoreDirectory = true;
             }
             if (ofd.ShowDialog() == DialogResult.Cancel)
             {
@@ -415,7 +389,7 @@ namespace ProdSessionConfiguration
                 return;
             }
 
-            SetCurrentLoggersUI();
+            SetSelectedLoggerUI();
 
             if (LstLoggers.SelectedIndex == -1) return;
             CmdEditLogger.Enabled = true;
@@ -425,10 +399,14 @@ namespace ProdSessionConfiguration
 
         /* Logging verbosity box */
 
-        /// <summary>Keeps track of the Verbosities radio buttons.</summary>
+        /// <summary>
+        /// Keeps track of the Verbosities radio buttons.
+        /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        /// <remarks>Handles the Verbosity buttons CheckedChange Event</remarks>
+        /// <remarks>
+        /// Handles the Verbosity buttons CheckedChange Event
+        /// </remarks>
         private void Verbosity_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton rdo = (RadioButton)sender;
@@ -439,10 +417,14 @@ namespace ProdSessionConfiguration
 
         /* Log Entry Format Box */
 
-        /// <summary>Handles the ItemCheck event of the LstLogEntry control.</summary>
+        /// <summary>
+        /// Handles the ItemCheck event of the LstLogEntry control.
+        /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.Windows.Forms.ItemCheckEventArgs"/> instance containing the event data.</param>
-        /// <remarks>unchecking an item will remove that from the output string, checking adds it</remarks>
+        /// <remarks>
+        /// un-checking an item will remove that from the output string, checking adds it
+        /// </remarks>
         private void LstLogEntry_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             object tst = LstLogEntry.SelectedItem;
@@ -472,10 +454,14 @@ namespace ProdSessionConfiguration
             SetFormDirty();
         }
 
-        /// <summary>Handles the Click event of the CmdMoveUp control.</summary>
+        /// <summary>
+        /// Handles the Click event of the CmdMoveUp control.
+        /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        /// <remarks>Handles order and placement of output log string item</remarks>
+        /// <remarks>
+        /// Handles order and placement of output log string item
+        /// </remarks>
         private void CmdMoveUp_Click(object sender, EventArgs e)
         {
             int newInd = LstLogEntry.SelectedIndex;
@@ -494,10 +480,15 @@ namespace ProdSessionConfiguration
             SetFormDirty();
         }
 
-        /// <summary>Handles the Click event of the CmdMoveDown control.</summary>
+        /// <summary>
+        /// Handles the Click event of the CmdMoveDown control.
+        /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        /// /// <remarks>Handles order and placement of output log string item</remarks>
+        /// ///
+        /// <remarks>
+        /// Handles order and placement of output log string item
+        /// </remarks>
         private void CmdMoveDown_Click(object sender, EventArgs e)
         {
             int newInd = LstLogEntry.SelectedIndex;
@@ -513,7 +504,9 @@ namespace ProdSessionConfiguration
             SetFormDirty();
         }
 
-        /// <summary>Handles the TextChanged event of the TxtDateFormat control.</summary>
+        /// <summary>
+        /// Handles the TextChanged event of the TxtDateFormat control.
+        /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         /// <remarks>
@@ -541,10 +534,10 @@ namespace ProdSessionConfiguration
         /* Logging Level Box */
 
         /// <summary>
-        ///   Handles the Click event of the CmdDefault control, setting logging to its default level
+        /// Handles the Click event of the CmdDefault control, setting logging to its default level
         /// </summary>
-        /// <param name = "sender">The source of the event.</param>
-        /// <param name = "e">The <see cref = "System.EventArgs" /> instance containing the event data.</param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void CmdDefault_Click(object sender, EventArgs e)
         {
             ChkErrors.Checked = true;
@@ -568,12 +561,12 @@ namespace ProdSessionConfiguration
         }
 
         /// <summary>
-        ///   Keeps track of the LogLevel CheckBoxes
+        /// Keeps track of the LogLevel CheckBoxes
         /// </summary>
-        /// <param name = "sender">The sender.</param>
-        /// <param name = "e">The <see cref = "System.EventArgs" /> instance containing the event data.</param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         /// <remarks>
-        ///   FHandles the LogLevel checkboxes CheckedChange Event
+        /// FHandles the LogLevel checkboxes CheckedChange Event
         /// </remarks>
         private void LevelCheckedChanged(object sender, EventArgs e)
         {
@@ -602,7 +595,9 @@ namespace ProdSessionConfiguration
 
         #region Config file save functions
 
-        /// <summary>Saves the configuration to the current filename.</summary>
+        /// <summary>
+        /// Saves the configuration to the current filename.
+        /// </summary>
         /// <param name="configFile">The config file.</param>
         /// <param name="loadUI">if set to <c>true</c> load ui elements into configuration, otherwise, dont add anything to config.</param>
         private void SaveConfig(string configFile, bool loadUI)
@@ -617,9 +612,9 @@ namespace ProdSessionConfiguration
 
             try
             {
-                /* serialixe to config file */
+                /* serialize to config file */
                 fs = new FileStream(configFile, FileMode.Create);
-                XmlSerializer serializer = new XmlSerializer(typeof(ProdSessionConfig));
+                XmlSerializer serializer = new XmlSerializer(typeof(LoggingConfiguration));
                 serializer.Serialize(fs, _configuration);
 
                 SetFormClean();
@@ -636,44 +631,25 @@ namespace ProdSessionConfiguration
         }
 
         /// <summary>
-        ///   Verifies that the options will generate a valid session before save.
+        /// Loads the UI into a ProdSessionConfig object for serialization.
         /// </summary>
-        /// <returns></returns>
-        private bool VerifyBeforeSave()
-        {
-            if (TxtId.Text.Length == 0)
-            {
-                MessageBox.Show(@"No Id provided", @"Cannot save config", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (TxtName.Text.Length == 0)
-            {
-                MessageBox.Show(@"No session name provided", @"Cannot save config", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        ///   Loads the UI into a ProdSessionConfig object for serialization.
-        /// </summary>
-        /// <returns>a ProdSessionConfig object</returns>
-        private ProdSessionConfig SendUIToFile()
+        /// <returns>
+        /// a ProdSessionConfig object
+        /// </returns>
+        private LoggingConfiguration SendUIToFile()
         {
             if (_configuration == null)
             {
-                _configuration = new ProdSessionConfig { Loggers = new List<SessionLoggerConfig>() };
+                _configuration = new LoggingConfiguration { LoggerParameters = new List<ProdLoggerParameters>() };
             }
 
-            _configuration.SessionId = TxtId.Text;
-            _configuration.SessionName = TxtName.Text;
-            _configuration.EventTimeout = (int)NumTimeout.Value;
             GetCurrentLoggersUI();
             return _configuration;
         }
 
-        /// <summary>Gets the current logger stats from the UI.</summary>
+        /// <summary>
+        /// Gets the current logger stats from the UI.
+        /// </summary>
         private void GetCurrentLoggersUI()
         {
 
@@ -682,24 +658,32 @@ namespace ProdSessionConfiguration
                 return;
             }
 
+            if (_configuration == null)
+                _configuration = new LoggingConfiguration();
 
-            SessionLoggerConfig cfg = new SessionLoggerConfig();
-            _configuration.Loggers.Add(cfg);
-            int index = _configuration.Loggers.Count - 1;
+            ProdLoggerParameters cfg = new ProdLoggerParameters();
+            _configuration.LoggerParameters.Add(cfg);
 
-            _configuration.Loggers[index].LogFormat = GetCurrentLoggersOutputFormat();
-            _configuration.Loggers[index].LogDateFormat = TxtDateFormat.Text;
-            _configuration.Loggers[index].AssemblyPath = TxtDllPath.Text;
-            _configuration.Loggers[index].LoggerName = TxtLoggerName.Text;
-            _configuration.Loggers[index].LoggerType = Path.GetFileNameWithoutExtension(TxtDllPath.Text);
-            _configuration.Loggers[index].LogLevel = _currentLoglevel;
-            _configuration.Loggers[index].Verbosity = _currentVerbose;
+            int index = _configuration.LoggerParameters.Count - 1;
+
+            _configuration.LoggerParameters[index].LogFormat = GetCurrentLoggersOutputFormat();
+            _configuration.LoggerParameters[index].LogDateFormat = TxtDateFormat.Text;
+            _configuration.LoggerParameters[index].AssemblyPath = TxtDllPath.Text;
+            _configuration.LoggerParameters[index].LoggerName = TxtLoggerName.Text;
+            _configuration.LoggerParameters[index].LoggerType = Path.GetFileNameWithoutExtension(TxtDllPath.Text);
+            _configuration.LoggerParameters[index].LogLevel = _currentLoglevel;
+            _configuration.LoggerParameters[index].Verbosity = _currentVerbose;
 
             LstLoggers.Items.Add(TxtLoggerName.Text);
+
         }
 
-        /// <summary>Verifies that the logger math and name TextBoxes contain values.</summary>
-        /// <returns><c>true</c> if valid. <c>false</c> otherwise</returns>
+        /// <summary>
+        /// Verifies that the logger math and name TextBoxes contain values.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if valid. <c>false</c> otherwise
+        /// </returns>
         private bool VerifyValidLogger()
         {
             if (TxtDllPath.Text.Length == 0)
@@ -715,7 +699,9 @@ namespace ProdSessionConfiguration
             return true;
         }
 
-        /// <summary>Gets the log output format from the UI and prepares it into a comma delimited string.</summary>
+        /// <summary>
+        /// Gets the log output format from the UI and prepares it into a comma delimited string.
+        /// </summary>
         /// <returns></returns>
         private string GetCurrentLoggersOutputFormat()
         {
@@ -742,7 +728,12 @@ namespace ProdSessionConfiguration
             LoadConfig(filename);
             _currentFilename = filename;
             LoadFileIntoUI(_configuration);
-            SetLoadedLoggersUI();
+
+            foreach (ProdLoggerParameters item in _configuration.LoggerParameters)
+            {
+                LstLoggers.Items.Add(item.LoggerName);
+            }
+
             Text += @" - " + Path.GetFileNameWithoutExtension(_currentFilename);
             TsStatusLabel.Text = @"Loaded Config: " + Path.GetFileName(_currentFilename);
         }
@@ -754,13 +745,13 @@ namespace ProdSessionConfiguration
         private void LoadConfig(string configFile)
         {
             FileStream fs = null;
-            _configuration = new ProdSessionConfig { Loggers = new List<SessionLoggerConfig>() };
+            _configuration = new LoggingConfiguration { LoggerParameters = new List<ProdLoggerParameters>() };
 
             try
             {
                 fs = new FileStream(configFile, FileMode.Open);
-                XmlSerializer serializer = new XmlSerializer(typeof(ProdSessionConfig));
-                _configuration = (ProdSessionConfig)serializer.Deserialize(fs);
+                XmlSerializer serializer = new XmlSerializer(typeof(LoggingConfiguration));
+                _configuration = (LoggingConfiguration)serializer.Deserialize(fs);
             }
             catch (Exception err)
             {
@@ -779,12 +770,9 @@ namespace ProdSessionConfiguration
         /// Handles loading the ProdSessionConfig into the UI.
         /// </summary>
         /// <param name="configuration">The configuration.</param>
-        private void LoadFileIntoUI(ProdSessionConfig configuration)
+        private void LoadFileIntoUI(LoggingConfiguration configuration)
         {
             PnlLayout.Enabled = true;
-            TxtId.Text = configuration.SessionId;
-            TxtName.Text = configuration.SessionName;
-            NumTimeout.Value = configuration.EventTimeout;
         }
 
         /// <summary>
@@ -812,7 +800,6 @@ namespace ProdSessionConfiguration
             TsRecentFiles.DropDownItems.Add(filepath, null, MruItem_Click);
         }
 
-
         /* Loading a logger */
 
         /// <summary>
@@ -820,7 +807,7 @@ namespace ProdSessionConfiguration
         /// </summary>
         private void LoadLogEntryFormat()
         {
-            string fmt = _configuration.Loggers[LstLoggers.SelectedIndex].LogFormat;
+            string fmt = _configuration.LoggerParameters[LstLoggers.SelectedIndex].LogFormat;
             List<string> logFormats = new List<string>(fmt.Split(new[] { ',' }));
 
             LstLogEntry.ClearSelected();
@@ -831,7 +818,7 @@ namespace ProdSessionConfiguration
         }
 
         /// <summary>
-        /// Loads the checked log entry items intoi the listbox from the xml file.
+        /// Loads the checked log entry items into the listbox from the xml file.
         /// </summary>
         /// <param name="outputFormat">The output format.</param>
         private void LoadLogEntryItems(ICollection<string> outputFormat)
@@ -904,55 +891,235 @@ namespace ProdSessionConfiguration
         //}
 
 
-
-
-
         #endregion
 
-        #region Logger Configuration Panel
+        #region Logger Manipulation
 
-        private void AddLogger()
+        /// <summary>
+        /// Sets UI Up for adding a new Logger
+        /// </summary>
+        private void NewLogger()
         {
-            //TryAddLogger();
-            if (_configuration == null)
+            if (_configuration != null)
             {
-                MessageBox.Show(@"The session needs to be saved before adding a logger");
-                TsSaveAs_Click(null, null);
+                //ResetLoggerOptions();
+                ResetUI();
+                PnlLogOptions.Enabled = true;
             }
-
-            ResetLoggerArea();
-            ResetLogEntryFormatArea();
-            PnlLogOptions.Enabled = true;
+            SetLoggerPanelState(true);
             CmdAddLogger.Text = @"Add";
         }
 
-        private void EditLogger()
+        /// <summary>
+        /// Adds a new logger to the configuration list.
+        /// </summary>
+        private void AddLogger()
         {
-            TsSave_Click(null, null);
-
-            /* lock logger UI and reset */
-            ResetLoggerArea();
-            ResetLogEntryFormatArea();
-            PnlLogOptions.Enabled = false;
-            _isDirty = false;
+            if (!VerifyValidLogger())
+            {
+                TsStatusLabel.Text = @"Error: Invalid Logger";
+                return;
+            }
+           // _configuration = SendUIToFile();
+            _isDirty = true;
+            SaveConfig(_currentFilename, true);
             /* Reset the text to indicate ability to add new logger */
-            CmdAddLogger.Text = @"New";
+            //SetLoggerPanelState(false);
+            
+            ResetUI();
+            PnlLoadedLoggers.Enabled = true;
+            PnlLogOptions.Enabled = true;
+            TsSave.Enabled = true;
+            CmdAddLogger.Enabled = true;
+
         }
 
-        private void RemoveLogger()
+        /// <summary>
+        /// Verifies and stores changes to an existing logger in the configuration list
+        /// </summary>
+        /// <remarks>
+        /// Operates in synch with item selected in ListBox
+        /// </remarks>
+        private void EditLogger()
+        {
+            /* lock logger UI and reset */
+            _configuration = SendUIToFile();
+            PnlLogOptions.Enabled = true;
+
+            //_isDirty = true;
+
+            /* Reset the text to indicate ability to add new logger */
+            //CmdAddLogger.Text = @"Add";
+           // TsStatusLabel.Text = @"Logger Added. Save file to commit";
+        }
+
+        /// <summary>
+        /// Removes the selected logger from the configuration list.
+        /// </summary>
+        private void RemoveLogger(bool deleteFromList)
         {
             if (LstLoggers.SelectedIndex == -1) return;
 
-            _configuration.Loggers.RemoveAt(LstLoggers.SelectedIndex);
+            _configuration.LoggerParameters.RemoveAt(LstLoggers.SelectedIndex);
+
+            if (!deleteFromList) return;
             LstLoggers.Items.RemoveAt(LstLoggers.SelectedIndex);
-            SaveConfig(_currentFilename, false);
-            TsStatusLabel.Text = @"Logger Removed. File Saved";
+            TsStatusLabel.Text = @"Logger Removed. Save file to commit";
 
             if (LstLoggers.Items.Count > 0)
             {
                 LstLoggers.SelectedIndex = 0;
             }
         }
+
+        /// <summary>
+        /// Fills any parameters needed by the selected logger into the ListView.
+        /// </summary>
+        /// <remarks>
+        /// Since each implementation of ILogger has the possibility of needing custom parameters to function
+        /// this will load them in
+        /// </remarks>
+        private void SetCustomLoggerParameters()
+        {
+            LvParams.Items.Clear();
+            if (_configuration.LoggerParameters[LstLoggers.SelectedIndex].Parameters == null) return;
+            foreach (ProdLoggerInputParameters item in _configuration.LoggerParameters[LstLoggers.SelectedIndex].Parameters)
+            {
+                ListViewItem it = new ListViewItem(item.ParamName);
+                it.SubItems.Add(item.ParamValue.ToString());
+                LvParams.Items.Add(it);
+            }
+
+        }
+
+        /// <summary>
+        /// Verifies that the logger assembly implements ILogTarget.
+        /// </summary>
+        /// <param name="filename">The file path to the logger dll to be added.</param>
+        /// <returns>
+        ///   <c>true</c> if this is a valid target. <c>false</c> otherwise
+        /// </returns>
+        private static bool VerifyValidLoggerAssembly(string filename)
+        {
+            Assembly logAsm = Assembly.LoadFile(filename);
+
+            foreach (Type item in logAsm.GetTypes())
+            {
+                /* Run through any interfaces this logger may implement..we want the ILogTarget */
+                Type[] iface = item.GetInterfaces();
+                if (iface.Length == 0)
+                {
+                    return false;
+                }
+
+
+                foreach (Type t in iface)
+                {
+                    if (iface[0] != typeof(ILogTarget)) continue;
+
+                    /* Create a temporary version of the logger to get any parameters */
+                    ILogTarget tempLogger = (ILogTarget)Activator.CreateInstance(item);
+                    /* Call the interface method to get info */
+                    tempLogger.CallParameterForm();
+
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        #endregion
+
+        #region UI Manipulations
+
+        /// <summary>
+        /// Sets the UI to reflect the currently selected logger
+        /// </summary>
+        private void SetSelectedLoggerUI()
+        {
+            LstLogEntry.Items.Clear();
+            LoadFileIntoUI(_configuration);
+            _currentVerbose = _configuration.LoggerParameters[LstLoggers.SelectedIndex].Verbosity;
+            SetLoggerVerbosityRadios();
+            SetLoggerLevelCheckBoxes(_configuration.LoggerParameters[LstLoggers.SelectedIndex].LogLevel);
+            TxtDateFormat.Text = _configuration.LoggerParameters[LstLoggers.SelectedIndex].LogDateFormat;
+            TxtLoggerName.Text = _configuration.LoggerParameters[LstLoggers.SelectedIndex].LoggerName;
+            TxtDllPath.Text = Path.GetFileName(_configuration.LoggerParameters[LstLoggers.SelectedIndex].AssemblyPath);
+            TxtDllPath.Tag = _configuration.LoggerParameters[LstLoggers.SelectedIndex].AssemblyPath;
+            _currentLoglevel = _configuration.LoggerParameters[LstLoggers.SelectedIndex].LogLevel;
+
+            LoadLogEntryFormat();
+            SetCustomLoggerParameters();
+        }
+
+        /// <summary>
+        /// Sets the log level checkboxes.
+        /// </summary>
+        /// <param name="loglevel">The LogLevel for a logger.</param>
+        private void SetLoggerLevelCheckBoxes(int loglevel)
+        {
+            /* set flag to inhibit CheckChanged events */
+            _loading = true;
+
+            /* Log Levels */
+            ChkErrors.Checked = (int.Parse(ChkErrors.Tag.ToString(), CultureInfo.CurrentCulture) | loglevel) == loglevel;
+            ChkInfo.Checked = (int.Parse(ChkInfo.Tag.ToString(), CultureInfo.CurrentCulture) | loglevel) == loglevel;
+            ChkProd.Checked = (int.Parse(ChkProd.Tag.ToString(), CultureInfo.CurrentCulture) | loglevel) == loglevel;
+            ChkWarn.Checked = (int.Parse(ChkWarn.Tag.ToString(), CultureInfo.CurrentCulture) | loglevel) == loglevel;
+            _loading = false;
+        }
+
+        /// <summary>
+        /// Sets the verbosity radios based on the loaded config file values.
+        /// </summary>
+        private void SetLoggerVerbosityRadios()
+        {
+            if (int.Parse(RdoMinimum.Tag.ToString(), CultureInfo.CurrentCulture) == _currentVerbose)
+            {
+                RdoMinimum.Checked = true;
+                return;
+            }
+            RdoMaximum.Checked = true;
+        }
+
+
+        /// <summary>
+        /// Resets the UI to its default state.
+        /// </summary>
+        private void ResetUI()
+        {
+            /* reset check boxes */
+            SetDefaultLoggerOptions();
+            InitializeLogEntryLabels();
+
+            TblOutput.Left = (PnlLogOptions.ClientSize.Width - TblOutput.Width) / 2;
+            SetFormClean();
+
+            CmdAddLogger.Text = @"New";            
+        }
+
+        /// <summary>
+        /// Sets the default logger options.
+        /// </summary>
+        private void SetDefaultLoggerOptions()
+        {
+            TxtDateFormat.Text = @"T";
+            TxtLoggerName.Text = string.Empty;
+            TxtDllPath.Text = string.Empty;
+            ChkErrors.Checked = true;
+            ChkInfo.Checked = true;
+            ChkProd.Checked = true;
+            ChkWarn.Checked = false;
+        }
+
+        private void SetLoggerPanelState(bool setEnabled)
+        {
+            PnlLoadedLoggers.Enabled = setEnabled;
+            PnlLogOptions.Enabled = setEnabled;
+        }
+
+
+        /* runtime UI tracking */
 
         /// <summary>
         /// Sets the order log entry list items as they are moved up and down in the listbox.
@@ -992,176 +1159,9 @@ namespace ProdSessionConfiguration
             return labelIndex;
         }
 
-        /// <summary>
-        /// Sets the UI to reflect the currently selected logger
-        /// </summary>
-        private void SetCurrentLoggersUI()
-        {
-            LstLogEntry.Items.Clear();
-            LoadFileIntoUI(_configuration);
-            _currentVerbose = _configuration.Loggers[LstLoggers.SelectedIndex].Verbosity;
-            SetLoggerVerbosityUI();
-            SetLoggerLevelsUI(_configuration.Loggers[LstLoggers.SelectedIndex].LogLevel);
-            TxtDateFormat.Text = _configuration.Loggers[LstLoggers.SelectedIndex].LogDateFormat;
-            TxtLoggerName.Text = _configuration.Loggers[LstLoggers.SelectedIndex].LoggerName;
-            TxtDllPath.Text = Path.GetFileName(_configuration.Loggers[LstLoggers.SelectedIndex].AssemblyPath);
-            TxtDllPath.Tag = _configuration.Loggers[LstLoggers.SelectedIndex].AssemblyPath;
-            _currentLoglevel = _configuration.Loggers[LstLoggers.SelectedIndex].LogLevel;
-
-            LoadLogEntryFormat();
-            SetCustomLoggerParameters();
-        }
-
-        /// <summary>
-        /// Sets the output string labels to thier default order and state.
-        /// </summary>
-        private void ResetLogEntryFormatArea()
-        {
-            if (LstLogEntry.Items.Count == 0)
-            {
-                LstLogEntry.Items.Add("LogTime", true);
-                LstLogEntry.Items.Add("Message Level", true);
-                LstLogEntry.Items.Add("Calling Function", true);
-                LstLogEntry.Items.Add("Message Text", true);
-            }
-
-            InitializeLogEntryLabels();
-
-            TblOutput.Left = (PnlLogOptions.ClientSize.Width - TblOutput.Width) / 2;
-        }
-
-        /// <summary>
-        /// Resets the just the logger config area.
-        /// </summary>
-        private void ResetLoggerArea()
-        {
-            TxtDateFormat.Text = @"T";
-            TxtLoggerName.Text = string.Empty;
-            TxtDllPath.Text = string.Empty;
-            ChkErrors.Checked = true;
-            ChkInfo.Checked = true;
-            ChkProd.Checked = true;
-            ChkWarn.Checked = false;
-
-            ResetLogEntryFormatArea();
-            DisableLoggerPanel();
-
-        }
-
-        /// <summary>
-        /// Disables the logger panel and resets the "Edit" button
-        /// </summary>
-        private void DisableLoggerPanel()
-        {
-            _inLogEdit = false;
-            CmdEditLogger.Text = Resources.CmdEdit_Caption;
-            CmdAddLogger.Enabled = true;
-            PnlLogOptions.Enabled = false;
-            SetFormClean();
-        }
-
-        /// <summary>
-        /// Verifies that the logger assembly implements ILogTarget.
-        /// </summary>
-        /// <param name="filename">The file path to the logger dll to be added.</param>
-        /// <returns>
-        ///   <c>true</c> if this is a valid target. <c>false</c> otherwise
-        /// </returns>
-        private static bool VerifyValidLoggerAssembly(string filename)
-        {
-            Assembly logAsm = Assembly.LoadFile(filename);
-
-            foreach (Type item in logAsm.GetTypes())
-            {
-                /* Run through any interfaces this logger may implement..we want the ILogTarget */
-                Type[] iface = item.GetInterfaces();
-                if (iface.Length == 0)
-                {
-                    return false;
-                }
 
 
-                foreach (Type t in iface)
-                {
-                    if (iface[0] != typeof(ILogTarget)) continue;
-
-                    /* Create a temporary version of the logger to get any parameters */
-                    ILogTarget tempLogger = (ILogTarget)Activator.CreateInstance(item);
-                    /* Call the interface method to get info */
-                    tempLogger.CallParameterForm();
-
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Fills any parameters needed by the selected logger into the ListView.
-        /// </summary>
-        /// <remarks>
-        /// Since each implementation of ILogger has the possibility of needing custom parameters to function
-        /// this will load them in
-        /// </remarks>
-        private void SetCustomLoggerParameters()
-        {
-            LvParams.Items.Clear();
-            if (_configuration.Loggers[LstLoggers.SelectedIndex].Parameters == null) return;
-            foreach (LoggerParameters item in _configuration.Loggers[LstLoggers.SelectedIndex].Parameters)
-            {
-                ListViewItem it = new ListViewItem(item.ParamName);
-                it.SubItems.Add(item.ParamValue.ToString());
-                LvParams.Items.Add(it);
-            }
-
-        }
-
-        /// <summary>
-        /// Sets the loaded loggers names into the ListBox.
-        /// </summary>
-        private void SetLoadedLoggersUI()
-        {
-            foreach (SessionLoggerConfig item in _configuration.Loggers)
-            {
-                LstLoggers.Items.Add(item.LoggerName);
-            }
-        }
-
-        /// <summary>
-        /// Sets the log level checkboxes based on the loaded config file values.
-        /// </summary>
-        /// <param name="loglevel">The loglevel.</param>
-        private void SetLoggerLevelsUI(int loglevel)
-        {
-            /* set flag to inhibit CheckChanged events */
-            _loading = true;
-
-            /* Log Levels */
-            ChkErrors.Checked = (int.Parse(ChkErrors.Tag.ToString(), CultureInfo.CurrentCulture) | loglevel) == loglevel;
-            ChkInfo.Checked = (int.Parse(ChkInfo.Tag.ToString(), CultureInfo.CurrentCulture) | loglevel) == loglevel;
-            ChkProd.Checked = (int.Parse(ChkProd.Tag.ToString(), CultureInfo.CurrentCulture) | loglevel) == loglevel;
-            ChkWarn.Checked = (int.Parse(ChkWarn.Tag.ToString(), CultureInfo.CurrentCulture) | loglevel) == loglevel;
-            _loading = false;
-        }
-
-        /// <summary>
-        /// Sets the verbosity radios based on the loaded config file values.
-        /// </summary>
-        private void SetLoggerVerbosityUI()
-        {
-            if (int.Parse(RdoMinimum.Tag.ToString(), CultureInfo.CurrentCulture) == _currentVerbose)
-            {
-                RdoMinimum.Checked = true;
-                return;
-            }
-            RdoMaximum.Checked = true;
-        }
-
-
-        #endregion
-
-
-        /* runtime UI tracking */
+        /* UI state */
 
         /// <summary>
         /// Sets the form after a successful file save
@@ -1183,7 +1183,7 @@ namespace ProdSessionConfiguration
         {
             if (!PnlLogOptions.Enabled) return;
             _isDirty = true;
-            TsStatusLabel.Text = @"Session config changed";
+            TsStatusLabel.Text = @"Logger configuration changed. Save file to commit changes";
         }
 
         /// <summary>
@@ -1197,50 +1197,65 @@ namespace ProdSessionConfiguration
         }
 
 
-        /* Resetting the UI */
+        ///// <summary>
+        ///// Sets the output string labels to their default order and state.
+        ///// </summary>
+        //private void SetDefaultLogEntryFormatArea()
+        //{
+        //    if (LstLogEntry.Items.Count == 0)
+        //    {
+        //        LstLogEntry.Items.Add("LogTime", true);
+        //        LstLogEntry.Items.Add("Message Level", true);
+        //        LstLogEntry.Items.Add("Calling Function", true);
+        //        LstLogEntry.Items.Add("Message Text", true);
+        //    }
 
-        /// <summary>
-        /// Resets the UI for a fresh start.
-        /// </summary>
-        private void ResetUI()
-        {
-            GrpLogger.Enabled = true;
-            PnlSessionValues.Enabled = true;
-            TsSave.Enabled = false;
+        //    InitializeLogEntryLabels();
 
-            InitializeFormatExample();
-            InitializeLogEntryLabels();
-            ResetLoggerArea();
-            ResetFileDefaults();
+        //    TblOutput.Left = (PnlLogOptions.ClientSize.Width - TblOutput.Width) / 2;
+        //}
 
-            TxtId.Text = string.Empty;
-            TxtName.Text = string.Empty;
-            LstLoggers.Items.Clear();
-            _currentFilename = string.Empty;
 
-            SetFormClean();
-        }
+        ///// <summary>
+        ///// Resets the UI for a fresh start.
+        ///// </summary>
+        //private void ResetUI()
+        //{
+        //    //GrpLogger.Enabled = true;
+        //    TsSave.Enabled = false;
 
-        /// <summary>
-        /// Sets the defaults for the creation of a new file.
-        /// </summary>
-        private void ResetFileDefaults()
-        {
-            string id = Guid.NewGuid().ToString("N", CultureInfo.CurrentCulture);
-            TxtId.Text = id;
-            TxtName.Text = id;
+        //    InitializeFormatExample();
+        //    InitializeLogEntryLabels();
+        //    ResetLoggerOptions();
+        //    ResetFileDefaults();
 
-            _currentFilename = string.Empty;
+        //    LstLoggers.Items.Clear();
+        //    _currentFilename = string.Empty;
 
-            TsStatusLabel.Text = @"New File";
-            PnlLogOptions.Enabled = false;
-            TsSaveAs.Enabled = true;
-            CmdAddLogger.Enabled = true;
+        //    SetFormClean();
+        //}
 
-            CmdDefault_Click(null, null);
-            RdoMinimum.Checked = true;
-            _currentVerbose = 1;
-        }
+        ///// <summary>
+        ///// Sets the defaults for the creation of a new file.
+        ///// </summary>
+        //private void ResetFileDefaults()
+        //{
+        //    _currentFilename = string.Empty;
+
+        //    TsStatusLabel.Text = @"New File";
+        //    PnlLogOptions.Enabled = false;
+        //    TsSaveAs.Enabled = true;
+        //    CmdAddLogger.Enabled = true;
+
+        //    CmdDefault_Click(null, null);
+        //    RdoMinimum.Checked = true;
+        //    _currentVerbose = 1;
+        //}
+
+
+        #endregion
+
+
 
     }
 }

@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.TxtName = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.NumTimeout = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
             this.ChkErrors = new System.Windows.Forms.CheckBox();
             this.ChkWarn = new System.Windows.Forms.CheckBox();
             this.ChkInfo = new System.Windows.Forms.CheckBox();
@@ -54,8 +50,6 @@
             this.RdoMinimum = new System.Windows.Forms.RadioButton();
             this.RdoMaximum = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.TxtId = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.CmdMoveUp = new System.Windows.Forms.Button();
             this.TxtLoggerName = new System.Windows.Forms.TextBox();
@@ -66,12 +60,9 @@
             this.LstLogEntry = new System.Windows.Forms.CheckedListBox();
             this.LstLoggers = new System.Windows.Forms.ListBox();
             this.CmdBrowse = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.TsStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.PnlLayout = new System.Windows.Forms.Panel();
-            this.PnlSessionValues = new System.Windows.Forms.Panel();
-            this.GrpLogger = new System.Windows.Forms.GroupBox();
             this.CmdEditLogger = new System.Windows.Forms.Button();
             this.CmdRemoveLogger = new System.Windows.Forms.Button();
             this.PnlLogOptions = new System.Windows.Forms.Panel();
@@ -90,74 +81,16 @@
             this.LblMethodExample = new System.Windows.Forms.Label();
             this.LblTypeExample = new System.Windows.Forms.Label();
             this.LblTimeExample = new System.Windows.Forms.Label();
-            this.CtxId = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.CtxNewGuid = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.NumTimeout)).BeginInit();
+            this.PnlLoadedLoggers = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.PnlLayout.SuspendLayout();
-            this.PnlSessionValues.SuspendLayout();
-            this.GrpLogger.SuspendLayout();
             this.PnlLogOptions.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.CtxId.SuspendLayout();
+            this.PnlLoadedLoggers.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // TxtName
-            // 
-            this.TxtName.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.TxtName.Location = new System.Drawing.Point(90, 41);
-            this.TxtName.Name = "TxtName";
-            this.TxtName.Size = new System.Drawing.Size(234, 20);
-            this.TxtName.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.TxtName, "A \"Friendly\" name for this session");
-            this.TxtName.TextChanged += new System.EventHandler(this.TxtName_TextChanged);
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 44);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Session Name";
-            // 
-            // NumTimeout
-            // 
-            this.NumTimeout.Location = new System.Drawing.Point(131, 24);
-            this.NumTimeout.Maximum = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            this.NumTimeout.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.NumTimeout.Name = "NumTimeout";
-            this.NumTimeout.Size = new System.Drawing.Size(50, 20);
-            this.NumTimeout.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.NumTimeout, "The length of time (in seconds) to wait for verification");
-            this.NumTimeout.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.NumTimeout.ValueChanged += new System.EventHandler(this.NumTimeout_ValueChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 26);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(102, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Event Timeout (sec)";
             // 
             // ChkErrors
             // 
@@ -220,7 +153,7 @@
             this.groupBox1.Controls.Add(this.ChkProd);
             this.groupBox1.Controls.Add(this.ChkErrors);
             this.groupBox1.Controls.Add(this.ChkWarn);
-            this.groupBox1.Location = new System.Drawing.Point(431, 69);
+            this.groupBox1.Location = new System.Drawing.Point(502, 69);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(199, 135);
             this.groupBox1.TabIndex = 8;
@@ -255,7 +188,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(936, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(907, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -279,14 +212,14 @@
             // 
             this.TsNewSession.Name = "TsNewSession";
             this.TsNewSession.Size = new System.Drawing.Size(152, 22);
-            this.TsNewSession.Text = "New";
+            this.TsNewSession.Text = "New File";
             this.TsNewSession.Click += new System.EventHandler(this.TsNewSession_Click);
             // 
             // TsOpen
             // 
             this.TsOpen.Name = "TsOpen";
             this.TsOpen.Size = new System.Drawing.Size(152, 22);
-            this.TsOpen.Text = "Open";
+            this.TsOpen.Text = "Open file";
             this.TsOpen.Click += new System.EventHandler(this.TsOpen_Click);
             // 
             // toolStripMenuItem2
@@ -365,34 +298,13 @@
             this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox3.Controls.Add(this.RdoMinimum);
             this.groupBox3.Controls.Add(this.RdoMaximum);
-            this.groupBox3.Location = new System.Drawing.Point(53, 69);
+            this.groupBox3.Location = new System.Drawing.Point(71, 69);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(136, 135);
             this.groupBox3.TabIndex = 17;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Logging Verbosity";
             this.toolTip1.SetToolTip(this.groupBox3, "Set the amount of information to be logged");
-            // 
-            // TxtId
-            // 
-            this.TxtId.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.TxtId.ContextMenuStrip = this.CtxId;
-            this.TxtId.Location = new System.Drawing.Point(90, 6);
-            this.TxtId.Name = "TxtId";
-            this.TxtId.Size = new System.Drawing.Size(234, 20);
-            this.TxtId.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.TxtId, "Identifier for this session");
-            this.TxtId.TextChanged += new System.EventHandler(this.TxtName_TextChanged);
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 13);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "Session Id";
             // 
             // CmdMoveUp
             // 
@@ -407,7 +319,7 @@
             // 
             // TxtLoggerName
             // 
-            this.TxtLoggerName.Location = new System.Drawing.Point(210, 10);
+            this.TxtLoggerName.Location = new System.Drawing.Point(238, 10);
             this.TxtLoggerName.Name = "TxtLoggerName";
             this.TxtLoggerName.Size = new System.Drawing.Size(212, 20);
             this.TxtLoggerName.TabIndex = 0;
@@ -417,7 +329,7 @@
             // TxtDllPath
             // 
             this.TxtDllPath.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtDllPath.Location = new System.Drawing.Point(210, 35);
+            this.TxtDllPath.Location = new System.Drawing.Point(237, 35);
             this.TxtDllPath.Name = "TxtDllPath";
             this.TxtDllPath.ReadOnly = true;
             this.TxtDllPath.Size = new System.Drawing.Size(212, 20);
@@ -428,7 +340,7 @@
             // CmdAddLogger
             // 
             this.CmdAddLogger.Enabled = false;
-            this.CmdAddLogger.Location = new System.Drawing.Point(14, 203);
+            this.CmdAddLogger.Location = new System.Drawing.Point(10, 208);
             this.CmdAddLogger.Name = "CmdAddLogger";
             this.CmdAddLogger.Size = new System.Drawing.Size(68, 23);
             this.CmdAddLogger.TabIndex = 1;
@@ -474,16 +386,16 @@
             // LstLoggers
             // 
             this.LstLoggers.FormattingEnabled = true;
-            this.LstLoggers.Location = new System.Drawing.Point(14, 50);
+            this.LstLoggers.Location = new System.Drawing.Point(11, 28);
             this.LstLoggers.Name = "LstLoggers";
-            this.LstLoggers.Size = new System.Drawing.Size(156, 147);
+            this.LstLoggers.Size = new System.Drawing.Size(156, 173);
             this.LstLoggers.TabIndex = 0;
             this.toolTip1.SetToolTip(this.LstLoggers, "A list of all loggers associated with this session");
             this.LstLoggers.SelectedIndexChanged += new System.EventHandler(this.LstLoggers_SelectedIndexChanged);
             // 
             // CmdBrowse
             // 
-            this.CmdBrowse.Location = new System.Drawing.Point(428, 34);
+            this.CmdBrowse.Location = new System.Drawing.Point(455, 34);
             this.CmdBrowse.Name = "CmdBrowse";
             this.CmdBrowse.Size = new System.Drawing.Size(75, 23);
             this.CmdBrowse.TabIndex = 31;
@@ -492,25 +404,13 @@
             this.CmdBrowse.UseVisualStyleBackColor = true;
             this.CmdBrowse.Click += new System.EventHandler(this.CmdBrowse_Click);
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.groupBox4.Controls.Add(this.NumTimeout);
-            this.groupBox4.Controls.Add(this.label2);
-            this.groupBox4.Location = new System.Drawing.Point(107, 81);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 59);
-            this.groupBox4.TabIndex = 20;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Verification Options";
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TsStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 627);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 412);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(936, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(907, 22);
             this.statusStrip1.TabIndex = 21;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -521,51 +421,22 @@
             // 
             // PnlLayout
             // 
-            this.PnlLayout.Controls.Add(this.PnlSessionValues);
-            this.PnlLayout.Controls.Add(this.GrpLogger);
-            this.PnlLayout.Controls.Add(this.LblMessageExample);
-            this.PnlLayout.Controls.Add(this.LblMethodExample);
+            this.PnlLayout.Controls.Add(this.PnlLoadedLoggers);
+            this.PnlLayout.Controls.Add(this.PnlLogOptions);
             this.PnlLayout.Controls.Add(this.LblTypeExample);
             this.PnlLayout.Controls.Add(this.LblTimeExample);
+            this.PnlLayout.Controls.Add(this.LblMethodExample);
+            this.PnlLayout.Controls.Add(this.LblMessageExample);
             this.PnlLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PnlLayout.Location = new System.Drawing.Point(0, 24);
             this.PnlLayout.Name = "PnlLayout";
-            this.PnlLayout.Size = new System.Drawing.Size(936, 603);
+            this.PnlLayout.Size = new System.Drawing.Size(907, 388);
             this.PnlLayout.TabIndex = 22;
-            // 
-            // PnlSessionValues
-            // 
-            this.PnlSessionValues.Controls.Add(this.label3);
-            this.PnlSessionValues.Controls.Add(this.label1);
-            this.PnlSessionValues.Controls.Add(this.groupBox4);
-            this.PnlSessionValues.Controls.Add(this.TxtName);
-            this.PnlSessionValues.Controls.Add(this.TxtId);
-            this.PnlSessionValues.Enabled = false;
-            this.PnlSessionValues.Location = new System.Drawing.Point(302, 13);
-            this.PnlSessionValues.Name = "PnlSessionValues";
-            this.PnlSessionValues.Size = new System.Drawing.Size(333, 181);
-            this.PnlSessionValues.TabIndex = 28;
-            // 
-            // GrpLogger
-            // 
-            this.GrpLogger.Controls.Add(this.CmdEditLogger);
-            this.GrpLogger.Controls.Add(this.CmdRemoveLogger);
-            this.GrpLogger.Controls.Add(this.CmdAddLogger);
-            this.GrpLogger.Controls.Add(this.PnlLogOptions);
-            this.GrpLogger.Controls.Add(this.LstLoggers);
-            this.GrpLogger.Controls.Add(this.label8);
-            this.GrpLogger.Enabled = false;
-            this.GrpLogger.Location = new System.Drawing.Point(46, 200);
-            this.GrpLogger.Name = "GrpLogger";
-            this.GrpLogger.Size = new System.Drawing.Size(844, 389);
-            this.GrpLogger.TabIndex = 27;
-            this.GrpLogger.TabStop = false;
-            this.GrpLogger.Text = "Session Logger Configuration";
             // 
             // CmdEditLogger
             // 
             this.CmdEditLogger.Enabled = false;
-            this.CmdEditLogger.Location = new System.Drawing.Point(102, 203);
+            this.CmdEditLogger.Location = new System.Drawing.Point(98, 208);
             this.CmdEditLogger.Name = "CmdEditLogger";
             this.CmdEditLogger.Size = new System.Drawing.Size(68, 23);
             this.CmdEditLogger.TabIndex = 27;
@@ -576,7 +447,7 @@
             // CmdRemoveLogger
             // 
             this.CmdRemoveLogger.Enabled = false;
-            this.CmdRemoveLogger.Location = new System.Drawing.Point(58, 228);
+            this.CmdRemoveLogger.Location = new System.Drawing.Point(55, 233);
             this.CmdRemoveLogger.Name = "CmdRemoveLogger";
             this.CmdRemoveLogger.Size = new System.Drawing.Size(68, 23);
             this.CmdRemoveLogger.TabIndex = 26;
@@ -599,15 +470,15 @@
             this.PnlLogOptions.Controls.Add(this.groupBox1);
             this.PnlLogOptions.Controls.Add(this.groupBox2);
             this.PnlLogOptions.Enabled = false;
-            this.PnlLogOptions.Location = new System.Drawing.Point(195, 12);
+            this.PnlLogOptions.Location = new System.Drawing.Point(196, 3);
             this.PnlLogOptions.Name = "PnlLogOptions";
-            this.PnlLogOptions.Size = new System.Drawing.Size(633, 371);
+            this.PnlLogOptions.Size = new System.Drawing.Size(704, 383);
             this.PnlLogOptions.TabIndex = 22;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(124, 256);
+            this.label7.Location = new System.Drawing.Point(162, 256);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(96, 13);
             this.label7.TabIndex = 32;
@@ -618,7 +489,7 @@
             this.LvParams.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ClnName,
             this.ClnValue});
-            this.LvParams.Location = new System.Drawing.Point(127, 270);
+            this.LvParams.Location = new System.Drawing.Point(160, 270);
             this.LvParams.Name = "LvParams";
             this.LvParams.Size = new System.Drawing.Size(384, 97);
             this.LvParams.TabIndex = 28;
@@ -638,7 +509,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(142, 38);
+            this.label5.Location = new System.Drawing.Point(169, 38);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 13);
             this.label5.TabIndex = 30;
@@ -647,7 +518,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(172, 13);
+            this.label4.Location = new System.Drawing.Point(200, 13);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 13);
             this.label4.TabIndex = 28;
@@ -663,7 +534,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(278, 216);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(314, 216);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -680,7 +551,7 @@
             this.TblOutput.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.TblOutput.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.TblOutput.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.TblOutput.Location = new System.Drawing.Point(278, 216);
+            this.TblOutput.Location = new System.Drawing.Point(314, 216);
             this.TblOutput.Name = "TblOutput";
             this.TblOutput.RowCount = 1;
             this.TblOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -695,7 +566,7 @@
             this.groupBox2.Controls.Add(this.CmdMoveUp);
             this.groupBox2.Controls.Add(this.CmdMoveDown);
             this.groupBox2.Controls.Add(this.LstLogEntry);
-            this.groupBox2.Location = new System.Drawing.Point(217, 62);
+            this.groupBox2.Location = new System.Drawing.Point(253, 62);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(199, 142);
             this.groupBox2.TabIndex = 21;
@@ -714,7 +585,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(50, 34);
+            this.label8.Location = new System.Drawing.Point(47, 12);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(84, 13);
             this.label8.TabIndex = 24;
@@ -726,7 +597,7 @@
             this.LblMessageExample.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.LblMessageExample.AutoSize = true;
             this.LblMessageExample.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblMessageExample.Location = new System.Drawing.Point(757, 58);
+            this.LblMessageExample.Location = new System.Drawing.Point(202, 368);
             this.LblMessageExample.Name = "LblMessageExample";
             this.LblMessageExample.Size = new System.Drawing.Size(176, 18);
             this.LblMessageExample.TabIndex = 25;
@@ -740,7 +611,7 @@
             this.LblMethodExample.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.LblMethodExample.AutoSize = true;
             this.LblMethodExample.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblMethodExample.Location = new System.Drawing.Point(780, 76);
+            this.LblMethodExample.Location = new System.Drawing.Point(208, -18);
             this.LblMethodExample.Name = "LblMethodExample";
             this.LblMethodExample.Size = new System.Drawing.Size(120, 18);
             this.LblMethodExample.TabIndex = 24;
@@ -754,7 +625,7 @@
             this.LblTypeExample.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.LblTypeExample.AutoSize = true;
             this.LblTypeExample.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblTypeExample.Location = new System.Drawing.Point(815, 40);
+            this.LblTypeExample.Location = new System.Drawing.Point(800, 325);
             this.LblTypeExample.Name = "LblTypeExample";
             this.LblTypeExample.Size = new System.Drawing.Size(56, 18);
             this.LblTypeExample.TabIndex = 23;
@@ -768,7 +639,7 @@
             this.LblTimeExample.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.LblTimeExample.AutoSize = true;
             this.LblTimeExample.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblTimeExample.Location = new System.Drawing.Point(780, 19);
+            this.LblTimeExample.Location = new System.Drawing.Point(765, 304);
             this.LblTimeExample.Name = "LblTimeExample";
             this.LblTimeExample.Size = new System.Drawing.Size(120, 18);
             this.LblTimeExample.TabIndex = 22;
@@ -777,25 +648,24 @@
             this.LblTimeExample.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.LblTimeExample.Visible = false;
             // 
-            // CtxId
+            // PnlLoadedLoggers
             // 
-            this.CtxId.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.CtxNewGuid});
-            this.CtxId.Name = "CtxId";
-            this.CtxId.Size = new System.Drawing.Size(131, 26);
-            // 
-            // CtxNewGuid
-            // 
-            this.CtxNewGuid.Name = "CtxNewGuid";
-            this.CtxNewGuid.Size = new System.Drawing.Size(130, 22);
-            this.CtxNewGuid.Text = "New Guid";
-            this.CtxNewGuid.Click += new System.EventHandler(this.CtxNewGuid_Click);
+            this.PnlLoadedLoggers.Controls.Add(this.LstLoggers);
+            this.PnlLoadedLoggers.Controls.Add(this.CmdEditLogger);
+            this.PnlLoadedLoggers.Controls.Add(this.CmdAddLogger);
+            this.PnlLoadedLoggers.Controls.Add(this.CmdRemoveLogger);
+            this.PnlLoadedLoggers.Controls.Add(this.label8);
+            this.PnlLoadedLoggers.Enabled = false;
+            this.PnlLoadedLoggers.Location = new System.Drawing.Point(12, 3);
+            this.PnlLoadedLoggers.Name = "PnlLoadedLoggers";
+            this.PnlLoadedLoggers.Size = new System.Drawing.Size(178, 259);
+            this.PnlLoadedLoggers.TabIndex = 28;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(936, 649);
+            this.ClientSize = new System.Drawing.Size(907, 434);
             this.Controls.Add(this.PnlLayout);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -805,28 +675,22 @@
             this.Text = "ProdSession Configuration";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.NumTimeout)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.PnlLayout.ResumeLayout(false);
             this.PnlLayout.PerformLayout();
-            this.PnlSessionValues.ResumeLayout(false);
-            this.PnlSessionValues.PerformLayout();
-            this.GrpLogger.ResumeLayout(false);
-            this.GrpLogger.PerformLayout();
             this.PnlLogOptions.ResumeLayout(false);
             this.PnlLogOptions.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.CtxId.ResumeLayout(false);
+            this.PnlLoadedLoggers.ResumeLayout(false);
+            this.PnlLoadedLoggers.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -834,10 +698,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox TxtName;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown NumTimeout;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox ChkErrors;
         private System.Windows.Forms.CheckBox ChkWarn;
         private System.Windows.Forms.CheckBox ChkInfo;
@@ -855,10 +715,7 @@
         private System.Windows.Forms.RadioButton RdoMaximum;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ToolStripMenuItem TsNewSession;
-        private System.Windows.Forms.TextBox TxtId;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel TsStatusLabel;
         private System.Windows.Forms.Panel PnlLayout;
@@ -877,12 +734,10 @@
         private System.Windows.Forms.TableLayoutPanel TblOutput;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox TxtLoggerName;
-        private System.Windows.Forms.GroupBox GrpLogger;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox TxtDllPath;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox TxtDateFormat;
-        private System.Windows.Forms.Panel PnlSessionValues;
         private System.Windows.Forms.Button CmdBrowse;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button CmdRemoveLogger;
@@ -895,8 +750,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
-        private System.Windows.Forms.ContextMenuStrip CtxId;
-        private System.Windows.Forms.ToolStripMenuItem CtxNewGuid;
+        private System.Windows.Forms.Panel PnlLoadedLoggers;
     }
 }
 

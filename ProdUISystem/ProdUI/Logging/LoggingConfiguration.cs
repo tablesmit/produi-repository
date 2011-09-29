@@ -28,7 +28,7 @@ namespace ProdUI.Logging
         public List<ProdLoggerParameters> LoggerParameters { get; set; }
 
         [XmlIgnore]
-        public List<ProdLogger> LoadedLoggers { get; private set; }
+        public List<ProdLogger> LoggerParameters { get; set; }
 
         /// <summary>
         /// De-serializes the specified configuration file.

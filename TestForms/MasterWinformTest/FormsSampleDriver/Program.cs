@@ -30,7 +30,7 @@ namespace FormsSampleDriver
                 LogController.AddActiveLogger(def);
 
                 /* start the application and wait until it exists */
-                Process.Start("MasterWPFTest.exe");
+                Process.Start(@"..\..\..\MasterWinformTest\bin\Debug\MasterWinformTest.exe");
                 Prod.WinWaitExists(WIN_TITLE);
 
                 /* Get the parent window and add loggers */
