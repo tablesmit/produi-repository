@@ -126,22 +126,29 @@ namespace ProdUI.Utility
         /// <returns>the handle to the window, or zero pointer if not found</returns>
         internal static IntPtr FindWindowPartial(string thePartialTitle)
         {
-            WindowList = new Hashtable();
-            Process[] processes = Process.GetProcesses();
-            foreach (Process p in processes)
+            try
             {
-                if (p.MainWindowTitle.Contains(thePartialTitle))
+                WindowList = new Hashtable();
+                Process[] processes = Process.GetProcesses();
+                foreach (Process p in processes)
                 {
-                    return p.MainWindowHandle;
+                    if (p.MainWindowTitle.Contains(thePartialTitle))
+                    {
+                        return p.MainWindowHandle;
+                    }
                 }
-            }
 
-            if (NativeMethods.FindWindow(null, thePartialTitle) == IntPtr.Zero)
-            {
-                NativeMethods.EnumDesktopWindows(IntPtr.Zero, EnumWindowsProc, IntPtr.Zero);
-                return EnumerateExistingWindowsPartial(thePartialTitle);
+                if (NativeMethods.FindWindow(null, thePartialTitle) == IntPtr.Zero)
+                {
+                    NativeMethods.EnumDesktopWindows(IntPtr.Zero, EnumWindowsProc, IntPtr.Zero);
+                    return EnumerateExistingWindowsPartial(thePartialTitle);
+                }
+                return IntPtr.Zero;
             }
-            return IntPtr.Zero;
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         /// <summary>
