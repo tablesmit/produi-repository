@@ -6,11 +6,11 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ProdSessionConfiguration")]
-[assembly: AssemblyDescription("For ProdSession Configuration")]
+[assembly: AssemblyTitle("ProdLoggingConfiguration")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ProdUI")]
-[assembly: AssemblyProduct("ProdSessionConfiguration")]
+[assembly: AssemblyProduct("Prod UI")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

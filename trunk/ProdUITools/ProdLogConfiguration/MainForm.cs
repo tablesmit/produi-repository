@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using ProdSessionConfiguration.Properties;
+using ProdLoggingConfiguration.Properties;
 using ProdUI.Logging;
 
 
@@ -210,7 +210,8 @@ namespace ProdSessionConfiguration
 
             SaveConfig(_currentFilename, false);
             SetFormSaved();
-            SetLoggerPanelState(false);
+            PnlLoadedLoggers.Enabled = true;
+            PnlLogOptions.Enabled = false;
         }
 
         /// <summary>
@@ -301,15 +302,18 @@ namespace ProdSessionConfiguration
         private void CmdAddLogger_Click(object sender, EventArgs e)
         {
 
-            if (CmdAddLogger.Text == @"Add")
+            if (CmdAddLogger.Text == @"Edit")
             {
                 if (_inLogEdit) 
                     EditLogger();
-                else
-                    AddLogger();
+               // else
+               //     AddLogger();
+                    CmdEditLogger.Text = Resources.CmdEdit_Caption_Cancel;
             }
             else
             {
+                CmdEditLogger.Text = Resources.CmdEdit_Caption_Cancel;
+                CmdEditLogger.Enabled = true;
                 NewLogger();
             }
 
@@ -320,12 +324,20 @@ namespace ProdSessionConfiguration
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void CmdEditLogger_Click(object sender, EventArgs e)
         {
-            if (CmdEditLogger.Text != Resources.CmdEdit_Caption) return;
-            _inLogEdit = true;
-            PnlLogOptions.Enabled = true;
+            if (CmdEditLogger.Text == Resources.CmdEdit_Caption_Cancel)
+            {
+                ResetUI();
+                PnlLogOptions.Enabled = false;
+                CmdEditLogger.Text = Resources.CmdEdit_Caption;
+                CmdAddLogger.Enabled = true;
+                return;
+            }
 
+            _inLogEdit = true;
+            
+            PnlLogOptions.Enabled = true;
+            CmdAddLogger.Enabled = false;
             CmdEditLogger.Text = Resources.CmdEdit_Caption_Cancel;
-            return;
         }
 
         /// <summary>Handles the Click event of the CmdRemoveLog control.</summary>
@@ -435,6 +447,7 @@ namespace ProdSessionConfiguration
                 if ((string)tst == "LogTime")
                 {
                     LblTimeExample.Visible = e.NewValue == CheckState.Checked;
+                    LblTimeExample.BringToFront();
                 }
                 if ((string)tst == "Calling Function")
                 {
@@ -447,10 +460,11 @@ namespace ProdSessionConfiguration
                 if ((string)tst == "Message Text")
                 {
                     LblMessageExample.Visible = e.NewValue == CheckState.Checked;
+                    LblMessageExample.BringToFront();
                 }
             }
 
-            TblOutput.Left = (PnlLogOptions.ClientSize.Width - TblOutput.Width) / 2;
+            //TblOutput.Left = (PnlLogOptions.ClientSize.Width - TblOutput.Width) / 2;
             SetFormDirty();
         }
 
@@ -735,7 +749,15 @@ namespace ProdSessionConfiguration
             }
 
             Text += @" - " + Path.GetFileNameWithoutExtension(_currentFilename);
-            TsStatusLabel.Text = @"Loaded Config: " + Path.GetFileName(_currentFilename);
+            TsStatusLabel.Text = @"Loaded Configuration: " + Path.GetFileName(_currentFilename);
+
+            if (LstLoggers.Items.Count > 0)
+                LstLoggers.SelectedIndex = 0;
+            else
+            {
+                CmdEditLogger.Enabled = false;
+                CmdRemoveLogger.Enabled = false;
+            }
         }
 
         /// <summary>
@@ -905,9 +927,10 @@ namespace ProdSessionConfiguration
                 //ResetLoggerOptions();
                 ResetUI();
                 PnlLogOptions.Enabled = true;
+                CmdRemoveLogger.Enabled = false;
             }
             SetLoggerPanelState(true);
-            CmdAddLogger.Text = @"Add";
+            //CmdAddLogger.Text = @"Add";
         }
 
         /// <summary>
@@ -1091,11 +1114,11 @@ namespace ProdSessionConfiguration
             /* reset check boxes */
             SetDefaultLoggerOptions();
             InitializeLogEntryLabels();
-
+            TxtLoggerName.Text = string.Empty;
+            TxtDllPath.Text = string.Empty;
+            TxtDllPath.Tag = string.Empty;
             TblOutput.Left = (PnlLogOptions.ClientSize.Width - TblOutput.Width) / 2;
-            SetFormClean();
-
-            CmdAddLogger.Text = @"New";            
+            SetFormClean();        
         }
 
         /// <summary>
@@ -1124,7 +1147,7 @@ namespace ProdSessionConfiguration
         /// <summary>
         /// Sets the order log entry list items as they are moved up and down in the listbox.
         /// </summary>
-        private void SetLogEntryItemsOrder()
+        private void SetLogEntryItemsOrder()q
         {
             int labelIndex = 0;
             foreach (object itemChecked in LstLogEntry.CheckedItems)
