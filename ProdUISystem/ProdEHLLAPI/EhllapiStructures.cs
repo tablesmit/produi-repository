@@ -11,19 +11,19 @@ namespace ProdEhllapi
         internal enum EhllapiFunctionCode
         {
             /// <summary>
-            ///   1
+            /// 1
             /// </summary>
             ConnectPS = 1,
             /// <summary>
-            ///   2
+            /// 2
             /// </summary>
             DisconnectPS = 2,
             /// <summary>
-            ///   3
+            /// 3
             /// </summary>
             SendKey = 3,
             /// <summary>
-            ///   4
+            /// 4
             /// </summary>
             Wait = 4,
             /// <summary>

@@ -13,10 +13,12 @@ namespace ProdUI.Interaction.Native
     internal sealed class ProdListBoxNative
     {
         /// <summary>
-        ///     Uses SendMessage to get # of items in ListBox
+        /// Uses SendMessage to get # of items in ListBox
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to the control</param>
-        /// <returns>Number of items in the list box, -1 on fail</returns>
+        /// <param name="windowHandle">NativeWindowHandle to the control</param>
+        /// <returns>
+        /// Number of items in the list box, -1 on fail
+        /// </returns>
         internal static int GetItemCountNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
@@ -24,12 +26,14 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Uses SendMessage to get the number of selected items from a multi-select ListBox
+        /// Uses SendMessage to get the number of selected items from a multi-select ListBox
         /// </summary>
-        /// <param name = "windowHandle">handle to ListBox</param>
-        /// <returns>number of selected items, -1 on fail</returns>
+        /// <param name="windowHandle">handle to ListBox</param>
+        /// <returns>
+        /// number of selected items, -1 on fail
+        /// </returns>
         /// <remarks>
-        ///     This will FAIL on a single select
+        /// This will FAIL on a single select
         /// </remarks>
         internal static int GetSelectedItemCountNative(IntPtr windowHandle)
         {
@@ -38,10 +42,12 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Uses SendMessage to get a collection of all items in a ListBox
+        /// Uses SendMessage to get a collection of all items in a ListBox
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to ListBox</param>
-        /// <returns>A string collection containing each item in the ListBox</returns>
+        /// <param name="windowHandle">NativeWindowHandle to ListBox</param>
+        /// <returns>
+        /// A string collection containing each item in the ListBox
+        /// </returns>
         internal static List<object> GetItemsNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
@@ -50,10 +56,10 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Uses SendMessage to select an item in the ListBox, deselecting all other items
+        /// Uses SendMessage to select an item in the ListBox, deselecting all other items
         /// </summary>
-        /// <param name = "windowHandle">handle to ListBox</param>
-        /// <param name = "index">Zero based index of item to select</param>
+        /// <param name="windowHandle">handle to ListBox</param>
+        /// <param name="index">Zero based index of item to select</param>
         internal static void SelectItemNative(IntPtr windowHandle, int index)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
@@ -71,10 +77,10 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Uses SendMessage to select an item in the ListBox, deselecting all other items
+        /// Uses SendMessage to select an item in the ListBox, deselecting all other items
         /// </summary>
-        /// <param name = "windowHandle">handle to ListBox</param>
-        /// <param name = "itemText">string to search ListBox for. Case insensitive</param>
+        /// <param name="windowHandle">handle to ListBox</param>
+        /// <param name="itemText">string to search ListBox for. Case insensitive</param>
         internal static void SelectItemNative(IntPtr windowHandle, string itemText)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
@@ -86,10 +92,10 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Uses SendMessage to deselect an item in the ListBox
+        /// Uses SendMessage to deselect an item in the ListBox
         /// </summary>
-        /// <param name = "windowHandle">handle to ListBox</param>
-        /// <param name = "index">Zero based index of item to select</param>
+        /// <param name="windowHandle">handle to ListBox</param>
+        /// <param name="index">Zero based index of item to select</param>
         internal static void DeSelectItemNative(IntPtr windowHandle, int index)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
@@ -97,10 +103,10 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Uses SendMessage to deselect an item in the ListBox
+        /// Uses SendMessage to deselect an item in the ListBox
         /// </summary>
-        /// <param name = "windowHandle">handle to ListBox</param>
-        /// <param name = "itemText">string to search ListBox for. Case insensitive</param>
+        /// <param name="windowHandle">handle to ListBox</param>
+        /// <param name="itemText">string to search ListBox for. Case insensitive</param>
         internal static void DeSelectItemNative(IntPtr windowHandle, string itemText)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
@@ -110,10 +116,10 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Uses SendMessage to select an item in a multi-select ListBox without deselecting other items
+        /// Uses SendMessage to select an item in a multi-select ListBox without deselecting other items
         /// </summary>
-        /// <param name = "windowHandle">handle to ListBox</param>
-        /// <param name = "index">Zero based index of item to select</param>
+        /// <param name="windowHandle">handle to ListBox</param>
+        /// <param name="index">Zero based index of item to select</param>
         internal static void AddSelectedItemNative(IntPtr windowHandle, int index)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
@@ -121,10 +127,10 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Uses SendMessage to select an item in a multi-select ListBox without deselecting other items
+        /// Uses SendMessage to select an item in a multi-select ListBox without deselecting other items
         /// </summary>
-        /// <param name = "windowHandle">handle to ListBox</param>
-        /// <param name = "itemText">string to search ListBox for. Case insensitive</param>
+        /// <param name="windowHandle">handle to ListBox</param>
+        /// <param name="itemText">string to search ListBox for. Case insensitive</param>
         internal static void AddSelectedItemNative(IntPtr windowHandle, string itemText)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
@@ -133,6 +139,11 @@ namespace ProdUI.Interaction.Native
             NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBSETSEL, 1, stringIndex);
         }
 
+        /// <summary>
+        /// Gets the selected index.
+        /// </summary>
+        /// <param name="windowHandle">The window handle.</param>
+        /// <returns>the zero based index of the selected item</returns>
         internal static int GetSelectedIndexNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));

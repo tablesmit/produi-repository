@@ -7,7 +7,7 @@ namespace ProdEhllapi
     internal static class NativeMethods
     {
         /// <summary>
-        /// Generic native call to terminl emulator api
+        /// Generic native call to terminal emulator API
         /// </summary>
         /// <param name="func">Function Number.</param>
         /// <param name="QueryData">Varies with each function</param>
@@ -19,7 +19,7 @@ namespace ProdEhllapi
         internal static extern long hllapi(ref int func, ref char QueryData, ref int Len, ref int rc);
 
         /// <summary>
-        /// Generic native call to terminl emulator api
+        /// Generic native call to terminal emulator API
         /// </summary>
         /// <param name="func">Function Number.</param>
         /// <param name="QueryData">Varies with each function</param>
@@ -31,7 +31,7 @@ namespace ProdEhllapi
         internal static extern long hllapi(ref int func, ref string QueryData, ref int Len, ref int rc);
 
         /// <summary>
-        /// Generic native call to terminl emulator api
+        /// Generic native call to terminal emulator API
         /// </summary>
         /// <param name="func">Function Number.</param>
         /// <param name="QueryData">Varies with each function</param>

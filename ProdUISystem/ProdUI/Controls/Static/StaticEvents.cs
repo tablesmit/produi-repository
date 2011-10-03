@@ -11,10 +11,10 @@ namespace ProdUI.Controls.Static
         private static AutomationElement _control;
 
         /// <summary>
-        ///     Registers a method that handles UI Automation events
+        /// Registers a method that handles UI Automation events
         /// </summary>
-        /// <param name = "eventType">The specific event type to monitor</param>
-        /// <param name = "control">The control to monitor for events.</param>
+        /// <param name="eventType">The specific event type to monitor</param>
+        /// <param name="control">The control to monitor for events.</param>
         public static void RegisterEvent(AutomationEvent eventType, AutomationElement control)
         {
             _control = control;
@@ -31,10 +31,10 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Registers a method that will handle property-changed events
+        /// Registers a method that will handle property-changed events
         /// </summary>
-        /// <param name = "property">The automation property to monitor for a state change</param>
-        /// <param name = "control">The control to monitor for events.</param>
+        /// <param name="property">The automation property to monitor for a state change</param>
+        /// <param name="control">The control to monitor for events.</param>
         public static void RegisterEvent(AutomationProperty property, AutomationElement control)
         {
             _control = control;
@@ -43,10 +43,10 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Registers a method that handles UI Automation events inside containers
+        /// Registers a method that handles UI Automation events inside containers
         /// </summary>
-        /// <param name = "eventType">The specific event type to monitor</param>
-        /// <param name = "control">The control to monitor for events.</param>
+        /// <param name="eventType">The specific event type to monitor</param>
+        /// <param name="control">The control to monitor for events.</param>
         public static void SubscribeToChildNotification(AutomationEvent eventType, AutomationElement control)
         {
             _control = control;
@@ -56,10 +56,10 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Called when a subscribed automation event fires.
+        /// Called when a subscribed automation event fires.
         /// </summary>
-        /// <param name = "src">The source of the event.</param>
-        /// <param name = "e">The <see cref = "System.Windows.Automation.AutomationEventArgs" /> instance containing the event data.</param>
+        /// <param name="src">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Automation.AutomationEventArgs"/> instance containing the event data.</param>
         private static void OnAutomationEvent(object src, AutomationEventArgs e)
         {
             if (src == null)
@@ -81,10 +81,10 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Handler for property change events
+        /// Handler for property change events
         /// </summary>
-        /// <param name = "src">The source of the event.</param>
-        /// <param name = "e">The <see cref = "System.Windows.Automation.AutomationPropertyChangedEventArgs" /> instance containing the event data.</param>
+        /// <param name="src">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Automation.AutomationPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void OnPropertyChange(object src, AutomationPropertyChangedEventArgs e)
         {
             if (src == null)
@@ -101,7 +101,7 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Removes the calling AutomationEventHandle.
+        /// Removes the calling AutomationEventHandle.
         /// </summary>
         private static void RemoveHandler()
         {
@@ -110,7 +110,7 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Removes the calling property change handler.
+        /// Removes the calling property change handler.
         /// </summary>
         private static void RemovePropertyChangeHandler()
         {

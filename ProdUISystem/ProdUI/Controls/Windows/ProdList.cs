@@ -31,19 +31,19 @@ using ProdUI.Logging;
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
-    ///     Methods to work with ListBox controls using the UI Automation framework
+    /// Methods to work with ListBox controls using the UI Automation framework
     /// </summary>
     public sealed class ProdList : BaseProdControl, ISingleSelectList, IMultipleSelectionList
     {
         #region Constructors
 
         /// <summary>
-        ///     Initializes a new instance of the ProdListBox class.
+        /// Initializes a new instance of the ProdListBox class.
         /// </summary>
-        /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
-        /// <param name = "automationId">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="prodWindow">The ProdWindow that contains this control.</param>
+        /// <param name="automationId">The UI Automation identifier (ID) for the element.</param>
         /// <remarks>
-        ///     Will attempt to match AutomationId, then ReadOnly
+        /// Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
         public ProdList(ProdWindow prodWindow, string automationId)
             : base(prodWindow, automationId)
@@ -51,20 +51,20 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///     Initializes a new instance of the ProdListBox class.
+        /// Initializes a new instance of the ProdListBox class.
         /// </summary>
-        /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
-        /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
+        /// <param name="prodWindow">The ProdWindow that contains this control.</param>
+        /// <param name="treePosition">The index of this control in the parent windows UI control tree.</param>
         public ProdList(ProdWindow prodWindow, int treePosition)
             : base(prodWindow, treePosition)
         {
         }
 
         /// <summary>
-        ///     Initializes a new instance of the ProdListBox class.
+        /// Initializes a new instance of the ProdListBox class.
         /// </summary>
-        /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
-        /// <param name = "controlHandle">Window handle of the control</param>
+        /// <param name="prodWindow">The ProdWindow that contains this control.</param>
+        /// <param name="controlHandle">Window handle of the control</param>
         public ProdList(ProdWindow prodWindow, IntPtr controlHandle)
             : base(prodWindow, controlHandle)
         {
@@ -73,10 +73,10 @@ namespace ProdUI.Controls.Windows
         #endregion Constructors
 
         /// <summary>
-        ///     Gets the items in a List control.
+        /// Gets the items in a List control.
         /// </summary>
         /// <returns>
-        ///     an ArrayList containing the items in a List control
+        /// an ArrayList containing the items in a List control
         /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public List<object> GetItems()
@@ -85,12 +85,12 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///     Gets the number of items in the List control
+        /// Gets the number of items in the List control
         /// </summary>
         /// <returns>
-        ///     The number of items in the list
+        /// The number of items in the list
         /// </returns>
-        /// <exception cref = "ProdOperationException">Thrown if element is no longer available</exception>
+        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public int GetItemCount()
         {
@@ -117,10 +117,10 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///     Gets the selected list item.
+        /// Gets the selected list item.
         /// </summary>
         /// <returns>
-        ///     The selected List element
+        /// The selected List element
         /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public AutomationElement GetSelectedItem()
@@ -129,9 +129,9 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///     Sets the selected list item.
+        /// Sets the selected list item.
         /// </summary>
-        /// <param name = "index">The zero-based index of the item to select.</param>
+        /// <param name="index">The zero-based index of the item to select.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetSelectedIndex(int index)
         {
@@ -139,9 +139,9 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///     Sets the selected list item.
+        /// Sets the selected list item.
         /// </summary>
-        /// <param name = "itemText">The text of the item to select.</param>
+        /// <param name="itemText">The text of the item to select.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetSelectedItem(string itemText)
         {
@@ -163,9 +163,9 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///     Adds the selected list item to the current selection.
+        /// Adds the selected list item to the current selection.
         /// </summary>
-        /// <param name = "itemText">The text of the item to select.</param>
+        /// <param name="itemText">The text of the item to select.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void AddToSelection(string itemText)
         {
@@ -173,10 +173,10 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///     Gets the selected indexes.
+        /// Gets the selected indexes.
         /// </summary>
         /// <returns>
-        ///     A List of all the indexes of currently selected list items.
+        /// A List of all the indexes of currently selected list items.
         /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public List<int> GetSelectedIndexes()
@@ -185,10 +185,10 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///     Gets the selected items.
+        /// Gets the selected items.
         /// </summary>
         /// <returns>
-        ///     A List of all currently selected list items
+        /// A List of all currently selected list items
         /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public List<object> GetSelectedItems()

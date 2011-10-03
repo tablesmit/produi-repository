@@ -5,7 +5,7 @@ using ProdUI.Verification;
 namespace ProdUI.Interaction.UIAPatterns
 {
     /// <summary>
-    ///     Used for controls that support the RangeValuePattern pattern.
+    /// Used for controls that support the RangeValuePattern pattern.
     /// </summary>
     internal static class RangeValuePatternHelper
     {

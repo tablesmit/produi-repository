@@ -5,17 +5,17 @@ using ProdUI.Logging;
 namespace ProdUI.Interaction.Native
 {
     /// <summary>
-    ///     Methods to work with Button controls using the UI Automation framework
+    /// Methods to work with Button controls using the UI Automation framework
     /// </summary>
     /// <remarks>
-    ///     Uses InvokeBridge
+    /// Uses InvokeBridge
     /// </remarks>
     internal sealed class ProdButtonNative
     {
         /// <summary>
-        ///     Uses SendMessage to click the button
+        /// Uses SendMessage to click the button
         /// </summary>
-        /// <param name = "windowHandle">Handle to the button to send message to</param>
+        /// <param name="windowHandle">Handle to the button to send message to</param>
         internal static void Click(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));

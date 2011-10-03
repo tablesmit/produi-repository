@@ -393,7 +393,7 @@ namespace ProdUI.Utility
         /// <param name = "pt">The point....</param>
         internal static void MoveMouseToPoint(Point pt)
         {
-            SendMouseInput(pt.X, pt.Y, 0, MOUSEEVENTF.MouseeventfMove | MOUSEEVENTF.MouseeventfAbsolute);
+            SendMouseInput(pt.X, pt.Y, 0, MOUSEEVENTF.MOUSEEVENTFMOVE | MOUSEEVENTF.MOUSEEVENTFABSOLUTE);
         }
 
         /**************************************************************************************************************************/
@@ -422,12 +422,12 @@ namespace ProdUI.Utility
 
             try
             {
-                if ((intflags & (int)MOUSEEVENTF.MouseeventfAbsolute) != 0)
+                if ((intflags & (int)MOUSEEVENTF.MOUSEEVENTFABSOLUTE) != 0)
                 {
-                    int vscreenWidth = NativeMethods.GetSystemMetrics((int)SystemMetric.SMCxvirtualscreen);
-                    int vscreenHeight = NativeMethods.GetSystemMetrics((int)SystemMetric.SMCyvirtualscreen);
-                    int vscreenLeft = NativeMethods.GetSystemMetrics((int)SystemMetric.SMXvirtualscreen);
-                    int vscreenTop = NativeMethods.GetSystemMetrics((int)SystemMetric.SMYvirtualscreen);
+                    int vscreenWidth = NativeMethods.GetSystemMetrics((int)SystemMetric.SMCXVIRTUALSCREEN);
+                    int vscreenHeight = NativeMethods.GetSystemMetrics((int)SystemMetric.SMCYVIRTUALSCREEN);
+                    int vscreenLeft = NativeMethods.GetSystemMetrics((int)SystemMetric.SMXVIRTUALSCREEN);
+                    int vscreenTop = NativeMethods.GetSystemMetrics((int)SystemMetric.SMYVIRTUALSCREEN);
 
                     // Absolute input requires that input is in 'normalized' coords - with the entire
                     // desktop being (0,0)...(65535,65536). Need to convert input x,y coords to this
@@ -452,7 +452,7 @@ namespace ProdUI.Utility
                     x = ((x - vscreenLeft) * 65536) / vscreenWidth + 65536 / (vscreenWidth * 2);
                     y = ((y - vscreenTop) * 65536) / vscreenHeight + 65536 / (vscreenHeight * 2);
 
-                    intflags |= (int)MOUSEEVENTF.MouseeventfVirtualdesk;
+                    intflags |= (int)MOUSEEVENTF.MOUSEEVENTFVIRTUALDESK;
                 }
 
                 NPUT mi = new NPUT

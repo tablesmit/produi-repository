@@ -47,9 +47,9 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Closes the specified window
+        /// Closes the specified window
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static void WindowClose(IntPtr windowHandle)
         {
@@ -156,11 +156,11 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets whether the current window is modal or not
+        /// Gets whether the current window is modal or not
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <returns>
-        ///     True if window is modal, false otherwise
+        /// True if window is modal, false otherwise
         /// </returns>
         /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static bool WindowGetModal(IntPtr windowHandle)
@@ -184,11 +184,11 @@ namespace ProdUI.Controls.Static
         }
 
         /// <summary>
-        ///     Gets a value whether a window is set to be topmost in the z-order
+        /// Gets a value whether a window is set to be topmost in the z-order
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to window</param>
+        /// <param name="windowHandle">NativeWindowHandle to window</param>
         /// <returns>
-        ///     True if window is topmost, false otherwise
+        /// True if window is topmost, false otherwise
         /// </returns>
         /// <exception cref="ProdOperationException">Examine inner exception</exception>
         public static bool WindowIsTopmost(IntPtr windowHandle)

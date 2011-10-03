@@ -7,7 +7,7 @@ namespace ProdUI.Interaction.Native
     {
         internal static int GetNodeCountNative(IntPtr windowHandle)
         {
-            int retVal = (int)NativeMethods.SendMessage(windowHandle, (int)TreeViewMessages.TVMGetcount, 0, 0);
+            int retVal = (int)NativeMethods.SendMessage(windowHandle, (int)TreeViewMessages.TVMGETCOUNT, 0, 0);
 
             return retVal;
         }

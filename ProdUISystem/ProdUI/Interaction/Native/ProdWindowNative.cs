@@ -79,7 +79,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        /// sets the title of the specified window
+        /// Sets the title of the specified window
         /// </summary>
         /// <param name="windowHandle">Handle to the window</param>
         /// <param name="newTitle">Text to be used as the new title</param>
@@ -88,21 +88,17 @@ namespace ProdUI.Interaction.Native
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
             NativeMethods.SetWindowText(windowHandle, newTitle);
 
-            /* verify it was changed */
-            //if (GetWindowTitleNative(windowHandle).CompareTo(newTitle) != 0)
-            //{
-            //    throw new ProdOperationException("unable to verify title change");
-            //}
+            Verification.ValueVerifier<string, string>.Verify(newTitle, GetWindowTitleNative(windowHandle));
         }
 
         /// <summary>
         /// Moves the window using MoveWindow native call.
         /// </summary>
         /// <param name="windowHandle">The window handle.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
+        /// <param name="x">The x coordinate of the window.</param>
+        /// <param name="y">The y coordinate of the window.</param>
+        /// <param name="width">The width of the window.</param>
+        /// <param name="height">The height of the window.</param>
         internal static void MoveWindowNative(IntPtr windowHandle, double x, double y, double width, double height)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
@@ -142,7 +138,7 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        /// conversion utility ShowCmdFlags -> WindowVisualState
+        /// Conversion utility ShowCmdFlags -> WindowVisualState
         /// </summary>
         /// <param name="state">The state.</param>
         /// <returns>corresponding WindowVisualState</returns>

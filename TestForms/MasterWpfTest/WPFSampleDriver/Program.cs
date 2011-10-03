@@ -11,8 +11,9 @@ namespace WPFSampleDriver
         const string WIN_TITLE = "WPF Test Form";
 
         private static void Main(string[] args)
-        {
-            SimpleProdExample();
+        {          
+            //SimpleProdExample();
+            LoadConfigFile();
         }
 
         /// <summary>
@@ -54,6 +55,42 @@ namespace WPFSampleDriver
 
                 /* This will break, because the static checkbox can't be referenced, since its not onscreen */
                 //Prod.SetCheckState(window, "testCheckBoxC", ToggleState.Off);
+            }
+            catch (ProdUI.Exceptions.ProdOperationException e)
+            {
+                /* Show any errors */
+                Debug.WriteLine(">>>>>>>" + e.InnerException.Message + "<<<<<<<<");
+            }
+        }
+
+        /// <summary>
+        /// Demonstrates creating a simple Prod using preconfigured loggers from a configuration file
+        /// </summary>
+        public static void LoadConfigFile()
+        {
+
+            try
+            {
+                /* Loading a set of loggers from a configuration file (located in the /bin directory */
+                LoggingConfiguration lc = new LoggingConfiguration();
+                /* Adding them to the controller */
+                LogController.AddActiveLogger(lc.LoadFromConfiguration(@"loggers.ses"));
+
+                /* start the application and wait until it exists */
+                Process.Start("MasterWPFTest.exe");
+                Prod.WinWaitExists(WIN_TITLE);
+
+                /* Get the parent window and add loggers */
+                ProdWindow window = new ProdWindow(WIN_TITLE);
+
+                /* here's the control we want to Prod */
+                ProdCheckBox chk1 = new ProdCheckBox(window, "testCheckBoxA");
+
+                /* We'll monkey with the slider control */
+                ProdSlider slider = new ProdSlider(window, "sliderTest");
+                slider.SetValue(3);
+
+                chk1.SetCheckState(ToggleState.On);
             }
             catch (ProdUI.Exceptions.ProdOperationException e)
             {

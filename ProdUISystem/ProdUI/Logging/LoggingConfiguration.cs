@@ -14,46 +14,20 @@ namespace ProdUI.Logging
     [XmlRoot(ElementName = "loggingConfig")]
     public class LoggingConfiguration
     {
-        private LoggingConfiguration Configuration;
         private ProdLogger _tempLogger;
+        private LoggingConfiguration _currentConfig;
+        private List<ProdLogger> _loadedLoggers;
 
-        /// <summary>
-        ///     A List containing the parameters for any loggers set in the configuration file
-        /// </summary>
-        /// <value>
-        ///     The loggers.
-        /// </value>
         [XmlArray("loggers")]
         [XmlArrayItem("logger")]
         public List<ProdLoggerParameters> LoggerParameters { get; set; }
 
-        [XmlIgnore]
-        public List<ProdLogger> LoggerParameters { get; set; }
-
-        /// <summary>
-        /// De-serializes the specified configuration file.
-        /// </summary>
-        /// <param name="configFile">The configuration file.</param>
-        public void LoadConfiguration(string configFile)
+        
+        public List<ProdLogger> LoadFromConfiguration(string filename)
         {
-            FileStream fs = null;
-
-            try
-            {
-                fs = new FileStream(configFile, FileMode.Open);
-                XmlSerializer serializer = new XmlSerializer(typeof(LoggingConfiguration));
-                Configuration = (LoggingConfiguration)serializer.Deserialize(fs);
-                GetLoggers();
-            }
-            catch (Exception err)
-            {
-                throw new Exception(err.Message, err);
-            }
-            finally
-            {
-                if (fs != null)
-                    fs.Close();
-            }
+            _currentConfig = LoadConfiguration(filename);
+            GetLoggers();
+            return _loadedLoggers;
         }
 
         /// <summary>
@@ -81,18 +55,43 @@ namespace ProdUI.Logging
         }
 
         /// <summary>
+        /// De-serializes the specified configuration file.
+        /// </summary>
+        /// <param name="configFile">The configuration file.</param>
+        private LoggingConfiguration LoadConfiguration(string configFile)
+        {
+            FileStream fs = null;
+
+            try
+            {
+                fs = new FileStream(configFile, FileMode.Open);
+                XmlSerializer serializer = new XmlSerializer(typeof(LoggingConfiguration));
+                return (LoggingConfiguration)serializer.Deserialize(fs);
+            }
+            catch (Exception err)
+            {
+                throw new Exception(err.Message, err);
+            }
+            finally
+            {
+                if (fs != null)
+                    fs.Close();
+            }
+        }
+
+        /// <summary>
         /// Instantiates and adds loggers from the configuration file.
         /// </summary>
         private void GetLoggers()
         {
-            LoadedLoggers = new List<ProdLogger>();
+            _loadedLoggers = new List<ProdLogger>();
+            //LoggerParameters = new List<ProdLoggerParameters>();
+            //if (LoadedLoggers == null || LoggerParameters[0].AssemblyPath == null)
+            //{
+            //    return;
+            //}
 
-            if (Configuration.LoadedLoggers == null || Configuration.LoggerParameters[0].AssemblyPath == null)
-            {
-                return;
-            }
-
-            foreach (ProdLoggerParameters item in Configuration.LoggerParameters)
+            foreach (ProdLoggerParameters item in _currentConfig.LoggerParameters)
             {
                 /* needs to be a valid ProdLogger that implements ILogger */
                 string tempPath = item.AssemblyPath;
@@ -105,8 +104,8 @@ namespace ProdUI.Logging
                 ILogTarget tst = InitializeLogger(tempPath, item.LoggerType);
 
                 /* Set the parameters, then add it to list of loggers */
-                _tempLogger = new ProdLogger(Configuration, tst);
-                LoadedLoggers.Add(_tempLogger);
+                _tempLogger = new ProdLogger(_currentConfig, tst);
+                _loadedLoggers.Add(_tempLogger);
             }
         }
 

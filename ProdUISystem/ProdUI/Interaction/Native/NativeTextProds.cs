@@ -7,15 +7,17 @@ using ProdUI.Verification;
 namespace ProdUI.Interaction.Native
 {
     /// <summary>
-    ///     Provides methods to interact with Textbox controls via the UI Automation API
+    /// Provides methods to interact with Textbox controls via the UI Automation API
     /// </summary>
     internal sealed class NativeTextProds
     {
         /// <summary>
-        ///     Uses SendMessage to try and get the text value
+        /// Uses SendMessage to try and get the text value
         /// </summary>
-        /// <param name = "windowHandle">handle to the control</param>
-        /// <returns>A string containing the text</returns>
+        /// <param name="windowHandle">handle to the control</param>
+        /// <returns>
+        /// A string containing the text
+        /// </returns>
         internal static string GetTextNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));

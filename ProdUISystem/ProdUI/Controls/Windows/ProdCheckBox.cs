@@ -7,7 +7,7 @@ using ProdUI.Logging;
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
-    ///     Methods to work with CheckBox controls using the UI Automation framework
+    /// Methods to work with CheckBox controls using the UI Automation framework
     /// </summary>
     public sealed class ProdCheckBox : BaseProdControl, IToggle
     {

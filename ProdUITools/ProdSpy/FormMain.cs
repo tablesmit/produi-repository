@@ -149,10 +149,10 @@ namespace ProdSpy
         }
 
         /// <summary>
-        ///   Handles the Click event of the TsOptions control.
+        /// Handles the Click event of the TsOptions control.
         /// </summary>
-        /// <param name = "sender">The source of the event.</param>
-        /// <param name = "e">The <see cref = "System.EventArgs" /> instance containing the event data.</param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void TsOptions_Click(object sender, EventArgs e)
         {
             FormOptions frmOptions = new FormOptions();
@@ -170,10 +170,10 @@ namespace ProdSpy
         }
 
         /// <summary>
-        ///   Handles the Click event of the CtxCopy control.
+        /// Handles the Click event of the CtxCopy control.
         /// </summary>
-        /// <param name = "sender">The source of the event.</param>
-        /// <param name = "e">The <see cref = "System.EventArgs" /> instance containing the event data.</param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void CtxCopy_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(RtbCode.SelectedText);
@@ -218,7 +218,7 @@ namespace ProdSpy
 
             SetInteractionMenu();
 
-            LoadGraph(_focusedElement);
+            //LoadGraph(_focusedElement);
             if (Settings.Default.AutoHighlight)
             {
                 TsHighlight_Click(null, null);
