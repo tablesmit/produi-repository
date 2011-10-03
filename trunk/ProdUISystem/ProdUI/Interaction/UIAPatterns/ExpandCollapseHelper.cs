@@ -4,16 +4,16 @@ using System.Windows.Automation;
 namespace ProdUI.Interaction.UIAPatterns
 {
     /// <summary>
-    ///     Used for controls that support the ExpandCollapseHelper control pattern. implements IExpandCollapseProvider
+    /// Used for controls that support the ExpandCollapseHelper control pattern. implements IExpandCollapseProvider
     /// </summary>
     internal static class ExpandCollapseHelper
     {
         /// <summary>
-        ///     Collapses the specified control.
+        /// Collapses the specified control.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
-        ///     0 if no problems encountered, -1 if InvalidOperationException is raised
+        /// 0 if no problems encountered, -1 if InvalidOperationException is raised
         /// </returns>
         internal static int Collapse(AutomationElement control)
         {
@@ -23,11 +23,11 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Expands the specified control.
+        /// Expands the specified control.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
-        ///     0 if no problems encountered, -1 if InvalidOperationException is raised
+        /// 0 if no problems encountered, -1 if InvalidOperationException is raised
         /// </returns>
         internal static int Expand(AutomationElement control)
         {
@@ -37,11 +37,11 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets the current ExpandCollapseState of the supplied element
+        /// Gets the current ExpandCollapseState of the supplied element
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
-        ///     <see cref = "ExpandCollapseState" />
+        ///   <see cref="ExpandCollapseState"/>
         /// </returns>
         internal static ExpandCollapseState ExpandCollapseState(AutomationElement control)
         {

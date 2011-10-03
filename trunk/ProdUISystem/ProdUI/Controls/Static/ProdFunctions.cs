@@ -492,16 +492,16 @@ namespace ProdUI.Controls.Static
                 switch (clickType)
                 {
                     case MouseClick.Left:
-                        InternalUtilities.SendMouseInput(p.X, p.Y, 0, MOUSEEVENTF.MouseeventfLeftdown | MOUSEEVENTF.MouseeventfAbsolute);
-                        InternalUtilities.SendMouseInput(p.X, p.Y, 0, MOUSEEVENTF.MouseeventfLeftup | MOUSEEVENTF.MouseeventfAbsolute);
+                        InternalUtilities.SendMouseInput(p.X, p.Y, 0, MOUSEEVENTF.MOUSEEVENTFLEFTDOWN | MOUSEEVENTF.MOUSEEVENTFABSOLUTE);
+                        InternalUtilities.SendMouseInput(p.X, p.Y, 0, MOUSEEVENTF.MOUSEEVENTFLEFTUP | MOUSEEVENTF.MOUSEEVENTFABSOLUTE);
                         break;
                     case MouseClick.Right:
-                        InternalUtilities.SendMouseInput(p.X, p.Y, 0, MOUSEEVENTF.MouseeventfRightdown | MOUSEEVENTF.MouseeventfAbsolute);
-                        InternalUtilities.SendMouseInput(p.X, p.Y, 0, MOUSEEVENTF.MouseeventfRightup | MOUSEEVENTF.MouseeventfAbsolute);
+                        InternalUtilities.SendMouseInput(p.X, p.Y, 0, MOUSEEVENTF.MOUSEEVENTFRIGHTDOWN | MOUSEEVENTF.MOUSEEVENTFABSOLUTE);
+                        InternalUtilities.SendMouseInput(p.X, p.Y, 0, MOUSEEVENTF.MOUSEEVENTFRIGHTUP | MOUSEEVENTF.MOUSEEVENTFABSOLUTE);
                         break;
                     case MouseClick.Middle:
-                        InternalUtilities.SendMouseInput(p.X, p.Y, 0, MOUSEEVENTF.MouseeventfMiddledown | MOUSEEVENTF.MouseeventfAbsolute);
-                        InternalUtilities.SendMouseInput(p.X, p.Y, 0, MOUSEEVENTF.MouseeventfMiddleup | MOUSEEVENTF.MouseeventfAbsolute);
+                        InternalUtilities.SendMouseInput(p.X, p.Y, 0, MOUSEEVENTF.MOUSEEVENTFMIDDLEDOWN | MOUSEEVENTF.MOUSEEVENTFABSOLUTE);
+                        InternalUtilities.SendMouseInput(p.X, p.Y, 0, MOUSEEVENTF.MOUSEEVENTFMIDDLEUP | MOUSEEVENTF.MOUSEEVENTFABSOLUTE);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException("clickType");

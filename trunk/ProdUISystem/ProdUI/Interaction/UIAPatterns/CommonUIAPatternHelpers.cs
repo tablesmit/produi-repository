@@ -8,7 +8,7 @@ using ProdUI.Logging;
 namespace ProdUI.Interaction.UIAPatterns
 {
     /// <summary>
-    ///     Provides methods common across all pattern helpers. mostly to determine support
+    /// Provides methods common across all pattern helpers. mostly to determine support
     /// </summary>
     internal static class CommonUIAPatternHelpers
     {

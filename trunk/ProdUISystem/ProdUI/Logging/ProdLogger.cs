@@ -6,12 +6,17 @@ using System.Globalization;
 namespace ProdUI.Logging
 {
     /// <summary>
-    ///     Acts to route messages
+    /// Acts to route messages
     /// </summary>
     public class ProdLogger
     {
         private readonly List<ProdLoggerInputParameters> _loggerParams;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProdLogger"/> class.
+        /// </summary>
+        /// <param name="config">The configuration loaded from a .ses file.</param>
+        /// <param name="target">The target logger interface.</param>
         public ProdLogger(LoggingConfiguration config, ILogTarget target)
         {
             LogLevel = (LoggingLevels)config.LoggerParameters[0].LogLevel;
@@ -22,15 +27,15 @@ namespace ProdUI.Logging
         }
 
         /// <summary>
-        ///     Creates a ProdLogger.
+        /// Creates a ProdLogger.
         /// </summary>
-        /// <param name = "target">The target logger.</param>
-        /// <param name = "logLevel">The log level.</param>
-        /// <param name = "logFormat">The log format.</param>
-        /// <param name = "logDateFormat">The log date format.</param>
+        /// <param name="target">The target logger.</param>
+        /// <param name="logLevel">The log level.</param>
+        /// <param name="logFormat">The log format.</param>
+        /// <param name="logDateFormat">The log date format.</param>
         /// <returns>A new ProdLogger</returns>
         /// <remarks>
-        ///     This provides a way for someone to create a new logger on the fly
+        /// This provides a way for someone to create a new logger on the fly
         /// </remarks>
         public ProdLogger(ILogTarget target, LoggingLevels logLevel, string logFormat, string logDateFormat)
         {
@@ -41,12 +46,37 @@ namespace ProdUI.Logging
             LogTarget = target;
         }
 
+        /// <summary>
+        /// Gets or sets the log target Interface.
+        /// </summary>
+        /// <value>
+        /// The ILog target base.
+        /// </value>
         public ILogTarget LogTarget { get; set; }
 
+        /// <summary>
+        /// Gets or sets the log level.
+        /// </summary>
+        /// <value>
+        /// The log level.
+        /// </value>
         public LoggingLevels LogLevel { get; set; }
 
+        /// <summary>
+        /// Gets or sets the log entry format.
+        /// </summary>
+        /// <value>
+        /// The log entry format.
+        /// </value>
         public string LogFormat { get; set; }
 
+        /// <summary>
+        /// Gets or sets the log date format.
+        /// </summary>
+        /// <value>
+        /// The log date format.
+        /// </value>
+        /// <remarks><seealso cref="http://msdn.microsoft.com/en-us/library/az4se3k1.aspx"/></remarks>
         public string LogDateFormat { get; set; }
 
         /// <summary>
@@ -94,19 +124,21 @@ namespace ProdUI.Logging
                     message.LogTime = logTime.ToString(LogDateFormat, CultureInfo.CurrentCulture);
 
                     string tempstr = "[" + message.LogTime + "]";
-                    outString += " " + tempstr;
+                    
+                    outString += " " + tempstr + " ";
+                    
                     continue;
                 }
                 if (item == "Message Level")
                 {
                     /* Get the message level */
-                    outString += message.MessageLevel.ToString();
+                    outString += message.MessageLevel.ToString() + " ";
                     continue;
                 }
                 if (item == "Calling Function")
                 {
                     /* Get the message level */
-                    outString += message.CallingMethod;
+                    outString += message.CallingMethod + " ";
                     continue;
                 }
                 if (item != "Message Text")
@@ -115,11 +147,11 @@ namespace ProdUI.Logging
                 }
 
                 /* Get the message level */
-                outString += message.Message;
+                outString += message.Message + " ";
                 continue;
             }
 
-            message.OutputString = outString;
+            message.OutputString = outString.TrimEnd();
         }
     }
 }

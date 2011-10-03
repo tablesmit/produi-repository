@@ -8,16 +8,16 @@ using ProdUI.Verification;
 namespace ProdUI.Interaction.Native
 {
     /// <summary>
-    ///     Methods to work with Checkbox controls using the UI Automation framework
+    /// Methods to work with Checkbox controls using the UI Automation framework
     /// </summary>
     internal sealed class ProdCheckBoxNative
     {
         /// <summary>
-        ///     Uses SendMessage to check the state
+        /// Uses SendMessage to check the state
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to the checkbox</param>
+        /// <param name="windowHandle">NativeWindowHandle to the checkbox</param>
         /// <returns>
-        ///     one of the <see cref = "System.Windows.Automation.ToggleState" />ToggleStates
+        /// one of the <see cref="System.Windows.Automation.ToggleState"/>ToggleStates
         /// </returns>
         internal static ToggleState GetCheckStateNative(IntPtr windowHandle)
         {
@@ -28,10 +28,10 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Uses SendMessage to post the state
+        /// Uses SendMessage to post the state
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to the checkbox</param>
-        /// <param name = "isChecked">one of the <see cref = "System.Windows.Automation.ToggleState" />ToggleStates</param>
+        /// <param name="windowHandle">NativeWindowHandle to the checkbox</param>
+        /// <param name="isChecked">one of the <see cref="System.Windows.Automation.ToggleState"/>ToggleStates</param>
         internal static void SetCheckStateNative(IntPtr windowHandle, ToggleState isChecked)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
@@ -45,6 +45,10 @@ namespace ProdUI.Interaction.Native
             ValueVerifier<ToggleState, ToggleState>.Verify(GetCheckStateNative(windowHandle), isChecked);
         }
 
+        /// <summary>
+        /// Toggles the check state using SendMessage.
+        /// </summary>
+        /// <param name="windowHandle">The window handle.</param>
         internal static void ToggleCheckStateNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
@@ -77,10 +81,12 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Converts Automation ToggleStates to Win32 BST
+        /// Converts Automation ToggleStates to Win32 BST
         /// </summary>
-        /// <param name = "isChecked"><see cref = "System.Windows.Automation.ToggleState" /></param>
-        /// <returns><see cref = "ButtonStates" /></returns>
+        /// <param name="isChecked"><see cref="System.Windows.Automation.ToggleState"/></param>
+        /// <returns>
+        ///   <see cref="ButtonStates"/>
+        /// </returns>
         private static ButtonStates ConvertToggleStates(ToggleState isChecked)
         {
             ButtonStates bst;
@@ -105,10 +111,12 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Converts Win32 BST_ to Automation ToggleStates
+        /// Converts Win32 BST_ to Automation ToggleStates
         /// </summary>
-        /// <param name = "bcs"><see cref = "ButtonStates" /></param>
-        /// <returns><see cref = "System.Windows.Automation.ToggleState" /></returns>
+        /// <param name="bcs"><see cref="ButtonStates"/></param>
+        /// <returns>
+        ///   <see cref="System.Windows.Automation.ToggleState"/>
+        /// </returns>
         private static ToggleState ConvertButtonStates(int bcs)
         {
             switch (bcs)

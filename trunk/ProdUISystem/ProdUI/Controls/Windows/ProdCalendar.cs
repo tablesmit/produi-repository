@@ -10,12 +10,12 @@ namespace ProdUI.Controls.Windows
         #region Constructors
 
         /// <summary>
-        ///     Initializes a new instance of the ProdDataGrid class.
+        /// Initializes a new instance of the ProdDataGrid class.
         /// </summary>
-        /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
-        /// <param name = "automationId">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="prodWindow">The ProdWindow that contains this control.</param>
+        /// <param name="automationId">The UI Automation identifier (ID) for the element.</param>
         /// <remarks>
-        ///     Will attempt to match AutomationId, then ReadOnly
+        /// Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
         public ProdCalendar(ProdWindow prodWindow, string automationId)
             : base(prodWindow, automationId)
@@ -23,20 +23,20 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///     Initializes a new instance of the ProdDataGrid class.
+        /// Initializes a new instance of the ProdDataGrid class.
         /// </summary>
-        /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
-        /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
+        /// <param name="prodWindow">The ProdWindow that contains this control.</param>
+        /// <param name="treePosition">The index of this control in the parent windows UI control tree.</param>
         public ProdCalendar(ProdWindow prodWindow, int treePosition)
             : base(prodWindow, treePosition)
         {
         }
 
         /// <summary>
-        ///     Initializes a new instance of the ProdDataGrid class.
+        /// Initializes a new instance of the ProdDataGrid class.
         /// </summary>
-        /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
-        /// <param name = "controlHandle">Window handle of the control</param>
+        /// <param name="prodWindow">The ProdWindow that contains this control.</param>
+        /// <param name="controlHandle">Window handle of the control</param>
         public ProdCalendar(ProdWindow prodWindow, IntPtr controlHandle)
             : base(prodWindow, controlHandle)
         {

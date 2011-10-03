@@ -7,16 +7,16 @@ using ProdUI.Verification;
 namespace ProdUI.Interaction.Native
 {
     /// <summary>
-    ///     Provides methods to interact with Textbox controls via the UI Automation API
+    /// Provides methods to interact with Textbox controls via the UI Automation API
     /// </summary>
     internal sealed class ProdEditNative
     {
         /// <summary>
-        ///     Uses SendMessage to try and get the text value
+        /// Uses SendMessage to try and get the text value
         /// </summary>
-        /// <param name = "windowHandle">handle to the control</param>
+        /// <param name="windowHandle">handle to the control</param>
         /// <returns>
-        ///     A string containing the text
+        /// A string containing the text
         /// </returns>
         internal static string GetTextNative(IntPtr windowHandle)
         {
@@ -28,11 +28,10 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Uses SendMessage to set and verify the text value.
+        /// Uses SendMessage to set and verify the text value.
         /// </summary>
-        /// <param name = "windowHandle">handle to the control</param>
-        /// <param name = "text">Desired text</param>
-        /// <returns>true if successful, false if failure</returns>
+        /// <param name="windowHandle">handle to the control</param>
+        /// <param name="text">Desired text</param>
         internal static void SetTextNative(IntPtr windowHandle, string text)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
@@ -43,10 +42,10 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Appends the text using SendMessages.
+        /// Appends the text using SendMessages.
         /// </summary>
-        /// <param name = "windowHandle">The window handle.</param>
-        /// <param name = "text">The new text.</param>
+        /// <param name="windowHandle">The window handle.</param>
+        /// <param name="text">The new text.</param>
         internal static void AppendTextNative(IntPtr windowHandle, string text)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
@@ -59,11 +58,11 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Inserts text using SendMessages.
+        /// Inserts text using SendMessages.
         /// </summary>
-        /// <param name = "windowHandle">The window handle.</param>
-        /// <param name = "text">The new text.</param>
-        /// <param name = "index">Index of the insertion point.</param>
+        /// <param name="windowHandle">The window handle.</param>
+        /// <param name="text">The new text.</param>
+        /// <param name="index">Index of the insertion point.</param>
         internal static void InsertTextNative(IntPtr windowHandle, string text, int index)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
@@ -73,9 +72,9 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Clears the text using SendMessage.
+        /// Clears the text using SendMessage.
         /// </summary>
-        /// <param name = "windowHandle">The window handle.</param>
+        /// <param name="windowHandle">The window handle.</param>
         internal static void ClearTextNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));

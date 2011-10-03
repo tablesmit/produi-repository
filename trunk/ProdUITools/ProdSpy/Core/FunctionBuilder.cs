@@ -8,9 +8,9 @@ using System.Reflection;
 using System.Windows.Automation;
 using System.Windows.Forms;
 using MapLib;
-using ProdUI.Controls;
+using ProdUI.Controls.Static;
+using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
-using ProdUI.Session;
 
 namespace ProdSpy.Core
 {
@@ -44,7 +44,7 @@ namespace ProdSpy.Core
         /// Arguments needed to invoke function
         /// </returns>
         internal object[] BuildAction(int methodIndex)
-        {          
+        {
             object type;
             CreateActivator(out type);
 
@@ -52,7 +52,7 @@ namespace ProdSpy.Core
             MethodInfo mi = methodInfos[methodIndex];
 
             /* figure out inputs (if any) */
-            object[] args = new object[mi.GetParameters().Length];  
+            object[] args = new object[mi.GetParameters().Length];
             int arglen = args.Length;
             args = BeginFunctionParse(mi);
             if (args == null && arglen > 0)
@@ -188,8 +188,7 @@ namespace ProdSpy.Core
         /// </remarks>
         private object[] SetConstructorParameters(string originalName)
         {
-            ProdSession sess = new ProdSession();
-            ProdWindow fake = new ProdWindow(_parentWindowHandle, sess.Loggers);
+            ProdWindow fake = new ProdWindow(_parentWindowHandle);
             object[] o = new object[] { fake, originalName };
             return o;
         }

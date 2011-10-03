@@ -19,8 +19,8 @@ using ProdUI.Interaction.Bridge;
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
-    ///     Methods to work with Tab controls using the UI Automation framework
-    ///     A tab control is analogous to the dividers in a notebook or the labels in a file cabinet. By using a tab control, an application can define multiple pages for the same area of a window or dialog box
+    /// Methods to work with Tab controls using the UI Automation framework
+    /// A tab control is analogous to the dividers in a notebook or the labels in a file cabinet. By using a tab control, an application can define multiple pages for the same area of a window or dialog box
     /// </summary>
     public sealed class ProdTab : BaseProdControl, ISingleSelectList
     {

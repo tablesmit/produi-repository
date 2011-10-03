@@ -8,12 +8,12 @@ namespace FormsSampleDriver
 {
     class Program
     {
-
         const string WIN_TITLE = "WinForms Sample";
 
         static void Main(string[] args)
         {
-            SimpleProdExample();
+            //SimpleProdExample();
+            LoadConfigFile();
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace FormsSampleDriver
                 LogController.AddActiveLogger(def);
 
                 /* start the application and wait until it exists */
-                Process.Start(@"..\..\..\MasterWinformTest\bin\Debug\MasterWinformTest.exe");
+                Process.Start("MasterWinformTest.exe");
                 Prod.WinWaitExists(WIN_TITLE);
 
                 /* Get the parent window and add loggers */
@@ -55,6 +55,41 @@ namespace FormsSampleDriver
 
                 /* This will break, because the static checkbox can't be referenced, since its not onscreen */
                 //Prod.SetCheckState(window, "checkBox3", ToggleState.Off);
+            }
+            catch (ProdUI.Exceptions.ProdOperationException e)
+            {
+                /* Show any errors */
+                Debug.WriteLine(">>>>>>>" + e.InnerException.Message + "<<<<<<<<");
+            }
+        }
+
+        /// <summary>
+        /// Demonstrates creating a simple Prod using preconfigured loggers from a configuration file
+        /// </summary>
+        public static void LoadConfigFile()
+        {
+            try
+            {
+                /* Loading a set of loggers from a configuration file (located in the /bin directory */
+                LoggingConfiguration lc = new LoggingConfiguration();
+                /* Adding them to the controller */
+                LogController.AddActiveLogger(lc.LoadFromConfiguration(@"loggers.ses"));
+
+                /* start the application and wait until it exists */
+                Process.Start("MasterWinformTest.exe");
+                Prod.WinWaitExists(WIN_TITLE);
+
+                /* Get the parent window and add loggers */
+                ProdWindow window = new ProdWindow(WIN_TITLE);
+
+                /* here's the control we want to Prod */
+                ProdCheckBox chk1 = new ProdCheckBox(window, "checkBox1");
+
+                /* We'll monkey with the slider control */
+                ProdSlider slider = new ProdSlider(window, "trackBarTest");
+                slider.SetValue(3);
+
+                chk1.SetCheckState(ToggleState.On);
             }
             catch (ProdUI.Exceptions.ProdOperationException e)
             {

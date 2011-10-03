@@ -4,16 +4,16 @@ using System.Windows.Automation;
 namespace ProdUI.Interaction.UIAPatterns
 {
     /// <summary>
-    ///     Used for controls that support the GridPattern and/or GridItemcontrol patterns. implements IGridProvider,IGridItemProvider
+    /// Used for controls that support the GridPattern and/or GridItemcontrol patterns. implements IGridProvider,IGridItemProvider
     /// </summary>
     internal static class GridPatternHelper
     {
         /// <summary>
-        ///     Determines if the control supports the GridItemPattern
+        /// Determines if the control supports the GridItemPattern
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
         /// <returns>
-        ///     The pattern, if valid
+        /// The pattern, if valid
         /// </returns>
         private static GridItemPattern GetGridItemPattern(AutomationElement control)
         {
@@ -25,11 +25,11 @@ namespace ProdUI.Interaction.UIAPatterns
         #region IGridProvider Implementation
 
         /// <summary>
-        ///     Gets the total number of columns in a grid.
+        /// Gets the total number of columns in a grid.
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
         /// <returns>
-        ///     Total number of columns in a grid
+        /// Total number of columns in a grid
         /// </returns>
         internal static int GetColumnCount(AutomationElement control)
         {
@@ -38,13 +38,13 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Retrieves the UI Automation provider for the specified cell
+        /// Retrieves the UI Automation provider for the specified cell
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element.</param>
-        /// <param name = "row">The ordinal number of the row of interest</param>
-        /// <param name = "column">The ordinal number of the column of interest.</param>
+        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="row">The ordinal number of the row of interest</param>
+        /// <param name="column">The ordinal number of the column of interest.</param>
         /// <returns>
-        ///     An object representing the item at the specified location
+        /// An object representing the item at the specified location
         /// </returns>
         internal static AutomationElement GetItem(AutomationElement control, int row, int column)
         {
@@ -53,11 +53,11 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets the total number of rows in a grid.
+        /// Gets the total number of rows in a grid.
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
+        /// <param name="control">The UI Automation identifier (ID) for the element</param>
         /// <returns>
-        ///     Total number of rows in a grid
+        /// Total number of rows in a grid
         /// </returns>
         internal static int GetRowCount(AutomationElement control)
         {
@@ -70,11 +70,11 @@ namespace ProdUI.Interaction.UIAPatterns
         #region IGridItemProvider Implementation
 
         /// <summary>
-        ///     Gets the ordinal number of the column that contains the cell or item.
+        /// Gets the ordinal number of the column that contains the cell or item.
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
         /// <returns>
-        ///     The ordinal number of the column that contains the cell or item
+        /// The ordinal number of the column that contains the cell or item
         /// </returns>
         internal static int GetColumn(AutomationElement control)
         {
@@ -83,11 +83,11 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets the number of columns spanned by a cell or item.
+        /// Gets the number of columns spanned by a cell or item.
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
         /// <returns>
-        ///     The number of columns spanned by a cell or item
+        /// The number of columns spanned by a cell or item
         /// </returns>
         internal static int GetColumnSpan(AutomationElement control)
         {
@@ -96,11 +96,11 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets a UI Automation provider that implements IGridProvider and represents the container of the cell or item
+        /// Gets a UI Automation provider that implements IGridProvider and represents the container of the cell or item
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
+        /// <param name="control">The UI Automation identifier (ID) for the element</param>
         /// <returns>
-        ///     returns an object, stored as an internal variable that represents the grid container
+        /// returns an object, stored as an internal variable that represents the grid container
         /// </returns>
         internal static object GetContainingGrid(AutomationElement control)
         {
@@ -109,11 +109,11 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets the ordinal number of the row that contains the cell or item.
+        /// Gets the ordinal number of the row that contains the cell or item.
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
+        /// <param name="control">The UI Automation identifier (ID) for the element</param>
         /// <returns>
-        ///     The row that contains the cell or item.
+        /// The row that contains the cell or item.
         /// </returns>
         internal static int Row(AutomationElement control)
         {
@@ -122,11 +122,11 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets the number of rows spanned by a cell or item.
+        /// Gets the number of rows spanned by a cell or item.
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
+        /// <param name="control">The UI Automation identifier (ID) for the element</param>
         /// <returns>
-        ///     The number of rows spanned by a cell or item
+        /// The number of rows spanned by a cell or item
         /// </returns>
         internal static int GetRowSpan(AutomationElement control)
         {

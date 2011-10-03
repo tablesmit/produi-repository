@@ -11,11 +11,11 @@ namespace ProdUI.Interaction.Native
     internal sealed class ProdTabNative
     {
         /// <summary>
-        ///     Gets the tab count.
+        /// Gets the tab count.
         /// </summary>
-        /// <param name = "windowHandle">The window handle.</param>
+        /// <param name="windowHandle">The window handle.</param>
         /// <returns>
-        ///     The number of tabs within the tabControl
+        /// The number of tabs within the tabControl
         /// </returns>
         internal static int GetTabCount(IntPtr windowHandle)
         {
@@ -24,11 +24,11 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Gets the selected tab.
+        /// Gets the selected tab.
         /// </summary>
-        /// <param name = "windowHandle">The window handle.</param>
+        /// <param name="windowHandle">The window handle.</param>
         /// <returns>
-        ///     The zero based index of the selected TabItem
+        /// The zero based index of the selected TabItem
         /// </returns>
         internal static int GetSelectedTab(IntPtr windowHandle)
         {
@@ -37,10 +37,10 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Sets the selected tab.
+        /// Sets the selected tab.
         /// </summary>
-        /// <param name = "windowHandle">The window handle.</param>
-        /// <param name = "index">The index.</param>
+        /// <param name="windowHandle">The window handle.</param>
+        /// <param name="index">The zero based index of the tab to select.</param>
         internal static void SetSelectedTab(IntPtr windowHandle, int index)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));

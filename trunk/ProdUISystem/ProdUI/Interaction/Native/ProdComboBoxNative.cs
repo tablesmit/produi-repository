@@ -10,10 +10,12 @@ namespace ProdUI.Interaction.Native
     internal sealed class ProdComboBoxNative
     {
         /// <summary>
-        ///     Gets the selected index from the ComboBox list.
+        /// Gets the selected index from the ComboBox list.
         /// </summary>
-        /// <param name = "windowHandle">The window handle.</param>
-        /// <returns>The index of the selected list item</returns>
+        /// <param name="windowHandle">The window handle.</param>
+        /// <returns>
+        /// The index of the selected list item
+        /// </returns>
         internal static int GetSelectedIndexNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
@@ -21,10 +23,10 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Uses SendMessage to select an item in the ComboBox, deselecting all other items
+        /// Uses SendMessage to select an item in the ComboBox, deselecting all other items
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to ComboBox</param>
-        /// <param name = "index">Zero based index of item to select</param>
+        /// <param name="windowHandle">NativeWindowHandle to ComboBox</param>
+        /// <param name="index">Zero based index of item to select</param>
         internal static void SelectItemNative(IntPtr windowHandle, int index)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
@@ -55,10 +57,10 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Finds the desired string in the ComboBox list.
+        /// Finds the desired string in the ComboBox list.
         /// </summary>
-        /// <param name = "windowHandle">The window handle.</param>
-        /// <param name = "itemText">The item text.</param>
+        /// <param name="windowHandle">The window handle.</param>
+        /// <param name="itemText">The item text.</param>
         /// <returns></returns>
         private static int FindString(IntPtr windowHandle, string itemText)
         {
@@ -67,10 +69,12 @@ namespace ProdUI.Interaction.Native
         }
 
         /// <summary>
-        ///     Uses SendMessage to get a collection of all items in a ComboBox
+        /// Uses SendMessage to get a collection of all items in a ComboBox
         /// </summary>
-        /// <param name = "windowHandle">NativeWindowHandle to ComboBox</param>
-        /// <returns>A string collection containing each item in the ComboBox</returns>
+        /// <param name="windowHandle">NativeWindowHandle to ComboBox</param>
+        /// <returns>
+        /// A string collection containing each item in the ComboBox
+        /// </returns>
         internal static List<object> GetItemsNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));

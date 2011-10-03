@@ -9,7 +9,7 @@ using ProdUI.Utility;
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
-    ///     Provides mechanisms to work with container windows
+    /// Provides mechanisms to work with container windows
     /// </summary>
     public sealed class ProdWindow : IWindow
     {

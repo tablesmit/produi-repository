@@ -10,7 +10,7 @@ using Application = Microsoft.Office.Interop.Excel.Application;
 namespace ProdSpy.Graph
 {
     /// <summary>
-    ///   Provides methods for creating an Excel-formatted report of window controls
+    /// Provides methods for creating an Excel-formatted report of window controls
     /// </summary>
     public class ExcelReport : ReportBase
     {
@@ -20,9 +20,9 @@ namespace ProdSpy.Graph
         private _Worksheet _worksheet;
 
         /// <summary>
-        ///   Constructor
+        /// Initializes a new instance of the <see cref="ExcelReport"/> class.
         /// </summary>
-        /// <param name = "gn">graph node to map</param>
+        /// <param name="gn">graph node to map</param>
         public ExcelReport(GraphNode gn)
         {
             GraphNode = gn;
@@ -55,10 +55,10 @@ namespace ProdSpy.Graph
         #region Overrides
 
         /// <summary>
-        ///   Gets or sets the graph node.
+        /// Gets or sets the graph node.
         /// </summary>
         /// <value>
-        ///   The graph node.
+        /// The graph node.
         /// </value>
         public override GraphNode graphNode
         {
@@ -67,10 +67,10 @@ namespace ProdSpy.Graph
         }
 
         /// <summary>
-        ///   Gets or sets the output file.
+        /// Gets or sets the output file.
         /// </summary>
         /// <value>
-        ///   The output file.
+        /// The output file.
         /// </value>
         public override string OutFile
         {
@@ -79,7 +79,7 @@ namespace ProdSpy.Graph
         }
 
         /// <summary>
-        ///   Creates this report.
+        /// Creates this report.
         /// </summary>
         public override void Create()
         {
@@ -104,7 +104,7 @@ namespace ProdSpy.Graph
         }
 
         /// <summary>
-        ///   Releases unmanaged and - optionally - managed resources
+        /// Releases unmanaged and - optionally - managed resources
         /// </summary>
         public sealed override void Dispose()
         {

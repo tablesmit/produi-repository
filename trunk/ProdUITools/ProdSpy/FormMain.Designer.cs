@@ -298,7 +298,6 @@ namespace ProdSpy
             this.TvGraph.Name = "TvGraph";
             this.TvGraph.ShowNodeToolTips = true;
             this.TvGraph.ShowPlusMinus = false;
-            this.TvGraph.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TvGraph_AfterSelect);
             // 
             // CtxTree
             // 
@@ -321,25 +320,21 @@ namespace ProdSpy
             // 
             this.CtxTextReport.Name = "CtxTextReport";
             resources.ApplyResources(this.CtxTextReport, "CtxTextReport");
-            this.CtxTextReport.Click += new System.EventHandler(this.CtxTextReport_Click);
             // 
             // CtxExcelReport
             // 
             this.CtxExcelReport.Name = "CtxExcelReport";
             resources.ApplyResources(this.CtxExcelReport, "CtxExcelReport");
-            this.CtxExcelReport.Click += new System.EventHandler(this.CtxExcelReport_Click);
             // 
             // CtxHTMLReport
             // 
             this.CtxHTMLReport.Name = "CtxHTMLReport";
             resources.ApplyResources(this.CtxHTMLReport, "CtxHTMLReport");
-            this.CtxHTMLReport.Click += new System.EventHandler(this.CtxHTMLReport_Click);
             // 
             // CtxHighlight
             // 
             this.CtxHighlight.Name = "CtxHighlight";
             resources.ApplyResources(this.CtxHighlight, "CtxHighlight");
-            this.CtxHighlight.Click += new System.EventHandler(this.CtxHighlight_Click);
             // 
             // imageList1
             // 

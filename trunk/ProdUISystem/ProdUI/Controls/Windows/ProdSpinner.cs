@@ -19,20 +19,20 @@ using ProdUI.Logging;
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
-    ///     Methods to work with Spinner (or numeric up/down) controls using the UI Automation framework
-    ///     A Spinner control type consists of a set of buttons that enable a user to select from a set of items or set a numerical value from within a range
+    /// Methods to work with Spinner (or numeric up/down) controls using the UI Automation framework
+    /// A Spinner control type consists of a set of buttons that enable a user to select from a set of items or set a numerical value from within a range
     /// </summary>
     public sealed class ProdSpinner : BaseProdControl, IRangeValue
     {
         #region Constructors
 
         /// <summary>
-        ///     Initializes a new instance of the ProdSlider class.
+        /// Initializes a new instance of the ProdSlider class.
         /// </summary>
-        /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
-        /// <param name = "automationId">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="prodWindow">The ProdWindow that contains this control.</param>
+        /// <param name="automationId">The UI Automation identifier (ID) for the element.</param>
         /// <remarks>
-        ///     Will attempt to match AutomationId, then ReadOnly
+        /// Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
         public ProdSpinner(ProdWindow prodWindow, string automationId)
             : base(prodWindow, automationId)
@@ -40,20 +40,20 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///     Initializes a new instance of the ProdSlider class.
+        /// Initializes a new instance of the ProdSlider class.
         /// </summary>
-        /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
-        /// <param name = "treePosition">The index of this control in the parent windows UI control tree.</param>
+        /// <param name="prodWindow">The ProdWindow that contains this control.</param>
+        /// <param name="treePosition">The index of this control in the parent windows UI control tree.</param>
         public ProdSpinner(ProdWindow prodWindow, int treePosition)
             : base(prodWindow, treePosition)
         {
         }
 
         /// <summary>
-        ///     Initializes a new instance of the ProdSlider class.
+        /// Initializes a new instance of the ProdSlider class.
         /// </summary>
-        /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
-        /// <param name = "controlHandle">Window handle of the control</param>
+        /// <param name="prodWindow">The ProdWindow that contains this control.</param>
+        /// <param name="controlHandle">Window handle of the control</param>
         public ProdSpinner(ProdWindow prodWindow, IntPtr controlHandle)
             : base(prodWindow, controlHandle)
         {

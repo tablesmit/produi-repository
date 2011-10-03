@@ -68,20 +68,20 @@
             this.CmdRemoveLogger = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.PnlLogOptions = new System.Windows.Forms.Panel();
+            this.TblOutput = new System.Windows.Forms.TableLayoutPanel();
+            this.LblTypeExample = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.LblTimeExample = new System.Windows.Forms.Label();
             this.LvParams = new System.Windows.Forms.ListView();
             this.ClnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ClnValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.LblMethodExample = new System.Windows.Forms.Label();
+            this.LblMessageExample = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.TblOutput = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.LblTypeExample = new System.Windows.Forms.Label();
-            this.LblTimeExample = new System.Windows.Forms.Label();
-            this.LblMethodExample = new System.Windows.Forms.Label();
-            this.LblMessageExample = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -89,6 +89,7 @@
             this.PnlLayout.SuspendLayout();
             this.PnlLoadedLoggers.SuspendLayout();
             this.PnlLogOptions.SuspendLayout();
+            this.TblOutput.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -477,13 +478,9 @@
             // PnlLogOptions
             // 
             this.PnlLogOptions.Controls.Add(this.TblOutput);
-            this.PnlLogOptions.Controls.Add(this.LblTypeExample);
             this.PnlLogOptions.Controls.Add(this.label7);
-            this.PnlLogOptions.Controls.Add(this.LblTimeExample);
             this.PnlLogOptions.Controls.Add(this.LvParams);
-            this.PnlLogOptions.Controls.Add(this.LblMethodExample);
             this.PnlLogOptions.Controls.Add(this.CmdBrowse);
-            this.PnlLogOptions.Controls.Add(this.LblMessageExample);
             this.PnlLogOptions.Controls.Add(this.label5);
             this.PnlLogOptions.Controls.Add(this.TxtDllPath);
             this.PnlLogOptions.Controls.Add(this.label4);
@@ -498,6 +495,40 @@
             this.PnlLogOptions.Size = new System.Drawing.Size(704, 382);
             this.PnlLogOptions.TabIndex = 22;
             // 
+            // TblOutput
+            // 
+            this.TblOutput.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.TblOutput.AutoSize = true;
+            this.TblOutput.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.TblOutput.ColumnCount = 4;
+            this.TblOutput.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TblOutput.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TblOutput.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TblOutput.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TblOutput.Controls.Add(this.LblMessageExample, 3, 0);
+            this.TblOutput.Controls.Add(this.LblTypeExample, 2, 0);
+            this.TblOutput.Controls.Add(this.LblTimeExample, 0, 0);
+            this.TblOutput.Controls.Add(this.LblMethodExample, 1, 0);
+            this.TblOutput.Location = new System.Drawing.Point(101, 216);
+            this.TblOutput.Name = "TblOutput";
+            this.TblOutput.RowCount = 1;
+            this.TblOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TblOutput.Size = new System.Drawing.Size(496, 18);
+            this.TblOutput.TabIndex = 26;
+            // 
+            // LblTypeExample
+            // 
+            this.LblTypeExample.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LblTypeExample.AutoSize = true;
+            this.LblTypeExample.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblTypeExample.Location = new System.Drawing.Point(255, 0);
+            this.LblTypeExample.Name = "LblTypeExample";
+            this.LblTypeExample.Size = new System.Drawing.Size(56, 18);
+            this.LblTypeExample.TabIndex = 23;
+            this.LblTypeExample.Tag = "Message Level";
+            this.LblTypeExample.Text = "*Prod*";
+            this.LblTypeExample.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -507,8 +538,22 @@
             this.label7.TabIndex = 32;
             this.label7.Text = "Logger Parameters";
             // 
+            // LblTimeExample
+            // 
+            this.LblTimeExample.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LblTimeExample.AutoSize = true;
+            this.LblTimeExample.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblTimeExample.Location = new System.Drawing.Point(3, 0);
+            this.LblTimeExample.Name = "LblTimeExample";
+            this.LblTimeExample.Size = new System.Drawing.Size(120, 18);
+            this.LblTimeExample.TabIndex = 22;
+            this.LblTimeExample.Tag = "LogTime";
+            this.LblTimeExample.Text = "[10:12:32 AM]:";
+            this.LblTimeExample.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // LvParams
             // 
+            this.LvParams.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.LvParams.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ClnName,
             this.ClnValue});
@@ -528,6 +573,32 @@
             // 
             this.ClnValue.Text = "Value";
             this.ClnValue.Width = 274;
+            // 
+            // LblMethodExample
+            // 
+            this.LblMethodExample.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LblMethodExample.AutoSize = true;
+            this.LblMethodExample.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblMethodExample.Location = new System.Drawing.Point(129, 0);
+            this.LblMethodExample.Name = "LblMethodExample";
+            this.LblMethodExample.Size = new System.Drawing.Size(120, 18);
+            this.LblMethodExample.TabIndex = 24;
+            this.LblMethodExample.Tag = "Calling Function";
+            this.LblMethodExample.Text = "*Method=Click*";
+            this.LblMethodExample.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LblMessageExample
+            // 
+            this.LblMessageExample.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LblMessageExample.AutoSize = true;
+            this.LblMessageExample.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblMessageExample.Location = new System.Drawing.Point(317, 0);
+            this.LblMessageExample.Name = "LblMessageExample";
+            this.LblMessageExample.Size = new System.Drawing.Size(176, 18);
+            this.LblMessageExample.TabIndex = 25;
+            this.LblMessageExample.Tag = "Message Text";
+            this.LblMessageExample.Text = "Button click verified";
+            this.LblMessageExample.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
@@ -564,24 +635,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(0, 0);
             this.tableLayoutPanel1.TabIndex = 26;
             // 
-            // TblOutput
-            // 
-            this.TblOutput.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.TblOutput.AutoSize = true;
-            this.TblOutput.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.TblOutput.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.TblOutput.ColumnCount = 4;
-            this.TblOutput.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.TblOutput.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.TblOutput.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.TblOutput.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.TblOutput.Location = new System.Drawing.Point(314, 216);
-            this.TblOutput.Name = "TblOutput";
-            this.TblOutput.RowCount = 1;
-            this.TblOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TblOutput.Size = new System.Drawing.Size(5, 2);
-            this.TblOutput.TabIndex = 26;
-            // 
             // groupBox2
             // 
             this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -605,58 +658,6 @@
             this.label6.Size = new System.Drawing.Size(65, 13);
             this.label6.TabIndex = 13;
             this.label6.Text = "Date Format";
-            // 
-            // LblTypeExample
-            // 
-            this.LblTypeExample.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.LblTypeExample.AutoSize = true;
-            this.LblTypeExample.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblTypeExample.Location = new System.Drawing.Point(66, 252);
-            this.LblTypeExample.Name = "LblTypeExample";
-            this.LblTypeExample.Size = new System.Drawing.Size(56, 18);
-            this.LblTypeExample.TabIndex = 23;
-            this.LblTypeExample.Tag = "Message Level";
-            this.LblTypeExample.Text = "*Prod*";
-            this.LblTypeExample.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LblTimeExample
-            // 
-            this.LblTimeExample.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.LblTimeExample.AutoSize = true;
-            this.LblTimeExample.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblTimeExample.Location = new System.Drawing.Point(41, 233);
-            this.LblTimeExample.Name = "LblTimeExample";
-            this.LblTimeExample.Size = new System.Drawing.Size(120, 18);
-            this.LblTimeExample.TabIndex = 22;
-            this.LblTimeExample.Tag = "LogTime";
-            this.LblTimeExample.Text = "[10:12:32 AM]:";
-            this.LblTimeExample.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LblMethodExample
-            // 
-            this.LblMethodExample.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.LblMethodExample.AutoSize = true;
-            this.LblMethodExample.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblMethodExample.Location = new System.Drawing.Point(30, 270);
-            this.LblMethodExample.Name = "LblMethodExample";
-            this.LblMethodExample.Size = new System.Drawing.Size(120, 18);
-            this.LblMethodExample.TabIndex = 24;
-            this.LblMethodExample.Tag = "Calling Function";
-            this.LblMethodExample.Text = "*Method=Click*";
-            this.LblMethodExample.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LblMessageExample
-            // 
-            this.LblMessageExample.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.LblMessageExample.AutoSize = true;
-            this.LblMessageExample.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblMessageExample.Location = new System.Drawing.Point(21, 216);
-            this.LblMessageExample.Name = "LblMessageExample";
-            this.LblMessageExample.Size = new System.Drawing.Size(176, 18);
-            this.LblMessageExample.TabIndex = 25;
-            this.LblMessageExample.Tag = "Message Text";
-            this.LblMessageExample.Text = "Button click verified";
-            this.LblMessageExample.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainForm
             // 
@@ -685,6 +686,8 @@
             this.PnlLoadedLoggers.PerformLayout();
             this.PnlLogOptions.ResumeLayout(false);
             this.PnlLogOptions.PerformLayout();
+            this.TblOutput.ResumeLayout(false);
+            this.TblOutput.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
