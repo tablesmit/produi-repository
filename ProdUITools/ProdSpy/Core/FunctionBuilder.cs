@@ -150,7 +150,7 @@ namespace ProdSpy.Core
                     return;
                 }
 
-                /* check if enum, then build choices */
+                /* check if enumeration, then build choices */
                 if (pi[i].ParameterType.IsEnum)
                 {
                     elements = Enum.GetNames(pi[i].ParameterType);
@@ -167,12 +167,16 @@ namespace ProdSpy.Core
                 {
                     return;
                 }
-                if ((String.IsNullOrEmpty(form.ParamValue.ToString())))
+
+                /* Handles a ToggleState */
+                if (pi[i].ParameterType == typeof(ToggleState))
                 {
+                    ConvertInputParameters(pi, args, i, form.returnState);
                     return;
                 }
 
-                ConvertInputParameters(pi, args, i, form.ParamValue);
+                /* Strings and number values */
+                ConvertInputParameters(pi, args, i, form.returnValue);
             }
         }
 
@@ -265,9 +269,6 @@ namespace ProdSpy.Core
             return args;
         }
 
-
-        #region IDisposable Implementation
-
         protected bool Disposed/* = false*/;
 
         protected virtual void Dispose(bool disposing)
@@ -294,6 +295,5 @@ namespace ProdSpy.Core
             GC.SuppressFinalize(this);
         }
 
-        #endregion
     }
 }

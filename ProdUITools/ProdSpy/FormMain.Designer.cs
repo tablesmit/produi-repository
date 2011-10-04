@@ -298,6 +298,7 @@ namespace ProdSpy
             this.TvGraph.Name = "TvGraph";
             this.TvGraph.ShowNodeToolTips = true;
             this.TvGraph.ShowPlusMinus = false;
+            this.TvGraph.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TvGraph_AfterSelect);
             // 
             // CtxTree
             // 

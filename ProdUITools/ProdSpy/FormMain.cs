@@ -218,7 +218,7 @@ namespace ProdSpy
 
             SetInteractionMenu();
 
-            //LoadGraph(_focusedElement);
+            LoadGraph(_focusedElement);
             if (Settings.Default.AutoHighlight)
             {
                 TsHighlight_Click(null, null);
@@ -418,21 +418,44 @@ namespace ProdSpy
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ActionClick(object sender, EventArgs e)
         {
+            string parameterString = string.Empty;
+
             /* Get the method to invoke */
             ToolStripMenuItem it = (ToolStripMenuItem)sender;
-            /* get params and invoke */
+
+            /* get parameters and invoke */
             object[] args = _builder.BuildAction((int)it.Tag);
 
             /* Set up for template code gen */
             MethodInfo mi = _selectedControl.AvailableProdMethods[(int)it.Tag];
-            ProdTextTemplate template = new ProdTextTemplate(mi, _thisWindow.ParentWindowTitle, _selectedControl.Name, string.Empty);
+
+            parameterString = WriteExampleCode(parameterString, args, mi);
+        }
+
+        private string WriteExampleCode(string parameterString, object[] args, MethodInfo mi)
+        {
+            if (mi.GetParameters().Length > 0)
+            {
+                if ((mi.GetParameters())[0].ParameterType.IsEnum)
+                {
+                    parameterString = (mi.GetParameters())[0].ParameterType.ToString() + "." + args[0].ToString();
+                }
+                else
+                {
+                    parameterString = (mi.GetParameters())[0].ParameterType.ToString() + args[0].ToString();
+                }
+            }
+
+            ProdTextTemplate template = new ProdTextTemplate(mi, _thisWindow.ParentWindowTitle, _selectedControl.Name, parameterString);
             TextGenerator gen = new TextGenerator();
 
             /* display code to invoke the methods */
             RtbCode.Enabled = true;
             RtbCode.Text = gen.GenerateProd(template, OutputLanguage.CSharp);
+            return parameterString;
         }
 
         #endregion
+
     }
 }
