@@ -37,8 +37,8 @@
             this.ChkTreeNodeHighlight = new System.Windows.Forms.CheckBox();
             this.ChkUpdateFromNode = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ChkExpandedGraph = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -110,6 +110,8 @@
             // ChkUpdateFromNode
             // 
             this.ChkUpdateFromNode.AutoSize = true;
+            this.ChkUpdateFromNode.Checked = true;
+            this.ChkUpdateFromNode.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ChkUpdateFromNode.Location = new System.Drawing.Point(6, 31);
             this.ChkUpdateFromNode.Name = "ChkUpdateFromNode";
             this.ChkUpdateFromNode.Size = new System.Drawing.Size(142, 17);
@@ -117,6 +119,17 @@
             this.ChkUpdateFromNode.Text = "Update on node change";
             this.toolTip1.SetToolTip(this.ChkUpdateFromNode, "Check to update the analysis portion on node switch");
             this.ChkUpdateFromNode.UseVisualStyleBackColor = true;
+            // 
+            // ChkExpandedGraph
+            // 
+            this.ChkExpandedGraph.AutoSize = true;
+            this.ChkExpandedGraph.Location = new System.Drawing.Point(6, 78);
+            this.ChkExpandedGraph.Name = "ChkExpandedGraph";
+            this.ChkExpandedGraph.Size = new System.Drawing.Size(94, 17);
+            this.ChkExpandedGraph.TabIndex = 8;
+            this.ChkExpandedGraph.Text = "Expand Graph";
+            this.toolTip1.SetToolTip(this.ChkExpandedGraph, "Check to have the control graph expanded on startup");
+            this.ChkExpandedGraph.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -129,17 +142,6 @@
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Graph Options";
-            // 
-            // ChkExpandedGraph
-            // 
-            this.ChkExpandedGraph.AutoSize = true;
-            this.ChkExpandedGraph.Location = new System.Drawing.Point(6, 78);
-            this.ChkExpandedGraph.Name = "ChkExpandedGraph";
-            this.ChkExpandedGraph.Size = new System.Drawing.Size(94, 17);
-            this.ChkExpandedGraph.TabIndex = 8;
-            this.ChkExpandedGraph.Text = "Expand Graph";
-            this.toolTip1.SetToolTip(this.ChkExpandedGraph, "Check to have the control graph expanded on startup");
-            this.ChkExpandedGraph.UseVisualStyleBackColor = true;
             // 
             // FormOptions
             // 

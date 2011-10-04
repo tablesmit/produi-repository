@@ -72,7 +72,7 @@ namespace ProdCodeGenerator
         public virtual string TransformText()
         {
             GenerationEnvironment = null;
-            Write("ProdSession session = new ProdSession();\r\nList<ProdLogger> loggers = new  List<Pr" + "odLogger>();\r\nloggers.Add(example);\r\nProdWindow window = new ProdWindow(\"");
+            Write("ProdWindow window = new ProdWindow(\"");
 
 #line 8 "C:\Documents and Settings\PRP9434\My Documents\Projects\produi\trunk\ProdUISystem\ProdCodeGenerator\csProdHeader.tt"
             Write(ToStringHelper.ToStringWithCulture(WindowName));

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FormsSampleDriver")]
+[assembly: AssemblyTitle("WindowCracker")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ProdUI")]
+[assembly: AssemblyProduct("WindowCracker")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("4e5d385e-0349-4f42-a17c-7f05b7964bb2")]
+[assembly: Guid("f2996c16-3e38-4698-a15e-239828f2bfc8")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -12,7 +12,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="UpdateNode" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="HighlightNode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -31,6 +31,9 @@
     </Setting>
     <Setting Name="ControlHandleDecl" Type="System.String" Scope="User">
       <Value Profile="(Default)">IntPtr hand = ProdFunctions.GetControlHandle(hWnd,"</Value>
+    </Setting>
+    <Setting Name="Setting" Type="System.String" Scope="User">
+      <Value Profile="(Default)">x</Value>
     </Setting>
   </Settings>
 </SettingsFile>
