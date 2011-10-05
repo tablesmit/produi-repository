@@ -145,7 +145,7 @@ namespace ProdUI.Utility
                 }
                 return IntPtr.Zero;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }

@@ -4,17 +4,19 @@ using System.Windows.Automation;
 namespace ProdUI.Interaction.UIAPatterns
 {
     /// <summary>
-    ///     Used for controls that support the Table and TableItem control patterns. implements ITableProvider, ITableItemProvider
+    /// Used for controls that support the Table and TableItem control patterns.
     /// </summary>
     internal static class TablePatternHelper
     {
-        #region ITableProvider Implentation
+        #region ITableProvider Implementation
 
         /// <summary>
-        ///     Gets the column headers.
+        /// Gets the column headers.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <returns>An array of Column Header elements</returns>
+        /// <param name="control">The UI Automation element</param>
+        /// <returns>
+        /// An array of Column Header elements
+        /// </returns>
         internal static AutomationElement[] GetColumnHeaders(AutomationElement control)
         {
             TablePattern pat = (TablePattern)CommonUIAPatternHelpers.CheckPatternSupport(TablePattern.Pattern, control);
@@ -22,10 +24,12 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets the row headers.
+        /// Gets the row headers.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <returns>An array of Row Header elements</returns>
+        /// <param name="control">The UI Automation element</param>
+        /// <returns>
+        /// An array of Row Header elements
+        /// </returns>
         internal static AutomationElement[] GetRowHeaders(AutomationElement control)
         {
             TablePattern pat = (TablePattern)CommonUIAPatternHelpers.CheckPatternSupport(TablePattern.Pattern, control);
@@ -44,13 +48,13 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets the item at the specified cell.
+        /// Gets the item at the specified cell.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "row">The row of the item to retrieve.</param>
-        /// <param name = "column">The column of the item to retrieve.</param>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="row">The row of the item to retrieve.</param>
+        /// <param name="column">The column of the item to retrieve.</param>
         /// <returns>
-        ///     The Automation Element at the supplied row/column intersection
+        /// The Automation Element at the supplied row/column intersection
         /// </returns>
         internal static AutomationElement GetItem(AutomationElement control, int row, int column)
         {
@@ -59,10 +63,12 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets the number of rows
+        /// Gets the number of rows
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <returns>The number of rows</returns>
+        /// <param name="control">The UI Automation element</param>
+        /// <returns>
+        /// The number of rows
+        /// </returns>
         internal static int GetRowCount(AutomationElement control)
         {
             /* move to next state */

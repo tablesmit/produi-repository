@@ -111,19 +111,26 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interaction\Bridge\GridBridge.cs" />
+    <Compile Include="Interaction\Bridge\GridItemBridge.cs" />
+    <Compile Include="Interaction\Bridge\Interfaces\IGridItem.cs" />
+    <Compile Include="Interaction\Bridge\Interfaces\IGrid.cs" />
+    <Compile Include="Interaction\Bridge\Interfaces\ITable.cs" />
+    <Compile Include="Interaction\Bridge\Interfaces\ITableItem.cs" />
+    <Compile Include="Interaction\Bridge\TableBridge.cs" />
     <Compile Include="Logging\ProdLoggerInputParameters.cs" />
     <Compile Include="Logging\LoggingConfiguration.cs" />
     <Compile Include="Logging\ProdLoggerParameters.cs" />
     <Compile Include="Controls\Static\StaticEvents.cs" />
-    <Compile Include="Interaction\Bridge\IInvoke.cs" />
-    <Compile Include="Interaction\Bridge\IMultipleSelectionList.cs" />
-    <Compile Include="Interaction\Bridge\InvokeBridge.cs" />
-    <Compile Include="Interaction\Bridge\IRangeValue.cs" />
-    <Compile Include="Interaction\Bridge\ISelection.cs" />
-    <Compile Include="Interaction\Bridge\ISingleSelectList.cs" />
-    <Compile Include="Interaction\Bridge\IToggle.cs" />
-    <Compile Include="Interaction\Bridge\IValue.cs" />
-    <Compile Include="Interaction\Bridge\IWindow.cs" />
+    <Compile Include="Interaction\Bridge\Interfaces\IInvoke.cs" />
+    <Compile Include="Interaction\Bridge\Interfaces\IMultipleSelectionList.cs" />
+    <Compile Include="Interaction\Bridge\Interfaces\InvokeBridge.cs" />
+    <Compile Include="Interaction\Bridge\Interfaces\IRangeValue.cs" />
+    <Compile Include="Interaction\Bridge\Interfaces\ISelection.cs" />
+    <Compile Include="Interaction\Bridge\Interfaces\ISingleSelectList.cs" />
+    <Compile Include="Interaction\Bridge\Interfaces\IToggle.cs" />
+    <Compile Include="Interaction\Bridge\Interfaces\IValue.cs" />
+    <Compile Include="Interaction\Bridge\Interfaces\IWindow.cs" />
     <Compile Include="Interaction\Bridge\RangeValueBridge.cs" />
     <Compile Include="Interaction\Bridge\SelectionBridge.cs" />
     <Compile Include="Interaction\Bridge\SingleSelectListBridge.cs" />
@@ -170,7 +177,7 @@
     <Compile Include="Controls\Static\ValuePatternStatics.cs" />
     <Compile Include="Controls\Static\WindowPatternsStatics.cs" />
     <Compile Include="Controls\Windows\ProdCalendar.cs" />
-    <None Include="Controls\Windows\ProdDataGrid.cs" />
+    <Compile Include="Controls\Windows\ProdDataGrid.cs" />
     <None Include="Controls\Windows\ProdRibbonElement.cs" />
     <Compile Include="Controls\Windows\ProdSpinner.cs" />
     <Compile Include="Controls\Windows\ProdTab.cs" />
@@ -253,7 +260,7 @@ REM Create all the sancastle stuff
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="Build" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_IncrementBeforeBuild="False" />
+      <UserProperties BuildVersion_IncrementBeforeBuild="False" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_BuildAction="Build" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

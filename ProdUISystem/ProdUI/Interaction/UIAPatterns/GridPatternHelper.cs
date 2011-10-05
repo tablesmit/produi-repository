@@ -115,7 +115,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <returns>
         /// The row that contains the cell or item.
         /// </returns>
-        internal static int Row(AutomationElement control)
+        internal static int GetRow(AutomationElement control)
         {
             GridItemPattern pat = GetGridItemPattern(control);
             return pat.Current.Row;
