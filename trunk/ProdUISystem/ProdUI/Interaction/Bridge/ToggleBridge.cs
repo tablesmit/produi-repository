@@ -12,6 +12,12 @@ namespace ProdUI.Interaction.Bridge
 {
     internal static class ToggleBridge
     {
+        /// <summary>
+        /// Gets the check state.
+        /// </summary>
+        /// <param name="theInvoke">The invoke.</param>
+        /// <param name="control">The control.</param>
+        /// <returns>The current <see cref="ToggleState"/></returns>
         internal static ToggleState GetCheckStateBridge(this IToggle theInvoke, BaseProdControl control)
         {
             try
@@ -44,6 +50,12 @@ namespace ProdUI.Interaction.Bridge
             return ProdCheckBoxNative.GetCheckStateNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
 
+        /// <summary>
+        /// Sets the check state.
+        /// </summary>
+        /// <param name="theInvoke">The invoke.</param>
+        /// <param name="control">The control.</param>
+        /// <param name="checkstate">The <see cref="ToggleState"/>.</param>
         internal static void SetCheckStateBridge(this IToggle theInvoke, BaseProdControl control, ToggleState checkstate)
         {
             try
@@ -76,6 +88,11 @@ namespace ProdUI.Interaction.Bridge
             ProdCheckBoxNative.SetCheckStateNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, checkstate);
         }
 
+        /// <summary>
+        /// Toggles the check state.
+        /// </summary>
+        /// <param name="theInvoke">The invoke.</param>
+        /// <param name="control">The control.</param>
         internal static void ToggleCheckStateBridge(this IToggle theInvoke, BaseProdControl control)
         {
             try

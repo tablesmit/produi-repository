@@ -378,7 +378,7 @@ namespace ProdUI.Controls.Static
                     return;
                 }
             }
-            catch (InvalidOperationException err)
+            catch (InvalidOperationException)
             {
 
                 double width = AutomationElement.FromHandle(windowHandle).Current.BoundingRectangle.Width;
