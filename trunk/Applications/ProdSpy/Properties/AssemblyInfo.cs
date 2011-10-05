@@ -1,16 +1,17 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Resources;
+using System.Runtime.InteropServices;
+
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ProdUITests")]
+
+[assembly: AssemblyTitle("ProdSpy")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ProdUITests")]
+[assembly: AssemblyCompany("ProdUI")]
+[assembly: AssemblyProduct("ProdSpy")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -18,10 +19,12 @@ using System.Resources;
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
+
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("07842972-03cf-49b3-a86f-9bf1d00ad508")]
+
+[assembly: Guid("a0ebb0ec-8eab-4c58-8357-20000b41f53f")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -33,6 +36,7 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: NeutralResourcesLanguageAttribute("en-US")]
+
+[assembly: AssemblyVersion("0.6.2.0901")]
+[assembly: AssemblyFileVersion("0.5.1.0")]
+[assembly: NeutralResourcesLanguage("en-US")]

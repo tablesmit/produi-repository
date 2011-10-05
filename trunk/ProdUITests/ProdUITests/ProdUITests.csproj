@@ -47,12 +47,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DebugLogger">
-      <HintPath>..\..\ProdUISystem\Common\Loggers\DebugLogger.dll</HintPath>
+      <HintPath>..\..\Release\ProdUI\Common\Loggers\DebugLogger.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
-    <Reference Include="ProdUI, Version=0.1.7.829, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ProdUISystem\Common\ProdUI.dll</HintPath>
+    <Reference Include="ProdUI">
+      <HintPath>..\..\Release\ProdUI\Common\ProdUI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

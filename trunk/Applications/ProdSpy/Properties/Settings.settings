@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ProdSpy.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ShowFocus" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="HighlightColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Red</Value>
+    </Setting>
+    <Setting Name="AutoHighlight" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="UpdateNode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="HighlightNode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="CollapseGraph" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SessionDecl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ProdSession session = new ProdSession();</Value>
+    </Setting>
+    <Setting Name="WindowDecl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ProdWindow window = new ProdWindow("</Value>
+    </Setting>
+    <Setting Name="ElementDecl" Type="System.String" Scope="User">
+      <Value Profile="(Default)"> control = new </Value>
+    </Setting>
+    <Setting Name="ControlHandleDecl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">IntPtr hand = ProdFunctions.GetControlHandle(hWnd,"</Value>
+    </Setting>
+    <Setting Name="Setting" Type="System.String" Scope="User">
+      <Value Profile="(Default)">x</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
