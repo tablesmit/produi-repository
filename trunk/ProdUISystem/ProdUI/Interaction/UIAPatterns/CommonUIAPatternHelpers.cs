@@ -86,7 +86,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name="prodwindow">The ProdWindow.</param>
         /// <param name="automationId">The automation id.</param>
         /// <returns>
-        /// A list of matching elements/returns&gt;
+        /// A list of matching elements
         /// </returns>
         private static AutomationElement GetControl(ProdWindow prodwindow, string automationId)
         {
@@ -108,7 +108,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// Performs <see cref="System.Windows.Automation.AutomationPattern"/> verification
         /// </summary>
         /// <param name="pattern"><see cref="System.Windows.Automation.AutomationPattern"/> to be used</param>
-        /// <param name="control">UI Automation element to be worked with</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
         ///   <c>true</c> if pattern is supported by the control, <c>false</c> if not. a <c>null</c> value is returned in the event of a recoverable error
         /// </returns>
@@ -119,7 +119,6 @@ namespace ProdUI.Interaction.UIAPatterns
             {
                 object pat;
                 control.TryGetCurrentPattern(pattern, out pat);
-                //control.SetFocus();
                 return pat;
             }
             catch (InvalidOperationException)

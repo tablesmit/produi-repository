@@ -15,11 +15,11 @@ namespace ProdUI.Interaction.Bridge
         private const string CLICK_MSG = @"Performing Click";
 
         /// <summary>
-        /// Handles the invoke event
+        /// Handles The extended interface. event
         /// </summary>
-        /// <param name="theInvoke">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
-        internal static void ClickBridge(this IInvoke theInvoke, BaseProdControl control)
+        internal static void ClickBridge(this IInvoke extension, BaseProdControl control)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace ProdUI.Interaction.Bridge
         }
 
         /// <summary>
-        /// Handles the UIA version of the invoke event
+        /// Handles the UIA version of The extended interface. event
         /// </summary>
         /// <param name="control">The UI Automation element</param>
         private static void UiaInvoke(BaseProdControl control)
@@ -54,7 +54,7 @@ namespace ProdUI.Interaction.Bridge
         }
 
         /// <summary>
-        /// Handles the native version of the invoke event
+        /// Handles the native version of The extended interface. event
         /// </summary>
         /// <param name="control">The UI Automation element</param>
         private static void NativeInvoke(AutomationElement control)

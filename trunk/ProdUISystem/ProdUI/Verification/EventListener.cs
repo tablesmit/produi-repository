@@ -11,9 +11,9 @@ namespace ProdUI.Verification
         private AutomationPropertyChangedEventHandler _propertyChangeHandler;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref = "EventListener" /> class.
+        /// Initializes a new instance of the <see cref="EventListener"/> class.
         /// </summary>
-        /// <param name = "targetEvent">The target event message.</param>
+        /// <param name="targetEvent">The target event message.</param>
         internal EventListener(EventRegistrationMessage targetEvent)
         {
             if (targetEvent == null) throw new ProdOperationException("targetEvent cannot be null");
@@ -22,7 +22,7 @@ namespace ProdUI.Verification
         }
 
         /// <summary>
-        ///     Sets the event listener hook depending on event type.
+        /// Sets the event listener hook depending on event type.
         /// </summary>
         private void SetEventHook()
         {
@@ -40,10 +40,10 @@ namespace ProdUI.Verification
         }
 
         /// <summary>
-        ///     Automation Event handler
+        /// Automation Event handler
         /// </summary>
-        /// <param name = "src">The source of the event.</param>
-        /// <param name = "e">The <see cref = "System.Windows.Automation.AutomationEventArgs" /> instance containing the event data.</param>
+        /// <param name="src">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Automation.AutomationEventArgs"/> instance containing the event data.</param>
         private void OnAutomationEvent(object src, AutomationEventArgs e)
         {
             if (src == null)
@@ -61,10 +61,10 @@ namespace ProdUI.Verification
         }
 
         /// <summary>
-        ///     Handler for property change events
+        /// Handler for property change events
         /// </summary>
-        /// <param name = "src">The source whose properties changed.</param>
-        /// <param name = "e">Event arguments.</param>
+        /// <param name="src">The source whose properties changed.</param>
+        /// <param name="e">Event arguments.</param>
         private void OnPropertyChange(object src, AutomationPropertyChangedEventArgs e)
         {
             if (src == null)
@@ -78,7 +78,7 @@ namespace ProdUI.Verification
         }
 
         /// <summary>
-        ///     Removes the handler.
+        /// Removes the handler.
         /// </summary>
         private void RemoveHandler()
         {
@@ -87,7 +87,7 @@ namespace ProdUI.Verification
         }
 
         /// <summary>
-        ///     Removes the property change handler.
+        /// Removes the property change handler.
         /// </summary>
         private void RemovePropertyChangeHandler()
         {

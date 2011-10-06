@@ -10,11 +10,11 @@ namespace ProdUI.Logging
     public sealed class ProdLoggingAttribute : Attribute
     {
         /// <summary>
-        ///     Instantiates a ProdLoggingAttribute
+        /// Instantiates a ProdLoggingAttribute
         /// </summary>
-        /// <param name = "logLevel">The LoggingLevel of messages to output to the log</param>
+        /// <param name="logLevel">The LoggingLevel of messages to output to the log</param>
         /// <remarks>
-        ///     If a LoggingVerbosity is not specified, it will default to minimum
+        /// If a LoggingVerbosity is not specified, it will default to minimum
         /// </remarks>
         public ProdLoggingAttribute(LoggingLevels logLevel)
         {
@@ -22,15 +22,18 @@ namespace ProdUI.Logging
         }
 
         /// <summary>
-        ///     The <see cref = "LoggingLevels" /> of messages to output to the log
+        /// The <see cref="LoggingLevels"/> of messages to output to the log
         /// </summary>
+        /// <value>
+        /// The log level.
+        /// </value>
         public LoggingLevels LogLevel { get; set; }
 
         /// <summary>
-        ///     A <see cref = "LoggingVerbosity" /> indicating how detailed the information written to the log can be
+        /// A <see cref="LoggingVerbosity"/> indicating how detailed the information written to the log can be
         /// </summary>
         /// <value>
-        ///     The verbosity support.
+        /// The verbosity support.
         /// </value>
         public LoggingVerbosity VerbositySupport { get; set; }
     }

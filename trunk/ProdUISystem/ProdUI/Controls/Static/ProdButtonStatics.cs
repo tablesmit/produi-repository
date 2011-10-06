@@ -46,7 +46,7 @@ namespace ProdUI.Controls.Static
         /// Clicks this ProdButton.
         /// </summary>
         /// <param name="prodwindow">The ProdWindow that contains this control..</param>
-        /// <param name="automationId">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="automationId">The UI Automation element</param>
         /// <exception cref="ProdOperationException">Examine inner exception</exception>
         /// <remarks>
         /// The program will also attempt to identify using the name property if the AutomationId fails

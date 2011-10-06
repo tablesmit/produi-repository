@@ -12,9 +12,9 @@ namespace ProdUI.Utility
         private readonly IntPtr _rootHandle;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref = "ControlTree" /> class.
+        /// Initializes a new instance of the <see cref="ControlTree"/> class.
         /// </summary>
-        /// <param name = "controlHandle">The control handle to the main window.</param>
+        /// <param name="controlHandle">The control handle to the main window.</param>
         internal ControlTree(IntPtr controlHandle)
         {
             /* break over to process */
@@ -24,11 +24,11 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///     Finds the specified control position.
+        /// Finds the specified control position.
         /// </summary>
-        /// <param name = "controlPosition">The control position.</param>
+        /// <param name="controlPosition">The control position.</param>
         /// <returns>
-        ///     the corresponding controls window handle
+        /// the corresponding controls window handle
         /// </returns>
         internal int Find(int controlPosition)
         {
@@ -43,11 +43,11 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///     Finds the element based on its index in the UI Control tree.
+        /// Finds the element based on its index in the UI Control tree.
         /// </summary>
-        /// <param name = "controlPosition">The control position in the tree.</param>
+        /// <param name="controlPosition">The control position in the tree.</param>
         /// <returns>
-        ///     The specified element
+        /// The specified element
         /// </returns>
         internal AutomationElement FindElement(int controlPosition)
         {
@@ -55,7 +55,7 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///     Loads the control tree.
+        /// Loads the control tree.
         /// </summary>
         private void LoadControlTree()
         {
@@ -69,9 +69,9 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///     Enumerates the elements in the UI Control Tree.
+        /// Enumerates the elements in the UI Control Tree.
         /// </summary>
-        /// <param name = "aeRoot">The root AutomationElement.</param>
+        /// <param name="aeRoot">The root AutomationElement.</param>
         private void EnumControlElements(AutomationElement aeRoot)
         {
             AutomationElement aeNode = TreeWalker.ControlViewWalker.GetFirstChild(aeRoot);

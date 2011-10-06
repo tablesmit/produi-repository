@@ -15,10 +15,10 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Gets the check state.
         /// </summary>
-        /// <param name="theInvoke">The invoke.</param>
-        /// <param name="control">The control.</param>
+        /// <param name="extension">The extended interface.</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>The current <see cref="ToggleState"/></returns>
-        internal static ToggleState GetCheckStateBridge(this IToggle theInvoke, BaseProdControl control)
+        internal static ToggleState GetCheckStateBridge(this IToggle extension, BaseProdControl control)
         {
             try
             {
@@ -53,10 +53,10 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Sets the check state.
         /// </summary>
-        /// <param name="theInvoke">The invoke.</param>
-        /// <param name="control">The control.</param>
+        /// <param name="extension">The extended interface.</param>
+        /// <param name="control">The UI Automation element</param>
         /// <param name="checkstate">The <see cref="ToggleState"/>.</param>
-        internal static void SetCheckStateBridge(this IToggle theInvoke, BaseProdControl control, ToggleState checkstate)
+        internal static void SetCheckStateBridge(this IToggle extension, BaseProdControl control, ToggleState checkstate)
         {
             try
             {
@@ -91,9 +91,9 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Toggles the check state.
         /// </summary>
-        /// <param name="theInvoke">The invoke.</param>
-        /// <param name="control">The control.</param>
-        internal static void ToggleCheckStateBridge(this IToggle theInvoke, BaseProdControl control)
+        /// <param name="extension">The extended interface.</param>
+        /// <param name="control">The UI Automation element</param>
+        internal static void ToggleCheckStateBridge(this IToggle extension, BaseProdControl control)
         {
             try
             {

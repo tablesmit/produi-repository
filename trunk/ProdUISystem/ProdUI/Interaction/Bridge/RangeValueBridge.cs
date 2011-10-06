@@ -15,12 +15,12 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Gets the value.
         /// </summary>
-        /// <param name="theValue">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <returns>
         /// Current value of the control
         /// </returns>
-        public static double GetValueBridge(this IRangeValue theValue, BaseProdControl control)
+        public static double GetValueBridge(this IRangeValue extension, BaseProdControl control)
         {
             try
             {
@@ -59,10 +59,10 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Sets the value of the specified control.
         /// </summary>
-        /// <param name="theValue">The extension interface</param>
+        /// <param name="extension">The extension interface</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <param name="value">The value to set control to.</param>
-        public static void SetValueBridge(this IRangeValue theValue, BaseProdControl control, double value)
+        public static void SetValueBridge(this IRangeValue extension, BaseProdControl control, double value)
         {
             try
             {
@@ -101,12 +101,12 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Gets the maximum value of the control.
         /// </summary>
-        /// <param name="theValue">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <returns>
         /// The maximum value of the control
         /// </returns>
-        public static double GetMaxValueBridge(this IRangeValue theValue, BaseProdControl control)
+        public static double GetMaxValueBridge(this IRangeValue extension, BaseProdControl control)
         {
             try
             {
@@ -144,12 +144,12 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Gets the minimum value of the control.
         /// </summary>
-        /// <param name="theValue">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <returns>
         /// The minimum value of the control.
         /// </returns>
-        public static double GetMinValueBridge(this IRangeValue theValue, BaseProdControl control)
+        public static double GetMinValueBridge(this IRangeValue extension, BaseProdControl control)
         {
             try
             {
@@ -187,12 +187,12 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Gets the large change value for the control.
         /// </summary>
-        /// <param name="theValue">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <returns>
         /// A number indicating the increment of a large change
         /// </returns>
-        public static double GetLargeChangeBridge(this IRangeValue theValue, BaseProdControl control)
+        public static double GetLargeChangeBridge(this IRangeValue extension, BaseProdControl control)
         {
             try
             {
@@ -227,12 +227,12 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Gets the small change value for the control.
         /// </summary>
-        /// <param name="theValue">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <returns>
         /// A number indicating the increment of a small change
         /// </returns>
-        public static double GetSmallChangeBridge(this IRangeValue theValue, BaseProdControl control)
+        public static double GetSmallChangeBridge(this IRangeValue extension, BaseProdControl control)
         {
             try
             {

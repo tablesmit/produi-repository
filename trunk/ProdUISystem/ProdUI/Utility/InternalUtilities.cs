@@ -23,12 +23,12 @@ namespace ProdUI.Utility
         #region Fields
 
         /// <summary>
-        ///     key = handle (IntPtr) ; value = title (string)
+        /// key = handle (IntPtr) ; value = title (string)
         /// </summary>
         internal static Hashtable WindowList;
 
         /// <summary>
-        ///     List of all child windows and their handles
+        /// List of all child windows and their handles
         /// </summary>
         internal static Hashtable ChildList;
 
@@ -37,14 +37,14 @@ namespace ProdUI.Utility
         #region Callbacks
 
         /// <summary>
-        ///     An application-defined callback function used with the EnumWindows or EnumDesktopWindows function.
-        ///     It receives top-level window handles
+        /// An application-defined callback function used with the EnumWindows or EnumDesktopWindows function.
+        /// It receives top-level window handles
         /// </summary>
-        /// <param name = "windowHandle">A handle to a top-level window.</param>
-        /// <param name = "lParam">nothing in this case</param>
+        /// <param name="windowHandle">A handle to a top-level window.</param>
+        /// <param name="lParam">nothing in this case</param>
         /// <returns>
-        ///     To continue enumeration, the callback function must return TRUE;
-        ///     to stop enumeration, it must return FALSE
+        /// To continue enumeration, the callback function must return TRUE;
+        /// to stop enumeration, it must return FALSE
         /// </returns>
         internal static bool EnumWindowsProc(IntPtr windowHandle, int lParam)
         {
@@ -94,9 +94,9 @@ namespace ProdUI.Utility
         #region Top-Level Window Functions
 
         /// <summary>
-        ///     Used for call from WinWaitExists
+        /// Used for call from WinWaitExists
         /// </summary>
-        /// <param name = "thePartialTitle">The partial title.</param>
+        /// <param name="thePartialTitle">The partial title.</param>
         /// <returns></returns>
         internal static IntPtr WinWaitSearch(string thePartialTitle)
         {
@@ -120,10 +120,12 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///     Gets a table of handles/titles. searches table for first instance of title that contains text
+        /// Gets a table of handles/titles. searches table for first instance of title that contains text
         /// </summary>
-        /// <param name = "thePartialTitle">the initial part of, or an entire, window name</param>
-        /// <returns>the handle to the window, or zero pointer if not found</returns>
+        /// <param name="thePartialTitle">the initial part of, or an entire, window name</param>
+        /// <returns>
+        /// the handle to the window, or zero pointer if not found
+        /// </returns>
         internal static IntPtr FindWindowPartial(string thePartialTitle)
         {
             try
@@ -152,9 +154,9 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///     Enumerates the existing windows Hashtable using partial title.
+        /// Enumerates the existing windows Hashtable using partial title.
         /// </summary>
-        /// <param name = "thePartialTitle">The partial title.</param>
+        /// <param name="thePartialTitle">The partial title.</param>
         /// <returns></returns>
         private static IntPtr EnumerateExistingWindowsPartial(string thePartialTitle)
         {
@@ -189,7 +191,7 @@ namespace ProdUI.Utility
                 throw new ProdOperationException("NativeWindowHandle Not found", new ElementNotAvailableException());
             }
 
-            IntPtr retVal = NativeMethods.FindWindowEX(theParentHandle, IntPtr.Zero, null, theChildTitle);
+            IntPtr retVal = NativeMethods.FindWindowEx(theParentHandle, IntPtr.Zero, null, theChildTitle);
             if (retVal == IntPtr.Zero)
             {
                 /* here's another method, just in case */
@@ -388,9 +390,9 @@ namespace ProdUI.Utility
         #endregion Conversion Methods
 
         /// <summary>
-        ///     Moves the mouse to the specified point.
+        /// Moves the mouse to the specified point.
         /// </summary>
-        /// <param name = "pt">The point....</param>
+        /// <param name="pt">The point....</param>
         internal static void MoveMouseToPoint(Point pt)
         {
             SendMouseInput(pt.X, pt.Y, 0, MOUSEEVENTF.MOUSEEVENTFMOVE | MOUSEEVENTF.MOUSEEVENTFABSOLUTE);
@@ -401,20 +403,22 @@ namespace ProdUI.Utility
         /**************************************************************************************************************************/
 
         /// <summary>
-        ///     Inject pointer input into the system
+        /// Inject pointer input into the system
         /// </summary>
-        /// <param name = "x">x coordinate of pointer, if Move flag specified</param>
-        /// <param name = "y">y coordinate of pointer, if Move flag specified</param>
-        /// <param name = "data">wheel movement, or mouse X button, depending on flags</param>
-        /// <param name = "flags">flags to indicate which type of input occurred - move, button press/release, wheel move, etc.</param>
-        /// <exception cref = "ProdOperationException">Thrown if Security permissions won't allow execution</exception>
-        /// <exception cref = "Win32Exception">Thrown if SendInput call fails</exception>
-        /// <outside_see conditional = "false">
-        ///     This API does not work inside the secure execution environment.
-        ///     <exception cref = "System.Security.Permissions.SecurityPermission" />
-        /// </outside_see>
+        /// <param name="x">x coordinate of pointer, if Move flag specified</param>
+        /// <param name="y">y coordinate of pointer, if Move flag specified</param>
+        /// <param name="data">wheel movement, or mouse X button, depending on flags</param>
+        /// <param name="flags">flags to indicate which type of input occurred - move, button press/release, wheel move, etc.</param>
+        /// <exception cref="ProdOperationException">Thrown if Security permissions won't allow execution</exception>
+        ///   
+        /// <exception cref="Win32Exception">Thrown if SendInput call fails</exception>
+        ///   
+        /// <outside_see conditional="false">
+        /// This API does not work inside the secure execution environment.
+        ///   <exception cref="System.Security.Permissions.SecurityPermission"/>
+        ///   </outside_see>
         /// <remarks>
-        ///     x, y are in pixels. If Absolute flag used, are relative to desktop origin.
+        /// x, y are in pixels. If Absolute flag used, are relative to desktop origin.
         /// </remarks>
         internal static void SendMouseInput(double x, double y, int data, MOUSEEVENTF flags)
         {
@@ -476,12 +480,12 @@ namespace ProdUI.Utility
         }
 
         /// <summary>
-        ///     Gets an AutomationElement based on its container window.
+        /// Gets an AutomationElement based on its container window.
         /// </summary>
-        /// <param name = "prodWindow">The containing ProdWindow.</param>
-        /// <param name = "automationId">The automation id.</param>
+        /// <param name="prodWindow">The containing ProdWindow.</param>
+        /// <param name="automationId">The automation id.</param>
         /// <returns>
-        ///     Corresponding element if successful, null if not
+        /// Corresponding element if successful, null if not
         /// </returns>
         internal static AutomationElement GetHandlelessElement(ProdWindow prodWindow, string automationId)
         {

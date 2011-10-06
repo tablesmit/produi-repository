@@ -10,11 +10,11 @@ namespace ProdUI.Interaction.UIAPatterns
     internal static class RangeValuePatternHelper
     {
         /// <summary>
-        ///     Gets the current value of the UI Automation element
+        /// Gets the current value of the UI Automation element
         /// </summary>
-        /// <param name = "control">The UI Automation element.</param>
+        /// <param name="control">The UI Automation element.</param>
         /// <returns>
-        ///     The control-specific value
+        /// The control-specific value
         /// </returns>
         internal static double GetValue(AutomationElement control)
         {
@@ -23,10 +23,10 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Sets the current value of the UI Automation element
+        /// Sets the current value of the UI Automation element
         /// </summary>
-        /// <param name = "control">The UI Automation element.</param>
-        /// <param name = "value">The value to set the control to.</param>
+        /// <param name="control">The UI Automation element.</param>
+        /// <param name="value">The value to set the control to.</param>
         internal static void SetValue(AutomationElement control, double value)
         {
             RangeValuePattern pattern = (RangeValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(RangeValuePattern.Pattern, control);
@@ -35,11 +35,11 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets the specified controls maximum range.
+        /// Gets the specified controls maximum range.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
-        ///     Maximum Range value
+        /// Maximum Range value
         /// </returns>
         internal static double GetMaximum(AutomationElement control)
         {
@@ -48,11 +48,11 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets the minimum range value supported by the UI Automation element.
+        /// Gets the minimum range value supported by the UI Automation element.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
-        ///     Minimum Range value
+        /// Minimum Range value
         /// </returns>
         internal static double GetMinimum(AutomationElement control)
         {
@@ -61,11 +61,11 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets the control-specific large-change value which is added to or subtracted from the Value property
+        /// Gets the control-specific large-change value which is added to or subtracted from the Value property
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
-        ///     The increment of a Large Change
+        /// The increment of a Large Change
         /// </returns>
         internal static double GetLargeChange(AutomationElement control)
         {
@@ -74,11 +74,11 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets the small-change value, unique to the UI Automation element, which is added to or subtracted from the elements Value property.
+        /// Gets the small-change value, unique to the UI Automation element, which is added to or subtracted from the elements Value property.
         /// </summary>
-        /// <param name = "control">The UI Automation element.</param>
+        /// <param name="control">The UI Automation element.</param>
         /// <returns>
-        ///     The small-change value
+        /// The small-change value
         /// </returns>
         internal static double GetSmallChange(AutomationElement control)
         {

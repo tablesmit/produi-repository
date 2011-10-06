@@ -18,12 +18,12 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Gets a value indicating if a RadioButton is selected
         /// </summary>
-        /// <param name="theInterface">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control</param>
         /// <returns>
         ///   <c>true</c> if selected, <c>false</c> otherwise
         /// </returns>
-        internal static bool GetIsSelectedBridge(this ISelection theInterface, BaseProdControl control)
+        internal static bool GetIsSelectedBridge(this ISelection extension, BaseProdControl control)
         {
             try
             {
@@ -59,9 +59,9 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Selects a RadioButton
         /// </summary>
-        /// <param name="theInterface">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control</param>
-        internal static void SetIsSelectedBridge(this ISelection theInterface, BaseProdControl control)
+        internal static void SetIsSelectedBridge(this ISelection extension, BaseProdControl control)
         {
             try
             {

@@ -36,7 +36,7 @@ namespace ProdUI.Controls.Windows
         ///     Initializes a new instance of the ProdButton class.
         /// </summary>
         /// <param name = "prodWindow">The ProdWindow that contains this control.</param>
-        /// <param name = "automationId">The UI Automation identifier (ID) for the element.</param>
+        /// <param name = "automationId">The UI Automation element</param>
         /// <remarks>
         ///     Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
@@ -70,7 +70,7 @@ namespace ProdUI.Controls.Windows
         /// <summary>
         ///     Gets all text in the control.
         /// </summary>
-        /// <param name = "control">The control.</param>
+        /// <param name = "control">The UI Automation element</param>
         /// <returns>Text contained in control</returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public string GetAllText(AutomationElement control)
