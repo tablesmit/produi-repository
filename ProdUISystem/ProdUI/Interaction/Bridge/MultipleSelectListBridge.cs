@@ -17,10 +17,10 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Adds the list item to the current selection.
         /// </summary>
-        /// <param name="theInterface">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <param name="index">The zero-based index of the item to select.</param>
-        internal static void AddToSelectionBridge(this IMultipleSelectionList theInterface, BaseProdControl control, int index)
+        internal static void AddToSelectionBridge(this IMultipleSelectionList extension, BaseProdControl control, int index)
         {
             try
             {
@@ -68,10 +68,10 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Adds the list item to the current selection.
         /// </summary>
-        /// <param name="theInterface">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <param name="itemText">The text of the item to select.</param>
-        internal static void AddToSelectionBridge(this IMultipleSelectionList theInterface, BaseProdControl control, string itemText)
+        internal static void AddToSelectionBridge(this IMultipleSelectionList extension, BaseProdControl control, string itemText)
         {
             try
             {
@@ -119,12 +119,12 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Gets the selected indexes.
         /// </summary>
-        /// <param name="theInterface">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <returns>
         /// A List of all the indexes of currently selected list items.
         /// </returns>
-        internal static List<int> GetSelectedIndexesBridge(this IMultipleSelectionList theInterface, BaseProdControl control)
+        internal static List<int> GetSelectedIndexesBridge(this IMultipleSelectionList extension, BaseProdControl control)
         {
             try
             {
@@ -184,12 +184,12 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Gets the selected items.
         /// </summary>
-        /// <param name="theInterface">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control</param>
         /// <returns>
         /// A List of all currently selected list items
         /// </returns>
-        internal static List<object> GetSelectedItemsBridge(this IMultipleSelectionList theInterface, BaseProdControl control)
+        internal static List<object> GetSelectedItemsBridge(this IMultipleSelectionList extension, BaseProdControl control)
         {
             try
             {
@@ -205,7 +205,6 @@ namespace ProdUI.Interaction.Bridge
             }
             catch (InvalidOperationException err)
             {
-                //TODO implement native
                 throw new ProdOperationException(err);
             }
         }
@@ -224,12 +223,12 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Gets the selected item count.
         /// </summary>
-        /// <param name="theInterface">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <returns>
         /// The count of selected items
         /// </returns>
-        internal static int GetSelectedItemCountBridge(this IMultipleSelectionList theInterface, BaseProdControl control)
+        internal static int GetSelectedItemCountBridge(this IMultipleSelectionList extension, BaseProdControl control)
         {
             try
             {
@@ -265,10 +264,10 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Removes the selected list item from the current selection.
         /// </summary>
-        /// <param name="theInterface">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <param name="index">The index of the item to deselect.</param>
-        internal static void RemoveFromSelectionBridge(this IMultipleSelectionList theInterface, BaseProdControl control, int index)
+        internal static void RemoveFromSelectionBridge(this IMultipleSelectionList extension, BaseProdControl control, int index)
         {
             try
             {
@@ -306,10 +305,10 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Removes the selected list item from the current selection.
         /// </summary>
-        /// <param name="theInterface">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <param name="itemText">The text of the item to deselect.</param>
-        internal static void RemoveFromSelectionBridge(this IMultipleSelectionList theInterface, BaseProdControl control, string itemText)
+        internal static void RemoveFromSelectionBridge(this IMultipleSelectionList extension, BaseProdControl control, string itemText)
         {
             try
             {
@@ -347,9 +346,9 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Selects all items in a ListBox.
         /// </summary>
-        /// <param name="theInterface">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
-        internal static void SelectAllBridge(this IMultipleSelectionList theInterface, BaseProdControl control)
+        internal static void SelectAllBridge(this IMultipleSelectionList extension, BaseProdControl control)
         {
             try
             {
@@ -370,6 +369,11 @@ namespace ProdUI.Interaction.Bridge
             }
         }
 
+        private static void NativeSelectAll(BaseProdControl control)
+        {
+            ProdListBoxNative.SelectAll((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+        }
+
         private static void UiaSelectAll(BaseProdControl control)
         {
             if (!UiaCanSelectMultiple(control)) throw new ProdOperationException("Does not support multiple selection");
@@ -383,10 +387,10 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Sets the select indexes from a supplied list.
         /// </summary>
-        /// <param name="theInterface">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <param name="indexes">The indexes to select.</param>
-        internal static void SetSelectedIndexesBridge(this IMultipleSelectionList theInterface, BaseProdControl control, List<int> indexes)
+        internal static void SetSelectedIndexesBridge(this IMultipleSelectionList extension, BaseProdControl control, List<int> indexes)
         {
             try
             {
@@ -430,10 +434,10 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Sets the selected items from a supplied list.
         /// </summary>
-        /// <param name="theInterface">The extension interface.</param>
+        /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <param name="items">The text of the items to select.</param>
-        internal static void SetSelectedItemsBridge(this IMultipleSelectionList theInterface, BaseProdControl control, Collection<string> items)
+        internal static void SetSelectedItemsBridge(this IMultipleSelectionList extension, BaseProdControl control, Collection<string> items)
         {
             try
             {
@@ -472,7 +476,7 @@ namespace ProdUI.Interaction.Bridge
             }
         }
 
-        internal static bool CanSelectMultipleBridge(this IMultipleSelectionList theInterface, BaseProdControl control)
+        internal static bool CanSelectMultipleBridge(this IMultipleSelectionList extension, BaseProdControl control)
         {
             return UiaCanSelectMultiple(control);
         }

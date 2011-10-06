@@ -11,10 +11,10 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <summary>
         /// Ensures the window pattern is supported, then invokes
         /// </summary>
-        /// <param name="element">The element.</param>
-        internal static void Invoke(AutomationElement element)
+        /// <param name="control">The UI Automation element</param>
+        internal static void Invoke(AutomationElement control)
         {
-            InvokePattern pattern = (InvokePattern)CommonUIAPatternHelpers.CheckPatternSupport(InvokePattern.Pattern, element);
+            InvokePattern pattern = (InvokePattern)CommonUIAPatternHelpers.CheckPatternSupport(InvokePattern.Pattern, control);
             pattern.Invoke();
         }
     }

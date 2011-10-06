@@ -166,6 +166,17 @@ namespace ProdUI.Interaction.Native
             return new List<int>(selectedIndexes);
         }
 
+        /// <summary>
+        /// Selects all items in a multiple select list.
+        /// </summary>
+        /// <param name="windowHandle">The window handle.</param>
+        internal static void SelectAll(IntPtr windowHandle)
+        {
+            LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
+            int count = GetItemCountNative(windowHandle);
+            NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LB_SELITEMRANGEEX, 0, count - 1);           
+        }
+
         /* Utility */
 
         private static List<object> GetAllItems(IntPtr windowHandle, int itemCount)

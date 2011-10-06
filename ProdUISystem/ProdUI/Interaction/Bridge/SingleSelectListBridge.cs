@@ -18,10 +18,10 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Gets the list items.
         /// </summary>
-        /// <param name="theInterface">The interface.</param>
-        /// <param name="control">The control.</param>
+        /// <param name="extension">The extended interface.</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns></returns>
-        internal static List<object> GetItemsBridge(this ISingleSelectList theInterface, BaseProdControl control)
+        internal static List<object> GetItemsBridge(this ISingleSelectList extension, BaseProdControl control)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace ProdUI.Interaction.Bridge
             return ProdListBoxNative.GetItemsNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
 
-        internal static int GetItemCountBridge(this ISingleSelectList theInterface, BaseProdControl control)
+        internal static int GetItemCountBridge(this ISingleSelectList extension, BaseProdControl control)
         {
             try
             {
@@ -98,10 +98,10 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Gets the selected index ex.
         /// </summary>
-        /// <param name="theInterface">The interface.</param>
-        /// <param name="control">The control.</param>
+        /// <param name="extension">The extended interface.</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns></returns>
-        internal static int GetSelectedIndexBridge(this ISingleSelectList theInterface, BaseProdControl control)
+        internal static int GetSelectedIndexBridge(this ISingleSelectList extension, BaseProdControl control)
         {
             try
             {
@@ -141,12 +141,12 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Gets the selected list item.
         /// </summary>
-        /// <param name="theInterface">The interface.</param>
-        /// <param name="control">The control.</param>
+        /// <param name="extension">The extended interface.</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
         /// The selected List element
         /// </returns>
-        internal static AutomationElement GetSelectedItemBridge(this ISingleSelectList theInterface, BaseProdControl control)
+        internal static AutomationElement GetSelectedItemBridge(this ISingleSelectList extension, BaseProdControl control)
         {
             try
             {
@@ -183,10 +183,10 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Sets the selected list item.
         /// </summary>
-        /// <param name="theInterface">The interface.</param>
-        /// <param name="control">The control.</param>
+        /// <param name="extension">The extended interface.</param>
+        /// <param name="control">The UI Automation element</param>
         /// <param name="index">The zero-based index of the item to select.</param>
-        internal static void SetSelectedIndexBridge(this ISingleSelectList theInterface, BaseProdControl control, int index)
+        internal static void SetSelectedIndexBridge(this ISingleSelectList extension, BaseProdControl control, int index)
         {
             try
             {
@@ -226,10 +226,10 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Sets the selected list item.
         /// </summary>
-        /// <param name="theInterface">The interface.</param>
-        /// <param name="control">The control.</param>
+        /// <param name="extension">The extended interface.</param>
+        /// <param name="control">The UI Automation element</param>
         /// <param name="itemText">The text of the item to select.</param>
-        internal static void SetSelectedItemBridge(this ISingleSelectList theInterface, BaseProdControl control, string itemText)
+        internal static void SetSelectedItemBridge(this ISingleSelectList extension, BaseProdControl control, string itemText)
         {
             try
             {
@@ -266,7 +266,7 @@ namespace ProdUI.Interaction.Bridge
             ProdListBoxNative.SelectItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, itemText);
         }
 
-        internal static bool IsItemSelectedBridge(this ISingleSelectList theInterface, BaseProdControl control, int index)
+        internal static bool IsItemSelectedBridge(this ISingleSelectList extension, BaseProdControl control, int index)
         {
             try
             {
@@ -310,7 +310,7 @@ namespace ProdUI.Interaction.Bridge
             return retVal;
         }
 
-        internal static bool IsItemSelectedBridge(this ISingleSelectList theInterface, BaseProdControl control, string text)
+        internal static bool IsItemSelectedBridge(this ISingleSelectList extension, BaseProdControl control, string text)
         {
             try
             {
@@ -334,7 +334,7 @@ namespace ProdUI.Interaction.Bridge
         /// <summary>
         /// Gets selection status of the item.
         /// </summary>
-        /// <param name="control">The control.</param>
+        /// <param name="control">The UI Automation element</param>
         /// <param name="text">The text.</param>
         /// <returns></returns>
         private static bool UiaIsItemSelected(BaseProdControl control, string text)

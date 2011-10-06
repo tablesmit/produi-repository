@@ -47,7 +47,7 @@ namespace ProdUI.Exceptions
         /// <summary>
         /// Provide a description of error
         /// </summary>
-        /// <param name="control">The control.</param>
+        /// <param name="control">The UI Automation element</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         public ProdVerificationException(AutomationElement control)
             : base(control.Current.Name)

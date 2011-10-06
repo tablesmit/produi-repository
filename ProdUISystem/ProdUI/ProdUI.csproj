@@ -71,11 +71,10 @@
     <NoStdLib>false</NoStdLib>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>ProdUI.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'WinMapOnly|AnyCPU'">
     <OutputPath>bin\Debug\</OutputPath>
@@ -146,7 +145,7 @@
     <Compile Include="Interaction\Native\SendMessageOverloads.cs" />
     <Compile Include="Interaction\UIAPatterns\SelectionItemPatternHelper.cs" />
     <Compile Include="Logging\LogController.cs" />
-    <Compile Include="Interaction\Native\EditNative.cs" />
+    <Compile Include="Interaction\Native\ProdEditNative.cs" />
     <Compile Include="Interaction\Bridge\MultipleSelectListBridge.cs" />
     <Compile Include="Interaction\Bridge\ValueBridge.cs" />
     <Compile Include="Verification\AutomationEventVerifier.cs" />
@@ -223,6 +222,7 @@
     <Compile Include="Exceptions\ProdOperationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Verification\ValueVerifier.cs" />
+    <None Include="ProdUI.snk" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -260,7 +260,7 @@ REM Create all the sancastle stuff
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_IncrementBeforeBuild="False" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_BuildAction="Build" />
+      <UserProperties BuildVersion_BuildAction="Build" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_IncrementBeforeBuild="False" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,8 +6,6 @@ using System.Windows.Automation;
 using ProdUI.Exceptions;
 using ProdUI.Utility;
 
-[assembly: InternalsVisibleTo("ProdUITests")]
-
 namespace ProdUI.Controls.Windows
 {
     /// <summary>

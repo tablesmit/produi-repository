@@ -11,7 +11,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <summary>
         /// Determines if the control supports the GridItemPattern
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
         /// The pattern, if valid
         /// </returns>
@@ -27,7 +27,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <summary>
         /// Gets the total number of columns in a grid.
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
         /// Total number of columns in a grid
         /// </returns>
@@ -40,7 +40,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <summary>
         /// Retrieves the UI Automation provider for the specified cell
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="control">The UI Automation element</param>
         /// <param name="row">The ordinal number of the row of interest</param>
         /// <param name="column">The ordinal number of the column of interest.</param>
         /// <returns>
@@ -55,7 +55,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <summary>
         /// Gets the total number of rows in a grid.
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
         /// Total number of rows in a grid
         /// </returns>
@@ -72,7 +72,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <summary>
         /// Gets the ordinal number of the column that contains the cell or item.
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
         /// The ordinal number of the column that contains the cell or item
         /// </returns>
@@ -85,7 +85,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <summary>
         /// Gets the number of columns spanned by a cell or item.
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
         /// The number of columns spanned by a cell or item
         /// </returns>
@@ -98,7 +98,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <summary>
         /// Gets a UI Automation provider that implements IGridProvider and represents the container of the cell or item
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
         /// returns an object, stored as an internal variable that represents the grid container
         /// </returns>
@@ -111,7 +111,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <summary>
         /// Gets the ordinal number of the row that contains the cell or item.
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
         /// The row that contains the cell or item.
         /// </returns>
@@ -124,7 +124,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <summary>
         /// Gets the number of rows spanned by a cell or item.
         /// </summary>
-        /// <param name="control">The UI Automation identifier (ID) for the element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
         /// The number of rows spanned by a cell or item
         /// </returns>

@@ -5,30 +5,6 @@ using System.Windows.Automation;
 using ProdUI.Interaction.Bridge;
 using ProdUI.Logging;
 
-/* Notes
- * --ListBox Portion--
- * Supported Patterns:
- * ISelectionProvider
- * IExpandCollapseProvider
- *
- * Proposed functionality:
- * SetSelectedItem - index and text
- * GetSelectedItem - index and text
- * Item count
- * Get all items
- * additem
- *
- * --Textbox portion--
- * Supported Pattern:
- * IValueProvider
- *
- * Proposed functionality:
- * is editing supported
- * gettext
- * settext
- * appendtext
- * cleartext
- */
 
 namespace ProdUI.Controls.Windows
 {
@@ -43,7 +19,7 @@ namespace ProdUI.Controls.Windows
         /// Initializes a new instance of the ProdComboBox class.
         /// </summary>
         /// <param name="prodWindow">The ProdWindow that contains this control.</param>
-        /// <param name="automationId">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="automationId">The UI Automation element</param>
         /// <remarks>
         /// Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
@@ -113,9 +89,9 @@ namespace ProdUI.Controls.Windows
         }
 
         /// <summary>
-        ///     Selects the item by its index.
+        /// Selects the item by its index.
         /// </summary>
-        /// <param name = "index">The index of the item to select.</param>
+        /// <param name="index">The index of the item to select.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public void SetSelectedIndex(int index)
         {

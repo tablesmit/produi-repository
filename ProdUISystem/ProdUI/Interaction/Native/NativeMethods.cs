@@ -84,7 +84,7 @@ namespace ProdUI.Interaction.Native
         /// If the function succeeds, the return value is a handle to the window that has the specified class and window names.If the function fails, the return value is NULL.
         /// </returns>
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode, BestFitMapping = true)]
-        internal static extern IntPtr FindWindowEX(IntPtr hwndParent, IntPtr hwndChildAfter, String lpszClass, String lpszWindow);
+        internal static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, String lpszClass, String lpszWindow);
 
         /// <summary>
         /// Retrieves a handle to a control in the specified dialog box

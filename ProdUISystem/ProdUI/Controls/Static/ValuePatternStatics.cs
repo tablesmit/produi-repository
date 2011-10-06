@@ -222,11 +222,6 @@ namespace ProdUI.Controls.Static
                 throw new ProdOperationException("TextBox is Read Only");
             }
 
-            //TODO: convert
-            //if (ValuePatternHelper.AppendValue(AutomationElement.FromHandle(controlHandle), newText) == 0)
-            //{
-            //    return;
-            //}
             try
             {
             NativeTextProds.AppendTextNative(controlHandle, newText);
@@ -243,8 +238,6 @@ namespace ProdUI.Controls.Static
             {
                 throw new ProdOperationException(err.Message, err);
             }
-
-            //TODO: convert  ValuePatternHelper.SendKeysAppendText(AutomationElement.FromHandle(controlHandle), newText);
         }
 
         /// <summary>
@@ -274,11 +267,6 @@ namespace ProdUI.Controls.Static
                 throw new ProdOperationException("TextBox is Read Only");
             }
 
-            //TODO: convert
-            //if (ValuePatternHelper.InsertValue(AutomationElement.FromHandle(controlHandle), newText, insertIndex) == 0)
-            //{
-            //    return;
-            //}
             try
             {
             NativeTextProds.InsertTextNative(controlHandle, newText, insertIndex);

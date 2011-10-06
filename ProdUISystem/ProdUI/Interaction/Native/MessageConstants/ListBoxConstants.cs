@@ -84,6 +84,13 @@ namespace ProdUI.Interaction.Native
         LBGETTEXT = 0x0189,
 
         /// <summary>
+        /// Selects one or more consecutive items in a multiple-selection list box.
+        /// wParam Specifies the zero-based index of the first item to select
+        /// lParam Specifies the zero-based index of the last item to select
+        /// </summary>
+        LB_SELITEMRANGEEX = 0x0183,
+
+        /// <summary>
         /// Removes all items from a list box
         /// </summary>
         LBRESETCONTENT = 0x0184,

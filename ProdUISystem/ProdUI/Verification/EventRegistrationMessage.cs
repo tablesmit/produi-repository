@@ -11,10 +11,10 @@ namespace ProdUI.Verification
         internal BaseProdControl Source;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref = "EventRegistrationMessage" /> class.
+        /// Initializes a new instance of the <see cref="EventRegistrationMessage"/> class.
         /// </summary>
-        /// <param name = "source">The source.</param>
-        /// <param name = "property">The property.</param>
+        /// <param name="source">The source control.</param>
+        /// <param name="property">The property to monitor.</param>
         internal EventRegistrationMessage(BaseProdControl source, AutomationProperty property)
         {
             Source = source;
@@ -22,10 +22,10 @@ namespace ProdUI.Verification
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref = "EventRegistrationMessage" /> class.
+        /// Initializes a new instance of the <see cref="EventRegistrationMessage"/> class.
         /// </summary>
-        /// <param name = "source">The source.</param>
-        /// <param name = "eventType">Type of the event.</param>
+        /// <param name="source">The source control.</param>
+        /// <param name="eventType">Type of the event.</param>
         internal EventRegistrationMessage(BaseProdControl source, AutomationEvent eventType)
         {
             Source = source;

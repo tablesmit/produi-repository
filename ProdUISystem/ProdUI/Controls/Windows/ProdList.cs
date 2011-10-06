@@ -7,27 +7,6 @@ using ProdUI.Exceptions;
 using ProdUI.Interaction.Bridge;
 using ProdUI.Logging;
 
-/* Notes
- * Supported Patterns:
- * ISelectionProvider
- * IExpandCollapseProvider
- *
- * Proposed functionality:
- * SetSelectedItem - index and text
- * GetSelectedItem - index and text
- * Item count
- * Get all items
- * additem
- * SupportsMultipleSelection
- * SelectMultipleItems
- * GetAllSelectedItems -object and index
- * AddToSelection
- * RemoveFromSelection
- * ClearItems
- *
- * ListBoxes can support non-text items
- */
-
 namespace ProdUI.Controls.Windows
 {
     /// <summary>
@@ -41,7 +20,7 @@ namespace ProdUI.Controls.Windows
         /// Initializes a new instance of the ProdListBox class.
         /// </summary>
         /// <param name="prodWindow">The ProdWindow that contains this control.</param>
-        /// <param name="automationId">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="automationId">The UI Automation element</param>
         /// <remarks>
         /// Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
@@ -97,7 +76,13 @@ namespace ProdUI.Controls.Windows
             return this.GetItemCountBridge(this);
         }
 
-        public bool CanSelectMutiple()
+        /// <summary>
+        /// Determines whether this instance [can select multiple items].
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance can select multiple items; otherwise, <c>false</c>.
+        /// </returns>
+        public bool CanSelectMultiple()
         {
             return this.CanSelectMultipleBridge(this);
         }

@@ -2,40 +2,38 @@
 using System.Runtime.CompilerServices;
 using System.Windows.Automation;
 
-[assembly: InternalsVisibleTo("ProdUITests")]
-
 namespace ProdUI.Interaction.UIAPatterns
 {
     /// <summary>
-    ///     UIA SelectionItem for Lists
+    /// UIA SelectionItem for Lists
     /// </summary>
     internal static class SelectionItemPatternHelper
     {
         #region Search Conditions
 
         /// <summary>
-        ///     Determines if element is a content element
+        /// Determines if element is a content element
         /// </summary>
         private static readonly PropertyCondition ConditionContent = new PropertyCondition(AutomationElement.IsContentElementProperty, true);
 
         /// <summary>
-        ///     Used to determine items that are NOT selected
+        /// Used to determine items that are NOT selected
         /// </summary>
         private static readonly PropertyCondition ConditionNotSelected = new PropertyCondition(SelectionItemPattern.IsSelectedProperty, false);
 
         /// <summary>
-        ///     Used to determine selected items
+        /// Used to determine selected items
         /// </summary>
         private static readonly PropertyCondition ConditionIsSelected = new PropertyCondition(SelectionItemPattern.IsSelectedProperty, true);
 
         #endregion Search Conditions
 
         /// <summary>
-        ///     Utility to get all of the items in a List control
+        /// Utility to get all of the items in a List control
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
-        ///     An AutomationElementCollection containing all list items
+        /// An AutomationElementCollection containing all list items
         /// </returns>
         internal static AutomationElementCollection GetListItems(AutomationElement control)
         {
@@ -49,11 +47,11 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets the number of items in a list.
+        /// Gets the number of items in a list.
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
-        ///     The item count
+        /// The item count
         /// </returns>
         internal static int GetListItemCount(AutomationElement control)
         {
@@ -62,11 +60,11 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Determines whether the specified item is selected.
+        /// Determines whether the specified item is selected.
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="control">The UI Automation element.</param>
         /// <returns>
-        ///     <c>true</c> if the specified control is selected; otherwise, <c>false</c>.
+        ///   <c>true</c> if the specified control is selected; otherwise, <c>false</c>.
         /// </returns>
         internal static bool IsItemSelected(AutomationElement control)
         {
@@ -75,9 +73,9 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Selects the specified Item.
+        /// Selects the specified Item.
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
+        /// <param name="control">The UI Automation element</param>
         internal static void SelectItem(AutomationElement control)
         {
             SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
@@ -85,12 +83,12 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Finds the index by item.
+        /// Finds the index by item.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "matchString">The match string.</param>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="matchString">The match string.</param>
         /// <returns>
-        ///     The zero-based index of the supplied item, or -1 if item is not found
+        /// The zero-based index of the supplied item, or -1 if item is not found
         /// </returns>
         internal static int FindIndexByItem(AutomationElement control, string matchString)
         {
@@ -108,12 +106,12 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Finds the item by zero-based index.
+        /// Finds the item by zero-based index.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "index">The zero-based index of the item to select.</param>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="index">The zero-based index of the item to select.</param>
         /// <returns>
-        ///     The item at the specified index
+        /// The item at the specified index
         /// </returns>
         internal static AutomationElement FindItemByIndex(AutomationElement control, int index)
         {
@@ -122,12 +120,12 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Finds the item by its text.
+        /// Finds the item by its text.
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
-        /// <param name = "itemText">The item text.</param>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="itemText">The item text.</param>
         /// <returns>
-        ///     The element that matches the supplied text or null if item not found
+        /// The element that matches the supplied text or null if item not found
         /// </returns>
         internal static AutomationElement FindItemByText(AutomationElement control, string itemText)
         {
@@ -141,16 +139,21 @@ namespace ProdUI.Interaction.UIAPatterns
         /* Multiple selection only */
 
         /// <summary>
-        ///     Adds to selection in a multi-select list.
+        /// Adds to selection in a multi-select list.
         /// </summary>
-        /// <param name = "control">The control.</param>
-        /// <param name = "index">The index.</param>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="index">The index.</param>
         internal static void AddToSelection(AutomationElement control, int index)
         {
             SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
             pattern.AddToSelection();
         }
 
+        /// <summary>
+        /// Adds to selection.
+        /// </summary>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="itemText">The item text.</param>
         internal static void AddToSelection(AutomationElement control, string itemText)
         {
             SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
@@ -158,10 +161,12 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets the selection items.
+        /// Gets the selection items.
         /// </summary>
-        /// <param name = "control">The control.</param>
-        /// <returns>A collection of selected items</returns>
+        /// <param name="control">The UI Automation element.</param>
+        /// <returns>
+        /// A collection of selected items
+        /// </returns>
         internal static AutomationElementCollection GetSelectedItems(AutomationElement control)
         {
             AutomationElementCollection elementCollection = GetListItems(control);
@@ -169,9 +174,9 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Removes from item from selection in a multi-select list.
+        /// Removes from item from selection in a multi-select list.
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
+        /// <param name="control">The UI Automation element</param>
         internal static void RemoveFromSelection(AutomationElement control)
         {
             SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);

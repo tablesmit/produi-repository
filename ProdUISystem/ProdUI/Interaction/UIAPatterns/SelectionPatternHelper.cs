@@ -2,18 +2,16 @@
 using System.Runtime.CompilerServices;
 using System.Windows.Automation;
 
-[assembly: InternalsVisibleTo("ProdUITests")]
-
 namespace ProdUI.Interaction.UIAPatterns
 {
     internal static class SelectionPatternHelper
     {
         /// <summary>
-        ///     Determines whether this instance can select multiple items
+        /// Determines whether this instance can select multiple items
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
-        ///     <c>true</c> if this instance can select multiple items; otherwise, <c>false</c>.
+        ///   <c>true</c> if this instance can select multiple items; otherwise, <c>false</c>.
         /// </returns>
         internal static bool CanSelectMultiple(AutomationElement control)
         {
@@ -22,10 +20,12 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets the selected items.
+        /// Gets the selected items.
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
-        /// <returns>An AutomationElement array of all selected items</returns>
+        /// <param name="control">The UI Automation element</param>
+        /// <returns>
+        /// An AutomationElement array of all selected items
+        /// </returns>
         internal static AutomationElement[] GetSelection(AutomationElement control)
         {
             SelectionPattern pattern = (SelectionPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionPattern.Pattern, control);
@@ -33,11 +33,11 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Determines whether a selection is required for the specified control.
+        /// Determines whether a selection is required for the specified control.
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
+        /// <param name="control">The UI Automation element</param>
         /// <returns>
-        ///     <c>true</c> if selection is required; otherwise, <c>false</c>.
+        ///   <c>true</c> if selection is required; otherwise, <c>false</c>.
         /// </returns>
         internal static bool IsSelectionRequired(AutomationElement control)
         {
@@ -46,9 +46,9 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Selects the specified Item.
+        /// Selects the specified Item.
         /// </summary>
-        /// <param name = "control">The UI Automation identifier (ID) for the element</param>
+        /// <param name="control">The UI Automation element</param>
         internal static void SelectItem(AutomationElement control)
         {
             SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);

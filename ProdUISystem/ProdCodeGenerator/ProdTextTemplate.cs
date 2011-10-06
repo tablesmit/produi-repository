@@ -61,7 +61,7 @@ namespace ProdCodeGenerator
         public string ControlType { get; set; }
 
         /// <summary>
-        /// Th automationID or name of the control
+        /// The automationID or name of the control
         /// </summary>
         /// <value>
         /// The name of the control.

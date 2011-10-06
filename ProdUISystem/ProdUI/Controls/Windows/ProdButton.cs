@@ -22,7 +22,7 @@ namespace ProdUI.Controls.Windows
         /// Initializes a new instance of the ProdButton class.
         /// </summary>
         /// <param name="prodWindow">The ProdWindow that contains this control.</param>
-        /// <param name="automationId">The UI Automation identifier (ID) for the element.</param>
+        /// <param name="automationId">The UI Automation element</param>
         /// <remarks>
         /// Will attempt to match AutomationId, then ReadOnly
         /// </remarks>
