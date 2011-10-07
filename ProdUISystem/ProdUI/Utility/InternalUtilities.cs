@@ -128,29 +128,22 @@ namespace ProdUI.Utility
         /// </returns>
         internal static IntPtr FindWindowPartial(string thePartialTitle)
         {
-            try
+            WindowList = new Hashtable();
+            Process[] processes = Process.GetProcesses();
+            foreach (Process p in processes)
             {
-                WindowList = new Hashtable();
-                Process[] processes = Process.GetProcesses();
-                foreach (Process p in processes)
+                if (p.MainWindowTitle.Contains(thePartialTitle))
                 {
-                    if (p.MainWindowTitle.Contains(thePartialTitle))
-                    {
-                        return p.MainWindowHandle;
-                    }
+                    return p.MainWindowHandle;
                 }
+            }
 
-                if (NativeMethods.FindWindow(null, thePartialTitle) == IntPtr.Zero)
-                {
-                    NativeMethods.EnumDesktopWindows(IntPtr.Zero, EnumWindowsProc, IntPtr.Zero);
-                    return EnumerateExistingWindowsPartial(thePartialTitle);
-                }
-                return IntPtr.Zero;
-            }
-            catch (Exception)
+            if (NativeMethods.FindWindow(null, thePartialTitle) == IntPtr.Zero)
             {
-                throw;
+                NativeMethods.EnumDesktopWindows(IntPtr.Zero, EnumWindowsProc, IntPtr.Zero);
+                return EnumerateExistingWindowsPartial(thePartialTitle);
             }
+            return IntPtr.Zero;
         }
 
         /// <summary>
@@ -410,9 +403,9 @@ namespace ProdUI.Utility
         /// <param name="data">wheel movement, or mouse X button, depending on flags</param>
         /// <param name="flags">flags to indicate which type of input occurred - move, button press/release, wheel move, etc.</param>
         /// <exception cref="ProdOperationException">Thrown if Security permissions won't allow execution</exception>
-        ///   
+        ///
         /// <exception cref="Win32Exception">Thrown if SendInput call fails</exception>
-        ///   
+        ///
         /// <outside_see conditional="false">
         /// This API does not work inside the secure execution environment.
         ///   <exception cref="System.Security.Permissions.SecurityPermission"/>

@@ -82,7 +82,7 @@ namespace ProdUI.Interaction.UIAPatterns
             return pat.Current.RowOrColumnMajor;
         }
 
-        #endregion ITableProvider Implentation
+        #endregion ITableProvider Implementation
 
         #region ITableItemProvider Implementation
 

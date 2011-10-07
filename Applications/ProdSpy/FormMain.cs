@@ -1,8 +1,6 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
@@ -23,10 +21,10 @@ namespace ProdSpy
     public partial class FormMain : Form
     {
         //Todo: extract to settings
-        private const int TimerDelay = 1000;
-        private const int CollapsedSplitterWidth = 344;
-        private const int ExpandedSplitterWidth = 544;
-        private const int ExpandedSplitterDist = 218;
+        private const int TIMER_DELAY = 1000;
+        private const int COLLAPSED_SPLITTER_WIDTH = 344;
+        private const int EXPANDED_SPLITTER_WIDTH = 544;
+        private const int EXPANDED_SPLITTER_DIST = 218;
 
         /// <summary>
         /// Initializes the main form for the ProdUI Spy
@@ -45,13 +43,12 @@ namespace ProdSpy
         private AutomationElement _focusedElement;
         private bool _isDown;
         private IntPtr _previousFocusedApplicationHandle = IntPtr.Zero;
+        private MappedControl _selectedControl;
         private GraphNode _selectedNode;
 
-        MappedWindow _thisWindow;
-        MappedControl _selectedControl;
+        private MappedWindow _thisWindow;
 
-
-        #endregion
+        #endregion Variables
 
         #region Events
 
@@ -68,7 +65,7 @@ namespace ProdSpy
             /* Set up the eye timer */
             _cursorTimer = new Timer();
             _cursorTimer.Tick += CursorTimer_Tick;
-            _cursorTimer.Interval = TimerDelay;
+            _cursorTimer.Interval = TIMER_DELAY;
         }
 
         private void InitBrowseIcon()
@@ -85,12 +82,12 @@ namespace ProdSpy
             GraphSplitter.Panel1Collapsed = Settings.Default.CollapseGraph;
             if (GraphSplitter.Panel1Collapsed)
             {
-                Width = CollapsedSplitterWidth;
+                Width = COLLAPSED_SPLITTER_WIDTH;
             }
             else
             {
-                Width = ExpandedSplitterWidth;
-                GraphSplitter.SplitterDistance = ExpandedSplitterDist;
+                Width = EXPANDED_SPLITTER_WIDTH;
+                GraphSplitter.SplitterDistance = EXPANDED_SPLITTER_DIST;
             }
         }
 
@@ -143,7 +140,7 @@ namespace ProdSpy
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.Windows.Forms.FormClosingEventArgs"/> instance containing the event data.</param>
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private static void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             NativeMethods.InvalidateRect(IntPtr.Zero, IntPtr.Zero, true);
         }
@@ -153,7 +150,7 @@ namespace ProdSpy
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void TsOptions_Click(object sender, EventArgs e)
+        private static void TsOptions_Click(object sender, EventArgs e)
         {
             FormOptions frmOptions = new FormOptions();
             frmOptions.ShowDialog();
@@ -268,10 +265,9 @@ namespace ProdSpy
 
             /* reassign */
             _previousFocusedApplicationHandle = _focusedApplicationHandle;
-
         }
 
-        #endregion
+        #endregion Events
 
         #region Control Info
 
@@ -315,7 +311,6 @@ namespace ProdSpy
             return false;
         }
 
-
         /// <summary>
         /// Gets control information for .Net controls
         /// </summary>
@@ -358,11 +353,11 @@ namespace ProdSpy
                     continue;
                 }
 
-                LstSupportedProperties.Items.Add(prop.ProgrammaticName);
+                if (prop.ProgrammaticName != null) LstSupportedProperties.Items.Add(prop.ProgrammaticName);
             }
         }
 
-        #endregion
+        #endregion Control Info
 
         #region Prod interactions menu
 
@@ -395,7 +390,10 @@ namespace ProdSpy
             foreach (MethodInfo item in _selectedControl.AvailableProdMethods)
             {
                 /* assigns the index of the methodinfo to the tag */
-                ToolStripMenuItem it = new ToolStripMenuItem(item.Name) { Tag = i };
+                ToolStripMenuItem it = new ToolStripMenuItem(item.Name)
+                {
+                    Tag = i
+                };
 
                 if (item.GetParameters().Length > 1)
                 {
@@ -429,20 +427,20 @@ namespace ProdSpy
             /* Set up for template code gen */
             MethodInfo mi = _selectedControl.AvailableProdMethods[(int)it.Tag];
 
-            parameterString = WriteExampleCode(parameterString, args, mi);
+            WriteExampleCode(parameterString, args, mi);
         }
 
-        private string WriteExampleCode(string parameterString, object[] args, MethodInfo mi)
+        private void WriteExampleCode(string parameterString, IList<object> args, MethodInfo mi)
         {
             if (mi.GetParameters().Length > 0)
             {
                 if ((mi.GetParameters())[0].ParameterType.IsEnum)
                 {
-                    parameterString = (mi.GetParameters())[0].ParameterType.ToString() + "." + args[0].ToString();
+                    parameterString = (mi.GetParameters())[0].ParameterType + "." + args[0];
                 }
                 else
                 {
-                    parameterString = (mi.GetParameters())[0].ParameterType.ToString() + args[0].ToString();
+                    parameterString = (mi.GetParameters())[0].ParameterType + args[0].ToString();
                 }
             }
 
@@ -452,10 +450,9 @@ namespace ProdSpy
             /* display code to invoke the methods */
             RtbCode.Enabled = true;
             RtbCode.Text = gen.GenerateProd(template, OutputLanguage.CSharp);
-            return parameterString;
+            return;
         }
 
-        #endregion
-
+        #endregion Prod interactions menu
     }
 }

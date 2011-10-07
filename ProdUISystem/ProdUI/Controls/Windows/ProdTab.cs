@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Windows.Automation;
 using ProdUI.Interaction.Bridge;
 
-
-
 namespace ProdUI.Controls.Windows
 {
     /// <summary>

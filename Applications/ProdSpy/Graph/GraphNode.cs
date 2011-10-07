@@ -1,11 +1,9 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+using System;
+using System.Globalization;
+using System.Runtime.Serialization;
 using System.Windows.Automation;
 using System.Windows.Forms;
-using System;
-using System.Runtime.Serialization;
-using System.Globalization;
 
 namespace ProdSpy.Graph
 {
@@ -20,12 +18,12 @@ namespace ProdSpy.Graph
         private readonly string _appType;
         //private readonly AutomationElement _AutomationElement;
 
-        #endregion
+        #endregion Private
 
         #region Properties
 
         /// <summary>
-        /// Gets or sets the node element.	
+        /// Gets or sets the node element.
         /// </summary>
         /// <value>The node element.</value>
         /// <remarks></remarks>
@@ -56,7 +54,7 @@ namespace ProdSpy.Graph
         /// </summary>
         public string NodeCtrlId { get; private set; }
 
-        #endregion
+        #endregion Properties
 
         /// <summary>
         ///   Constructor
@@ -74,7 +72,9 @@ namespace ProdSpy.Graph
         /// </summary>
         private void SetNodeInformation()
         {
-            string id = _appType == "Win32" ? "ID: " : "Control Name: ";
+            string id = _appType == "Win32"
+                            ? "ID: "
+                            : "Control Name: ";
 
             NodeCtrlId = id + NodeElement.Current.AutomationId;
             NodeCtrlCaption = NodeElement.Current.Name;
@@ -96,6 +96,6 @@ namespace ProdSpy.Graph
             _appType = (string)info.GetValue("_AppType", typeof(string));
         }
 
-        #endregion
+        #endregion Deserialization Constructor
     }
 }

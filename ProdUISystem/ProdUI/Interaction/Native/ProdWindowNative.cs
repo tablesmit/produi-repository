@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Automation;
 using ProdUI.Logging;
+using ProdUI.Verification;
 
 namespace ProdUI.Interaction.Native
 {
@@ -88,7 +89,7 @@ namespace ProdUI.Interaction.Native
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
             NativeMethods.SetWindowText(windowHandle, newTitle);
 
-            Verification.ValueVerifier<string, string>.Verify(newTitle, GetWindowTitleNative(windowHandle));
+            ValueVerifier<string, string>.Verify(newTitle, GetWindowTitleNative(windowHandle));
         }
 
         /// <summary>

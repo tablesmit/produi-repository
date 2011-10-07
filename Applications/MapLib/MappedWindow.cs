@@ -1,6 +1,4 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,7 +8,6 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Automation;
 using System.Xml.Serialization;
-
 
 namespace MapLib
 {
@@ -22,13 +19,12 @@ namespace MapLib
     {
         #region Varables and Properties
 
+        internal Type[] ProdUiTypes;
         private int _controlCounter;
         private Type[] _extraTypes;
-        internal Type[] ProdUiTypes;
         private IntPtr _mainHandle;
         private XmlSerializer _serializer;
         private Thread _treeThread;
-
 
         /// <summary>
         /// Gets or sets the parent module.
@@ -37,7 +33,7 @@ namespace MapLib
         /// The parent module.
         /// </value>
         [XmlAttribute("Path")]
-        [CategoryAttribute("Application"), ReadOnlyAttribute(true), DisplayName(@"Executable File"), Description("Path to main executable")]
+        [Category("Application"), ReadOnlyAttribute(true), DisplayName(@"Executable File"), Description("Path to main executable")]
         public string ParentModule { get; set; }
 
         /// <summary>
@@ -50,7 +46,7 @@ namespace MapLib
         [Browsable(false)]
         public Collection<MappedControl> AllFormsControls { get; set; }
 
-        #endregion
+        #endregion Varables and Properties
 
         #region Grid Properties
 
@@ -90,7 +86,7 @@ namespace MapLib
         [CategoryAttribute("Application"), ReadOnlyAttribute(true), DisplayName(@"Application Handle"), Description("Win32 (native) or .Net")]
         public IntPtr ApplicationHandle { get; set; }
 
-        #endregion
+        #endregion Grid Properties
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MappedWindow"/> class.
@@ -139,7 +135,10 @@ namespace MapLib
                 return;
             }
 
-            _treeThread = new Thread(FillTree) { IsBackground = true };
+            _treeThread = new Thread(FillTree)
+            {
+                IsBackground = true
+            };
             _treeThread.Start();
             _treeThread.Join();
         }
@@ -182,8 +181,6 @@ namespace MapLib
             {
                 if (fs != null) fs.Dispose();
             }
-
-
         }
 
         private void FillTree()

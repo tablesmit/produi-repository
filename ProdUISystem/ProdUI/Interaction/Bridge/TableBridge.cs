@@ -1,4 +1,5 @@
-﻿using System;
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+using System;
 using System.Collections.Generic;
 using System.Windows.Automation;
 using ProdUI.Controls.Windows;
@@ -10,7 +11,6 @@ namespace ProdUI.Interaction.Bridge
 {
     internal static class TableBridge
     {
-
         /// <summary>
         /// Gets a collection of UI Automation providers that represents all the column headers in a DataGrid
         /// </summary>
@@ -48,11 +48,10 @@ namespace ProdUI.Interaction.Bridge
                 retList.Add(item);
             }
 
-            LogController.ReceiveLogMessage(new LogMessage("Headers",retList));
+            LogController.ReceiveLogMessage(new LogMessage("Headers", retList));
 
             return retVal;
         }
-
 
         /// <summary>
         /// Gets a collection of UI Automation providers that represents all the row headers in a DataGrid
@@ -91,7 +90,6 @@ namespace ProdUI.Interaction.Bridge
 
             return retVal;
         }
-
 
         /// <summary>
         /// Retrieves the primary direction of traversal for the table

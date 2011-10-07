@@ -174,7 +174,7 @@ namespace ProdUI.Interaction.Native
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
             int count = GetItemCountNative(windowHandle);
-            NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LB_SELITEMRANGEEX, 0, count - 1);           
+            NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LB_SELITEMRANGEEX, 0, count - 1);
         }
 
         /* Utility */

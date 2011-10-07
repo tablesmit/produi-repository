@@ -1,4 +1,5 @@
-﻿using System;
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+using System;
 using System.Windows.Automation;
 using System.Windows.Forms;
 using ProdSpy.Core;
@@ -11,7 +12,7 @@ namespace ProdSpy
     {
         #region Control Graph Panel
 
-        private GraphNode _Nde;
+        private GraphNode _nde;
 
         /// <summary>
         /// Handles the AfterSelect event of the TvGraph control.
@@ -20,22 +21,21 @@ namespace ProdSpy
         /// <param name="e">The <see cref="System.Windows.Forms.TreeViewEventArgs"/> instance containing the event data.</param>
         private void TvGraph_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            _Nde = (GraphNode)TvGraph.SelectedNode;
+            _nde = (GraphNode)TvGraph.SelectedNode;
 
-            RtbTip.Text = _Nde.ToString();
-
+            RtbTip.Text = _nde.ToString();
 
             /* If control doesn't have a handle, it cant be highlighted */
-            CtxHighlight.Enabled = !_Nde.NodeCtrlHandle.Equals("0");
+            CtxHighlight.Enabled = !_nde.NodeCtrlHandle.Equals("0");
 
             if (Settings.Default.UpdateNode)
             {
-                ProcessTargetControl(_Nde.NodeElement);
+                ProcessTargetControl(_nde.NodeElement);
             }
 
             if (Settings.Default.HighlightNode)
             {
-                CtxHighlight_Click(null, null);
+                CtxHighlight_Click();
             }
         }
 
@@ -82,7 +82,12 @@ namespace ProdSpy
 
             string showString = rootElement.Current.LocalizedControlType + " [ " + rootElement.Current.AutomationId + " ]";
 
-            GraphNode tn = new GraphNode(rootElement) { Text = showString, Tag = rootElement.Current.NativeWindowHandle, ImageIndex = 2 };
+            GraphNode tn = new GraphNode(rootElement)
+            {
+                Text = showString,
+                Tag = rootElement.Current.NativeWindowHandle,
+                ImageIndex = 2
+            };
 
             WalkControlElements(rootElement, tn);
             TvGraph.Nodes.Add(tn);
@@ -101,7 +106,11 @@ namespace ProdSpy
             while (aeNode != null)
             {
                 string showString = aeNode.Current.LocalizedControlType + " [ " + aeNode.Current.AutomationId + " ]";
-                GraphNode childTreeNode = new GraphNode(aeNode) { Text = showString, Tag = aeNode.Current.NativeWindowHandle };
+                GraphNode childTreeNode = new GraphNode(aeNode)
+                {
+                    Text = showString,
+                    Tag = aeNode.Current.NativeWindowHandle
+                };
 
                 treeNode.Nodes.Add(childTreeNode);
 
@@ -119,62 +128,12 @@ namespace ProdSpy
         /// <summary>
         /// Handles the Click event of the CtxHighlight control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void CtxHighlight_Click(object sender, EventArgs e)
+        private void CtxHighlight_Click()
         {
             GraphNode gn = (GraphNode)TvGraph.SelectedNode;
             //int tmpParse = int.Parse(gn.NodeElement);
             //.WipeWindow((IntPtr) tmpParse);
             Painter.HighlightFocus(gn.NodeElement, _focusedApplicationHandle);
-        }
-
-        /// <summary>
-        /// Handles the Click event of the CtxTextReport control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void CtxTextReport_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog sfd = new SaveFileDialog { Title = Resources.SaveReportTitle, Filter = @"Text files (*.txt)|*.txt|All files (*.*)|*.* " };
-            sfd.ShowDialog();
-            if (sfd.FileName.Length == 0)
-            {
-                return;
-            }
-            GraphNode gn = (GraphNode)TvGraph.Nodes[0];
-            TextReport report = new TextReport(gn, sfd.FileName);
-            report.Create();
-        }
-
-        /// <summary>
-        /// Handles the Click event of the CtxExcelReport control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void CtxExcelReport_Click(object sender, EventArgs e)
-        {
-            GraphNode gn = (GraphNode)TvGraph.Nodes[0];
-            ExcelReport report = new ExcelReport(gn);
-            report.Create();
-        }
-
-        /// <summary>
-        /// Handles the Click event of the CtxHTMLReport control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void CtxHTMLReport_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog sfd = new SaveFileDialog { Title = Resources.SaveReportTitle, Filter = @"HTML files (*.htm)|*.htm|All files (*.*)|*.* " };
-            sfd.ShowDialog();
-            if (sfd.FileName.Length == 0)
-            {
-                return;
-            }
-            GraphNode gn = (GraphNode)TvGraph.Nodes[0];
-            HtmlReport report = new HtmlReport(gn, sfd.FileName);
-            report.Create();
         }
 
         /// <summary>
@@ -185,10 +144,9 @@ namespace ProdSpy
         /// </returns>
         public override string ToString()
         {
-            return _Nde.NodeCtrlId + " \nName: " + _Nde.NodeCtrlCaption + "\nType: " + _Nde.NodeCtrlType + "\nClass: " + _Nde.NodeCtrlClass + " \nHandle: " + _Nde.NodeCtrlHandle;
+            return _nde.NodeCtrlId + " \nName: " + _nde.NodeCtrlCaption + "\nType: " + _nde.NodeCtrlType + "\nClass: " + _nde.NodeCtrlClass + " \nHandle: " + _nde.NodeCtrlHandle;
         }
 
-        #endregion
+        #endregion Control Graph Panel
     }
 }
-

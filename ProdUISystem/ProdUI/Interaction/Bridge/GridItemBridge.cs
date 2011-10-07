@@ -1,11 +1,10 @@
-﻿using System;
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+using System;
 using System.Windows.Automation;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
-
-
 
 namespace ProdUI.Interaction.Bridge
 {
@@ -44,7 +43,6 @@ namespace ProdUI.Interaction.Bridge
             LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
             return retVal;
         }
-
 
         /// <summary>
         /// Gets the number of rows spanned by a cell or item.
@@ -110,7 +108,6 @@ namespace ProdUI.Interaction.Bridge
             LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
             return retVal;
         }
-
 
         /// <summary>
         /// Gets the ordinal number of the column that contains the cell or item.

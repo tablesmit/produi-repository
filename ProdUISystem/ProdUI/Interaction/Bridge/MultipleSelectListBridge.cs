@@ -362,10 +362,9 @@ namespace ProdUI.Interaction.Bridge
             {
                 throw new ProdOperationException(err);
             }
-            catch (InvalidOperationException err)
+            catch (InvalidOperationException)
             {
-                //TODO: Finish native
-                throw new ProdOperationException(err);
+                NativeSelectAll(control);
             }
         }
 
@@ -453,16 +452,15 @@ namespace ProdUI.Interaction.Bridge
             }
             catch (InvalidOperationException err)
             {
-                //Todo: finish native
                 throw new ProdOperationException(err);
             }
         }
 
         /// <summary>
-        ///     Uias the set selected item.
+        /// Sets the selected item.
         /// </summary>
-        /// <param name = "control">The base ProdUI control.</param>
-        /// <param name = "items">The items.</param>
+        /// <param name="control">The base ProdUI control.</param>
+        /// <param name="items">The items.</param>
         private static void UiaSetSelectedItems(BaseProdControl control, IEnumerable<string> items)
         {
             if (!UiaCanSelectMultiple(control)) throw new ProdOperationException("Does not support multiple selection");

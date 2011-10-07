@@ -1,6 +1,4 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -21,6 +19,7 @@ namespace ProdSpy.Core
     {
         private static MappedControl _focusedControl;
         private readonly IntPtr _parentWindowHandle;
+        protected bool Disposed /* = false*/;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FunctionBuilder"/> class.
@@ -35,6 +34,16 @@ namespace ProdSpy.Core
             /* The element under focus */
             _focusedControl = focusedControl;
         }
+
+        #region IDisposable Members
+
+        public virtual void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion IDisposable Members
 
         /// <summary>
         /// Begin putting together the requested action
@@ -118,7 +127,6 @@ namespace ProdSpy.Core
                 return null;
             }
 
-
             object[] args = new object[pi.Length];
 
             GetInputValues(pi, args);
@@ -157,11 +165,11 @@ namespace ProdSpy.Core
                 }
 
                 SetValueForm form = new SetValueForm
-                    {
-                        ParamName = pi[i].Name,
-                        ParamChoices = elements,
-                        ParamType = pi[i].ParameterType
-                    };
+                {
+                    ParamName = pi[i].Name,
+                    ParamChoices = elements,
+                    ParamType = pi[i].ParameterType
+                };
 
                 if (form.ShowDialog() == DialogResult.Cancel)
                 {
@@ -171,12 +179,12 @@ namespace ProdSpy.Core
                 /* Handles a ToggleState */
                 if (pi[i].ParameterType == typeof(ToggleState))
                 {
-                    ConvertInputParameters(pi, args, i, form.returnState);
+                    ConvertInputParameters(pi, args, i, form.ReturnState);
                     return;
                 }
 
                 /* Strings and number values */
-                ConvertInputParameters(pi, args, i, form.returnValue);
+                ConvertInputParameters(pi, args, i, form.ReturnValue);
             }
         }
 
@@ -217,7 +225,6 @@ namespace ProdSpy.Core
                 {
                     return;
                 }
-
             }
             if (pi[i].ParameterType == typeof(int))
             {
@@ -269,8 +276,6 @@ namespace ProdSpy.Core
             return args;
         }
 
-        protected bool Disposed/* = false*/;
-
         protected virtual void Dispose(bool disposing)
         {
             lock (this)
@@ -282,18 +287,10 @@ namespace ProdSpy.Core
                 if (disposing)
                 {
                     // Release disposable objects used by this instance here.
-
                 }
                 // Remember that the object has been disposed of.
                 Disposed = true;
             }
         }
-
-        public virtual void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
     }
 }

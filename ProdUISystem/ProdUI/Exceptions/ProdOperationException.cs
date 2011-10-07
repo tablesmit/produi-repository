@@ -50,14 +50,13 @@ namespace ProdUI.Exceptions
             LogController.ReceiveLogMessage(new LogMessage("ProdOperationException: " + message, LoggingLevels.Error));
         }
 
-
         /// <summary>
         /// Initializes a new instance of the Exception class with serialized data.
         /// </summary>
         /// <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown</param>
         /// <param name="context">The StreamingContext that contains contextual information about the source or destination</param>
         /// <exception cref="T:System.ArgumentNullException">The <paramref name="info"/> parameter is null. </exception>
-        ///   
+        ///
         /// <exception cref="T:System.Runtime.Serialization.SerializationException">The class name is null or <see cref="P:System.Exception.HResult"/> is zero (0). </exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
         protected ProdOperationException(SerializationInfo info, StreamingContext context)

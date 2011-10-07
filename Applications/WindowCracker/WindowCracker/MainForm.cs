@@ -1,24 +1,24 @@
-﻿using System;
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+using System;
 using System.Collections;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.TestTools.UITest.Common;
+using Microsoft.VisualStudio.TestTools.UITest.Common.UIMap;
 using Microsoft.VisualStudio.TestTools.UITest.Extension;
 using Microsoft.VisualStudio.TestTools.UITesting;
-using Microsoft.VisualStudio.TestTools.UITest.Common.UIMap;
 
 namespace WindowCracker
 {
     public partial class MainForm : Form
     {
-        const string UITEST_FILENAME = @"/UIMap.uitest";
- 
-        private static Hashtable _windowList;
-        private int _windowPid;       
-        private StreamWriter sw;
+        private const string UITEST_FILENAME = @"/UIMap.uitest";
 
+        private static Hashtable _windowList;
+        private int _windowPid;
+        private StreamWriter _sw;
 
         public MainForm()
         {
@@ -39,8 +39,8 @@ namespace WindowCracker
         {
             SaveFileDialog sfd = new SaveFileDialog
             {
-                Title = "Save Output Location",
-                Filter = "Text File | *.txt",
+                Title = @"Save Output Location",
+                Filter = @"Text File | *.txt",
                 DefaultExt = ".txt"
             };
 
@@ -57,13 +57,13 @@ namespace WindowCracker
 
         private void CmdCrawl_Click(object sender, EventArgs e)
         {
-            sw = new StreamWriter(TxtOutput.Text);
+            _sw = new StreamWriter(TxtOutput.Text);
             BeginCrack();
-            sw.Close();
+            _sw.Close();
         }
 
         private void BeginCrack()
-        {           
+        {
             UITest uiTest = InitializeTestLibs();
             GrabControls(uiTest);
         }
@@ -71,10 +71,10 @@ namespace WindowCracker
         private static UITest InitializeTestLibs()
         {
             UIMap newMap = new UIMap();
-            
+
             Playback.Initialize();
             UITest uiTest = UITest.Create(Application.StartupPath + UITEST_FILENAME);
-            
+
             newMap.Id = "UIMap";
             uiTest.Maps.Add(newMap);
             return uiTest;
@@ -87,14 +87,13 @@ namespace WindowCracker
             GetAllChildren(app, uiTest.Maps[0]);
         }
 
-        private void GetAllChildren(UITestControl uiTestControl, Microsoft.VisualStudio.TestTools.UITest.Common.UIMap.UIMap map)
+        private void GetAllChildren(UITestControl uiTestControl, UIMap map)
         {
             foreach (UITestControl child in uiTestControl.GetChildren())
             {
                 map.AddUIObject((IUITechnologyElement)child.GetProperty(UITestControl.PropertyNames.UITechnologyElement));
-                PropertyExpressionCollection exp = child.SearchProperties;
-                sw.WriteLine(">>> Type:" + child.ControlType + " Name: " + child.FriendlyName + " Class: " + child.ClassName + " Enabled: " + child.Enabled + " Technology Name:" + child.TechnologyName + " Name: " + child.BoundingRectangle);
-                sw.Flush();
+                _sw.WriteLine(">>> Type:" + child.ControlType + " Name: " + child.FriendlyName + " Class: " + child.ClassName + " Enabled: " + child.Enabled + " Technology Name:" + child.TechnologyName + " Name: " + child.BoundingRectangle);
+                _sw.Flush();
                 child.DrawHighlight();
                 GetAllChildren(child, map);
             }
@@ -106,7 +105,11 @@ namespace WindowCracker
             NativeMethods.EnumWindows(EnumWindowsProc, IntPtr.Zero);
             foreach (DictionaryEntry de in _windowList)
             {
-                TreeNode tn = new TreeNode { Text = de.Value.ToString(), Tag = de.Key };
+                TreeNode tn = new TreeNode
+                {
+                    Text = de.Value.ToString(),
+                    Tag = de.Key
+                };
                 TvWindowList.Nodes.Add(tn);
             }
         }
@@ -139,6 +142,5 @@ namespace WindowCracker
             }
             return true;
         }
-
     }
 }

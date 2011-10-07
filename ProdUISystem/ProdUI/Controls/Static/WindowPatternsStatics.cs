@@ -152,7 +152,6 @@ namespace ProdUI.Controls.Static
             {
                 throw new ProdOperationException(err.Message, err);
             }
-
         }
 
         /// <summary>
@@ -209,7 +208,6 @@ namespace ProdUI.Controls.Static
             {
                 throw new ProdOperationException(err.Message, err);
             }
-
         }
 
         /// <summary>
@@ -380,7 +378,6 @@ namespace ProdUI.Controls.Static
             }
             catch (InvalidOperationException)
             {
-
                 double width = AutomationElement.FromHandle(windowHandle).Current.BoundingRectangle.Width;
                 double height = AutomationElement.FromHandle(windowHandle).Current.BoundingRectangle.Height;
                 ProdWindowNative.MoveWindowNative(windowHandle, x, y, width, height);

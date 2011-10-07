@@ -60,7 +60,7 @@ namespace ProdCodeGenerator
         /// <returns>The generated code</returns>
         private static string csGenerateProd(ProdTextTemplate template)
         {
-            csProd cs = new csProd
+            CsProd cs = new CsProd
             {
                 Session = new TextTemplatingSession()
             };

@@ -1,7 +1,6 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
 using ProdUI.Utility;
@@ -130,6 +129,9 @@ namespace ProdUI.Controls.Windows
             SupportedProperties = new List<AutomationProperty>(UIAElement.GetSupportedProperties());
         }
 
+        /// <summary>
+        /// Sets the focus to this control.
+        /// </summary>
         public void SetFocus()
         {
             try
@@ -146,6 +148,10 @@ namespace ProdUI.Controls.Windows
             }
         }
 
+        /// <summary>
+        /// Waits for the control to enter an enabled state.
+        /// </summary>
+        /// <param name="waitSeconds">The wait in seconds.</param>
         public void WaitForControlEnabled(int waitSeconds = -1)
         {
             int ctr = 0;

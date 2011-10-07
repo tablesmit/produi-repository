@@ -1,6 +1,4 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -11,10 +9,10 @@ namespace ProdSpy.Core
     {
         #region Enums and Structs
 
-        #region ExtendedWindowStyles enum
+        #region ExtendedWindowStyle enum
 
         /// <summary>
-        /// Values used with CreateWindowEx	
+        /// Values used with CreateWindowEx
         /// </summary>
         public enum ExtendedWindowStyle : uint
         {
@@ -102,10 +100,10 @@ namespace ProdSpy.Core
 
         #endregion
 
-        #region WindowStyles enum
+        #region WindowStyle enum
 
         /// <summary>
-        /// Values used with CreateWindow	
+        /// Values used with CreateWindow
         /// </summary>
         public enum WindowStyle : uint
         {
@@ -185,24 +183,25 @@ namespace ProdSpy.Core
         #region Nested type: POINT
 
         /// <summary>
-        ///  Native version of managed Point	
+        ///  Native version of managed Point
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         internal struct POINT
         {
             /// <summary>
-            /// 	
+            ///
             /// </summary>
             /// <remarks></remarks>
             public int X;
+
             /// <summary>
-            /// 	
+            ///
             /// </summary>
             /// <remarks></remarks>
             public int Y;
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="POINT" /> struct.	
+            /// Initializes a new instance of the <see cref="POINT" /> struct.
             /// </summary>
             /// <param name="x">The x.</param>
             /// <param name="y">The y.</param>
@@ -214,7 +213,7 @@ namespace ProdSpy.Core
             }
 
             /// <summary>
-            /// Implements the operator ==.	
+            /// Implements the operator ==.
             /// </summary>
             /// <param name="p1">The p1.</param>
             /// <param name="p2">The p2.</param>
@@ -226,7 +225,7 @@ namespace ProdSpy.Core
             }
 
             /// <summary>
-            /// Implements the operator !=.	
+            /// Implements the operator !=.
             /// </summary>
             /// <param name="p1">The p1.</param>
             /// <param name="p2">The p2.</param>
@@ -238,7 +237,7 @@ namespace ProdSpy.Core
             }
 
             /// <summary>
-            /// Equalses the specified other.	
+            /// Equalses the specified other.
             /// </summary>
             /// <param name="other">The other.</param>
             /// <returns></returns>
@@ -249,7 +248,7 @@ namespace ProdSpy.Core
             }
 
             /// <summary>
-            /// Equalses the specified obj.	
+            /// Equalses the specified obj.
             /// </summary>
             /// <param name="obj">The obj.</param>
             /// <returns></returns>
@@ -261,16 +260,16 @@ namespace ProdSpy.Core
                     return false;
                 }
 
-                if (obj.GetType() != typeof (POINT))
+                if (obj.GetType() != typeof(POINT))
                 {
                     return false;
                 }
 
-                return Equals((POINT) obj);
+                return Equals((POINT)obj);
             }
 
             /// <summary>
-            /// Gets the hash code.	
+            /// Gets the hash code.
             /// </summary>
             /// <returns></returns>
             /// <remarks></remarks>
@@ -278,7 +277,7 @@ namespace ProdSpy.Core
             {
                 unchecked
                 {
-                    return (X*397) ^ Y;
+                    return (X * 397) ^ Y;
                 }
             }
         }
@@ -397,7 +396,6 @@ namespace ProdSpy.Core
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool GetWindowInfo(IntPtr hwnd, ref WINDOWINFO pwi);
-
 
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]

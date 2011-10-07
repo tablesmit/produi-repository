@@ -14,15 +14,25 @@ namespace ProdUI.Logging
     [XmlRoot(ElementName = "loggingConfig")]
     public class LoggingConfiguration
     {
-        private ProdLogger _tempLogger;
         private LoggingConfiguration _currentConfig;
         private List<ProdLogger> _loadedLoggers;
+        private ProdLogger _tempLogger;
 
+        /// <summary>
+        /// Gets or sets the logger parameters.
+        /// </summary>
+        /// <value>
+        /// The logger parameters.
+        /// </value>
         [XmlArray("loggers")]
         [XmlArrayItem("logger")]
         public List<ProdLoggerParameters> LoggerParameters { get; set; }
 
-        
+        /// <summary>
+        /// Loads a List of Loggers from a configuration file.
+        /// </summary>
+        /// <param name="filename">The configuration file path.</param>
+        /// <returns>A List of Loggers converted from file</returns>
         public List<ProdLogger> LoadFromConfiguration(string filename)
         {
             _currentConfig = LoadConfiguration(filename);
@@ -31,7 +41,7 @@ namespace ProdUI.Logging
         }
 
         /// <summary>
-        /// Serializes the  current ProdSessionConfig, then writes out to the specified configuration file.
+        /// Serializes the current ProdSessionConfig, then writes out to the specified configuration file.
         /// </summary>
         /// <param name="configFile">The configuration file.</param>
         public void SaveConfiguration(string configFile)

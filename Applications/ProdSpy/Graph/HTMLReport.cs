@@ -1,6 +1,4 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.IO;
 
@@ -19,7 +17,7 @@ namespace ProdSpy.Graph
 
         private const string PageStyle = "<style type='text/css'>TD{font-family: Consolas, monospace; font-size: 10pt; background-color:#ADD8E6;}TH{font-family: Consolas, monospace; font-size: 10pt; background-color:#E0E0E0;}</style>";
 
-        #endregion
+        #endregion String Constants
 
         /// <summary>
         ///   Constructor
@@ -75,7 +73,7 @@ namespace ProdSpy.Graph
             _sw.Close();
         }
 
-        #endregion
+        #endregion HTML Stuff
 
         #region Overrides
 
@@ -105,6 +103,6 @@ namespace ProdSpy.Graph
             _sw.Dispose();
         }
 
-        #endregion
+        #endregion Overrides
     }
 }
