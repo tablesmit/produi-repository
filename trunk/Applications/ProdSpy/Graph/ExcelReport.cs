@@ -1,6 +1,4 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Reflection;
 using System.Windows.Forms;
@@ -83,7 +81,10 @@ namespace ProdSpy.Graph
         /// </summary>
         public override void Create()
         {
-            Application excel = new Application { Visible = true };
+            Application excel = new Application
+            {
+                Visible = true
+            };
 
             _workbook = excel.Workbooks.Add(Missing.Value);
             _worksheet = (_Worksheet)_workbook.ActiveSheet;
@@ -106,11 +107,11 @@ namespace ProdSpy.Graph
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources
         /// </summary>
-        public sealed override void Dispose()
+        public override sealed void Dispose()
         {
             GC.SuppressFinalize(this);
         }
 
-        #endregion
+        #endregion Overrides
     }
 }

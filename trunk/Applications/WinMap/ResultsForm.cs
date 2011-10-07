@@ -1,14 +1,11 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 using MapLib;
-using System.Globalization;
 
 namespace WinMap
 {
@@ -17,13 +14,9 @@ namespace WinMap
     /// </summary>
     public partial class ResultsForm : Form
     {
-        public ArrayList Results { get; set; }
-
-        public MappedWindow LoadedWindow { get; set; }
-
         private double _controlScore;
-        private double _finalScore;
         private int _ctrlctr;
+        private double _finalScore;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ResultsForm"/> class.
@@ -35,17 +28,23 @@ namespace WinMap
             Results = new ArrayList();
         }
 
+        public ArrayList Results { get; set; }
+
+        public MappedWindow LoadedWindow { get; set; }
+
         private void DisplayResults()
         {
             _finalScore = (24 * Results.Count) * 10;
             foreach (List<CompareResult> items in Results)
             {
-
                 if (_ctrlctr >= LoadedWindow.AllFormsControls.Count)
                 {
                     break;
                 }
-                ListViewItem lv = new ListViewItem { Text = @"Custom Id" };
+                ListViewItem lv = new ListViewItem
+                {
+                    Text = @"Custom Id"
+                };
                 lv.SubItems.Add(LoadedWindow.AllFormsControls[_ctrlctr].CustomId);
 
                 if (_ctrlctr % 2 == 0)
@@ -65,12 +64,14 @@ namespace WinMap
 
         private void CreateListItems(IEnumerable<CompareResult> items)
         {
-            
             foreach (CompareResult result in items)
             {
                 int score = 24;
 
-                ListViewItem lvi = new ListViewItem { Text = result.Category };
+                ListViewItem lvi = new ListViewItem
+                {
+                    Text = result.Category
+                };
                 lvi.SubItems.Add(result.LoadedValue);
                 lvi.SubItems.Add(result.LiveValue);
                 lvi.SubItems.Add(result.Passed.ToString(CultureInfo.CurrentCulture));
@@ -86,10 +87,8 @@ namespace WinMap
                     lvi.BackColor = Color.Red;
                 }
 
-
                 LvResults.Items.Add(lvi);
                 _controlScore += score;
-
             }
         }
 

@@ -138,4 +138,10 @@
   <data name="Setvaluefor" xml:space="preserve">
     <value>Please set the value for parameter: </value>
   </data>
+  <data name="String1" xml:space="preserve">
+    <value>te</value>
+  </data>
+	<data name="SetValueForm_Prompt">
+		<value><![CDATA[Please enter a ]]></value>
+	</data>
 </root>

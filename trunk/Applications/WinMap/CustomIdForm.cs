@@ -1,7 +1,4 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Windows.Forms;
 
@@ -12,12 +9,6 @@ namespace WinMap
     /// </summary>
     public partial class CustomIdForm : Form
     {
-
-        /// <summary>
-        /// The custom id string
-        /// </summary>
-        public string Id{get;set;}
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomIdForm"/> class.
         /// </summary>
@@ -25,6 +16,11 @@ namespace WinMap
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// The custom id string
+        /// </summary>
+        public string Id { get; set; }
 
         private void CmdOk_Click(object sender, EventArgs e)
         {

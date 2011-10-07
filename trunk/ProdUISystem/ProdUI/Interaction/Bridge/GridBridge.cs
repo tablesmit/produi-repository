@@ -1,4 +1,5 @@
-﻿using System;
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+using System;
 using System.Windows.Automation;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
@@ -42,7 +43,6 @@ namespace ProdUI.Interaction.Bridge
             return retVal;
         }
 
-
         /// <summary>
         /// Gets the total number of rows in a grid.
         /// </summary>
@@ -75,7 +75,6 @@ namespace ProdUI.Interaction.Bridge
             LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
             return retVal;
         }
-
 
         /// <summary>
         /// Retrieves the UI Automation provider for the specified cell.

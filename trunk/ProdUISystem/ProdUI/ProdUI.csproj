@@ -246,17 +246,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>IF $(ConfigurationName) == Release GOTO REL
-cd "$(SolutionDir)\Release\ProdUI\Common"
-copy "$(TargetDir)*.*"
-GOTO :EOF
-:REL
-cd "$(SolutionDir)\Release\ProdUI\Common"
-copy "$(TargetPath)"
-echo Building SHFB help file via MSBuild
-REM Create all the sancastle stuff
-"%25SystemRoot%25\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe" /p:Configuration=Release  "$(SolutionDir)\Documentation\SCHFB Files\ProdUI_User.shfbproj
-"%25SystemRoot%25\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe" /p:Configuration=Release  "$(SolutionDir)\Documentation\SCHFB Files\ProdUI_Dev.shfbproj</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

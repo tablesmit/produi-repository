@@ -124,15 +124,15 @@ namespace ProdUI.Logging
                     message.LogTime = logTime.ToString(LogDateFormat, CultureInfo.CurrentCulture);
 
                     string tempstr = "[" + message.LogTime + "]";
-                    
+
                     outString += " " + tempstr + " ";
-                    
+
                     continue;
                 }
                 if (item == "Message Level")
                 {
                     /* Get the message level */
-                    outString += message.MessageLevel.ToString() + " ";
+                    outString += message.MessageLevel + " ";
                     continue;
                 }
                 if (item == "Calling Function")

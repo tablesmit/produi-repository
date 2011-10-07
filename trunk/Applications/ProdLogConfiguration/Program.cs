@@ -1,26 +1,16 @@
-﻿//***********************************************************************
-// Assembly         : ProdSessionConfiguration
-// Author           : HRoark
-// Created          : 08-14-2011
-//
-// Last Modified By : HRoark
-// Last Modified On : 08-14-2011
-// Description      : 
-//
-// Copyright        : (c) . All rights reserved.
-//***********************************************************************
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Windows.Forms;
 
 namespace ProdSessionConfiguration
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

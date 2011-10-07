@@ -1,4 +1,5 @@
-﻿using System;
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
@@ -9,7 +10,6 @@ using System.Xml.Serialization;
 using ProdLoggingConfiguration.Properties;
 using ProdUI.Logging;
 
-
 namespace ProdSessionConfiguration
 {
     /// <summary>
@@ -17,59 +17,6 @@ namespace ProdSessionConfiguration
     /// </summary>
     public partial class MainForm : Form
     {
-        /// <summary>
-        /// Indicates the current mode the UI is operating in
-        /// </summary>
-        private enum EditMode
-        {
-            /// <summary>
-            /// Indicates if form is in a state for editing an existing Logger
-            /// </summary>
-            Edit,
-            /// <summary>
-            /// Indicates that we are adding a new logger to the file
-            /// </summary>
-            Add,
-            /// <summary>
-            /// Indicates system is removing a logger from the file/UI
-            /// </summary>
-            Remove,
-            /// <summary>
-            /// Indicates whether the form is in a file-load state.Helps control event firing during this time
-            /// </summary>
-            Loading,
-            /// <summary>
-            /// File is saved. Default state
-            /// </summary>
-            Saved
-        }
-
-        #region Variables
-
-        /* Constants */
-        private const string SESSION_DIRTY = @"Session configuration changed";
-        private const string FILE_SAVED = @"File Saved";
-
-        /* ProdSession Values */
-        private LoggingConfiguration _configuration;
-        private string _currentFilename = string.Empty;
-        private int _currentLoglevel;
-        private int _currentVerbose;
-
-        /* UI Stuff */
-        private List<Label> _labels;
-        StringCollection _mru;
-
-        /* Flags */
-        /// <summary>
-        /// Indicates whether there are unsaved changes to the UI
-        /// </summary>
-        private bool _isDirty;
-        private EditMode currentMode;
-
-        #endregion
-
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MainForm"/> class.
         /// </summary>
@@ -152,7 +99,7 @@ namespace ProdSessionConfiguration
             }
         }
 
-        #endregion
+        #endregion Form loading
 
         #region Main Menu
 
@@ -176,19 +123,22 @@ namespace ProdSessionConfiguration
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void TsOpen_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog { Title = @"Open File", ValidateNames = true, Filter = @"Session configuration files (*.ses)|*.ses" };
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Title = @"Open File",
+                ValidateNames = true,
+                Filter = @"Session configuration files (*.ses)|*.ses"
+            };
 
             if (ofd.ShowDialog() == DialogResult.Cancel)
             {
                 return;
             }
 
-
             if (ofd.FileName.Length == 0)
             {
                 return;
             }
-
 
             /* so, we have a filename, rest the UI and load it in */
             ResetUI();
@@ -268,7 +218,7 @@ namespace ProdSessionConfiguration
 
         private void ProcessSaveMode()
         {
-            switch (currentMode)
+            switch (_currentMode)
             {
                 case EditMode.Edit:
                     _configuration.LoggerParameters.RemoveAt(LstLoggers.SelectedIndex);
@@ -284,8 +234,6 @@ namespace ProdSessionConfiguration
                     break;
             }
         }
-
-
 
         /// <summary>Event handler for an MRU item click</summary>
         /// <param name="sender">The sender.</param>
@@ -317,7 +265,7 @@ namespace ProdSessionConfiguration
             Close();
         }
 
-        #endregion
+        #endregion Main Menu
 
         #region Control Events
 
@@ -343,7 +291,7 @@ namespace ProdSessionConfiguration
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void CmdAddLogger_Click(object sender, EventArgs e)
         {
-            currentMode = EditMode.Add;
+            _currentMode = EditMode.Add;
             CmdEditLogger.Text = Resources.CmdEdit_Caption_Cancel;
             CmdEditLogger.Enabled = true;
             NewLogger();
@@ -363,7 +311,7 @@ namespace ProdSessionConfiguration
                 return;
             }
 
-            currentMode = EditMode.Edit;
+            _currentMode = EditMode.Edit;
 
             PnlLogOptions.Enabled = true;
             CmdAddLogger.Enabled = false;
@@ -378,7 +326,6 @@ namespace ProdSessionConfiguration
             RemoveLogger();
         }
 
-
         /*Logger name and dll path */
 
         /// <summary>Handles the Click event of the CmdBrowse control.</summary>
@@ -387,7 +334,12 @@ namespace ProdSessionConfiguration
         /// <remarks>This is used to browse for a valid ILogTarget dll</remarks>
         private void CmdBrowse_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog { Title = @"Open File", ValidateNames = true, Filter = @"Logger  (*.dll)|*.dll" };
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Title = @"Open File",
+                ValidateNames = true,
+                Filter = @"Logger  (*.dll)|*.dll"
+            };
             if (TxtDllPath.Text.Length > 0)
             {
                 ofd.InitialDirectory = TxtDllPath.Tag.ToString();
@@ -404,7 +356,6 @@ namespace ProdSessionConfiguration
                 return;
             }
 
-
             /* Make sure this is a valid ILogTarget */
             bool valid = VerifyValidLoggerAssembly(ofd.FileName);
             if (!valid)
@@ -416,7 +367,6 @@ namespace ProdSessionConfiguration
             /* Fill in values. the tag will hold the complete path to the file, theile the box will be made to look pretty */
             TxtDllPath.Text = Path.GetFileName(ofd.FileName);
             TxtDllPath.Tag = ofd.FileName;
-
         }
 
         /// <summary>
@@ -438,7 +388,6 @@ namespace ProdSessionConfiguration
             CmdRemoveLogger.Enabled = true;
         }
 
-
         /* Logging verbosity box */
 
         /// <summary>
@@ -455,7 +404,6 @@ namespace ProdSessionConfiguration
             _currentVerbose = int.Parse(rdo.Tag.ToString(), CultureInfo.CurrentCulture);
             SetFormDirty();
         }
-
 
         /* Log Entry Format Box */
 
@@ -494,7 +442,6 @@ namespace ProdSessionConfiguration
                     LblMessageExample.Visible = e.NewValue == CheckState.Checked;
                     TblOutput.Controls.Add(LblMessageExample, e.Index, 0);
                 }
-
             }
 
             //TblOutput.Left = (PnlLogOptions.ClientSize.Width - TblOutput.Width) / 2;
@@ -574,9 +521,7 @@ namespace ProdSessionConfiguration
                 MessageBox.Show(err.Message, @"Invalid Date Format", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 TxtDateFormat.Text = @"T";
             }
-
         }
-
 
         /* Logging Level Box */
 
@@ -618,11 +563,10 @@ namespace ProdSessionConfiguration
         private void LevelCheckedChanged(object sender, EventArgs e)
         {
             /* Ignore event if session is loading into the form for the first time */
-            if (currentMode == EditMode.Loading)
+            if (_currentMode == EditMode.Loading)
             {
                 return;
             }
-
 
             CheckBox chk = (CheckBox)sender;
 
@@ -638,7 +582,7 @@ namespace ProdSessionConfiguration
             _currentLoglevel -= int.Parse(chk.Tag.ToString(), CultureInfo.CurrentCulture);
         }
 
-        #endregion
+        #endregion Control Events
 
         #region Config file save functions
 
@@ -687,7 +631,10 @@ namespace ProdSessionConfiguration
         {
             if (_configuration == null)
             {
-                _configuration = new LoggingConfiguration { LoggerParameters = new List<ProdLoggerParameters>() };
+                _configuration = new LoggingConfiguration
+                {
+                    LoggerParameters = new List<ProdLoggerParameters>()
+                };
             }
 
             GetCurrentLoggersUI();
@@ -699,7 +646,6 @@ namespace ProdSessionConfiguration
         /// </summary>
         private void GetCurrentLoggersUI()
         {
-
             if (!VerifyValidLogger())
             {
                 return;
@@ -759,7 +705,7 @@ namespace ProdSessionConfiguration
             return retVal.TrimEnd(new[] { ',' });
         }
 
-        #endregion
+        #endregion Config file save functions
 
         #region Config file load functions
 
@@ -771,7 +717,7 @@ namespace ProdSessionConfiguration
         {
             LoadConfig(filename);
             _currentFilename = filename;
-            LoadFileIntoUI(_configuration);
+            LoadFileIntoUI();
 
             foreach (ProdLoggerParameters item in _configuration.LoggerParameters)
             {
@@ -797,7 +743,10 @@ namespace ProdSessionConfiguration
         private void LoadConfig(string configFile)
         {
             FileStream fs = null;
-            _configuration = new LoggingConfiguration { LoggerParameters = new List<ProdLoggerParameters>() };
+            _configuration = new LoggingConfiguration
+            {
+                LoggerParameters = new List<ProdLoggerParameters>()
+            };
 
             try
             {
@@ -821,8 +770,7 @@ namespace ProdSessionConfiguration
         /// <summary>
         /// Handles loading the ProdSessionConfig into the UI.
         /// </summary>
-        /// <param name="configuration">The configuration.</param>
-        private void LoadFileIntoUI(LoggingConfiguration configuration)
+        private void LoadFileIntoUI()
         {
             PnlLayout.Enabled = true;
         }
@@ -836,7 +784,9 @@ namespace ProdSessionConfiguration
             /* make sure the MRU is not empty, if so, create it */
             if (Settings.Default.MRU == null)
             {
-                _mru = new StringCollection { filepath };
+                _mru = new StringCollection {
+                                                filepath
+                                            };
                 Settings.Default.MRU = _mru;
                 Settings.Default.Save();
                 Settings.Default.Reload();
@@ -906,7 +856,6 @@ namespace ProdSessionConfiguration
         /// <param name="outputFormat">The output format.</param>
         private void LoadLogEntryExampleLabels(string outputFormat)
         {
-
             if (outputFormat != null)
             {
                 if (outputFormat.Trim() == "LogTime")
@@ -942,8 +891,7 @@ namespace ProdSessionConfiguration
         //    }
         //}
 
-
-        #endregion
+        #endregion Config file load functions
 
         #region Logger Manipulation
 
@@ -965,56 +913,13 @@ namespace ProdSessionConfiguration
         }
 
         /// <summary>
-        /// Adds a new logger to the configuration list.
-        /// </summary>
-        private void AddLogger()
-        {
-            if (!VerifyValidLogger())
-            {
-                TsStatusLabel.Text = @"Error: Invalid Logger";
-                return;
-            }
-            // _configuration = SendUIToFile();
-            _isDirty = true;
-            SaveConfig(_currentFilename, true);
-            /* Reset the text to indicate ability to add new logger */
-            //SetLoggerPanelState(false);
-
-            ResetUI();
-            PnlLoadedLoggers.Enabled = true;
-            PnlLogOptions.Enabled = true;
-            TsSave.Enabled = true;
-            CmdAddLogger.Enabled = true;
-
-        }
-
-        /// <summary>
-        /// Verifies and stores changes to an existing logger in the configuration list
-        /// </summary>
-        /// <remarks>
-        /// Operates in synch with item selected in ListBox
-        /// </remarks>
-        private void EditLogger()
-        {
-            /* lock logger UI and reset */
-            _configuration = SendUIToFile();
-            PnlLogOptions.Enabled = true;
-
-            //_isDirty = true;
-
-            /* Reset the text to indicate ability to add new logger */
-            //CmdAddLogger.Text = @"Add";
-            // TsStatusLabel.Text = @"Logger Added. Save file to commit";
-        }
-
-        /// <summary>
         /// Removes the selected logger from the configuration list.
         /// </summary>
         private void RemoveLogger()
         {
             if (LstLoggers.SelectedIndex == -1) return;
 
-            currentMode = EditMode.Remove;
+            _currentMode = EditMode.Remove;
             _configuration.LoggerParameters.RemoveAt(LstLoggers.SelectedIndex);
 
             LstLoggers.Items.RemoveAt(LstLoggers.SelectedIndex);
@@ -1043,7 +948,6 @@ namespace ProdSessionConfiguration
                 it.SubItems.Add(item.ParamValue.ToString());
                 LvParams.Items.Add(it);
             }
-
         }
 
         /// <summary>
@@ -1066,7 +970,6 @@ namespace ProdSessionConfiguration
                     return false;
                 }
 
-
                 foreach (Type t in iface)
                 {
                     if (iface[0] != typeof(ILogTarget)) continue;
@@ -1082,7 +985,7 @@ namespace ProdSessionConfiguration
             return false;
         }
 
-        #endregion
+        #endregion Logger Manipulation
 
         #region UI Manipulations
 
@@ -1092,7 +995,7 @@ namespace ProdSessionConfiguration
         private void SetSelectedLoggerUI()
         {
             LstLogEntry.Items.Clear();
-            LoadFileIntoUI(_configuration);
+            LoadFileIntoUI();
             _currentVerbose = _configuration.LoggerParameters[LstLoggers.SelectedIndex].Verbosity;
             SetLoggerVerbosityRadios();
             SetLoggerLevelCheckBoxes(_configuration.LoggerParameters[LstLoggers.SelectedIndex].LogLevel);
@@ -1113,14 +1016,14 @@ namespace ProdSessionConfiguration
         private void SetLoggerLevelCheckBoxes(int loglevel)
         {
             /* set flag to inhibit CheckChanged events */
-            currentMode = EditMode.Loading;
+            _currentMode = EditMode.Loading;
 
             /* Log Levels */
             ChkErrors.Checked = (int.Parse(ChkErrors.Tag.ToString(), CultureInfo.CurrentCulture) | loglevel) == loglevel;
             ChkInfo.Checked = (int.Parse(ChkInfo.Tag.ToString(), CultureInfo.CurrentCulture) | loglevel) == loglevel;
             ChkProd.Checked = (int.Parse(ChkProd.Tag.ToString(), CultureInfo.CurrentCulture) | loglevel) == loglevel;
             ChkWarn.Checked = (int.Parse(ChkWarn.Tag.ToString(), CultureInfo.CurrentCulture) | loglevel) == loglevel;
-            currentMode = EditMode.Saved;
+            _currentMode = EditMode.Saved;
         }
 
         /// <summary>
@@ -1135,7 +1038,6 @@ namespace ProdSessionConfiguration
             }
             RdoMaximum.Checked = true;
         }
-
 
         /// <summary>
         /// Resets the UI to its default state.
@@ -1171,7 +1073,6 @@ namespace ProdSessionConfiguration
             PnlLoadedLoggers.Enabled = setEnabled;
             PnlLogOptions.Enabled = setEnabled;
         }
-
 
         /* runtime UI tracking */
 
@@ -1213,8 +1114,6 @@ namespace ProdSessionConfiguration
             return labelIndex;
         }
 
-
-
         /* UI state */
 
         /// <summary>
@@ -1225,7 +1124,7 @@ namespace ProdSessionConfiguration
             SetFormClean();
             TsStatusLabel.Text = FILE_SAVED;
             CmdEditLogger.Text = Resources.CmdEdit_Caption;
-            currentMode = EditMode.Saved;
+            _currentMode = EditMode.Saved;
             if (LstLoggers.Items.Count > 0)
                 LstLoggers.SelectedIndex = 0;
         }
@@ -1249,7 +1148,6 @@ namespace ProdSessionConfiguration
             TsStatusLabel.Text = string.Empty;
         }
 
-
         ///// <summary>
         ///// Sets the output string labels to their default order and state.
         ///// </summary>
@@ -1267,7 +1165,6 @@ namespace ProdSessionConfiguration
 
         //    TblOutput.Left = (PnlLogOptions.ClientSize.Width - TblOutput.Width) / 2;
         //}
-
 
         ///// <summary>
         ///// Resets the UI for a fresh start.
@@ -1305,8 +1202,63 @@ namespace ProdSessionConfiguration
         //    _currentVerbose = 1;
         //}
 
+        #endregion UI Manipulations
 
-        #endregion
+        #region Nested type: EditMode
 
+        /// <summary>
+        /// Indicates the current mode the UI is operating in
+        /// </summary>
+        private enum EditMode
+        {
+            /// <summary>
+            /// Indicates if form is in a state for editing an existing Logger
+            /// </summary>
+            Edit,
+            /// <summary>
+            /// Indicates that we are adding a new logger to the file
+            /// </summary>
+            Add,
+            /// <summary>
+            /// Indicates system is removing a logger from the file/UI
+            /// </summary>
+            Remove,
+            /// <summary>
+            /// Indicates whether the form is in a file-load state.Helps control event firing during this time
+            /// </summary>
+            Loading,
+            /// <summary>
+            /// File is saved. Default state
+            /// </summary>
+            Saved
+        }
+
+        #endregion Nested type: EditMode
+
+        #region Variables
+
+        /* Constants */
+        private const string FILE_SAVED = @"File Saved";
+
+        /* ProdSession Values */
+        private LoggingConfiguration _configuration;
+        private string _currentFilename = string.Empty;
+        private int _currentLoglevel;
+        private int _currentVerbose;
+
+        /// <summary>
+        /// Indicates whether there are unsaved changes to the UI
+        /// </summary>
+        private bool _isDirty;
+
+        /* UI Stuff */
+        private List<Label> _labels;
+        private StringCollection _mru;
+
+        /* Flags */
+
+        private EditMode _currentMode;
+
+        #endregion Variables
     }
 }

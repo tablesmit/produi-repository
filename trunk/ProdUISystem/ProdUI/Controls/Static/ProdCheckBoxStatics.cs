@@ -54,7 +54,6 @@ namespace ProdUI.Controls.Static
             {
                 throw new ProdOperationException(err.Message, err);
             }
-
         }
 
         /// <summary>
@@ -95,7 +94,6 @@ namespace ProdUI.Controls.Static
             {
                 throw new ProdOperationException(err.Message, err);
             }
-
         }
 
         /// <summary>
@@ -131,7 +129,6 @@ namespace ProdUI.Controls.Static
             {
                 throw new ProdOperationException(err.Message, err);
             }
-
         }
 
         /// <summary>

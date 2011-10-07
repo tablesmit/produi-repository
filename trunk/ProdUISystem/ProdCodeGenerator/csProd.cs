@@ -12,7 +12,7 @@ namespace ProdCodeGenerator
 #line 1 "C:\Documents and Settings\PRP9434\My Documents\Projects\produi\trunk\ProdUISystem\ProdCodeGenerator\csProd.tt"
 
     [GeneratedCode("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public class csProd : csProdBase
+    public class CsProd : CsProdBase
     {
         #region ToString Helpers
 
@@ -21,19 +21,19 @@ namespace ProdCodeGenerator
         /// </summary>
         public class ToStringInstanceHelper
         {
-            private IFormatProvider formatProviderField = CultureInfo.InvariantCulture;
+            private IFormatProvider _formatProviderField = CultureInfo.InvariantCulture;
 
             /// <summary>
             /// Gets or sets format provider to be used by ToStringWithCulture method.
             /// </summary>
             public IFormatProvider FormatProvider
             {
-                get { return formatProviderField; }
+                get { return _formatProviderField; }
                 set
                 {
                     if ((value != null))
                     {
-                        formatProviderField = value;
+                        _formatProviderField = value;
                     }
                 }
             }
@@ -53,18 +53,15 @@ namespace ProdCodeGenerator
                 {
                     return objectToConvert.ToString();
                 }
-                else
-                {
-                    return ((string)(method.Invoke(objectToConvert, new object[] { formatProviderField })));
-                }
+                return ((string)(method.Invoke(objectToConvert, new object[] { _formatProviderField })));
             }
         }
 
-        private readonly ToStringInstanceHelper toStringHelperField = new ToStringInstanceHelper();
+        private readonly ToStringInstanceHelper _toStringHelperField = new ToStringInstanceHelper();
 
         public ToStringInstanceHelper ToStringHelper
         {
-            get { return toStringHelperField; }
+            get { return _toStringHelperField; }
         }
 
         #endregion ToString Helpers
@@ -168,236 +165,204 @@ namespace ProdCodeGenerator
 
 #line 1 "C:\Documents and Settings\PRP9434\My Documents\Projects\produi\trunk\ProdUISystem\ProdCodeGenerator\csProd.tt"
 
-        private string _WindowNameField;
-
         /// <summary>
         /// Access the WindowName parameter of the template.
         /// </summary>
-        private string WindowName
-        {
-            get { return _WindowNameField; }
-        }
-
-        private string _ControlTypeField;
+        private string WindowName { get; set; }
 
         /// <summary>
         /// Access the ControlType parameter of the template.
         /// </summary>
-        private string ControlType
-        {
-            get { return _ControlTypeField; }
-        }
-
-        private string _ControlNameField;
+        private string ControlType { get; set; }
 
         /// <summary>
         /// Access the ControlName parameter of the template.
         /// </summary>
-        private string ControlName
-        {
-            get { return _ControlNameField; }
-        }
-
-        private string _ReturnTypeField;
+        private string ControlName { get; set; }
 
         /// <summary>
         /// Access the ReturnType parameter of the template.
         /// </summary>
-        private string ReturnType
-        {
-            get { return _ReturnTypeField; }
-        }
-
-        private string _MethodNameField;
+        private string ReturnType { get; set; }
 
         /// <summary>
         /// Access the MethodName parameter of the template.
         /// </summary>
-        private string MethodName
-        {
-            get { return _MethodNameField; }
-        }
-
-        private string _MethodParametersField;
+        private string MethodName { get; set; }
 
         /// <summary>
         /// Access the MethodParameters parameter of the template.
         /// </summary>
-        private string MethodParameters
-        {
-            get { return _MethodParametersField; }
-        }
+        private string MethodParameters { get; set; }
 
         public virtual void Initialize()
         {
-            if ((Errors.HasErrors == false))
+            if (Errors.HasErrors) return;
+            bool windowNameValueAcquired = false;
+            if (Session.ContainsKey("WindowName"))
             {
-                bool WindowNameValueAcquired = false;
-                if (Session.ContainsKey("WindowName"))
+                if ((typeof(string).IsAssignableFrom(Session["WindowName"].GetType()) == false))
                 {
-                    if ((typeof(string).IsAssignableFrom(Session["WindowName"].GetType()) == false))
+                    Error("The type \'System.String\' of the parameter \'WindowName\' did not match the type of " + "the data passed to the template.");
+                }
+                else
+                {
+                    WindowName = ((string)(Session["WindowName"]));
+                    windowNameValueAcquired = true;
+                }
+            }
+            if ((windowNameValueAcquired == false))
+            {
+                object data = CallContext.LogicalGetData("WindowName");
+                if ((data != null))
+                {
+                    if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
                     {
                         Error("The type \'System.String\' of the parameter \'WindowName\' did not match the type of " + "the data passed to the template.");
                     }
                     else
                     {
-                        _WindowNameField = ((string)(Session["WindowName"]));
-                        WindowNameValueAcquired = true;
+                        WindowName = ((string)(data));
                     }
                 }
-                if ((WindowNameValueAcquired == false))
+            }
+            bool controlTypeValueAcquired = false;
+            if (Session.ContainsKey("ControlType"))
+            {
+                if ((typeof(string).IsAssignableFrom(Session["ControlType"].GetType()) == false))
                 {
-                    object data = CallContext.LogicalGetData("WindowName");
-                    if ((data != null))
-                    {
-                        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-                        {
-                            Error("The type \'System.String\' of the parameter \'WindowName\' did not match the type of " + "the data passed to the template.");
-                        }
-                        else
-                        {
-                            _WindowNameField = ((string)(data));
-                        }
-                    }
+                    Error("The type \'System.String\' of the parameter \'ControlType\' did not match the type of" + " the data passed to the template.");
                 }
-                bool ControlTypeValueAcquired = false;
-                if (Session.ContainsKey("ControlType"))
+                else
                 {
-                    if ((typeof(string).IsAssignableFrom(Session["ControlType"].GetType()) == false))
+                    ControlType = ((string)(Session["ControlType"]));
+                    controlTypeValueAcquired = true;
+                }
+            }
+            if ((controlTypeValueAcquired == false))
+            {
+                object data = CallContext.LogicalGetData("ControlType");
+                if ((data != null))
+                {
+                    if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
                     {
                         Error("The type \'System.String\' of the parameter \'ControlType\' did not match the type of" + " the data passed to the template.");
                     }
                     else
                     {
-                        _ControlTypeField = ((string)(Session["ControlType"]));
-                        ControlTypeValueAcquired = true;
+                        ControlType = ((string)(data));
                     }
                 }
-                if ((ControlTypeValueAcquired == false))
+            }
+            bool controlNameValueAcquired = false;
+            if (Session.ContainsKey("ControlName"))
+            {
+                if ((typeof(string).IsAssignableFrom(Session["ControlName"].GetType()) == false))
                 {
-                    object data = CallContext.LogicalGetData("ControlType");
-                    if ((data != null))
-                    {
-                        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-                        {
-                            Error("The type \'System.String\' of the parameter \'ControlType\' did not match the type of" + " the data passed to the template.");
-                        }
-                        else
-                        {
-                            _ControlTypeField = ((string)(data));
-                        }
-                    }
+                    Error("The type \'System.String\' of the parameter \'ControlName\' did not match the type of" + " the data passed to the template.");
                 }
-                bool ControlNameValueAcquired = false;
-                if (Session.ContainsKey("ControlName"))
+                else
                 {
-                    if ((typeof(string).IsAssignableFrom(Session["ControlName"].GetType()) == false))
+                    ControlName = ((string)(Session["ControlName"]));
+                    controlNameValueAcquired = true;
+                }
+            }
+            if ((controlNameValueAcquired == false))
+            {
+                object data = CallContext.LogicalGetData("ControlName");
+                if ((data != null))
+                {
+                    if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
                     {
                         Error("The type \'System.String\' of the parameter \'ControlName\' did not match the type of" + " the data passed to the template.");
                     }
                     else
                     {
-                        _ControlNameField = ((string)(Session["ControlName"]));
-                        ControlNameValueAcquired = true;
+                        ControlName = ((string)(data));
                     }
                 }
-                if ((ControlNameValueAcquired == false))
+            }
+            bool returnTypeValueAcquired = false;
+            if (Session.ContainsKey("ReturnType"))
+            {
+                if ((typeof(string).IsAssignableFrom(Session["ReturnType"].GetType()) == false))
                 {
-                    object data = CallContext.LogicalGetData("ControlName");
-                    if ((data != null))
-                    {
-                        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-                        {
-                            Error("The type \'System.String\' of the parameter \'ControlName\' did not match the type of" + " the data passed to the template.");
-                        }
-                        else
-                        {
-                            _ControlNameField = ((string)(data));
-                        }
-                    }
+                    Error("The type \'System.String\' of the parameter \'ReturnType\' did not match the type of " + "the data passed to the template.");
                 }
-                bool ReturnTypeValueAcquired = false;
-                if (Session.ContainsKey("ReturnType"))
+                else
                 {
-                    if ((typeof(string).IsAssignableFrom(Session["ReturnType"].GetType()) == false))
+                    ReturnType = ((string)(Session["ReturnType"]));
+                    returnTypeValueAcquired = true;
+                }
+            }
+            if ((returnTypeValueAcquired == false))
+            {
+                object data = CallContext.LogicalGetData("ReturnType");
+                if ((data != null))
+                {
+                    if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
                     {
                         Error("The type \'System.String\' of the parameter \'ReturnType\' did not match the type of " + "the data passed to the template.");
                     }
                     else
                     {
-                        _ReturnTypeField = ((string)(Session["ReturnType"]));
-                        ReturnTypeValueAcquired = true;
+                        ReturnType = ((string)(data));
                     }
                 }
-                if ((ReturnTypeValueAcquired == false))
+            }
+            bool methodNameValueAcquired = false;
+            if (Session.ContainsKey("MethodName"))
+            {
+                if ((typeof(string).IsAssignableFrom(Session["MethodName"].GetType()) == false))
                 {
-                    object data = CallContext.LogicalGetData("ReturnType");
-                    if ((data != null))
-                    {
-                        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-                        {
-                            Error("The type \'System.String\' of the parameter \'ReturnType\' did not match the type of " + "the data passed to the template.");
-                        }
-                        else
-                        {
-                            _ReturnTypeField = ((string)(data));
-                        }
-                    }
+                    Error("The type \'System.String\' of the parameter \'MethodName\' did not match the type of " + "the data passed to the template.");
                 }
-                bool MethodNameValueAcquired = false;
-                if (Session.ContainsKey("MethodName"))
+                else
                 {
-                    if ((typeof(string).IsAssignableFrom(Session["MethodName"].GetType()) == false))
+                    MethodName = ((string)(Session["MethodName"]));
+                    methodNameValueAcquired = true;
+                }
+            }
+            if ((methodNameValueAcquired == false))
+            {
+                object data = CallContext.LogicalGetData("MethodName");
+                if ((data != null))
+                {
+                    if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
                     {
                         Error("The type \'System.String\' of the parameter \'MethodName\' did not match the type of " + "the data passed to the template.");
                     }
                     else
                     {
-                        _MethodNameField = ((string)(Session["MethodName"]));
-                        MethodNameValueAcquired = true;
+                        MethodName = ((string)(data));
                     }
                 }
-                if ((MethodNameValueAcquired == false))
+            }
+            bool methodParametersValueAcquired = false;
+            if (Session.ContainsKey("MethodParameters"))
+            {
+                if ((typeof(string).IsAssignableFrom(Session["MethodParameters"].GetType()) == false))
                 {
-                    object data = CallContext.LogicalGetData("MethodName");
-                    if ((data != null))
-                    {
-                        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-                        {
-                            Error("The type \'System.String\' of the parameter \'MethodName\' did not match the type of " + "the data passed to the template.");
-                        }
-                        else
-                        {
-                            _MethodNameField = ((string)(data));
-                        }
-                    }
+                    Error("The type \'System.String\' of the parameter \'MethodParameters\' did not match the ty" + "pe of the data passed to the template.");
                 }
-                bool MethodParametersValueAcquired = false;
-                if (Session.ContainsKey("MethodParameters"))
+                else
                 {
-                    if ((typeof(string).IsAssignableFrom(Session["MethodParameters"].GetType()) == false))
+                    MethodParameters = ((string)(Session["MethodParameters"]));
+                    methodParametersValueAcquired = true;
+                }
+            }
+            if ((methodParametersValueAcquired == false))
+            {
+                object data = CallContext.LogicalGetData("MethodParameters");
+                if ((data != null))
+                {
+                    if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
                     {
                         Error("The type \'System.String\' of the parameter \'MethodParameters\' did not match the ty" + "pe of the data passed to the template.");
                     }
                     else
                     {
-                        _MethodParametersField = ((string)(Session["MethodParameters"]));
-                        MethodParametersValueAcquired = true;
-                    }
-                }
-                if ((MethodParametersValueAcquired == false))
-                {
-                    object data = CallContext.LogicalGetData("MethodParameters");
-                    if ((data != null))
-                    {
-                        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-                        {
-                            Error("The type \'System.String\' of the parameter \'MethodParameters\' did not match the ty" + "pe of the data passed to the template.");
-                        }
-                        else
-                        {
-                            _MethodParametersField = ((string)(data));
-                        }
+                        MethodParameters = ((string)(data));
                     }
                 }
             }
@@ -416,15 +381,15 @@ namespace ProdCodeGenerator
     /// Base class for this transformation
     /// </summary>
     [GeneratedCode("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public class csProdBase
+    public class CsProdBase
     {
         #region Fields
 
-        private string currentIndentField = "";
-        private bool endsWithNewline;
-        private CompilerErrorCollection errorsField;
-        private StringBuilder generationEnvironmentField;
-        private List<int> indentLengthsField;
+        private string _currentIndentField = "";
+        private bool _endsWithNewline;
+        private CompilerErrorCollection _errorsField;
+        private StringBuilder _generationEnvironmentField;
+        private List<int> _indentLengthsField;
 
         #endregion Fields
 
@@ -437,13 +402,13 @@ namespace ProdCodeGenerator
         {
             get
             {
-                if ((generationEnvironmentField == null))
+                if ((_generationEnvironmentField == null))
                 {
-                    generationEnvironmentField = new StringBuilder();
+                    _generationEnvironmentField = new StringBuilder();
                 }
-                return generationEnvironmentField;
+                return _generationEnvironmentField;
             }
-            set { generationEnvironmentField = value; }
+            set { _generationEnvironmentField = value; }
         }
 
         /// <summary>
@@ -453,11 +418,11 @@ namespace ProdCodeGenerator
         {
             get
             {
-                if ((errorsField == null))
+                if ((_errorsField == null))
                 {
-                    errorsField = new CompilerErrorCollection();
+                    _errorsField = new CompilerErrorCollection();
                 }
-                return errorsField;
+                return _errorsField;
             }
         }
 
@@ -468,11 +433,11 @@ namespace ProdCodeGenerator
         {
             get
             {
-                if ((indentLengthsField == null))
+                if ((_indentLengthsField == null))
                 {
-                    indentLengthsField = new List<int>();
+                    _indentLengthsField = new List<int>();
                 }
-                return indentLengthsField;
+                return _indentLengthsField;
             }
         }
 
@@ -481,7 +446,7 @@ namespace ProdCodeGenerator
         /// </summary>
         public string CurrentIndent
         {
-            get { return currentIndentField; }
+            get { return _currentIndentField; }
         }
 
         /// <summary>
@@ -504,30 +469,30 @@ namespace ProdCodeGenerator
             }
             // If we're starting off, or if the previous text ended with a newline,
             // we have to append the current indent first.
-            if (((GenerationEnvironment.Length == 0) || endsWithNewline))
+            if (((GenerationEnvironment.Length == 0) || _endsWithNewline))
             {
-                GenerationEnvironment.Append(currentIndentField);
-                endsWithNewline = false;
+                GenerationEnvironment.Append(_currentIndentField);
+                _endsWithNewline = false;
             }
             // Check if the current text ends with a newline
             if (textToAppend.EndsWith(Environment.NewLine, StringComparison.CurrentCulture))
             {
-                endsWithNewline = true;
+                _endsWithNewline = true;
             }
             // This is an optimization. If the current indent is "", then we don't have to do any
             // of the more complex stuff further down.
-            if ((currentIndentField.Length == 0))
+            if ((_currentIndentField.Length == 0))
             {
                 GenerationEnvironment.Append(textToAppend);
                 return;
             }
             // Everywhere there is a newline in the text, add an indent after it
-            textToAppend = textToAppend.Replace(Environment.NewLine, (Environment.NewLine + currentIndentField));
+            textToAppend = textToAppend.Replace(Environment.NewLine, (Environment.NewLine + _currentIndentField));
             // If the text ends with a newline, then we should strip off the indent added at the very end
             // because the appropriate indent will be added when the next time Write() is called
-            if (endsWithNewline)
+            if (_endsWithNewline)
             {
-                GenerationEnvironment.Append(textToAppend, 0, (textToAppend.Length - currentIndentField.Length));
+                GenerationEnvironment.Append(textToAppend, 0, (textToAppend.Length - _currentIndentField.Length));
             }
             else
             {
@@ -542,7 +507,7 @@ namespace ProdCodeGenerator
         {
             Write(textToAppend);
             GenerationEnvironment.AppendLine();
-            endsWithNewline = true;
+            _endsWithNewline = true;
         }
 
         /// <summary>
@@ -566,8 +531,10 @@ namespace ProdCodeGenerator
         /// </summary>
         public void Error(string message)
         {
-            CompilerError error = new CompilerError();
-            error.ErrorText = message;
+            CompilerError error = new CompilerError
+            {
+                ErrorText = message
+            };
             Errors.Add(error);
         }
 
@@ -576,9 +543,11 @@ namespace ProdCodeGenerator
         /// </summary>
         public void Warning(string message)
         {
-            CompilerError error = new CompilerError();
-            error.ErrorText = message;
-            error.IsWarning = true;
+            CompilerError error = new CompilerError
+            {
+                ErrorText = message,
+                IsWarning = true
+            };
             Errors.Add(error);
         }
 
@@ -591,7 +560,7 @@ namespace ProdCodeGenerator
             {
                 throw new ArgumentNullException("indent");
             }
-            currentIndentField = (currentIndentField + indent);
+            _currentIndentField = (_currentIndentField + indent);
             indentLengths.Add(indent.Length);
         }
 
@@ -607,8 +576,8 @@ namespace ProdCodeGenerator
                 indentLengths.RemoveAt((indentLengths.Count - 1));
                 if ((indentLength > 0))
                 {
-                    returnValue = currentIndentField.Substring((currentIndentField.Length - indentLength));
-                    currentIndentField = currentIndentField.Remove((currentIndentField.Length - indentLength));
+                    returnValue = _currentIndentField.Substring((_currentIndentField.Length - indentLength));
+                    _currentIndentField = _currentIndentField.Remove((_currentIndentField.Length - indentLength));
                 }
             }
             return returnValue;
@@ -620,7 +589,7 @@ namespace ProdCodeGenerator
         public void ClearIndent()
         {
             indentLengths.Clear();
-            currentIndentField = "";
+            _currentIndentField = "";
         }
 
         #endregion Transform-time helpers

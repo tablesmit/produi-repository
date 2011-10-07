@@ -155,7 +155,7 @@ namespace ProdSpy
             resources.ApplyResources(this.TsOptions, "TsOptions");
             this.TsOptions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.TsOptions.Name = "TsOptions";
-            this.TsOptions.Click += new System.EventHandler(this.TsOptions_Click);
+            this.TsOptions.Click += new System.EventHandler(TsOptions_Click);
             // 
             // tabControl1
             // 
@@ -369,7 +369,7 @@ namespace ProdSpy
             this.MaximizeBox = false;
             this.Name = "FormMain";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(MainForm_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

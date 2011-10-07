@@ -185,7 +185,7 @@ namespace ProdUI.Controls.Static
             catch (InvalidOperationException)
             {
                 NativeTextProds.SetTextNative(controlHandle, newText);
-                        }
+            }
             catch (ElementNotAvailableException err)
             {
                 throw new ProdOperationException(err.Message, err);
@@ -224,7 +224,7 @@ namespace ProdUI.Controls.Static
 
             try
             {
-            NativeTextProds.AppendTextNative(controlHandle, newText);
+                NativeTextProds.AppendTextNative(controlHandle, newText);
             }
             catch (InvalidOperationException err)
             {
@@ -269,8 +269,8 @@ namespace ProdUI.Controls.Static
 
             try
             {
-            NativeTextProds.InsertTextNative(controlHandle, newText, insertIndex);
-                            }
+                NativeTextProds.InsertTextNative(controlHandle, newText, insertIndex);
+            }
             catch (InvalidOperationException err)
             {
                 throw new ProdOperationException(err.Message, err);

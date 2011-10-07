@@ -328,7 +328,6 @@ namespace ProdUI.Controls.Static
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
         public static object GetSelectedItem(ProdWindow prodwindow, string automationId)
         {
-
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);
             return SingleSelectListBridge.GetSelectedItemBridge(null, control);
         }

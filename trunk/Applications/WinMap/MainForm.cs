@@ -1,14 +1,12 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
 using MapLib;
 using WinMap.Properties;
-using System.Globalization;
 
 namespace WinMap
 {
@@ -18,8 +16,8 @@ namespace WinMap
     public partial class MainForm : Form
     {
         private static Hashtable _windowList;
-        private MappedWindow _scannedTree;
         private SortOrder _currentSortOrder = SortOrder.Ascending;
+        private MappedWindow _scannedTree;
 
         /// <summary>
         ///   Initializes a new instance of the <see cref = "MainForm" /> class.
@@ -68,14 +66,17 @@ namespace WinMap
                 return;
             }
 
-
             FillTree(filename);
             TsSaveWindow.Enabled = true;
         }
 
         private static string OpenMap()
         {
-            OpenFileDialog ofd = new OpenFileDialog { Title = Resources.OpenMapforcomparison, Filter = @"XML Files (*.xml)|*.xml", };
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Title = Resources.OpenMapforcomparison,
+                Filter = @"XML Files (*.xml)|*.xml",
+            };
 
             DialogResult res = ofd.ShowDialog();
 
@@ -84,13 +85,19 @@ namespace WinMap
                 return string.Empty;
             }
 
-
             return ofd.FileName;
         }
 
         private void TsSaveWindow_Click(object sender, EventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog { Title = Resources.SaveMapAs, DefaultExt = "xml", Filter = @"XML Files (*.xml)|*.xml", OverwritePrompt = true, AddExtension = true };
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                Title = Resources.SaveMapAs,
+                DefaultExt = "xml",
+                Filter = @"XML Files (*.xml)|*.xml",
+                OverwritePrompt = true,
+                AddExtension = true
+            };
 
             DialogResult res = sfd.ShowDialog();
 
@@ -98,7 +105,6 @@ namespace WinMap
             {
                 return;
             }
-
 
             _scannedTree.SaveMap(sfd.FileName);
             sfd.Dispose();
@@ -134,7 +140,6 @@ namespace WinMap
             CtxCompare.Enabled = true;
         }
 
-
         private void TvWindowList_AfterSelect(object sender, TreeViewEventArgs e)
         {
             TsCrawl.Enabled = TvWindowList.SelectedNode != null;
@@ -158,7 +163,11 @@ namespace WinMap
             NativeMethods.EnumWindows(EnumWindowsProc, IntPtr.Zero);
             foreach (DictionaryEntry de in _windowList)
             {
-                TreeNode tn = new TreeNode { Text = de.Value.ToString(), Tag = de.Key };
+                TreeNode tn = new TreeNode
+                {
+                    Text = de.Value.ToString(),
+                    Tag = de.Key
+                };
                 TvWindowList.Nodes.Add(tn);
             }
         }
@@ -168,7 +177,10 @@ namespace WinMap
             LvControls.Items.Clear();
             foreach (MappedControl ctrl in _scannedTree.AllFormsControls)
             {
-                ListViewItem lvi = new ListViewItem { Text = ctrl.CustomId, };
+                ListViewItem lvi = new ListViewItem
+                {
+                    Text = ctrl.CustomId,
+                };
                 AddItems(ctrl, lvi);
                 LvControls.Items.Add(lvi);
             }
@@ -213,7 +225,11 @@ namespace WinMap
 
         private static void SetResults(ArrayList results, MappedWindow loadedWin)
         {
-            ResultsForm frm = new ResultsForm { Results = results, LoadedWindow = loadedWin };
+            ResultsForm frm = new ResultsForm
+            {
+                Results = results,
+                LoadedWindow = loadedWin
+            };
             frm.ShowDialog();
         }
 
@@ -232,7 +248,6 @@ namespace WinMap
                 return;
             }
 
-
             LvControls.SelectedItems[0].Text = idFrm.Id;
             _scannedTree.AllFormsControls[LvControls.SelectedItems[0].Index].CustomId = idFrm.Id;
         }
@@ -249,20 +264,22 @@ namespace WinMap
             LvControls.Sort();
             TsSortOrder.Text = @"Sorted Column: " + LvControls.Columns[e.Column].Text + @"               Order:" + _currentSortOrder;
         }
-
     }
 
     #region ItemSorter inner class
 
-    class ItemSorter : IComparer
+    internal class ItemSorter : IComparer
     {
-        readonly int _column;
-        readonly SortOrder _sortOrder;
+        private readonly int _column;
+        private readonly SortOrder _sortOrder;
+
         public ItemSorter(int column, SortOrder sortOrder)
         {
             _column = column;
             _sortOrder = sortOrder;
         }
+
+        #region IComparer Members
 
         public int Compare(object x, object y)
         {
@@ -277,11 +294,10 @@ namespace WinMap
                 return res;
             }
             return (-res);
-
         }
-    } 
 
-    #endregion
+        #endregion IComparer Members
+    }
 
-
+    #endregion ItemSorter inner class
 }

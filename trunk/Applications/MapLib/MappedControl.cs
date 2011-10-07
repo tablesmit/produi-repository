@@ -1,6 +1,4 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -129,8 +127,8 @@ namespace MapLib
         [Browsable(false)]
         public string CustomId { get; set; }
 
-
         /********** These are not serialized **********/
+
         /// <summary>
         /// Gets or sets the Type of the prod control.
         /// </summary>
@@ -178,7 +176,6 @@ namespace MapLib
         [CategoryAttribute("Control"), ReadOnlyAttribute(true), DisplayName(@"Handle"), Description("Handle to current control")]
         public int ControlHandle { get; private set; }
 
-
         /// <summary>
         /// Gets or sets the available Prod methods for this control.
         /// </summary>
@@ -189,7 +186,7 @@ namespace MapLib
         [Browsable(false)]
         public List<MethodInfo> AvailableProdMethods { get; set; }
 
-        #endregion
+        #endregion Properties
 
         private Type[] _types;
 
@@ -263,6 +260,5 @@ namespace MapLib
 
             return AvailableProdMethods;
         }
-
     }
 }

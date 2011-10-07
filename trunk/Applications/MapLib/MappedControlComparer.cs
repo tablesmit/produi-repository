@@ -1,6 +1,4 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -8,7 +6,7 @@ using System.Globalization;
 Property		         Fill Rate		    relevance (5 = high)
 ClassNameProperty	     always filled		     5 ----- auto fail
 ControlTypeProperty	     always filled		     5 ----- auto fail
- * 
+ *
 HelpTextProperty	     rarely filled		     4
 AcceleratorKeyProperty	 rarely filled		     4
 AccessKeyProperty	     rarely filled		     4
@@ -74,7 +72,12 @@ namespace MapLib
             /* 5's */
 
             /* Do the windows Class comparison */
-            CompareResult cr = new CompareResult { Category = "ClassName", LiveValue = currentControl.ClassName, LoadedValue = loadedMap.ClassName };
+            CompareResult cr = new CompareResult
+            {
+                Category = "ClassName",
+                LiveValue = currentControl.ClassName,
+                LoadedValue = loadedMap.ClassName
+            };
             if (string.Compare(currentControl.ClassName, loadedMap.ClassName, true, CultureInfo.CurrentCulture) != 0)
             {
                 cr.Score = 0;
@@ -86,7 +89,12 @@ namespace MapLib
             _results.Add(cr);
 
             /* and now the Automation ControlType compare */
-            cr = new CompareResult { Category = "ControlType", LiveValue = currentControl.ControlType, LoadedValue = loadedMap.ControlType };
+            cr = new CompareResult
+            {
+                Category = "ControlType",
+                LiveValue = currentControl.ControlType,
+                LoadedValue = loadedMap.ControlType
+            };
             if (string.Compare(currentControl.ControlType, loadedMap.ControlType, true, CultureInfo.CurrentCulture) != 0)
             {
                 cr.Score = 0;
@@ -113,8 +121,12 @@ namespace MapLib
                 loadedMap.HelpText = string.Empty;
             }
 
-
-            CompareResult cr = new CompareResult { Category = "HelpText", LiveValue = currentControl.HelpText, LoadedValue = loadedMap.HelpText };
+            CompareResult cr = new CompareResult
+            {
+                Category = "HelpText",
+                LiveValue = currentControl.HelpText,
+                LoadedValue = loadedMap.HelpText
+            };
             if (string.Compare(currentControl.HelpText, loadedMap.HelpText, true, CultureInfo.CurrentCulture) != 0)
             {
                 cr.Score = -4;
@@ -134,7 +146,12 @@ namespace MapLib
         /// <param name="loadedMap">The loaded map.</param>
         private static void CompareAcceleratorKey(MappedControl currentControl, MappedControl loadedMap)
         {
-            CompareResult cr = new CompareResult { Category = "AcceleratorKey", LiveValue = currentControl.AcceleratorKey, LoadedValue = loadedMap.AcceleratorKey };
+            CompareResult cr = new CompareResult
+            {
+                Category = "AcceleratorKey",
+                LiveValue = currentControl.AcceleratorKey,
+                LoadedValue = loadedMap.AcceleratorKey
+            };
             if (string.Compare(currentControl.AcceleratorKey, loadedMap.AcceleratorKey, true, CultureInfo.CurrentCulture) != 0)
             {
                 cr.Score = -4;
@@ -154,7 +171,12 @@ namespace MapLib
         /// <param name="loadedMap">The loaded map.</param>
         private static void CompareAccessKey(MappedControl currentControl, MappedControl loadedMap)
         {
-            CompareResult cr = new CompareResult { Category = "AccessKey", LiveValue = currentControl.AccessKey, LoadedValue = loadedMap.AccessKey };
+            CompareResult cr = new CompareResult
+            {
+                Category = "AccessKey",
+                LiveValue = currentControl.AccessKey,
+                LoadedValue = loadedMap.AccessKey
+            };
             if (string.Compare(currentControl.AccessKey, loadedMap.AccessKey, true, CultureInfo.CurrentCulture) != 0)
             {
                 cr.Score = -4;
@@ -174,7 +196,12 @@ namespace MapLib
         /// <param name="loadedMap">The loaded map.</param>
         private static void CompareLabeledBy(MappedControl currentControl, MappedControl loadedMap)
         {
-            CompareResult cr = new CompareResult { Category = "LabeledBy", LiveValue = currentControl.LabeledBy, LoadedValue = loadedMap.LabeledBy };
+            CompareResult cr = new CompareResult
+            {
+                Category = "LabeledBy",
+                LiveValue = currentControl.LabeledBy,
+                LoadedValue = loadedMap.LabeledBy
+            };
             if (string.Compare(currentControl.LabeledBy, loadedMap.LabeledBy, true, CultureInfo.CurrentCulture) != 0)
             {
                 cr.Score = -3;
@@ -194,7 +221,12 @@ namespace MapLib
         /// <param name="loadedMap">The loaded map.</param>
         private static void CompareTreePosition(MappedControl currentControl, MappedControl loadedMap)
         {
-            CompareResult cr = new CompareResult { Category = "ControlTreePosition", LiveValue = currentControl.ControlTreePosition.ToString(CultureInfo.CurrentCulture), LoadedValue = loadedMap.ControlTreePosition.ToString(CultureInfo.CurrentCulture) };
+            CompareResult cr = new CompareResult
+            {
+                Category = "ControlTreePosition",
+                LiveValue = currentControl.ControlTreePosition.ToString(CultureInfo.CurrentCulture),
+                LoadedValue = loadedMap.ControlTreePosition.ToString(CultureInfo.CurrentCulture)
+            };
             if (currentControl.ControlTreePosition != loadedMap.ControlTreePosition)
             {
                 cr.Score = -3;
@@ -214,7 +246,12 @@ namespace MapLib
         /// <param name="loadedMap">The loaded map.</param>
         private static void CompareAutomationId(MappedControl currentControl, MappedControl loadedMap)
         {
-            CompareResult cr = new CompareResult { Category = "AutomationId", LiveValue = currentControl.AutomationId, LoadedValue = loadedMap.AutomationId };
+            CompareResult cr = new CompareResult
+            {
+                Category = "AutomationId",
+                LiveValue = currentControl.AutomationId,
+                LoadedValue = loadedMap.AutomationId
+            };
             if (string.Compare(currentControl.AutomationId, loadedMap.AutomationId, true, CultureInfo.CurrentCulture) != 0)
             {
                 cr.Score = -2;
@@ -234,7 +271,12 @@ namespace MapLib
         /// <param name="loadedMap">The loaded map.</param>
         private static void CompareName(MappedControl currentControl, MappedControl loadedMap)
         {
-            CompareResult cr = new CompareResult { Category = "Name", LiveValue = currentControl.Name, LoadedValue = loadedMap.Name };
+            CompareResult cr = new CompareResult
+            {
+                Category = "Name",
+                LiveValue = currentControl.Name,
+                LoadedValue = loadedMap.Name
+            };
             if (string.Compare(currentControl.Name, loadedMap.Name, true, CultureInfo.CurrentCulture) != 0)
             {
                 cr.Score = -2;
@@ -254,7 +296,12 @@ namespace MapLib
         /// <param name="loadedMap">The loaded map.</param>
         private static void CompareItemType(MappedControl currentControl, MappedControl loadedMap)
         {
-            CompareResult cr = new CompareResult { Category = "ItemType", LiveValue = currentControl.ItemType, LoadedValue = loadedMap.ItemType };
+            CompareResult cr = new CompareResult
+            {
+                Category = "ItemType",
+                LiveValue = currentControl.ItemType,
+                LoadedValue = loadedMap.ItemType
+            };
             if (string.Compare(currentControl.ItemType, loadedMap.ItemType, true, CultureInfo.CurrentCulture) != 0)
             {
                 cr.Score = -2;

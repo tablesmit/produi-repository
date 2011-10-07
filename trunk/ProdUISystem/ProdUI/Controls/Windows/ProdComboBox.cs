@@ -5,7 +5,6 @@ using System.Windows.Automation;
 using ProdUI.Interaction.Bridge;
 using ProdUI.Logging;
 
-
 namespace ProdUI.Controls.Windows
 {
     /// <summary>

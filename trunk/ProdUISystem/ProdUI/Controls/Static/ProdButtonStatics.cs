@@ -23,10 +23,10 @@ namespace ProdUI.Controls.Static
         {
             try
             {
-            AutomationElement control = CommonUIAPatternHelpers.Prologue(InvokePattern.Pattern, controlHandle);
-            StaticEvents.RegisterEvent(InvokePattern.InvokedEvent, control);
-            InvokePatternHelper.Invoke(control);
-            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(InvokePattern.Pattern, controlHandle);
+                StaticEvents.RegisterEvent(InvokePattern.InvokedEvent, control);
+                InvokePatternHelper.Invoke(control);
+                LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
             }
             catch (InvalidOperationException err)
             {
@@ -55,8 +55,8 @@ namespace ProdUI.Controls.Static
         {
             try
             {
-            BaseProdControl control = new BaseProdControl(prodwindow, automationId);
-            InvokeBridge.ClickBridge(null, control);
+                BaseProdControl control = new BaseProdControl(prodwindow, automationId);
+                InvokeBridge.ClickBridge(null, control);
             }
             catch (InvalidOperationException err)
             {

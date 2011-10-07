@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+using System;
 using System.Windows.Automation;
 using ProdUI.Interaction.Bridge;
-using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 
 namespace ProdUI.Controls.Windows
@@ -44,7 +43,7 @@ namespace ProdUI.Controls.Windows
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         #region GridPattern
 
@@ -86,7 +85,7 @@ namespace ProdUI.Controls.Windows
             return this.GetItemBridge(this, row, column);
         }
 
-        #endregion
+        #endregion GridPattern
 
         #region Grid Item
 
@@ -142,7 +141,7 @@ namespace ProdUI.Controls.Windows
             return this.GetColumnBridge(this, dataItem);
         }
 
-        #endregion
+        #endregion Grid Item
 
         #region Selection Pattern
 
@@ -234,9 +233,9 @@ namespace ProdUI.Controls.Windows
         public void AddToSelection(AutomationElement dataItem)
         {
             this.AddToSelectionBridge(this, dataItem.Current.Name);
-        } 
+        }
 
-        #endregion
+        #endregion Selection Pattern
 
         #region Table pattern
 
@@ -274,9 +273,8 @@ namespace ProdUI.Controls.Windows
         public RowOrColumnMajor GetRowOrColumnMajor()
         {
             return this.GetRowOrColumnMajorBridge(this);
-        } 
+        }
 
-        #endregion
-
+        #endregion Table pattern
     }
 }

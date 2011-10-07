@@ -24,10 +24,10 @@ namespace ProdUI.Controls.Static
         {
             try
             {
-            AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
-            bool ret = (TogglePatternHelper.GetToggleState(control) == ToggleState.On);
-            LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
-            return ret;
+                AutomationElement control = CommonUIAPatternHelpers.Prologue(SelectionPattern.Pattern, controlHandle);
+                bool ret = (TogglePatternHelper.GetToggleState(control) == ToggleState.On);
+                LogController.ReceiveLogMessage(new LogMessage(control.Current.Name));
+                return ret;
             }
             catch (InvalidOperationException err)
             {

@@ -1,40 +1,41 @@
-﻿using System;
-using System.Windows.Forms;
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
+using System;
 using System.Windows.Automation;
+using System.Windows.Forms;
+using ProdSpy.Properties;
 
 namespace ProdSpy
 {
     public partial class SetValueForm : Form
     {
-        public string ParamName { get; set; }
         public string[] ParamChoices;
         public Type ParamType;
-        public string returnValue;
-        public ToggleState returnState;
-      
-
+        public ToggleState ReturnState;
+        public string ReturnValue;
 
         public SetValueForm()
         {
             InitializeComponent();
         }
 
+        public string ParamName { get; set; }
+
         private void SetValueForm_Load(object sender, EventArgs e)
         {
-            LblPrompt.Text = "Please enter a " + ParamName + " value";
+            LblPrompt.Text = Resources.SetValueForm_Prompt + ParamName + @" value";
             if (ParamType == typeof(ToggleState))
             {
                 PnlOptions.Visible = true;
                 TxtValue.Visible = false;
                 return;
             }
-                PnlOptions.Visible = false;
-                TxtValue.Visible = true;
+            PnlOptions.Visible = false;
+            TxtValue.Visible = true;
         }
 
         private void CmdOk_Click(object sender, EventArgs e)
         {
-            returnValue = TxtValue.Text;
+            ReturnValue = TxtValue.Text;
             Close();
         }
 
@@ -42,7 +43,7 @@ namespace ProdSpy
         {
             if (((RadioButton)sender).Checked)
             {
-                returnState = ToggleState.On;
+                ReturnState = ToggleState.On;
             }
         }
 
@@ -50,7 +51,7 @@ namespace ProdSpy
         {
             if (((RadioButton)sender).Checked)
             {
-                returnState = ToggleState.Off;
+                ReturnState = ToggleState.Off;
             }
         }
 
@@ -58,9 +59,8 @@ namespace ProdSpy
         {
             if (((RadioButton)sender).Checked)
             {
-                returnState = ToggleState.Indeterminate;
+                ReturnState = ToggleState.Indeterminate;
             }
         }
-
     }
 }

@@ -1,7 +1,4 @@
-﻿/* License Rider:
- * I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
- */
-
+﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -10,8 +7,54 @@ namespace WindowCracker
 {
     internal static class NativeMethods
     {
-
         /* native structures */
+
+        /* callbacks */
+
+        #region Delegates
+
+        /// <summary>
+        ///   this represents the callback used for the EnumDesktopWindows function
+        /// </summary>
+        /// <param name = "windowHandle"></param>
+        /// <param name = "lParam"></param>
+        /// <returns></returns>
+        public delegate bool EnumWindowsCallBack(IntPtr windowHandle, int lParam);
+
+        #endregion Delegates
+
+        /* imports */
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool EnumWindows(EnumWindowsCallBack lpfn, IntPtr lParam);
+
+        /// <summary>
+        ///   Copies the text of the specified window's title bar (if it has one) into a buffer
+        /// </summary>
+        /// <param name = "windowHandle">A handle to the window or control containing the text</param>
+        /// <param name = "lp">The buffer that will receive the text. If the string is as long or longer than the buffer, the string is truncated and terminated with a null character</param>
+        /// <param name = "nMaxCount">The maximum number of characters to copy to the buffer, including the null character</param>
+        /// <returns></returns>
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode, BestFitMapping = true, ThrowOnUnmappableChar = true)]
+        internal static extern int GetWindowText(IntPtr windowHandle, StringBuilder lp, int nMaxCount);
+
+        /// <summary>
+        ///   Determines the visibility state of the specified window
+        /// </summary>
+        /// <param name = "hWnd">A handle to the window to be tested</param>
+        /// <returns>
+        ///   If the specified window, its parent window, its parent's parent window, and so forth, have the WS_VISIBLE style, the return value is nonzero. Otherwise, the return value is zero.
+        /// </returns>
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool IsWindowVisible(IntPtr hWnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
+
+        #region Nested type: ShowWindowCommand
+
         /// <summary>
         ///   Controls how the window is to be shown. Used for ShowWindow calls
         /// </summary>
@@ -73,46 +116,6 @@ namespace WindowCracker
             SW_FORCEMINIMIZE
         }
 
-        /* callbacks */
-        /// <summary>
-        ///   this represents the callback used for the EnumDesktopWindows function
-        /// </summary>
-        /// <param name = "windowHandle"></param>
-        /// <param name = "lParam"></param>
-        /// <returns></returns>
-        public delegate bool EnumWindowsCallBack(IntPtr windowHandle, int lParam);
-
-
-        /* imports */
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool EnumWindows(EnumWindowsCallBack lpfn, IntPtr lParam);
-
-        /// <summary>
-        ///   Copies the text of the specified window's title bar (if it has one) into a buffer
-        /// </summary>
-        /// <param name = "windowHandle">A handle to the window or control containing the text</param>
-        /// <param name = "lp">The buffer that will receive the text. If the string is as long or longer than the buffer, the string is truncated and terminated with a null character</param>
-        /// <param name = "nMaxCount">The maximum number of characters to copy to the buffer, including the null character</param>
-        /// <returns></returns>
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode, BestFitMapping = true, ThrowOnUnmappableChar = true)]
-        internal static extern int GetWindowText(IntPtr windowHandle, StringBuilder lp, int nMaxCount);
-
-        /// <summary>
-        ///   Determines the visibility state of the specified window
-        /// </summary>
-        /// <param name = "hWnd">A handle to the window to be tested</param>
-        /// <returns>
-        ///   If the specified window, its parent window, its parent's parent window, and so forth, have the WS_VISIBLE style, the return value is nonzero. Otherwise, the return value is zero.
-        /// </returns>
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool IsWindowVisible(IntPtr hWnd);
-
-
-        [DllImport("user32.dll", SetLastError = true)]
-        internal static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
-
-
+        #endregion Nested type: ShowWindowCommand
     }
 }
