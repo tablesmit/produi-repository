@@ -112,10 +112,12 @@
   <ItemGroup>
     <Compile Include="Interaction\Bridge\GridBridge.cs" />
     <Compile Include="Interaction\Bridge\GridItemBridge.cs" />
+    <Compile Include="Interaction\Bridge\Interfaces\IExpandCollapse.cs" />
     <Compile Include="Interaction\Bridge\Interfaces\IGridItem.cs" />
     <Compile Include="Interaction\Bridge\Interfaces\IGrid.cs" />
     <Compile Include="Interaction\Bridge\Interfaces\ITable.cs" />
     <Compile Include="Interaction\Bridge\Interfaces\ITableItem.cs" />
+    <Compile Include="Interaction\Bridge\MenuBridge.cs" />
     <Compile Include="Interaction\Bridge\TableBridge.cs" />
     <Compile Include="Logging\ProdLoggerInputParameters.cs" />
     <Compile Include="Logging\LoggingConfiguration.cs" />
@@ -123,7 +125,7 @@
     <Compile Include="Controls\Static\StaticEvents.cs" />
     <Compile Include="Interaction\Bridge\Interfaces\IInvoke.cs" />
     <Compile Include="Interaction\Bridge\Interfaces\IMultipleSelectionList.cs" />
-    <Compile Include="Interaction\Bridge\Interfaces\InvokeBridge.cs" />
+    <Compile Include="Interaction\Bridge\InvokeBridge.cs" />
     <Compile Include="Interaction\Bridge\Interfaces\IRangeValue.cs" />
     <Compile Include="Interaction\Bridge\Interfaces\ISelection.cs" />
     <Compile Include="Interaction\Bridge\Interfaces\ISingleSelectList.cs" />
@@ -190,7 +192,7 @@
     <Compile Include="Controls\Windows\ProdComboBox.cs" />
     <Compile Include="Controls\Static\ProdFunctions.cs" />
     <Compile Include="Controls\Windows\ProdList.cs" />
-    <None Include="Controls\Windows\ProdMenuItem.cs" />
+    <Compile Include="Controls\Windows\ProdMenuBar.cs" />
     <Compile Include="Controls\Windows\ProdRadioButton.cs" />
     <Compile Include="Controls\Windows\ProdSlider.cs" />
     <Compile Include="Controls\Windows\ProdEdit.cs" />
@@ -251,7 +253,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="Build" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_IncrementBeforeBuild="False" />
+      <UserProperties BuildVersion_IncrementBeforeBuild="False" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_BuildAction="Build" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
