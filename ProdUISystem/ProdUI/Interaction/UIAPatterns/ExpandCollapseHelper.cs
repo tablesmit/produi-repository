@@ -18,6 +18,7 @@ namespace ProdUI.Interaction.UIAPatterns
         internal static int Collapse(AutomationElement control)
         {
             ExpandCollapsePattern pat = (ExpandCollapsePattern)CommonUIAPatternHelpers.CheckPatternSupport(ExpandCollapsePattern.Pattern, control);
+            control.SetFocus();
             pat.Collapse();
             return 0;
         }
@@ -32,6 +33,7 @@ namespace ProdUI.Interaction.UIAPatterns
         internal static int Expand(AutomationElement control)
         {
             ExpandCollapsePattern pat = (ExpandCollapsePattern)CommonUIAPatternHelpers.CheckPatternSupport(ExpandCollapsePattern.Pattern, control);
+            control.SetFocus();
             pat.Expand();
             return 0;
         }
