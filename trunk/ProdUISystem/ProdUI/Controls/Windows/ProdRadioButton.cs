@@ -50,12 +50,14 @@ namespace ProdUI.Controls.Windows
         /// <summary>
         /// Gets a value indicating whether the control is checked
         /// </summary>
-        /// <returns></returns>
-        /// <value><c>true</c> if checked; otherwise, <c>false</c>.</value>
+        /// <returns><c>true</c> if checked; otherwise, <c>false</c>.</returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public bool GetChecked()
+        public bool Checked
         {
-            return this.GetIsSelectedBridge(this);
+            get
+            {
+                return this.GetIsSelectedBridge(this);
+            }
         }
 
         /// <summary>

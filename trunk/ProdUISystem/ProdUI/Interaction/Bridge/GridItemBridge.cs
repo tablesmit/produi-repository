@@ -5,6 +5,7 @@ using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
+using System.Globalization;
 
 namespace ProdUI.Interaction.Bridge
 {
@@ -40,7 +41,7 @@ namespace ProdUI.Interaction.Bridge
         private static int UiaGetItemColumnSpan(AutomationElement dataItem)
         {
             int retVal = GridPatternHelper.GetColumnSpan(dataItem);
-            LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
+            LogController.ReceiveLogMessage(new LogMessage(retVal.ToString(CultureInfo.CurrentCulture)));
             return retVal;
         }
 
@@ -74,7 +75,7 @@ namespace ProdUI.Interaction.Bridge
         private static int UiaGetItemRowSpan(AutomationElement dataItem)
         {
             int retVal = GridPatternHelper.GetRowSpan(dataItem);
-            LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
+            LogController.ReceiveLogMessage(new LogMessage(retVal.ToString(CultureInfo.CurrentCulture)));
             return retVal;
         }
 
@@ -105,7 +106,7 @@ namespace ProdUI.Interaction.Bridge
         private static int UiaGetColumn(AutomationElement dataItem)
         {
             int retVal = GridPatternHelper.GetColumn(dataItem);
-            LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
+            LogController.ReceiveLogMessage(new LogMessage(retVal.ToString(CultureInfo.CurrentCulture)));
             return retVal;
         }
 
@@ -139,7 +140,7 @@ namespace ProdUI.Interaction.Bridge
         private static int UiaGetRow(AutomationElement dataItem)
         {
             int retVal = GridPatternHelper.GetRow(dataItem);
-            LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
+            LogController.ReceiveLogMessage(new LogMessage(retVal.ToString(CultureInfo.CurrentCulture)));
             return retVal;
         }
     }

@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.UIAPatterns;
+using System.Collections.ObjectModel;
 
 namespace ProdUI.Controls.Static
 {
@@ -20,7 +21,7 @@ namespace ProdUI.Controls.Static
         /// <remarks>
         ///     Menu item text MUST be exact (but not case-sensitive). 'Open' will not match an item 'Open...' but will match 'open'
         /// </remarks>
-        public static void SelectMenuItem(IntPtr parentWindowHandle, List<string> itemPath)
+        public static void SelectMenuItem(IntPtr parentWindowHandle, Collection<string> itemPath)
         {
             try
             {
@@ -43,7 +44,7 @@ namespace ProdUI.Controls.Static
         /// </summary>
         /// <param name = "item">The item to search for.</param>
         /// <param name = "itemPath">The 'path' to the menu item.</param>
-        private static void FindItemStatic(AutomationElement item, IList<string> itemPath)
+        private static void FindItemStatic(AutomationElement item, Collection<string> itemPath)
         {
             /* Loop through supplied menu path */
             for (int i = 1; i < itemPath.Count; i++)
@@ -74,7 +75,7 @@ namespace ProdUI.Controls.Static
         /// </summary>
         /// <param name = "menuItems">The menu items.</param>
         /// <param name = "itemPath">The 'path' to the menu item.</param>
-        private static void SelectMenuItemStatic(AutomationElementCollection menuItems, IList<string> itemPath)
+        private static void SelectMenuItemStatic(AutomationElementCollection menuItems, Collection<string> itemPath)
         {
             foreach (AutomationElement item in menuItems)
             {

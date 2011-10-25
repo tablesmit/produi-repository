@@ -48,48 +48,37 @@ namespace ProdUI.Controls.Windows
 
         #endregion Constructors
 
-        /// <summary>
-        /// Sets the value.
-        /// </summary>
-        /// <param name="value">The desired value.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void SetValue(double value)
-        {
-            this.SetValueBridge(this, value);
-        }
 
         /// <summary>
-        /// Gets the value.
+        /// Gets or sets the value.
         /// </summary>
-        /// <returns>The current value of the slider</returns>
+        /// <value>
+        /// The desired value.
+        /// </value>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public double GetValue()
+        public double Value
         {
-            return this.GetValueBridge(this);
+            get { return this.GetValueBridge(this); }
+            set { this.SetValueBridge(this, value); }
         }
+
 
         /// <summary>
         /// Gets the maximum value of the control
         /// </summary>
-        /// <returns>
-        /// The maximum value of the control
-        /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public double GetMaxValue()
+        public double MaxValue
         {
-            return this.GetMaxValueBridge(this);
+            get { return this.GetMaxValueBridge(this); }
         }
 
         /// <summary>
         /// Gets the minimum value of the control
         /// </summary>
-        /// <returns>
-        /// The minimum value of the control
-        /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public double GetMinValue()
+        public double MinValue
         {
-            return this.GetMinValueBridge(this);
+            get { return this.GetMinValueBridge(this); }
         }
     }
 }

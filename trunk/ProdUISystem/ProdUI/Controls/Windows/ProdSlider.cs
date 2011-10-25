@@ -48,71 +48,53 @@ namespace ProdUI.Controls.Windows
         #endregion Constructors
 
         /// <summary>
-        /// Gets the value.
+        /// Gets or sets the value.
         /// </summary>
-        /// <returns>The current value of the slider</returns>
+        /// <value>
+        /// The value of the control.
+        /// </value>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public double GetValue()
+        public double Value
         {
-            return this.GetValueBridge(this);
+            get { return this.GetValueBridge(this); }
+            set { this.SetValueBridge(this, value); }
         }
 
-        /// <summary>
-        /// Sets the value.
-        /// </summary>
-        /// <param name="value">The desired value.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void SetValue(double value)
-        {
-            this.SetValueBridge(this, value);
-        }
 
         /// <summary>
         /// Gets the maximum value of the control
         /// </summary>
-        /// <returns>
-        /// The maximum value of the control
-        /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public double GetMaxValue()
+        public double MaxValue
         {
-            return this.GetMaxValueBridge(this);
+            get { return this.GetMaxValueBridge(this); }
         }
 
         /// <summary>
         /// Gets the minimum value of the control
         /// </summary>
-        /// <returns>
-        /// The minimum value of the control
-        /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public double GetMinValue()
+        public double MinValue
         {
-            return this.GetMinValueBridge(this);
+            get { return this.GetMinValueBridge(this); }
         }
 
         /// <summary>
         /// Gets the large change value for the control.
         /// </summary>
-        /// <returns>
-        /// A number indicating the increment of a large change.
-        /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public double GetLargeChange()
+        public double LargeChange
         {
-            return this.GetLargeChangeBridge(this);
+            get { return this.GetLargeChangeBridge(this); }
         }
 
         /// <summary>
         /// Gets the small change value for the control.
         /// </summary>
-        /// <returns>
-        /// A number indicating the increment of a small change.
-        /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public double GetSmallChange()
+        public double SmallChange
         {
-            return this.GetSmallChangeBridge(this);
+            get { return this.GetSmallChangeBridge(this); }
         }
     }
 }

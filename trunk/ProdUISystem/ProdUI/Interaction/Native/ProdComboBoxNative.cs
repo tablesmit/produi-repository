@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using ProdUI.Logging;
 using ProdUI.Verification;
+using System.Collections.ObjectModel;
 
 namespace ProdUI.Interaction.Native
 {
@@ -75,7 +76,7 @@ namespace ProdUI.Interaction.Native
         /// <returns>
         /// A string collection containing each item in the ComboBox
         /// </returns>
-        internal static List<object> GetItemsNative(IntPtr windowHandle)
+        internal static Collection<object> GetItemsNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
             int itemCount = GetItemCountNative(windowHandle);
@@ -90,10 +91,10 @@ namespace ProdUI.Interaction.Native
         /// <returns>
         /// A collection of all the items in the list
         /// </returns>
-        private static List<object> GetAllItems(IntPtr windowHandle, int itemCount)
+        private static Collection<object> GetAllItems(IntPtr windowHandle, int itemCount)
         {
             StringBuilder sb = new StringBuilder();
-            List<object> returnCollection = new List<object>();
+            Collection<object> returnCollection = new Collection<object>();
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
             for (int i = 0; i < itemCount - 1; i++)
             {

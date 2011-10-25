@@ -85,7 +85,7 @@ namespace ProdUI.Controls.Static
         /// <param name="format">The <see cref="System.Windows.Forms.DataFormats"/></param>
         /// <param name="item">The object to place on the Clipboard buffer.</param>
         /// <exception cref="ProdOperationException">Examine inner exception</exception>
-        public static void CopyToClipBoard(DataFormats format, object item)
+        public static void CopyToClipboard(DataFormats format, object item)
         {
             try
             {
@@ -114,7 +114,7 @@ namespace ProdUI.Controls.Static
         ///   <c>true</c> if ready, <c>false</c> if not ready within time limit
         /// </returns>
         /// <exception cref="ProdOperationException">Examine inner exception</exception>
-        public static bool ControlWaitReady(BaseProdControl control, int delay = -1)
+        public static bool ControlWaitReady(BaseProdControl control, int delay)
         {
             int tryCounter = 0;
             try
@@ -623,7 +623,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         ///   <c>true</c> if window was verified closed, <c>false</c> otherwise
         /// </returns>
-        public static bool WinWaitClose(string partialTitle, int delay = -1)
+        public static bool WinWaitClose(string partialTitle, int delay)
         {
             int tryCounter = 0;
             while (tryCounter != delay || delay == -1)
@@ -651,7 +651,7 @@ namespace ProdUI.Controls.Static
         /// <returns>
         /// NativeWindowHandle to window if found, zero if not found
         /// </returns>
-        public static IntPtr WinWaitExists(string partialTitle, int delay = -1)
+        public static IntPtr WinWaitExists(string partialTitle, int delay)
         {
             int tryCounter = 0;
 
@@ -668,47 +668,6 @@ namespace ProdUI.Controls.Static
             }
 
             return IntPtr.Zero;
-        }
-
-        /// <summary>
-        /// Gets the AutomationElement from the window, first by trying the automationID, then the name.
-        /// </summary>
-        /// <param name="prodwindow">The prodwindow.</param>
-        /// <param name="automationId">The automation id.</param>
-        /// <returns>
-        /// The matching AutomationElement
-        /// </returns>
-        /// <exception cref="ProdOperationException">Examine inner exception</exception>
-        internal static AutomationElement GetElement(ProdWindow prodwindow, string automationId)
-        {
-            try
-            {
-                /* first, try using the Automation ID */
-                Condition condId = new PropertyCondition(AutomationElement.AutomationIdProperty, automationId);
-                AutomationElement control = prodwindow.UIAElement.FindFirst(TreeScope.Descendants, condId);
-
-                /* then we'll try the name...who knows? */
-                if (control == null)
-                {
-                    /* try the name */
-                    Condition condName = new PropertyCondition(AutomationElement.NameProperty, automationId);
-                    control = prodwindow.UIAElement.FindFirst(TreeScope.Descendants, condName);
-                }
-
-                return control;
-            }
-            catch (InvalidOperationException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
-            catch (ElementNotAvailableException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
-            catch (ArgumentException err)
-            {
-                throw new ProdOperationException(err.Message, err);
-            }
         }
     }
 }

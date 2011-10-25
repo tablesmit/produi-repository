@@ -1,6 +1,6 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Automation;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
@@ -450,7 +450,7 @@ namespace ProdUI.Interaction.Bridge
 
         private static void UiaResizeWindow(ProdWindow baseControl, double width, double height)
         {
-            List<object> verboseInformation = new List<object> {
+            Collection<object> verboseInformation = new Collection<object> {
                                                                    "Width = " + width,
                                                                    "Height = " + height
                                                                };
@@ -495,7 +495,7 @@ namespace ProdUI.Interaction.Bridge
 
         private static void UiaMoveWindow(ProdWindow baseControl, double x, double y)
         {
-            List<object> verboseInformation = new List<object> {
+            Collection<object> verboseInformation = new Collection<object> {
                                                                    "Y = " + y,
                                                                    "X = " + x
                                                                };
@@ -533,7 +533,7 @@ namespace ProdUI.Interaction.Bridge
 
         private static void UiaRotateWindow(ProdWindow baseControl, double degrees)
         {
-            List<object> verboseInformation = new List<object> {
+            Collection<object> verboseInformation = new Collection<object> {
                                                                    "degrees = " + degrees
                                                                };
             LogController.ReceiveLogMessage(new LogMessage("Rotated", verboseInformation));

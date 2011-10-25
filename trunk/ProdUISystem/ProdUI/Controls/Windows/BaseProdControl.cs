@@ -14,8 +14,6 @@ namespace ProdUI.Controls.Windows
     {
         internal bool EventVerified;
 
-        internal IntPtr NativeWindowHandle;
-        internal ProdWindow ParentWindow;
         internal List<AutomationProperty> SupportedProperties;
         internal AutomationElement UIAElement;
 
@@ -49,11 +47,7 @@ namespace ProdUI.Controls.Windows
                     Condition condName = new PropertyCondition(AutomationElement.NameProperty, automationId, PropertyConditionFlags.IgnoreCase);
                     UIAElement = prodWindow.UIAElement.FindFirst(TreeScope.Descendants, condName);
                 }
-
-                ParentWindow = prodWindow;
-                //SessionLoggers = ParentWindow.AttachedSession.logController;
                 GetSupportedProperties();
-                NativeWindowHandle = (IntPtr)UIAElement.Current.NativeWindowHandle;
             }
             catch (ElementNotAvailableException err)
             {
@@ -77,10 +71,7 @@ namespace ProdUI.Controls.Windows
             {
                 ControlTree tree = new ControlTree((IntPtr)prodWindow.UIAElement.Current.NativeWindowHandle);
                 UIAElement = tree.FindElement(treePosition);
-                ParentWindow = prodWindow;
-                //SessionLoggers = ParentWindow.AttachedSession.logController;
                 GetSupportedProperties();
-                NativeWindowHandle = (IntPtr)UIAElement.Current.NativeWindowHandle;
             }
             catch (ElementNotAvailableException err)
             {
@@ -98,10 +89,7 @@ namespace ProdUI.Controls.Windows
             try
             {
                 UIAElement = AutomationElement.FromHandle(controlHandle);
-                ParentWindow = prodWindow;
-                //SessionLoggers = ParentWindow.AttachedSession.logController;
                 GetSupportedProperties();
-                NativeWindowHandle = (IntPtr)UIAElement.Current.NativeWindowHandle;
             }
             catch (ElementNotAvailableException err)
             {
@@ -111,10 +99,6 @@ namespace ProdUI.Controls.Windows
 
         #endregion Constructors
 
-        //unused vars
-        //internal LogController SessionLoggers;
-        //protected List<object> VerboseInformation;
-        //protected string LogText;
 
         /// <summary>
         ///     specifies whether the user interface (UI) item referenced by the AutomationElement is enabled
@@ -152,10 +136,14 @@ namespace ProdUI.Controls.Windows
         /// Waits for the control to enter an enabled state.
         /// </summary>
         /// <param name="waitSeconds">The wait in seconds.</param>
-        public void WaitForControlEnabled(int waitSeconds = -1)
+        public void WaitForControlEnabled(double waitSeconds)
         {
             int ctr = 0;
-            int limit = waitSeconds * 1000;
+
+            double limit = waitSeconds * 1000;
+
+            if (limit > double.MaxValue)
+                throw new ProdOperationException("input must be less than double.MaxValue");
 
             while (ctr <= limit)
             {
@@ -167,13 +155,6 @@ namespace ProdUI.Controls.Windows
             }
 
             throw new ProdOperationException("Timer expired");
-        }
-
-        internal object GetUIAPropertyValue(AutomationProperty property)
-        {
-            if (SupportedProperties.Contains(property)) return 0;
-
-            return UIAElement.GetCurrentPropertyValue(property);
         }
 
         /// <summary>

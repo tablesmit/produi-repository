@@ -51,6 +51,84 @@ namespace ProdUI.Controls.Windows
 
         #endregion Constructors
 
+
+        /// <summary>
+        /// Determines whether this instance [can select multiple items].
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if this instance can select multiple items; otherwise, <c>false</c>.
+        /// </value>
+        public bool CanSelectMultiple
+        {
+            get { return this.CanSelectMultipleBridge(this); }
+        }
+
+        /// <summary>
+        /// Gets or sets the zero based index of the selected item
+        /// </summary>
+        /// <value>
+        /// The zero based index.
+        /// </value>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        public int SelectedIndex
+        {
+            get { return this.GetSelectedIndexBridge(this); }
+            set { this.SetSelectedIndexBridge(this, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected item.
+        /// </summary>
+        /// <value>
+        /// The selected item.
+        /// </value>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        public string SelectedItem
+        {
+            get { return this.GetSelectedItemBridge(this).Current.Name; }
+            set { this.SetSelectedItemBridge(this, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected indexes.
+        /// </summary>
+        /// <value>
+        /// The selected indexes.
+        /// </value>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
+        public Collection<int> SelectedIndexes
+        {
+            get { return this.GetSelectedIndexesBridge((this)); }
+            set { this.SetSelectedIndexesBridge(this, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected items.
+        /// </summary>
+        /// <value>
+        /// The selected items.
+        /// </value>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
+        public Collection<string> SelectedItems
+        {
+            get { return this.GetSelectedItemsBridge(this); }
+            set { this.SetSelectedItemsBridge(this, value); }
+        }
+
+        /// <summary>
+        /// Gets the number of items in the List control
+        /// </summary>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        public int ItemCount
+        {
+            get
+            {
+                return this.GetItemCountBridge(this);
+            }
+        }
+
+
+
         /// <summary>
         /// Gets the items in a List control.
         /// </summary>
@@ -58,84 +136,11 @@ namespace ProdUI.Controls.Windows
         /// an ArrayList containing the items in a List control
         /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public List<object> GetItems()
+        public Collection<object> GetItems()
         {
             return this.GetItemsBridge(this);
         }
 
-        /// <summary>
-        /// Gets the number of items in the List control
-        /// </summary>
-        /// <returns>
-        /// The number of items in the list
-        /// </returns>
-        /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public int GetItemCount()
-        {
-            return this.GetItemCountBridge(this);
-        }
-
-        /// <summary>
-        /// Determines whether this instance [can select multiple items].
-        /// </summary>
-        /// <returns>
-        ///   <c>true</c> if this instance can select multiple items; otherwise, <c>false</c>.
-        /// </returns>
-        public bool CanSelectMultiple()
-        {
-            return this.CanSelectMultipleBridge(this);
-        }
-
-        #region single select specific
-
-        /// <summary>
-        /// Gets the index of the selected item.
-        /// </summary>
-        /// <returns>
-        /// The zero based index of the selected item
-        /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public int GetSelectedIndex()
-        {
-            return this.GetSelectedIndexBridge(this);
-        }
-
-        /// <summary>
-        /// Gets the selected list item.
-        /// </summary>
-        /// <returns>
-        /// The selected List element
-        /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public AutomationElement GetSelectedItem()
-        {
-            return this.GetSelectedItemBridge(this);
-        }
-
-        /// <summary>
-        /// Sets the selected list item.
-        /// </summary>
-        /// <param name="index">The zero-based index of the item to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void SetSelectedIndex(int index)
-        {
-            this.SetSelectedIndexBridge(this, index);
-        }
-
-        /// <summary>
-        /// Sets the selected list item.
-        /// </summary>
-        /// <param name="itemText">The text of the item to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void SetSelectedItem(string itemText)
-        {
-            this.SetSelectedItemBridge(this, itemText);
-        }
-
-        #endregion single select specific
-
-        #region Multi Select specific
 
         /// <summary>
         /// Adds the selected list item to the current selection.
@@ -157,29 +162,6 @@ namespace ProdUI.Controls.Windows
             this.AddToSelectionBridge(this, itemText);
         }
 
-        /// <summary>
-        /// Gets the selected indexes.
-        /// </summary>
-        /// <returns>
-        /// A List of all the indexes of currently selected list items.
-        /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public List<int> GetSelectedIndexes()
-        {
-            return this.GetSelectedIndexesBridge((this));
-        }
-
-        /// <summary>
-        /// Gets the selected items.
-        /// </summary>
-        /// <returns>
-        /// A List of all currently selected list items
-        /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public List<object> GetSelectedItems()
-        {
-            return this.GetSelectedItemsBridge(this);
-        }
 
         /// <summary>
         /// Gets the selected item count.
@@ -222,26 +204,5 @@ namespace ProdUI.Controls.Windows
             this.SelectAllBridge(this);
         }
 
-        /// <summary>
-        /// Sets the select indexes from a supplied list.
-        /// </summary>
-        /// <param name="indexes">The indexes to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public void SetSelectIndexes(List<int> indexes)
-        {
-            this.SetSelectedIndexesBridge(this, indexes);
-        }
-
-        /// <summary>
-        /// Sets the selected items from a supplied list.
-        /// </summary>
-        /// <param name="items">The text of the items to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public void SetSelectedItems(Collection<string> items)
-        {
-            this.SetSelectedItemsBridge(this, items);
-        }
-
-        #endregion Multi Select specific
     }
 }

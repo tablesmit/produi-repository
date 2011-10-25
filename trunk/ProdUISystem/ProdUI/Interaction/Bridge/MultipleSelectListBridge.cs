@@ -9,6 +9,7 @@ using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 using ProdUI.Verification;
+using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Bridge
 {
@@ -124,7 +125,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// A List of all the indexes of currently selected list items.
         /// </returns>
-        internal static List<int> GetSelectedIndexesBridge(this IMultipleSelectionList extension, BaseProdControl control)
+        internal static Collection<int> GetSelectedIndexesBridge(this IMultipleSelectionList extension, BaseProdControl control)
         {
             try
             {
@@ -151,15 +152,15 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// A List of all the indexes of currently selected list items.
         /// </returns>
-        private static List<int> UiaGetSelectedIndexes(BaseProdControl control)
+        private static Collection<int> UiaGetSelectedIndexes(BaseProdControl control)
         {
             if (!UiaCanSelectMultiple(control)) throw new ProdOperationException("Does not support multiple selection");
 
             AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(control.UIAElement);
-            List<object> retList = new List<object> {
+            Collection<object> retList = new Collection<object> {
                                                         (selectedItems)
                                                     };
-            List<int> selectedIndexes = new List<int>();
+            Collection<int> selectedIndexes = new Collection<int>();
 
             foreach (AutomationElement item in selectedItems)
             {
@@ -176,7 +177,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// A List of all the indexes of currently selected list items.
         /// </returns>
-        private static List<int> NativeGetSelectedIndexes(BaseProdControl control)
+        private static Collection<int> NativeGetSelectedIndexes(BaseProdControl control)
         {
             return ProdListBoxNative.GetSelectedIndexesNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
@@ -189,7 +190,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// A List of all currently selected list items
         /// </returns>
-        internal static List<object> GetSelectedItemsBridge(this IMultipleSelectionList extension, BaseProdControl control)
+        internal static Collection<string> GetSelectedItemsBridge(this IMultipleSelectionList extension, BaseProdControl control)
         {
             try
             {
@@ -209,14 +210,17 @@ namespace ProdUI.Interaction.Bridge
             }
         }
 
-        private static List<object> UiaGetSelectedItems(BaseProdControl control)
+        private static Collection<string> UiaGetSelectedItems(BaseProdControl control)
         {
             if (!UiaCanSelectMultiple(control)) throw new ProdOperationException("Does not support multiple selection");
             AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(control.UIAElement);
-            List<object> retList = new List<object> {
-                                                        selectedItems
-                                                    };
-            LogController.ReceiveLogMessage(new LogMessage("Selected Items", retList));
+            Collection<string> retList = new Collection<string>();
+            foreach (AutomationElement item in selectedItems)
+            {
+                retList.Add(item.Current.Name);
+            }
+
+            LogController.ReceiveLogMessage(new LogMessage("Selected Items", new Collection<object>(selectedItems)));
             return retList;
         }
 
@@ -389,7 +393,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <param name="indexes">The indexes to select.</param>
-        internal static void SetSelectedIndexesBridge(this IMultipleSelectionList extension, BaseProdControl control, List<int> indexes)
+        internal static void SetSelectedIndexesBridge(this IMultipleSelectionList extension, BaseProdControl control, Collection<int> indexes)
         {
             try
             {
@@ -412,7 +416,7 @@ namespace ProdUI.Interaction.Bridge
         private static void UiaSetSelectedIndexes(BaseProdControl control, IEnumerable<int> indexes)
         {
             if (!UiaCanSelectMultiple(control)) throw new ProdOperationException("Does not support multiple selection");
-            List<object> logList = new List<object> {
+            Collection<object> logList = new Collection<object> {
                                                         indexes
                                                     };
             LogController.ReceiveLogMessage(new LogMessage("Adding", logList));
@@ -464,7 +468,7 @@ namespace ProdUI.Interaction.Bridge
         private static void UiaSetSelectedItems(BaseProdControl control, IEnumerable<string> items)
         {
             if (!UiaCanSelectMultiple(control)) throw new ProdOperationException("Does not support multiple selection");
-            List<object> logList = new List<object> {
+            Collection<object> logList = new Collection<object> {
                                                         items
                                                     };
             LogController.ReceiveLogMessage(new LogMessage("Adding", logList));

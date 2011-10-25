@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Automation;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.UIAPatterns;
-using ProdUI.Utility;
 using ProdUI.Logging;
+using ProdUI.Utility;
 using ProdUI.Verification;
-using System.Collections.Generic;
 
 namespace ProdUI.Interaction.Bridge
 {
@@ -81,7 +81,7 @@ namespace ProdUI.Interaction.Bridge
             try
             {
                 AutomationElementCollection retVal = control.UIAElement.FindAll(TreeScope.Children, new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.MenuItem));
-                List<object> retColl = InternalUtilities.AutomationCollToObjectList(retVal);
+                Collection<object> retColl = InternalUtilities.AutomationCollToObjectList(retVal);
                 LogController.ReceiveLogMessage(new LogMessage(string.Join("Items", retColl)));
                 return retVal;
             }

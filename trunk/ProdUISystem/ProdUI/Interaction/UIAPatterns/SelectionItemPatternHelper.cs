@@ -144,6 +144,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name="index">The index.</param>
         internal static void AddToSelection(AutomationElement control, int index)
         {
+            //TODO: Does this do anything?
             SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
             pattern.AddToSelection();
         }
@@ -155,6 +156,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <param name="itemText">The item text.</param>
         internal static void AddToSelection(AutomationElement control, string itemText)
         {
+            //TODO: Does this do anything?
             SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
             pattern.AddToSelection();
         }

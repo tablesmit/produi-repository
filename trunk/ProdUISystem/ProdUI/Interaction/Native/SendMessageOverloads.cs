@@ -18,7 +18,7 @@ namespace ProdUI.Interaction.Native
         /// The return value specifies the result of the message processing; it depends on the message sent
         /// </returns>
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        internal static extern IntPtr SendMessage(IntPtr windowHandle, [MarshalAs(UnmanagedType.I4)] int msg, [MarshalAs(UnmanagedType.I4)] int wParam, [MarshalAs(UnmanagedType.I4)] int lParam);
+        internal static extern IntPtr SendMessage(IntPtr windowHandle, [MarshalAs(UnmanagedType.SysInt)] int msg, [MarshalAs(UnmanagedType.SysInt)] int wParam, [MarshalAs(UnmanagedType.SysInt)] int lParam);
 
         /// <summary>
         /// Sends a message to the message window and waits until the WndProc method has processed the message
@@ -32,7 +32,7 @@ namespace ProdUI.Interaction.Native
         /// </returns>
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode, BestFitMapping = true)]
         [return: MarshalAs(UnmanagedType.U4)]
-        internal static extern int SendMessage(IntPtr windowHandle, [MarshalAs(UnmanagedType.I4)] int msg, [MarshalAs(UnmanagedType.I4)] int wParam, string lParam);
+        internal static extern int SendMessage(IntPtr windowHandle, [MarshalAs(UnmanagedType.SysInt)] int msg, [MarshalAs(UnmanagedType.SysInt)] int wParam, string lParam);
 
         /// <summary>
         /// LB_SETCURSEL message to move selected indexes into array
@@ -46,7 +46,7 @@ namespace ProdUI.Interaction.Native
         /// </returns>
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.U4)]
-        internal static extern int SendMessage(IntPtr windowHandle, int msg, [MarshalAs(UnmanagedType.I4)] int wParam, int[] lParam);
+        internal static extern int SendMessage(IntPtr windowHandle, int msg, [MarshalAs(UnmanagedType.SysInt)] int wParam, int[] lParam);
 
         /// <summary>
         /// LB_GETTEXT message
@@ -60,6 +60,6 @@ namespace ProdUI.Interaction.Native
         /// </returns>
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode, BestFitMapping = true)]
         [return: MarshalAs(UnmanagedType.U4)]
-        internal static extern int SendMessage(IntPtr windowHandle, int msg, [MarshalAs(UnmanagedType.I4)] int wParam, StringBuilder lParam);
+        internal static extern int SendMessage(IntPtr windowHandle, int msg, [MarshalAs(UnmanagedType.SysInt)] int wParam, StringBuilder lParam);
     }
 }
