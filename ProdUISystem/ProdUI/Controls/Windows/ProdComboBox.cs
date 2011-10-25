@@ -1,7 +1,6 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
-using System.Collections.Generic;
-using System.Windows.Automation;
+using System.Collections.ObjectModel;
 using ProdUI.Interaction.Bridge;
 using ProdUI.Logging;
 
@@ -49,63 +48,55 @@ namespace ProdUI.Controls.Windows
 
         #endregion Constructors
 
-        #region List Instance Methods
+        #region List properties and methods
 
         /// <summary>
         /// Gets the number of items in the List control
         /// </summary>
-        /// <returns>
-        /// The number of items in the list
-        /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public int GetItemCount()
+        public int ItemCount
         {
-            return this.GetItemCountBridge(this);
+            get { return this.GetItemCountBridge(this); }
         }
 
         /// <summary>
-        /// Gets the selected item
+        /// Gets or sets the selected item by text
+        /// </summary>
+        /// <value>
+        /// The selected item.
+        /// </value>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        public string SelectedItem
+        {
+            get { return this.GetSelectedItemBridge(this).Current.Name; }
+            set { this.SetSelectedItemBridge(this, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the zero-based index of the currently selected item
+        /// </summary>
+        /// <value>
+        /// The index of the selected item.
+        /// </value>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        public int SelectedIndex
+        {
+            get { return this.GetSelectedIndexBridge(this); }
+            set { this.SetSelectedIndexBridge(this, value); }
+        }
+
+        /// <summary>
+        /// Get all items contained in the list control
         /// </summary>
         /// <returns>
-        /// The currently selected item
-        /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public AutomationElement GetSelectedItem()
+        /// List containing text of all items in the list control
+        ///   </returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
+        public Collection<object> GetItems
         {
-            return this.GetSelectedItemBridge(this);
+            get { return this.GetItemsBridge(this); }
         }
 
-        /// <summary>
-        /// Gets the zero-based index of the currently selected item
-        /// </summary>
-        /// <returns>
-        /// The zero based index of the selected item in the list
-        /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public int GetSelectedIndex()
-        {
-            return this.GetSelectedIndexBridge(this);
-        }
-
-        /// <summary>
-        /// Selects the item by its index.
-        /// </summary>
-        /// <param name="index">The index of the item to select.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void SetSelectedIndex(int index)
-        {
-            this.SetSelectedIndexBridge(this, index);
-        }
-
-        /// <summary>
-        /// Selects the item.
-        /// </summary>
-        /// <param name="itemText">The item text.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void SetSelectedItem(string itemText)
-        {
-            this.SetSelectedItemBridge(this, itemText);
-        }
 
         /// <summary>
         /// Determines whether the specified index is selected.
@@ -133,54 +124,32 @@ namespace ProdUI.Controls.Windows
             return this.IsItemSelectedBridge(this, text);
         }
 
-        /// <summary>
-        /// Get all items contained in the list control
-        /// </summary>
-        /// <returns>
-        /// List containing text of all items in the list control
-        /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public List<object> GetItems()
-        {
-            return this.GetItemsBridge(this);
-        }
 
-        #endregion List Instance Methods
 
-        #region Textbox Instance Methods
+        #endregion
+
+        #region Textbox properties and methods
 
         /// <summary>
         /// Gets the number of characters in textbox
         /// </summary>
-        /// <returns>
-        /// The length of the string in the TextBox (if supported)
-        /// </returns>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public int Length()
+        public int Length
         {
-            return this.GetLengthBridge(this);
+            get { return this.GetLengthBridge(this); }
         }
 
         /// <summary>
-        /// Gets the text contained in the current TextBox
+        /// Gets or sets the text contained in the current TextBox
         /// </summary>
-        /// <returns>
+        /// <value>
         /// The string in the Textbox (if supported)
-        /// </returns>
+        /// </value>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public string GetText()
+        public string Text
         {
-            return this.GetTextBridge(this);
-        }
-
-        /// <summary>
-        /// Sets the text contained in the current TextBox
-        /// </summary>
-        /// <param name="text">The text to set the TextBox to (if supported)</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void SetText(string text)
-        {
-            this.SetTextBridge(this, text);
+            get { return this.GetTextBridge(this); }
+            set { this.SetTextBridge(this, value); }
         }
 
         /// <summary>

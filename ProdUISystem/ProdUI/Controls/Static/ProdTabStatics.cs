@@ -1,6 +1,6 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Automation;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
@@ -9,6 +9,7 @@ using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 using ProdUI.Utility;
+using System.Globalization;
 
 namespace ProdUI.Controls.Static
 {
@@ -22,7 +23,7 @@ namespace ProdUI.Controls.Static
         /// list containing all items
         /// </returns>
         /// <exception cref="ProdOperationException">Examine inner exception</exception>
-        public static List<object> TabsGet(IntPtr controlHandle)
+        public static Collection<object> TabsGet(IntPtr controlHandle)
         {
             try
             {
@@ -54,7 +55,7 @@ namespace ProdUI.Controls.Static
         /// list containing all items
         /// </returns>
         /// <exception cref="ProdOperationException">Examine inner exception</exception>
-        public static List<object> TabsGet(ProdWindow prodwindow, string automationId)
+        public static Collection<object> TabsGet(ProdWindow prodwindow, string automationId)
         {
             BaseProdControl control = new BaseProdControl(prodwindow, automationId);
             return SingleSelectListBridge.GetItemsBridge(null, control);
@@ -180,7 +181,7 @@ namespace ProdUI.Controls.Static
                 {
                     ProdTabNative.GetTabCount(controlHandle);
                 }
-                LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
+                LogController.ReceiveLogMessage(new LogMessage(retVal.ToString(CultureInfo.CurrentCulture)));
                 return retVal;
             }
             catch (InvalidOperationException err)
@@ -273,6 +274,9 @@ namespace ProdUI.Controls.Static
                 AutomationElementCollection aec = SelectionItemPatternHelper.GetListItems(control);
 
                 /* When using the GetListItems() methods, item index 0 is the tab control itself, so add on to get to correct TabItem */
+                if (index >= int.MaxValue)
+                    throw new ProdOperationException("input must be less than Int32.MaxValue");
+
                 int adjustedIndex = index + 1;
                 string itemText = aec[adjustedIndex].Current.Name;
 

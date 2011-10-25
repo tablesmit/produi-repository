@@ -1,6 +1,6 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Automation;
 using ProdUI.Controls.Windows;
@@ -21,7 +21,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extended interface.</param>
         /// <param name="control">The UI Automation element</param>
         /// <returns></returns>
-        internal static List<object> GetItemsBridge(this ISingleSelectList extension, BaseProdControl control)
+        internal static Collection<object> GetItemsBridge(this ISingleSelectList extension, BaseProdControl control)
         {
             try
             {
@@ -41,16 +41,21 @@ namespace ProdUI.Interaction.Bridge
             }
         }
 
-        private static List<object> UiaGetItems(BaseProdControl control)
+        private static Collection<object> UiaGetItems(BaseProdControl control)
         {
             AutomationElementCollection convRet = SelectionItemPatternHelper.GetListItems(control.UIAElement);
 
-            List<object> retVal = InternalUtilities.AutomationCollToObjectList(convRet);
+            Collection<object> retVal = InternalUtilities.AutomationCollToObjectList(convRet);
             LogController.ReceiveLogMessage(new LogMessage("List Items: ", retVal));
             return retVal;
         }
 
-        private static List<object> NativeGetItems(BaseProdControl control)
+        /// <summary>
+        /// Natives the get items.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        /// <returns></returns>
+        private static Collection<object> NativeGetItems(BaseProdControl control)
         {
             if (control.UIAElement.Current.ControlType == ControlType.ComboBox)
                 return ProdComboBoxNative.GetItemsNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);

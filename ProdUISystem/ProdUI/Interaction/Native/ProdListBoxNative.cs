@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using ProdUI.Logging;
 using ProdUI.Verification;
+using System.Collections.ObjectModel;
 
 namespace ProdUI.Interaction.Native
 {
@@ -48,7 +49,7 @@ namespace ProdUI.Interaction.Native
         /// <returns>
         /// A string collection containing each item in the ListBox
         /// </returns>
-        internal static List<object> GetItemsNative(IntPtr windowHandle)
+        internal static Collection<object> GetItemsNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
             int itemCount = GetItemCountNative(windowHandle);
@@ -156,14 +157,14 @@ namespace ProdUI.Interaction.Native
             NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBSETCURSEL, index, 0);
         }
 
-        internal static List<int> GetSelectedIndexesNative(IntPtr windowHandle)
+        internal static Collection<int> GetSelectedIndexesNative(IntPtr windowHandle)
         {
             LogController.ReceiveLogMessage(new LogMessage("Using SendMessage"));
             int selectionCount = GetSelectedItemCountNative(windowHandle);
             int[] selectedIndexes = new int[selectionCount];
             NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBGETSELITEMS, selectionCount, selectedIndexes);
 
-            return new List<int>(selectedIndexes);
+            return new Collection<int>(selectedIndexes);
         }
 
         /// <summary>
@@ -179,14 +180,15 @@ namespace ProdUI.Interaction.Native
 
         /* Utility */
 
-        private static List<object> GetAllItems(IntPtr windowHandle, int itemCount)
+        private static Collection<object> GetAllItems(IntPtr windowHandle, int itemCount)
         {
             StringBuilder sb = new StringBuilder();
-            List<object> returnCollection = new List<object>();
+            Collection<object> returnCollection = new Collection<object>();
 
             for (int i = 0; i < itemCount - 1; i++)
             {
-                NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBGETTEXT, i, sb);
+                int strLength = NativeMethods.SendMessage(windowHandle, (int)ListboxMessage.LBGETTEXT, i, sb);
+                if (strLength == 0) continue;
                 returnCollection.Add(sb.ToString());
                 sb.Clear();
             }

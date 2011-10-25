@@ -49,32 +49,29 @@ namespace ProdUI.Controls.Windows
         #endregion Constructors
 
         /// <summary>
-        /// Gets the current ToggleState
+        /// Gets or sets the check state of the CheckBox.
         /// </summary>
-        /// <returns>
-        /// The state of the checkbox.
-        /// </returns>
+        /// <value>
+        /// The check state of the CheckBox.
+        /// </value>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public ToggleState GetCheckState()
+        public ToggleState CheckState
         {
-            return this.GetCheckStateBridge(this);
-        }
-
-        /// <summary>
-        /// Sets the current CheckBoxes state.
-        /// </summary>
-        /// <param name="checkstate">The ProdCheckState.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void SetCheckState(ToggleState checkstate)
-        {
-            this.SetCheckStateBridge(this, checkstate);
+            get
+            {
+                return this.GetCheckStateBridge(this);
+            }
+            set
+            {
+                this.SetCheckStateBridge(this, value);
+            }
         }
 
         /// <summary>
         /// Changes the CheckState of checkbox to next valid CheckState
         /// </summary>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void ToggleCheckState()
+        public void Toggle()
         {
             this.ToggleCheckStateBridge(this);
         }

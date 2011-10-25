@@ -1,6 +1,6 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Automation;
 using ProdUI.Interaction.Bridge;
 
@@ -66,7 +66,7 @@ namespace ProdUI.Controls.Windows
         /// <returns>
         /// list containing all items
         /// </returns>
-        public List<object> GetItems()
+        public Collection<object> GetItems()
         {
             return this.GetItemsBridge(this);
         }

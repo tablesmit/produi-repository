@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UITest.Common;
 using Microsoft.VisualStudio.TestTools.UITest.Common.UIMap;
 using Microsoft.VisualStudio.TestTools.UITest.Extension;
 using Microsoft.VisualStudio.TestTools.UITesting;
+using System.Windows.Automation;
 
 namespace WindowCracker
 {
@@ -66,6 +67,7 @@ namespace WindowCracker
         {
             UITest uiTest = InitializeTestLibs();
             GrabControls(uiTest);
+            
         }
 
         private static UITest InitializeTestLibs()
@@ -84,18 +86,23 @@ namespace WindowCracker
         {
             Process p = Process.GetProcessById(_windowPid);
             ApplicationUnderTest app = ApplicationUnderTest.FromProcess(p);
-            GetAllChildren(app, uiTest.Maps[0]);
+
+            GetAllChildren(app, uiTest.Maps[0], ">");
         }
 
-        private void GetAllChildren(UITestControl uiTestControl, UIMap map)
+        private void GetAllChildren(UITestControl uiTestControl, UIMap map, string sep)
         {
             foreach (UITestControl child in uiTestControl.GetChildren())
             {
                 map.AddUIObject((IUITechnologyElement)child.GetProperty(UITestControl.PropertyNames.UITechnologyElement));
-                _sw.WriteLine(">>> Type:" + child.ControlType + " Name: " + child.FriendlyName + " Class: " + child.ClassName + " Enabled: " + child.Enabled + " Technology Name:" + child.TechnologyName + " Name: " + child.BoundingRectangle);
+                _sw.WriteLine(sep + "Type:" + child.ControlType + " >>>Name: " + child.FriendlyName + " >>>Class: " + child.ClassName + " >>>Enabled: " + child.Enabled + " >>>Technology Name:" + child.TechnologyName + " >>>Rectangle: " + child.BoundingRectangle);
                 _sw.Flush();
                 child.DrawHighlight();
-                GetAllChildren(child, map);
+                if (child.GetChildren().Count > 0)
+                {
+                    sep = sep + ">";
+                }
+                GetAllChildren(child, map,sep);
             }
         }
 

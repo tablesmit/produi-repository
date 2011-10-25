@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.Native;
+using System.Collections.ObjectModel;
 
 namespace ProdUI.Utility
 {
@@ -334,9 +335,9 @@ namespace ProdUI.Utility
         /// <returns>
         ///     converted collection
         /// </returns>
-        internal static List<object> AutomationCollToObjectList(AutomationElementCollection ret)
+        internal static Collection<object> AutomationCollToObjectList(AutomationElementCollection ret)
         {
-            List<object> retColl = new List<object> {
+            Collection<object> retColl = new Collection<object> {
                                                         ret
                                                     };
 

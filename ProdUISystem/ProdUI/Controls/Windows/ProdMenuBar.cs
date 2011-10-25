@@ -20,10 +20,11 @@ namespace ProdUI.Controls.Windows
         /// Initializes a new instance of the <see cref="ProdMenuItem"/> class.
         /// </summary>
         /// <param name="prodWindow">The prod window.</param>
-        /// <param name="automationId">The automation id.</param>
-        public ProdMenuBar(ProdWindow prodWindow, string automationId = "Application")
+        /// <param name="automationId">The automation id. Pass an empty string for the top level menu</param>
+        public ProdMenuBar(ProdWindow prodWindow, string automationId)
             : base(prodWindow, automationId)
         {
+            if (automationId.Length == 0) automationId = "Application";
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace ProdUI.Controls.Windows
         /// Retrieves accelerator keys from supplied controls properties
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void InvokeByAcceleratorKey(AutomationElement control)
+        public void InvokeByAcceleratorKey()
         {
             this.InvokeByAcceleratorKeyBridge(this);
         }
@@ -86,7 +87,7 @@ namespace ProdUI.Controls.Windows
         /// Retrieves access keys from supplied controls properties
         /// </remarks>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void InvokeByAccessKey(AutomationElement control)
+        public void InvokeByAccessKey()
         {
             this.InvokeByAccessKeyBridge(this);
         }

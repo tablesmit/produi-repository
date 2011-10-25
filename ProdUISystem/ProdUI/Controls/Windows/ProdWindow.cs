@@ -89,6 +89,65 @@ namespace ProdUI.Controls.Windows
 
         #endregion Constructors
 
+
+        /// <summary>
+        /// Gets whether the current window is modal or not
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is modal; otherwise, <c>false</c>.
+        /// </value>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        public bool IsModal
+        {
+            get { return this.GetIsModalBridge(this); }
+        }
+
+        /// <summary>
+        /// Gets or sets the specified windows title
+        /// </summary>
+        /// <returns></returns>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        public string Title
+        {
+            get { return this.GetTitleBridge(this); }
+            set { this.SetTitleBridge(this, value); }
+        }
+
+        /// <summary>
+        /// Gets a value whether a window is set to be topmost in the z-order
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if this instance is topmost; otherwise, <c>false</c>.
+        /// </value>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        public bool IsTopmost
+        {
+            get { return this.GetIsTopmostBridge(this); }
+        }
+
+        /// <summary>
+        /// Gets the WindowVisualState of the current window
+        /// </summary>
+        /// <value>
+        /// The visual state of the window.
+        /// </value>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        public WindowVisualState WindowVisualState
+        {
+            get{return this.GetWindowVisualStateBridge(this);}
+        }
+
+        /// <summary>
+        /// Gets the state of the current window.
+        /// </summary>
+        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
+        public WindowInteractionState WindowInteractionState
+        {
+            get { return this.GetWindowStateBridge(this); }
+        }
+
+
+
         /// <summary>
         /// Register to make a window the active window.
         /// </summary>
@@ -105,72 +164,6 @@ namespace ProdUI.Controls.Windows
         public void Close()
         {
             this.CloseWindowBridge(this);
-        }
-
-        /// <summary>
-        /// Gets whether the current window is modal or not
-        /// </summary>
-        /// <returns>
-        ///   <c>true</c> if this instance is modal; otherwise, <c>false</c>.
-        /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public bool GetIsModal()
-        {
-            return this.GetIsModalBridge(this);
-        }
-
-        /// <summary>
-        /// Gets the specified windows title
-        /// </summary>
-        /// <returns></returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public string GetTitle()
-        {
-            return this.GetTitleBridge(this);
-        }
-
-        /// <summary>
-        /// Gets a value whether a window is set to be topmost in the z-order
-        /// </summary>
-        /// <returns>
-        ///   <c>true</c> if topmost; otherwise, <c>false</c>.
-        /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public bool GetIsTopmost()
-        {
-            return this.GetIsTopmostBridge(this);
-        }
-
-        /// <summary>
-        /// Gets the WindowVisualState of the current window
-        /// </summary>
-        /// <returns>
-        /// The visual state of the window.
-        /// </returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public WindowVisualState GetWindowVisualState()
-        {
-            return this.GetWindowVisualStateBridge(this);
-        }
-
-        /// <summary>
-        /// Gets the state of the current window.
-        /// </summary>
-        /// <returns></returns>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public WindowInteractionState GetWinState()
-        {
-            return this.GetWindowStateBridge(this);
-        }
-
-        /// <summary>
-        /// Sets the specified windows title
-        /// </summary>
-        /// <param name="newTitle">The new title.</param>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void SetTitle(string newTitle)
-        {
-            this.SetTitleBridge(this, newTitle);
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Automation;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
@@ -42,7 +42,7 @@ namespace ProdUI.Interaction.Bridge
         private static AutomationElement[] UiaGetColumnHeaders(BaseProdControl control)
         {
             AutomationElement[] retVal = TablePatternHelper.GetColumnHeaders(control.UIAElement);
-            List<object> retList = new List<object>();
+            Collection<object> retList = new Collection<object>();
             foreach (AutomationElement item in retVal)
             {
                 retList.Add(item);
@@ -84,7 +84,7 @@ namespace ProdUI.Interaction.Bridge
         private static AutomationElement[] UiaGetRowHeaders(BaseProdControl control)
         {
             AutomationElement[] retVal = TablePatternHelper.GetRowHeaders(control.UIAElement);
-            List<object> retList = new List<object>(retVal);
+            Collection<object> retList = new Collection<object>(retVal);
 
             LogController.ReceiveLogMessage(new LogMessage("Headers", retList));
 

@@ -49,25 +49,6 @@ namespace ProdUI.Interaction.Native
         /// </summary>
         public IntPtr DWExtraInfo;
 
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool Equals(Object obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool operator ==(MOUSEINPUT x, MOUSEINPUT y)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool operator !=(MOUSEINPUT x, MOUSEINPUT y)
-        {
-            throw new NotImplementedException();
-        }
     } ;
 
     /// <summary>
@@ -101,25 +82,6 @@ namespace ProdUI.Interaction.Native
         /// </summary>
         public IntPtr DWExtraInfo;
 
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool Equals(Object obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool operator ==(KEYBDINPUT x, KEYBDINPUT y)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool operator !=(KEYBDINPUT x, KEYBDINPUT y)
-        {
-            throw new NotImplementedException();
-        }
     } ;
 
     /// <summary>
@@ -142,26 +104,6 @@ namespace ProdUI.Interaction.Native
         ///     The high-order word of the lParam parameter for uMsg
         /// </summary>
         public int WParamH;
-
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool Equals(Object obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool operator ==(HARDWAREINPUT x, HARDWAREINPUT y)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool operator !=(HARDWAREINPUT x, HARDWAREINPUT y)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     /// <summary>
@@ -176,26 +118,6 @@ namespace ProdUI.Interaction.Native
         public MOUSEINPUT MouseInput;
         public KEYBDINPUT KeyboardInput;
         public HARDWAREINPUT HardwareInput;
-
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool Equals(Object obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool operator ==(UNION x, UNION y)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool operator !=(UNION x, UNION y)
-        {
-            throw new NotImplementedException();
-        }
     } ;
 
     /// <summary>
@@ -214,25 +136,6 @@ namespace ProdUI.Interaction.Native
         /// </summary>
         public UNION Union;
 
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool Equals(Object obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool operator ==(NPUT x, NPUT y)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool operator !=(NPUT x, NPUT y)
-        {
-            throw new NotImplementedException();
-        }
     } ;
 
     /// <summary>

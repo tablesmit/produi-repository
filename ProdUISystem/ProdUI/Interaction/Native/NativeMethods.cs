@@ -201,7 +201,7 @@ namespace ProdUI.Interaction.Native
         /// If the function succeeds, the return value is nonzero.otherwise zero.
         /// </returns>
         [DllImport("user32.dll", SetLastError = true)]
-        internal static extern int MoveWindow(IntPtr hWnd, int x, int y, int nWidth, int nHeight, bool bRepaint);
+        internal static extern int MoveWindow(IntPtr hWnd, int x, int y, int nWidth, int nHeight, [MarshalAs(UnmanagedType.Bool)] bool bRepaint);
 
         /// <summary>
         /// Brings the thread that created the specified window into the foreground and activates the window.

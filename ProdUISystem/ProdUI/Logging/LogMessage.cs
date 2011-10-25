@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Collections.ObjectModel;
 
 namespace ProdUI.Logging
 {
@@ -34,7 +35,7 @@ namespace ProdUI.Logging
         /// </summary>
         /// <param name="message">A custom message to be written to the log</param>
         /// <param name="verboseInformation">String Collection to be used in verbose logging.</param>
-        public LogMessage(string message, List<object> verboseInformation)
+        public LogMessage(string message, Collection<object> verboseInformation)
         {
             DateTime logTime = DateTime.Now;
             LogTime = logTime.ToString("T", CultureInfo.CurrentCulture);
@@ -65,7 +66,7 @@ namespace ProdUI.Logging
         /// <param name="message">The message text.</param>
         /// <param name="verboseInformation">The verbose information.</param>
         /// <param name="messageLevel">The messages LoggingLevel.</param>
-        public LogMessage(string message, List<object> verboseInformation, LoggingLevels messageLevel)
+        public LogMessage(string message, Collection<object> verboseInformation, LoggingLevels messageLevel)
         {
             DateTime logTime = DateTime.Now;
             LogTime = logTime.ToString("T", CultureInfo.CurrentCulture);
@@ -125,7 +126,7 @@ namespace ProdUI.Logging
         /// <value>
         /// The verbose information.
         /// </value>
-        public List<object> VerboseInformation { get; set; }
+        public Collection<object> VerboseInformation { get; set; }
 
         #endregion Properties
 
