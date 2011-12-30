@@ -4,7 +4,7 @@ using System.Windows.Automation;
 namespace ProdUI.Interaction.UIAPatterns
 {
     /// <summary>
-    /// UIA SelectionItem for Lists
+    /// Represents selectable child items of container controls that support SelectionPattern
     /// </summary>
     internal static class SelectionItemPatternHelper
     {
@@ -28,34 +28,34 @@ namespace ProdUI.Interaction.UIAPatterns
         #endregion Search Conditions
 
         /// <summary>
-        /// Utility to get all of the items in a List control
+        /// Adds to selection in a multi-select list.
         /// </summary>
         /// <param name="control">The UI Automation element</param>
-        /// <returns>
-        /// An AutomationElementCollection containing all list items
-        /// </returns>
-        internal static AutomationElementCollection GetListItems(AutomationElement control)
+        /// <param name="index">The index.</param>
+        internal static void AddToSelection(AutomationElement control)
         {
-            /* Everything, selector or not */
-            OrCondition orCon = new OrCondition(ConditionIsSelected, ConditionNotSelected);
-
-            /* If we don't filter that with a IsContent condition, we get some weird stuff back */
-            AndCondition con = new AndCondition(ConditionContent, orCon);
-
-            return control.FindAll(TreeScope.Children, con);
+            SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
+            pattern.AddToSelection();
         }
 
         /// <summary>
-        /// Gets the number of items in a list.
+        /// Removes from item from selection in a multi-select list.
         /// </summary>
         /// <param name="control">The UI Automation element</param>
-        /// <returns>
-        /// The item count
-        /// </returns>
-        internal static int GetListItemCount(AutomationElement control)
+        internal static void RemoveFromSelection(AutomationElement control)
         {
-            AutomationElementCollection elementCollection = GetListItems(control);
-            return elementCollection.Count;
+            SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
+            pattern.RemoveFromSelection();
+        }
+
+        /// <summary>
+        /// Selects the specified Item.
+        /// </summary>
+        /// <param name="control">The UI Automation element</param>
+        internal static void SelectItem(AutomationElement control)
+        {
+            SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
+            pattern.Select();
         }
 
         /// <summary>
@@ -71,117 +71,5 @@ namespace ProdUI.Interaction.UIAPatterns
             return pattern.Current.IsSelected;
         }
 
-        /// <summary>
-        /// Selects the specified Item.
-        /// </summary>
-        /// <param name="control">The UI Automation element</param>
-        internal static void SelectItem(AutomationElement control)
-        {
-            SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
-            pattern.Select();
-        }
-
-        /// <summary>
-        /// Finds the index by item.
-        /// </summary>
-        /// <param name="control">The UI Automation element</param>
-        /// <param name="matchString">The match string.</param>
-        /// <returns>
-        /// The zero-based index of the supplied item, or -1 if item is not found
-        /// </returns>
-        internal static int FindIndexByItem(AutomationElement control, string matchString)
-        {
-            AutomationElementCollection elementCollection = GetListItems(control);
-
-            for (int i = 0; i < elementCollection.Count; i++)
-            {
-                if (matchString == elementCollection[i].Current.Name)
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
-        /// <summary>
-        /// Finds the item by zero-based index.
-        /// </summary>
-        /// <param name="control">The UI Automation element</param>
-        /// <param name="index">The zero-based index of the item to select.</param>
-        /// <returns>
-        /// The item at the specified index
-        /// </returns>
-        internal static AutomationElement FindItemByIndex(AutomationElement control, int index)
-        {
-            AutomationElementCollection elementCollection = GetListItems(control);
-            return elementCollection[index];
-        }
-
-        /// <summary>
-        /// Finds the item by its text.
-        /// </summary>
-        /// <param name="control">The UI Automation element</param>
-        /// <param name="itemText">The item text.</param>
-        /// <returns>
-        /// The element that matches the supplied text or null if item not found
-        /// </returns>
-        internal static AutomationElement FindItemByText(AutomationElement control, string itemText)
-        {
-            Condition propertyCondition = new PropertyCondition(AutomationElement.NameProperty, itemText, PropertyConditionFlags.IgnoreCase);
-
-            AutomationElement firstMatch = control.FindFirst(TreeScope.Descendants, propertyCondition);
-
-            return firstMatch;
-        }
-
-        /* Multiple selection only */
-
-        /// <summary>
-        /// Adds to selection in a multi-select list.
-        /// </summary>
-        /// <param name="control">The UI Automation element</param>
-        /// <param name="index">The index.</param>
-        internal static void AddToSelection(AutomationElement control, int index)
-        {
-            //TODO: Does this do anything?
-            SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
-            pattern.AddToSelection();
-        }
-
-        /// <summary>
-        /// Adds to selection.
-        /// </summary>
-        /// <param name="control">The UI Automation element</param>
-        /// <param name="itemText">The item text.</param>
-        internal static void AddToSelection(AutomationElement control, string itemText)
-        {
-            //TODO: Does this do anything?
-            SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
-            pattern.AddToSelection();
-        }
-
-        /// <summary>
-        /// Gets the selection items.
-        /// </summary>
-        /// <param name="control">The UI Automation element.</param>
-        /// <returns>
-        /// A collection of selected items
-        /// </returns>
-        internal static AutomationElementCollection GetSelectedItems(AutomationElement control)
-        {
-            AutomationElementCollection elementCollection = GetListItems(control);
-            return elementCollection;
-        }
-
-        /// <summary>
-        /// Removes from item from selection in a multi-select list.
-        /// </summary>
-        /// <param name="control">The UI Automation element</param>
-        internal static void RemoveFromSelection(AutomationElement control)
-        {
-            SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
-            pattern.RemoveFromSelection();
-        }
     }
 }

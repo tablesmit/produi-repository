@@ -37,7 +37,7 @@ namespace ProdUI.Interaction.Bridge
             catch (InvalidOperationException)
             {
                 /* now try a native SendMessage */
-                NativeInvoke(control.UIAElement);
+                NativeInvoke(control);
             }
         }
 
@@ -54,17 +54,17 @@ namespace ProdUI.Interaction.Bridge
         }
 
         /// <summary>
-        /// Handles the native version of The extended interface. event
+        /// Send the BM_Click message to a button control
         /// </summary>
         /// <param name="control">The UI Automation element</param>
-        private static void NativeInvoke(AutomationElement control)
+        private static void NativeInvoke(BaseProdControl control)
         {
-            int hWnd = control.Current.NativeWindowHandle;
+            int hWnd = control.UIAElement.Current.NativeWindowHandle;
 
-            if (control.Current.ControlType != ControlType.Button) return;
+            if (control.UIAElement.Current.ControlType != ControlType.Button) return;
 
             /* should throw with no handle */
-            ProdButtonNative.Click((IntPtr)hWnd);
+            NativeInvokeHelper.Invoke(control);
         }
     }
 }
