@@ -134,5 +134,6 @@ namespace ProdUI.Interaction.UIAPatterns
                 throw new ProdOperationException("Does not support " + pattern.ProgrammaticName);
             }
         }
+
     }
 }

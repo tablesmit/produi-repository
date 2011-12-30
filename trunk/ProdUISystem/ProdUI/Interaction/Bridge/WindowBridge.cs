@@ -2,9 +2,9 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Automation;
+using ProdUI.Controls.Native;
 using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
-using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 
@@ -375,7 +375,7 @@ namespace ProdUI.Interaction.Bridge
         private static void UiaCloseWindow(ProdWindow baseControl)
         {
             LogController.ReceiveLogMessage(new LogMessage("closing"));
-            WindowPatternHelper.CloseWindow(baseControl.UIAElement);
+            WindowPatternHelper.Close(baseControl.UIAElement);
         }
 
         /// <summary>

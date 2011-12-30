@@ -36,6 +36,19 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
+        /// Gets a value that specifies whether the value of a UI Automation element is read-only.
+        /// </summary>
+        /// <param name="control">The UI Automation element.</param>
+        /// <returns>true if the value is read-only; false if it can be modified.</returns>
+        internal static bool GetIsReadOnly(AutomationElement control)
+        {
+            ValuePattern pattern = (ValuePattern)CommonUIAPatternHelpers.CheckPatternSupport(ValuePattern.Pattern, control);
+            return pattern.Current.IsReadOnly;
+        }
+
+
+        /* These are for text based controls */
+        /// <summary>
         /// Appends the supplied string to the existing textBox text
         /// </summary>
         /// <param name="control">The UI Automation element</param>
@@ -47,7 +60,7 @@ namespace ProdUI.Interaction.UIAPatterns
             string appText = originalText + text;
             pattern.SetValue(appText);
 
-            ValueVerifier<string, string>.Verify(appText, GetValue(control));
+            ValueVerifier<string, string>.Verify(appText, pattern.Current.Value);
         }
 
         /// <summary>
@@ -64,8 +77,9 @@ namespace ProdUI.Interaction.UIAPatterns
             /* If index is out of range, defer to ProdErrorManager */
             if (baseText == null) return;
             string insString = baseText.Insert(index, text);
-            SetValue(control, insString);
+            pattern.SetValue(insString);
             //TODO: Find an insert text verification
         }
+
     }
 }

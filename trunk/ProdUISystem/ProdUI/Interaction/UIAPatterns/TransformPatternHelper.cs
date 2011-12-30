@@ -15,7 +15,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <returns>
         /// Whether the control can be moved, null if InvalidOperationException is raised
         /// </returns>
-        internal static bool? CanMove(AutomationElement control)
+        internal static bool CanMove(AutomationElement control)
         {
             TransformPattern pat = (TransformPattern)CommonUIAPatternHelpers.CheckPatternSupport(TransformPattern.Pattern, control);
             return pat.Current.CanMove;

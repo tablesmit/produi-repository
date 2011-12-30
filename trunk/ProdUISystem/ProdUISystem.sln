@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugLogger", "ProdLoggers\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProdLoggingConfiguration", "..\Applications\ProdLogConfiguration\ProdLoggingConfiguration.csproj", "{6F00ACEA-225C-46F4-BDC3-8709FFC25167}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProdControls", "ProdControls\ProdControls.csproj", "{03912407-9AFE-4A81-8879-EE82779D58AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -215,6 +217,26 @@ Global
 		{6F00ACEA-225C-46F4-BDC3-8709FFC25167}.SessionConfigOnly|Mixed Platforms.Build.0 = SessionConfigOnly|x86
 		{6F00ACEA-225C-46F4-BDC3-8709FFC25167}.SessionConfigOnly|x86.ActiveCfg = SessionConfigOnly|x86
 		{6F00ACEA-225C-46F4-BDC3-8709FFC25167}.SessionConfigOnly|x86.Build.0 = SessionConfigOnly|x86
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.ProdUIOnly|Any CPU.ActiveCfg = Release|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.ProdUIOnly|Any CPU.Build.0 = Release|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.ProdUIOnly|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.ProdUIOnly|Mixed Platforms.Build.0 = Release|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.ProdUIOnly|x86.ActiveCfg = Release|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.Release|x86.ActiveCfg = Release|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.SessionConfigOnly|Any CPU.ActiveCfg = Release|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.SessionConfigOnly|Any CPU.Build.0 = Release|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.SessionConfigOnly|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.SessionConfigOnly|Mixed Platforms.Build.0 = Release|Any CPU
+		{03912407-9AFE-4A81-8879-EE82779D58AA}.SessionConfigOnly|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

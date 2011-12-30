@@ -8,7 +8,19 @@ namespace ProdUI.Interaction.UIAPatterns
     /// </summary>
     internal static class ScrollPatternHelper
     {
-        #region ScrollItemPattern Implementation
+
+        /// <summary>
+        ///     Gets a value that indicates whether the control can scroll horizontally.
+        /// </summary>
+        /// <param name = "control">The UI Automation element</param>
+        /// <returns>
+        ///     <c>true</c> if the control can scroll horizontally; otherwise <c>false</c>
+        /// </returns>
+        internal static bool GetHorizontallyScrollable(AutomationElement control)
+        {
+            ScrollPattern pat = (ScrollPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
+            return pat.Current.HorizontallyScrollable;
+        }
 
         /// <summary>
         ///     Gets the horizontal scroll percent.
@@ -37,40 +49,16 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets a value that indicates whether the control can scroll horizontally.
+        ///     Gets a value that indicates whether the control can scroll vertically
         /// </summary>
         /// <param name = "control">The UI Automation element</param>
         /// <returns>
-        ///     <c>true</c> if the control can scroll horizontally; otherwise <c>false</c>
+        ///     true if the control can scroll vertically; otherwise false
         /// </returns>
-        internal static bool GetHorizontallyScrollable(AutomationElement control)
+        internal static bool GetVerticallyScrollable(AutomationElement control)
         {
             ScrollPattern pat = (ScrollPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
-            return pat.Current.HorizontallyScrollable;
-        }
-
-        /// <summary>
-        ///     Scrolls the visible region of the content area horizontally and vertically
-        /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "horizontalAmount">The horizontal increment specific to the control. NoScroll (-1) should be passed in if the control cannot be scrolled in this direction</param>
-        /// <param name = "verticalAmount">The vertical increment specific to the control. NoScroll (-1) should be passed in if the control cannot be scrolled in this direction</param>
-        internal static void Scroll(AutomationElement control, ScrollAmount horizontalAmount, ScrollAmount verticalAmount)
-        {
-            ScrollPattern pat = (ScrollPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
-            pat.Scroll(horizontalAmount, verticalAmount);
-        }
-
-        /// <summary>
-        ///     Sets the horizontal and vertical scroll position as a percentage of the total content area within the control.
-        /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <param name = "horizontalPercent">The horizontal position as a percentage of the content area's total range.NoScroll (-1) should be passed in if the control cannot be scrolled in this direction</param>
-        /// <param name = "verticalPercent">The vertical position as a percentage of the content area's total range.NoScroll (-1) should be passed in if the control cannot be scrolled in this direction</param>
-        internal static void SetScrollPercent(AutomationElement control, double horizontalPercent, double verticalPercent)
-        {
-            ScrollPattern pat = (ScrollPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
-            pat.SetScrollPercent(horizontalPercent, verticalPercent);
+            return pat.Current.VerticallyScrollable;
         }
 
         /// <summary>
@@ -100,35 +88,50 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        ///     Gets a value that indicates whether the control can scroll vertically
+        /// Scrolls the visible region of the content area horizontally and vertically
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <returns>
-        ///     true if the control can scroll vertically; otherwise false
-        /// </returns>
-        internal static bool GetVerticallyScrollable(AutomationElement control)
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="horizontalAmount">The horizontal increment specific to the control. NoScroll (-1) should be passed in if the control cannot be scrolled in this direction</param>
+        /// <param name="verticalAmount">The vertical increment specific to the control. NoScroll (-1) should be passed in if the control cannot be scrolled in this direction</param>
+        internal static void Scroll(AutomationElement control, ScrollAmount horizontalAmount, ScrollAmount verticalAmount)
         {
             ScrollPattern pat = (ScrollPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
-            return pat.Current.VerticallyScrollable;
+            pat.Scroll(horizontalAmount, verticalAmount);
         }
-
-        #endregion ScrollItemPattern Implementation
-
-        #region IScrollItemProvider Implentation
 
         /// <summary>
-        ///     Scrolls the content area of a container object in order to display the control within the visible region (viewport) of the container.
+        /// Scrolls the visible region of the content area horizontally.
         /// </summary>
-        /// <param name = "control">The UI Automation element</param>
-        /// <remarks>
-        ///     This method does not provide the ability to specify the position of the control within the visible region (viewport) of the container
-        /// </remarks>
-        internal static void ScrollIntoView(AutomationElement control)
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="horizontalAmount">The horizontal increment specific to the control. NoScroll (-1) should be passed in if the control cannot be scrolled in this direction</param>
+        internal static void ScrollHorizontal(AutomationElement control, ScrollAmount horizontalAmount)
         {
-            ScrollItemPattern pat = (ScrollItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollItemPattern.Pattern, control);
-            pat.ScrollIntoView();
+            ScrollPattern pat = (ScrollPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
+            pat.ScrollHorizontal(horizontalAmount);
         }
 
-        #endregion IScrollItemProvider Implentation
+        /// <summary>
+        /// Scrolls the visible region of the content area vertically.
+        /// </summary>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="verticalAmount">The vertical increment specific to the control. NoScroll (-1) should be passed in if the control cannot be scrolled in this direction</param>
+        internal static void ScrollVertical(AutomationElement control, ScrollAmount verticalAmount)
+        {
+            ScrollPattern pat = (ScrollPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
+            pat.ScrollVertical(verticalAmount);
+        }
+
+        /// <summary>
+        /// Sets the horizontal and vertical scroll position as a percentage of the total content area within the control.
+        /// </summary>
+        /// <param name="control">The UI Automation element</param>
+        /// <param name="horizontalPercent">The horizontal position as a percentage of the content area's total range.NoScroll (-1) should be passed in if the control cannot be scrolled in this direction</param>
+        /// <param name="verticalPercent">The vertical position as a percentage of the content area's total range.NoScroll (-1) should be passed in if the control cannot be scrolled in this direction</param>
+        internal static void SetScrollPercent(AutomationElement control, double horizontalPercent, double verticalPercent)
+        {
+            ScrollPattern pat = (ScrollPattern)CommonUIAPatternHelpers.CheckPatternSupport(ScrollPattern.Pattern, control);
+            pat.SetScrollPercent(horizontalPercent, verticalPercent);
+        }
+
     }
 }
