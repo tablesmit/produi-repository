@@ -1,0 +1,9 @@
+﻿<#@ template language="C#" #>
+<#@ parameter name="WindowName" type="System.String" #>
+<#@ parameter name="ControlType" type="System.String" #>
+<#@ parameter name="ControlName" type="System.String" #>
+
+List<ProdLogger> loggers = new  List<ProdLogger>();
+loggers.Add(example);
+ProdWindow window = new ProdWindow("<#= WindowName #>");
+<#= ControlType #> ctrl = new <#= ControlType #>(window,"<#= ControlName #>");
