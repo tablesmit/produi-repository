@@ -1,8 +1,8 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
-namespace ProdUI.Interaction
+
+namespace ProdUI.Interaction.Bridge
 {
-    public interface IValue
+    internal interface TableAdapter
     {
-        string Value { get; set; }
     }
 }

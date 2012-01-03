@@ -1,7 +1,7 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -11,10 +11,8 @@ using System.Text;
 using System.Threading;
 using System.Windows.Automation;
 using System.Windows.Forms;
-using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
-using ProdUI.Interaction.Native;
-using System.Collections.ObjectModel;
+using ProdUI.Interaction;
 
 namespace ProdUI.Utility
 {

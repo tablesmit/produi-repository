@@ -1,12 +1,7 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Windows.Automation;
-using ProdUI.Controls.Native;
-using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
-using ProdUI.Interaction.UIAPatterns;
-using ProdUI.Logging;
-using ProdUI.Verification;
 
 namespace ProdUI.Interaction.Bridge
 {
@@ -15,19 +10,19 @@ namespace ProdUI.Interaction.Bridge
     /// </summary>
     internal static class SelectionBridge
     {
+
         /// <summary>
-        /// Gets a value indicating if a RadioButton is selected
+        /// Gets a value that specifies whether the container allows more than one child element to be selected concurrently.
         /// </summary>
-        /// <param name="extension">The extension interface.</param>
-        /// <param name="control">The base ProdUI control</param>
-        /// <returns>
-        ///   <c>true</c> if selected, <c>false</c> otherwise
-        /// </returns>
-        internal static bool GetIsSelectedBridge(this ISelection extension, BaseProdControl control)
+        /// <value>
+        /// 	<c>true</c> if this instance can select multiple; otherwise, <c>false</c>.
+        /// </value>
+        internal static bool CanSelectMultipleBridge(this SelectionAdapter extension, BaseProdControl control)
         {
             try
             {
-                return UiaGetIsSelected(control);
+                /* Try UIA First */
+                UiaInvoke(control);
             }
             catch (ArgumentNullException err)
             {
@@ -39,33 +34,23 @@ namespace ProdUI.Interaction.Bridge
             }
             catch (InvalidOperationException)
             {
-                if (control.UIAElement.Current.ControlType != ControlType.RadioButton) throw new ProdOperationException("This method only works with selectable RadioButtons");
-                return NativeGetIsSelected(control);
+                /* now try a native SendMessage */
+                NativeInvoke(control);
             }
         }
 
-        private static bool NativeGetIsSelected(BaseProdControl control)
-        {
-            return ProdRadioButtonNative.GetCheckStateNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
-        }
-
-        private static bool UiaGetIsSelected(BaseProdControl control)
-        {
-            bool retVal = SelectionItemPatternHelper.IsItemSelected(control.UIAElement);
-            LogController.ReceiveLogMessage(new LogMessage(retVal.ToString()));
-            return retVal;
-        }
-
         /// <summary>
-        /// Selects a RadioButton
+        /// Gets a value that specifies whether the container requires at least one child item to be selected.
         /// </summary>
-        /// <param name="extension">The extension interface.</param>
-        /// <param name="control">The base ProdUI control</param>
-        internal static void SetIsSelectedBridge(this ISelection extension, BaseProdControl control)
+        /// <value>
+        /// 	<c>true</c> if this instance is selection required; otherwise, <c>false</c>.
+        /// </value>
+        internal static bool IsSelectionRequiredBridge(this SelectionAdapter extension, BaseProdControl control)
         {
             try
             {
-                UiaSetSelected(control);
+                /* Try UIA First */
+                UiaInvoke(control);
             }
             catch (ArgumentNullException err)
             {
@@ -77,20 +62,59 @@ namespace ProdUI.Interaction.Bridge
             }
             catch (InvalidOperationException)
             {
-                if (control.UIAElement.Current.ControlType != ControlType.RadioButton) throw new ProdOperationException("This method only works with selectable RadioButtons");
-                NativeSetSelected(control);
+                /* now try a native SendMessage */
+                NativeInvoke(control);
             }
         }
 
-        private static void NativeSetSelected(BaseProdControl control)
+        /// <summary>
+        /// Gets the list of all items.
+        /// </summary>
+        internal static AutomationElementCollection ListItemsBridge(this SelectionAdapter extension, BaseProdControl control)
         {
-            ProdRadioButtonNative.SetCheckStateNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+            try
+            {
+                /* Try UIA First */
+                UiaInvoke(control);
+            }
+            catch (ArgumentNullException err)
+            {
+                throw new ProdOperationException(err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err);
+            }
+            catch (InvalidOperationException)
+            {
+                /* now try a native SendMessage */
+                NativeInvoke(control);
+            }
         }
 
-        private static void UiaSetSelected(BaseProdControl control)
+        /// <summary>
+        /// Gets an array containing all selected items.
+        /// </summary>
+        internal static AutomationElement[] SelectedItemsBridge(this SelectionAdapter extension, BaseProdControl control)
         {
-            AutomationEventVerifier.Register(new EventRegistrationMessage(control, SelectionItemPattern.ElementSelectedEvent));
-            SelectionItemPatternHelper.SelectItem(control.UIAElement);
+            try
+            {
+                /* Try UIA First */
+                UiaInvoke(control);
+            }
+            catch (ArgumentNullException err)
+            {
+                throw new ProdOperationException(err);
+            }
+            catch (ElementNotAvailableException err)
+            {
+                throw new ProdOperationException(err);
+            }
+            catch (InvalidOperationException)
+            {
+                /* now try a native SendMessage */
+                NativeInvoke(control);
+            }
         }
     }
 }

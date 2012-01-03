@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Automation;
-using ProdUI.Controls.Windows;
+using ProdUI.Adapters;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
@@ -24,7 +24,7 @@ namespace ProdUI.Interaction.Bridge
         /// <remarks>
         /// Menu item text MUST be exact (but not case-sensitive). 'Open' will not match an item 'Open...' but will match 'open'
         /// </remarks>
-        internal static void SelectMenuItemBridge(this IExpandCollapse extension, BaseProdControl control, string[] itemPath)
+        internal static void SelectMenuItemBridge(this ExpandCollapseAdapter extension, BaseProdControl control, string[] itemPath)
         {
             ctr = 0;
             try
@@ -49,7 +49,7 @@ namespace ProdUI.Interaction.Bridge
         {
             AutomationElementCollection menuItems = UiaGetMenuItems(control);
             AutomationEventVerifier.Register(new EventRegistrationMessage(control, InvokePattern.InvokedEvent));
-            LogController.ReceiveLogMessage(new LogMessage(string.Join(",",itemPath)));
+            LogController.ReceiveLogMessage(new LogMessage(string.Join(",", itemPath)));
             ExpandMenuItem(menuItems, itemPath);
         }
 
@@ -60,7 +60,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extension.</param>
         /// <param name="control">The control.</param>
         /// <returns></returns>
-        internal static AutomationElementCollection GetMenuItemsBridge(this IExpandCollapse extension, BaseProdControl control)
+        internal static AutomationElementCollection GetMenuItemsBridge(this ExpandCollapseAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -109,7 +109,7 @@ namespace ProdUI.Interaction.Bridge
         /// <remarks>
         /// Retrieves accelerator keys from supplied controls properties
         /// </remarks>
-        internal static void InvokeByAcceleratorKeyBridge(this IInvoke extension, BaseProdControl control)
+        internal static void InvokeByAcceleratorKeyBridge(this InvokeAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -138,7 +138,7 @@ namespace ProdUI.Interaction.Bridge
         /// <remarks>
         /// Converts from format of "Shift+CTRL+Y" into "+^(Y)"
         /// </remarks>
-        internal static void InvokeByAcceleratorKeyBridge(this IInvoke extension, BaseProdControl control, string keyCombination)
+        internal static void InvokeByAcceleratorKeyBridge(this InvokeAdapter extension, BaseProdControl control, string keyCombination)
         {
             try
             {
@@ -187,7 +187,7 @@ namespace ProdUI.Interaction.Bridge
         /// </summary>
         /// <param name="extension">The extension.</param>
         /// <param name="control">The menu item element.</param>
-        internal static void InvokeByAccessKeyBridge(this IInvoke extension, BaseProdControl control)
+        internal static void InvokeByAccessKeyBridge(this InvokeAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -213,7 +213,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extension.</param>
         /// <param name="control">The menu item element.</param>
         /// <param name="keyCombination">The key combination.</param>
-        internal static void InvokeByAccessKeyBridge(this IInvoke extension, BaseProdControl control, string keyCombination)
+        internal static void InvokeByAccessKeyBridge(this InvokeAdapter extension, BaseProdControl control, string keyCombination)
         {
             try
             {

@@ -162,7 +162,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// The text currently in the ProdTextBox
         /// </returns>
-        internal static string GetTextBridge(this IValue extension, BaseProdControl control)
+        internal static string GetTextBridge(this ValueAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -244,7 +244,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extended interface.</param>
         /// <param name="control">The UI Automation element</param>
         /// <param name="text">The text to place into the ProdTextBox.</param>
-        internal static void SetTextBridge(this IValue extension, BaseProdControl control, string text)
+        internal static void SetTextBridge(this ValueAdapter extension, BaseProdControl control, string text)
         {
             if ((bool)control.UIAElement.GetCurrentPropertyValue(ValuePattern.IsReadOnlyProperty)) throw new ProdOperationException("TextBox is Read Only");
             try

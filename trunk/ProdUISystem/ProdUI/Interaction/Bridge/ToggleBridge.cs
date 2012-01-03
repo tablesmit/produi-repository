@@ -1,8 +1,6 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Windows.Automation;
-using ProdUI.Controls.Native;
-using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
@@ -18,7 +16,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extended interface.</param>
         /// <param name="control">The UI Automation element</param>
         /// <returns>The current <see cref="ToggleState"/></returns>
-        internal static ToggleState GetCheckStateBridge(this IToggle extension, BaseProdControl control)
+        internal static ToggleState GetCheckStateBridge(this ToggleAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -56,7 +54,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extended interface.</param>
         /// <param name="control">The UI Automation element</param>
         /// <param name="checkstate">The <see cref="ToggleState"/>.</param>
-        internal static void SetCheckStateBridge(this IToggle extension, BaseProdControl control, ToggleState checkstate)
+        internal static void SetCheckStateBridge(this ToggleAdapter extension, BaseProdControl control, ToggleState checkstate)
         {
             try
             {
@@ -93,7 +91,7 @@ namespace ProdUI.Interaction.Bridge
         /// </summary>
         /// <param name="extension">The extended interface.</param>
         /// <param name="control">The UI Automation element</param>
-        internal static void ToggleCheckStateBridge(this IToggle extension, BaseProdControl control)
+        internal static void ToggleCheckStateBridge(this ToggleAdapter extension, BaseProdControl control)
         {
             try
             {

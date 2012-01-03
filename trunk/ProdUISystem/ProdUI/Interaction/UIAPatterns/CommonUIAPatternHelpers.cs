@@ -1,7 +1,6 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Windows.Automation;
-using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 

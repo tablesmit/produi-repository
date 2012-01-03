@@ -1,8 +1,7 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Windows.Automation;
-using ProdUI.Controls.Native;
-using ProdUI.Controls.Windows;
+using ProdUI.Adapters;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
@@ -20,7 +19,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// Current value of the control
         /// </returns>
-        public static double GetValueBridge(this IRangeValue extension, BaseProdControl control)
+        public static double GetValueBridge(this RangeValueAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -62,7 +61,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extension interface</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <param name="value">The value to set control to.</param>
-        public static void SetValueBridge(this IRangeValue extension, BaseProdControl control, double value)
+        public static void SetValueBridge(this RangeValueAdapter extension, BaseProdControl control, double value)
         {
             try
             {
@@ -106,7 +105,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// The maximum value of the control
         /// </returns>
-        public static double GetMaxValueBridge(this IRangeValue extension, BaseProdControl control)
+        public static double GetMaxValueBridge(this RangeValueAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -149,7 +148,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// The minimum value of the control.
         /// </returns>
-        public static double GetMinValueBridge(this IRangeValue extension, BaseProdControl control)
+        public static double GetMinValueBridge(this RangeValueAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -192,7 +191,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// A number indicating the increment of a large change
         /// </returns>
-        public static double GetLargeChangeBridge(this IRangeValue extension, BaseProdControl control)
+        public static double GetLargeChangeBridge(this RangeValueAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -232,7 +231,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// A number indicating the increment of a small change
         /// </returns>
-        public static double GetSmallChangeBridge(this IRangeValue extension, BaseProdControl control)
+        public static double GetSmallChangeBridge(this RangeValueAdapter extension, BaseProdControl control)
         {
             try
             {
