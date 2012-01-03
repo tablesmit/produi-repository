@@ -2,7 +2,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Automation;
-using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
@@ -19,7 +18,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// An array of header items
         /// </returns>
-        internal static AutomationElement[] GetColumnHeadersBridge(this ITable extension, BaseProdControl control)
+        internal static AutomationElement[] GetColumnHeadersBridge(this TableAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -61,7 +60,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// An array of header items
         /// </returns>
-        internal static AutomationElement[] GetRowHeadersBridge(this ITable extension, BaseProdControl control)
+        internal static AutomationElement[] GetRowHeadersBridge(this TableAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -99,7 +98,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// The primary direction of traversal.
         /// </returns>
-        internal static RowOrColumnMajor GetRowOrColumnMajorBridge(this ITable extension, BaseProdControl control)
+        internal static RowOrColumnMajor GetRowOrColumnMajorBridge(this TableAdapter extension, BaseProdControl control)
         {
             try
             {

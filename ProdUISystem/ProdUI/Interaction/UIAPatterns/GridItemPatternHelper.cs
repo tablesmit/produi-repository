@@ -2,7 +2,7 @@
 
 namespace ProdUI.Interaction.UIAPatterns
 {
-    class GridItemPatternHelper
+    internal static class GridItemPatternHelper
     {
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace ProdUI.Interaction.UIAPatterns
         /// <returns>
         /// returns an object, stored as an internal variable that represents the grid container
         /// </returns>
-        internal static object GetContainingGrid(AutomationElement control)
+        internal static AutomationElement GetContainingGrid(AutomationElement control)
         {
             GridItemPattern pat = (GridItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(GridItemPattern.Pattern, control);
             return pat.Current.ContainingGrid;

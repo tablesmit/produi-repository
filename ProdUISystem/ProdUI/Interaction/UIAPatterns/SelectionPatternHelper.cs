@@ -71,18 +71,6 @@ namespace ProdUI.Interaction.UIAPatterns
         }
 
         /// <summary>
-        /// Gets the number of items in a list.
-        /// </summary>
-        /// <param name="control">The UI Automation element</param>
-        /// <returns>
-        /// The item count
-        /// </returns>
-        internal static int ItemCount(AutomationElement control)
-        {
-            return Items(control).Count;
-        }
-
-        /// <summary>
         /// Gets the selected items.
         /// </summary>
         /// <param name="control">The UI Automation element</param>
@@ -93,77 +81,6 @@ namespace ProdUI.Interaction.UIAPatterns
         {
             SelectionPattern pattern = (SelectionPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionPattern.Pattern, control);
             return pattern.Current.GetSelection();
-        }
-
-        /// <summary>
-        /// Gets the number of selected items in a list.
-        /// </summary>
-        /// <param name="control">The UI Automation element</param>
-        /// <returns>
-        /// The selected item count
-        /// </returns>
-        internal static int SelectedItemCount(AutomationElement control)
-        {
-            return SelectedItems(control).Length;
-        }
-
-
-
-
-        /* Extended methods */
-
-        /// <summary>
-        /// Finds the index by item.
-        /// </summary>
-        /// <param name="control">The UI Automation element</param>
-        /// <param name="matchString">The match string.</param>
-        /// <returns>
-        /// The zero-based index of the supplied item, or -1 if item is not found
-        /// </returns>
-        internal static int FindIndexByItem(AutomationElement control, string matchString)
-        {
-            AutomationElementCollection elementCollection = GetListItems(control);
-
-            for (int i = 0; i < elementCollection.Count; i++)
-            {
-                if (matchString == elementCollection[i].Current.Name)
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
-        /// <summary>
-        /// Finds the item by zero-based index.
-        /// </summary>
-        /// <param name="control">The UI Automation element</param>
-        /// <param name="index">The zero-based index of the item to select.</param>
-        /// <returns>
-        /// The item at the specified index
-        /// </returns>
-        internal static AutomationElement FindItemByIndex(AutomationElement control, int index)
-        {
-            AutomationElementCollection elementCollection = GetListItems(control);
-            return elementCollection[index];
-        }
-
-        /// <summary>
-        /// Finds the item by its text.
-        /// </summary>
-        /// <param name="control">The UI Automation element</param>
-        /// <param name="itemText">The item text.</param>
-        /// <returns>
-        /// The element that matches the supplied text or null if item not found
-        /// </returns>
-        internal static AutomationElement FindItemByText(AutomationElement control, string itemText)
-        {
-            Condition propertyCondition = new PropertyCondition(AutomationElement.NameProperty, itemText, PropertyConditionFlags.IgnoreCase);
-
-            AutomationElement firstMatch = control.FindFirst(TreeScope.Descendants, propertyCondition);
-
-            return firstMatch;
         }
     }
 }

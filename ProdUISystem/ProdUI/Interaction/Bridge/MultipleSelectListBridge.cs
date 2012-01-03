@@ -3,13 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Automation;
-using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
-using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 using ProdUI.Verification;
-using ProdUI.Utility;
 
 namespace ProdUI.Interaction.Bridge
 {
@@ -21,7 +18,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <param name="index">The zero-based index of the item to select.</param>
-        internal static void AddToSelectionBridge(this IMultipleSelectionList extension, BaseProdControl control, int index)
+        internal static void AddToSelectionBridge(this SelectionItemAdapter extension, BaseProdControl control, int index)
         {
             try
             {
@@ -53,7 +50,7 @@ namespace ProdUI.Interaction.Bridge
             AutomationEventVerifier.Register(new EventRegistrationMessage(control, SelectionItemPattern.ElementAddedToSelectionEvent));
 
             LogController.ReceiveLogMessage(new LogMessage("Adding " + index));
-            SelectionItemPatternHelper.AddToSelection(control.UIAElement, index);
+            SelectionItemPatternHelper.AddToSelection(control.UIAElement);
         }
 
         /// <summary>
@@ -63,7 +60,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="index">Zero based index of the item.</param>
         private static void NativeAddToSelection(BaseProdControl control, int index)
         {
-            ProdListBoxNative.AddSelectedItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, index);
+            //NOTE: ProdListBoxNative.AddSelectedItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, index);
         }
 
         /// <summary>
@@ -72,7 +69,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <param name="itemText">The text of the item to select.</param>
-        internal static void AddToSelectionBridge(this IMultipleSelectionList extension, BaseProdControl control, string itemText)
+        internal static void AddToSelectionBridge(this SelectionItemAdapter extension, BaseProdControl control, string itemText)
         {
             try
             {
@@ -104,7 +101,7 @@ namespace ProdUI.Interaction.Bridge
             AutomationEventVerifier.Register(new EventRegistrationMessage(control, SelectionItemPattern.ElementAddedToSelectionEvent));
 
             LogController.ReceiveLogMessage(new LogMessage("Adding " + itemText));
-            SelectionItemPatternHelper.AddToSelection(control.UIAElement, itemText);
+            SelectionItemPatternHelper.AddToSelection(control.UIAElement);
         }
 
         /// <summary>
@@ -114,7 +111,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="itemText">The text of the item to select.</param>
         private static void NativeAddToSelection(BaseProdControl control, string itemText)
         {
-            ProdListBoxNative.AddSelectedItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, itemText);
+            //NOTE: ProdListBoxNative.AddSelectedItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, itemText);
         }
 
         /// <summary>
@@ -125,7 +122,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// A List of all the indexes of currently selected list items.
         /// </returns>
-        internal static Collection<int> GetSelectedIndexesBridge(this IMultipleSelectionList extension, BaseProdControl control)
+        internal static Collection<int> GetSelectedIndexesBridge(this SelectionItemAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -156,7 +153,7 @@ namespace ProdUI.Interaction.Bridge
         {
             if (!UiaCanSelectMultiple(control)) throw new ProdOperationException("Does not support multiple selection");
 
-            AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(control.UIAElement);
+            AutomationElement[] selectedItems = SelectionPatternHelper.SelectedItems(control.UIAElement);
             Collection<object> retList = new Collection<object> {
                                                         (selectedItems)
                                                     };
@@ -164,7 +161,7 @@ namespace ProdUI.Interaction.Bridge
 
             foreach (AutomationElement item in selectedItems)
             {
-                selectedIndexes.Add(SelectionItemPatternHelper.FindIndexByItem(control.UIAElement, item.Current.Name));
+                //NOTE: ADD selectedIndexes.Add(SelectionItemPatternHelper.FindIndexByItem(control.UIAElement, item.Current.Name));
             }
             LogController.ReceiveLogMessage(new LogMessage("Selected Indexes", retList));
             return selectedIndexes;
@@ -179,7 +176,7 @@ namespace ProdUI.Interaction.Bridge
         /// </returns>
         private static Collection<int> NativeGetSelectedIndexes(BaseProdControl control)
         {
-            return ProdListBoxNative.GetSelectedIndexesNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+            // NOTE return ProdListBoxNative.GetSelectedIndexesNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
         }
 
         /// <summary>
@@ -190,7 +187,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// A List of all currently selected list items
         /// </returns>
-        internal static Collection<string> GetSelectedItemsBridge(this IMultipleSelectionList extension, BaseProdControl control)
+        internal static Collection<string> GetSelectedItemsBridge(this SelectionItemAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -213,7 +210,7 @@ namespace ProdUI.Interaction.Bridge
         private static Collection<string> UiaGetSelectedItems(BaseProdControl control)
         {
             if (!UiaCanSelectMultiple(control)) throw new ProdOperationException("Does not support multiple selection");
-            AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(control.UIAElement);
+            AutomationElement[] selectedItems = SelectionPatternHelper.SelectedItems(control.UIAElement);
             Collection<string> retList = new Collection<string>();
             foreach (AutomationElement item in selectedItems)
             {
@@ -232,7 +229,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// The count of selected items
         /// </returns>
-        internal static int GetSelectedItemCountBridge(this IMultipleSelectionList extension, BaseProdControl control)
+        internal static int GetSelectedItemCountBridge(this SelectionItemAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -246,21 +243,23 @@ namespace ProdUI.Interaction.Bridge
             {
                 throw new ProdOperationException(err);
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException err)
             {
-                return NativeGetSelectedItemCount(control);
+                throw new ProdOperationException(err);
+                // NOTE return NativeGetSelectedItemCount(control);
             }
         }
 
-        private static int NativeGetSelectedItemCount(BaseProdControl control)
-        {
-            return ProdListBoxNative.GetSelectedItemCountNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
-        }
+        //NOTE Native
+        //private static int NativeGetSelectedItemCount(BaseProdControl control)
+        //{
+        //    return ProdListBoxNative.GetSelectedItemCountNative((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+        //}
 
         private static int UiaGetSelectedItemCount(BaseProdControl control)
         {
             if (!UiaCanSelectMultiple(control)) throw new ProdOperationException("Does not support multiple selection");
-            AutomationElement[] selectedItems = SelectionPatternHelper.GetSelection(control.UIAElement);
+            AutomationElement[] selectedItems = SelectionPatternHelper.SelectedItems(control.UIAElement);
             LogController.ReceiveLogMessage(new LogMessage("Count: " + selectedItems.Length));
             return selectedItems.Length;
         }
@@ -271,7 +270,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <param name="index">The index of the item to deselect.</param>
-        internal static void RemoveFromSelectionBridge(this IMultipleSelectionList extension, BaseProdControl control, int index)
+        internal static void RemoveFromSelectionBridge(this SelectionItemAdapter extension, BaseProdControl control, int index)
         {
             try
             {
@@ -285,16 +284,17 @@ namespace ProdUI.Interaction.Bridge
             {
                 throw new ProdOperationException(err);
             }
-            catch (InvalidOperationException)
-            {
-                NativeRemoveFromSelection(control, index);
-            }
+            //catch (InvalidOperationException)
+            //{
+            //    NativeRemoveFromSelection(control, index);
+            //}
         }
 
-        private static void NativeRemoveFromSelection(BaseProdControl control, int index)
-        {
-            ProdListBoxNative.DeSelectItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, index);
-        }
+        //Note Native
+        //private static void NativeRemoveFromSelection(BaseProdControl control, int index)
+        //{
+        //    ProdListBoxNative.DeSelectItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, index);
+        //}
 
         private static void UiaRemoveFromSelection(BaseProdControl control, int index)
         {
@@ -312,7 +312,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <param name="itemText">The text of the item to deselect.</param>
-        internal static void RemoveFromSelectionBridge(this IMultipleSelectionList extension, BaseProdControl control, string itemText)
+        internal static void RemoveFromSelectionBridge(this SelectionItemAdapter extension, BaseProdControl control, string itemText)
         {
             try
             {
@@ -326,16 +326,17 @@ namespace ProdUI.Interaction.Bridge
             {
                 throw new ProdOperationException(err);
             }
-            catch (InvalidOperationException)
-            {
-                NativeRemoveFromSelection(control, itemText);
-            }
+            //catch (InvalidOperationException)
+            //{
+            //    NativeRemoveFromSelection(control, itemText);
+            //}
         }
 
-        private static void NativeRemoveFromSelection(BaseProdControl control, string itemText)
-        {
-            ProdListBoxNative.DeSelectItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, itemText);
-        }
+        //Note Native
+        //private static void NativeRemoveFromSelection(BaseProdControl control, string itemText)
+        //{
+        //    ProdListBoxNative.DeSelectItemNative((IntPtr)control.UIAElement.Current.NativeWindowHandle, itemText);
+        //}
 
         private static void UiaRemoveFromSelection(BaseProdControl control, string itemText)
         {
@@ -352,7 +353,7 @@ namespace ProdUI.Interaction.Bridge
         /// </summary>
         /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
-        internal static void SelectAllBridge(this IMultipleSelectionList extension, BaseProdControl control)
+        internal static void SelectAllBridge(this SelectionItemAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -366,16 +367,17 @@ namespace ProdUI.Interaction.Bridge
             {
                 throw new ProdOperationException(err);
             }
-            catch (InvalidOperationException)
-            {
-                NativeSelectAll(control);
-            }
+            //catch (InvalidOperationException)
+            //{
+            //    NativeSelectAll(control);
+            //}
         }
 
-        private static void NativeSelectAll(BaseProdControl control)
-        {
-            ProdListBoxNative.SelectAll((IntPtr)control.UIAElement.Current.NativeWindowHandle);
-        }
+        //Note Native
+        //private static void NativeSelectAll(BaseProdControl control)
+        //{
+        //    ProdListBoxNative.SelectAll((IntPtr)control.UIAElement.Current.NativeWindowHandle);
+        //}
 
         private static void UiaSelectAll(BaseProdControl control)
         {
@@ -393,7 +395,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <param name="indexes">The indexes to select.</param>
-        internal static void SetSelectedIndexesBridge(this IMultipleSelectionList extension, BaseProdControl control, Collection<int> indexes)
+        internal static void SetSelectedIndexesBridge(this SelectionItemAdapter extension, BaseProdControl control, Collection<int> indexes)
         {
             try
             {
@@ -440,7 +442,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
         /// <param name="items">The text of the items to select.</param>
-        internal static void SetSelectedItemsBridge(this IMultipleSelectionList extension, BaseProdControl control, Collection<string> items)
+        internal static void SetSelectedItemsBridge(this SelectionItemAdapter extension, BaseProdControl control, Collection<string> items)
         {
             try
             {
@@ -478,7 +480,7 @@ namespace ProdUI.Interaction.Bridge
             }
         }
 
-        internal static bool CanSelectMultipleBridge(this IMultipleSelectionList extension, BaseProdControl control)
+        internal static bool CanSelectMultipleBridge(this SelectionItemAdapter extension, BaseProdControl control)
         {
             return UiaCanSelectMultiple(control);
         }

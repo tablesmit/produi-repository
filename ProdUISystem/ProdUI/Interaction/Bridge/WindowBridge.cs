@@ -2,8 +2,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Automation;
-using ProdUI.Controls.Native;
-using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
@@ -18,7 +16,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extended interface.</param>
         /// <param name="baseControl">The ProdWindow.</param>
         /// <returns>the <see cref="WindowVisualState"/></returns>
-        internal static WindowVisualState GetWindowVisualStateBridge(this IWindow extension, ProdWindow baseControl)
+        internal static WindowVisualState GetWindowVisualStateBridge(this WindowAdapter extension, ProdWindow baseControl)
         {
             try
             {
@@ -58,7 +56,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         ///   <c>true</c> if this instance is modal; otherwise, <c>false</c>.
         /// </returns>
-        internal static bool GetIsModalBridge(this IWindow extension, ProdWindow baseControl)
+        internal static bool GetIsModalBridge(this WindowAdapter extension, ProdWindow baseControl)
         {
             try
             {
@@ -93,7 +91,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         ///   <c>true</c> if topmost; otherwise, <c>false</c>.
         /// </returns>
-        internal static bool GetIsTopmostBridge(this IWindow extension, ProdWindow baseControl)
+        internal static bool GetIsTopmostBridge(this WindowAdapter extension, ProdWindow baseControl)
         {
             try
             {
@@ -133,7 +131,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         /// The WindowState
         /// </returns>
-        internal static WindowInteractionState GetWindowStateBridge(this IWindow extension, ProdWindow baseControl)
+        internal static WindowInteractionState GetWindowStateBridge(this WindowAdapter extension, ProdWindow baseControl)
         {
             try
             {
@@ -166,7 +164,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extended interface.</param>
         /// <param name="baseControl">The base control.</param>
         /// <returns></returns>
-        internal static string GetTitleBridge(this IWindow extension, ProdWindow baseControl)
+        internal static string GetTitleBridge(this WindowAdapter extension, ProdWindow baseControl)
         {
             try
             {
@@ -204,7 +202,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extended interface.</param>
         /// <param name="baseControl">The base control.</param>
         /// <param name="title">The title.</param>
-        internal static void SetTitleBridge(this IWindow extension, ProdWindow baseControl, string title)
+        internal static void SetTitleBridge(this WindowAdapter extension, ProdWindow baseControl, string title)
         {
             try
             {
@@ -235,7 +233,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extended interface.</param>
         /// <param name="baseControl">The base control.</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
-        internal static void MinimizeWindowBridge(this IWindow extension, ProdWindow baseControl)
+        internal static void MinimizeWindowBridge(this WindowAdapter extension, ProdWindow baseControl)
         {
             try
             {
@@ -272,7 +270,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extended interface.</param>
         /// <param name="baseControl">The base control.</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
-        internal static void MaximizeWindowBridge(this IWindow extension, ProdWindow baseControl)
+        internal static void MaximizeWindowBridge(this WindowAdapter extension, ProdWindow baseControl)
         {
             try
             {
@@ -310,7 +308,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="baseControl">The base control.</param>
         /// <exception cref="ProdOperationException">Thrown if element is no longer available</exception>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        internal static void RestoreWindowBridge(this IWindow extension, ProdWindow baseControl)
+        internal static void RestoreWindowBridge(this WindowAdapter extension, ProdWindow baseControl)
         {
             try
             {
@@ -347,7 +345,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extended interface.</param>
         /// <param name="baseControl">The base control.</param>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        internal static void CloseWindowBridge(this IWindow extension, ProdWindow baseControl)
+        internal static void CloseWindowBridge(this WindowAdapter extension, ProdWindow baseControl)
         {
             try
             {
@@ -387,7 +385,7 @@ namespace ProdUI.Interaction.Bridge
         /// <returns>
         ///   <c>true</c> if the window has entered the idle state. <c>false</c> if the timeout occurred
         /// </returns>
-        internal static bool WaitForInputIdleBridge(this IWindow extension, ProdWindow baseControl, int delay)
+        internal static bool WaitForInputIdleBridge(this WindowAdapter extension, ProdWindow baseControl, int delay)
         {
             try
             {
@@ -421,7 +419,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="baseControl">The base control.</param>
         /// <param name="width">The new width of the window, in pixels</param>
         /// <param name="height">The new height of the window, in pixels</param>
-        internal static void ResizeWindowBridge(this IWindow extension, ProdWindow baseControl, double width, double height)
+        internal static void ResizeWindowBridge(this WindowAdapter extension, ProdWindow baseControl, double width, double height)
         {
             try
             {
@@ -466,7 +464,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="baseControl">The base control.</param>
         /// <param name="x">Absolute screen coordinates of the left side of the window</param>
         /// <param name="y">Absolute screen coordinates of the top of the window</param>
-        internal static void MoveWindowBridge(this IWindow extension, ProdWindow baseControl, double x, double y)
+        internal static void MoveWindowBridge(this WindowAdapter extension, ProdWindow baseControl, double x, double y)
         {
             try
             {
@@ -511,7 +509,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="baseControl">The base control.</param>
         /// <param name="degrees">The number of degrees to rotate the element. A positive number rotates clockwise;
         /// a negative number rotates counterclockwise</param>
-        internal static void RotateWindowBridge(this IWindow extension, ProdWindow baseControl, double degrees)
+        internal static void RotateWindowBridge(this WindowAdapter extension, ProdWindow baseControl, double degrees)
         {
             try
             {
@@ -545,7 +543,7 @@ namespace ProdUI.Interaction.Bridge
         /// </summary>
         /// <param name="extension">The extended interface.</param>
         /// <param name="baseControl">The base control.</param>
-        internal static void ActivateWindowBridge(this IWindow extension, ProdWindow baseControl)
+        internal static void ActivateWindowBridge(this WindowAdapter extension, ProdWindow baseControl)
         {
             try
             {

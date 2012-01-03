@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Automation;
-using ProdUI.Controls.Windows;
 
 namespace ProdUI.Interaction.NativePatterns
 {

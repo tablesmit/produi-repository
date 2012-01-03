@@ -11,7 +11,7 @@ namespace ProdUI.Interaction
     /// <summary>
     /// Provides mechanisms to work with container windows
     /// </summary>
-    public sealed class ProdWindow : IWindow
+    public sealed class ProdWindow : WindowAdapter
     {
         internal IntPtr NativeHandle;
         internal AutomationElement UIAElement;

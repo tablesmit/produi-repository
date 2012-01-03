@@ -1,7 +1,7 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Windows.Automation;
-using ProdUI.Controls.Windows;
+using ProdUI.Adapters;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.Native;
 using ProdUI.Interaction.UIAPatterns;
@@ -19,7 +19,7 @@ namespace ProdUI.Interaction.Bridge
         /// </summary>
         /// <param name="extension">The extension interface.</param>
         /// <param name="control">The base ProdUI control.</param>
-        internal static void ClickBridge(this IInvoke extension, BaseProdControl control)
+        internal static void ClickBridge(this InvokeAdapter extension, BaseProdControl control)
         {
             try
             {

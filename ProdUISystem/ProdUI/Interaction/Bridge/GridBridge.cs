@@ -1,7 +1,7 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Windows.Automation;
-using ProdUI.Controls.Windows;
+using ProdUI.Adapters;
 using ProdUI.Exceptions;
 using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
@@ -16,7 +16,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extended interface.</param>
         /// <param name="control">The UI Automation element</param>
         /// <returns>The total number of columns.</returns>
-        internal static int GetColumnCountBridge(this IGrid extension, BaseProdControl control)
+        internal static int GetColumnCountBridge(this GridAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="extension">The extended interface.</param>
         /// <param name="control">The UI Automation element</param>
         /// <returns>The total number of rows.</returns>
-        internal static int GetRowCountBridge(this IGrid extension, BaseProdControl control)
+        internal static int GetRowCountBridge(this GridAdapter extension, BaseProdControl control)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace ProdUI.Interaction.Bridge
         /// <param name="row">The row.</param>
         /// <param name="column">The column.</param>
         /// <returns></returns>
-        internal static AutomationElement GetItemBridge(this IGrid extension, BaseProdControl control, int row, int column)
+        internal static AutomationElement GetItemBridge(this GridAdapter extension, BaseProdControl control, int row, int column)
         {
             try
             {
