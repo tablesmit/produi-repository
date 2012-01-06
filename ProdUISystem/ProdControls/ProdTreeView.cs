@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
-using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 
 /* Notes
@@ -25,7 +24,7 @@ using ProdUI.Logging;
  * IToggleProvider 
  */
 
-namespace ProdUI.Controls.Windows
+namespace ProdControls
 {
     /// <summary>
     ///     Methods to work with TreeView controls using the UI Automation framework

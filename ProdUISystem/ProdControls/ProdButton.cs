@@ -1,5 +1,7 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
+using ProdUI.Adapters;
+using ProdUI.Interaction;
 using ProdUI.Interaction.Bridge;
 using ProdUI.Logging;
 
@@ -9,12 +11,12 @@ using ProdUI.Logging;
  * (IToggleProvider) -> ToggleButton
  */
 
-namespace ProdUI.Controls.Windows
+namespace ProdControls
 {
     /// <summary>
     /// Methods to work with Button controls using the UI Automation framework
     /// </summary>
-    public sealed class ProdButton : BaseProdControl, IInvoke
+    public sealed class ProdButton : BaseProdControl, InvokeAdapter
     {
         #region Constructors
 
@@ -57,9 +59,9 @@ namespace ProdUI.Controls.Windows
         /// Performs a "Click" on the current ProdButton
         /// </summary>
         [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Minimum)]
-        public void Click()
+        public void Invoke()
         {
-            this.ClickBridge(this);
+            this.InvokeHook(this);
         }
     }
 }

@@ -2,11 +2,10 @@
 using System;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
-using ProdUI.Interaction.Bridge;
 using ProdUI.Logging;
 using ProdUI.Utility;
 
-namespace ProdUI.Interaction
+namespace ProdUI.Adapters
 {
     /// <summary>
     /// Provides mechanisms to work with container windows

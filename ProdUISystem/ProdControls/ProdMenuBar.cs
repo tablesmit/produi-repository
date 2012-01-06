@@ -2,12 +2,11 @@
 // I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 
 using System.Windows.Automation;
-using ProdUI.Interaction.Bridge;
 using ProdUI.Logging;
 
 //Note CheckItem - if menu item supports check state
 
-namespace ProdUI.Controls.Windows
+namespace ProdControls
 {
     /// <summary>
     /// Handles the MenuBar and MenuItem Control Types

@@ -1,6 +1,6 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System.Windows.Automation;
-using ProdUI.Interaction;
+using ProdUI.Adapters;
 
 namespace ProdUI.Verification
 {

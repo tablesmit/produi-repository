@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Windows.Automation;
 using System.Windows.Automation.Text;
 using ProdUI.Exceptions;
-using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 
 /* Notes
@@ -22,7 +21,7 @@ using ProdUI.Logging;
 
 //TODO: In Progress
 
-namespace ProdUI.Controls.Windows
+namespace ProdControls
 {
     /// <summary>
     ///     Methods to work with Text (Label) controls using the UI Automation framework

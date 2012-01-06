@@ -3,7 +3,7 @@ using System;
 
 //TODO: Not Implemented
 
-namespace ProdUI.Controls.Windows
+namespace ProdControls
 {
     internal sealed class ProdCalendar : BaseProdControl
     {

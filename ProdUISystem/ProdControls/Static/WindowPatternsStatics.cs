@@ -3,12 +3,9 @@ using System;
 using System.ComponentModel;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
-using ProdUI.Interaction.Native;
-using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
-using ProdUI.Utility;
 
-namespace ProdUI.Controls.Static
+namespace ProdControls.Static
 {
     public static partial class Prod
     {

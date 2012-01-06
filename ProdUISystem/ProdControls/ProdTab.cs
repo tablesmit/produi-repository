@@ -2,9 +2,8 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Automation;
-using ProdUI.Interaction.Bridge;
 
-namespace ProdUI.Controls.Windows
+namespace ProdControls
 {
     /// <summary>
     /// Methods to work with Tab controls using the UI Automation framework

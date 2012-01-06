@@ -4,15 +4,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Automation;
-using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
-using ProdUI.Interaction.Bridge;
-using ProdUI.Interaction.Native;
-using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
-using ProdUI.Utility;
 
-namespace ProdUI.Controls.Static
+namespace ProdControls.Static
 {
     /// <summary>
     /// Provides access to controls using static methods

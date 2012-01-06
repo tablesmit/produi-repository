@@ -4,11 +4,9 @@
 using System;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
-using ProdUI.Interaction.Native;
-using ProdUI.Interaction.UIAPatterns;
 using ProdUI.Logging;
 
-namespace ProdUI.Controls.Windows
+namespace ProdControls
 {
     /// <summary>
     ///     This handles items with ControlType.Text (labels)

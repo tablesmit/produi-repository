@@ -1,16 +1,12 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
-using System.Drawing;
 using System.Threading;
 using System.Windows.Automation;
-using System.Windows.Forms;
-using ProdUI.Controls.Windows;
 using ProdUI.Exceptions;
-using ProdUI.Interaction.Native;
 using ProdUI.Logging;
 using ProdUI.Utility;
 
-namespace ProdUI.Controls.Static
+namespace ProdControls.Static
 {
     /// <summary>
     /// Functions that are available to most UI Elements
