@@ -125,39 +125,40 @@
     <Compile Include="Adapters\ValueAdapter.cs" />
     <Compile Include="Adapters\WindowAdapter.cs" />
     <Compile Include="Adapters\ProdWindow.cs" />
-    <Compile Include="Interaction\Bridge\GridBridge.cs" />
-    <Compile Include="Interaction\Bridge\GridItemBridge.cs" />
-    <Compile Include="Interaction\Bridge\MenuBridge.cs" />
-    <Compile Include="Interaction\Bridge\SelectionItemBridge.cs" />
-    <Compile Include="Interaction\Bridge\TableBridge.cs" />
-    <Compile Include="Interaction\NativePatterns\NativeDockHelper.cs" />
-    <Compile Include="Interaction\NativePatterns\NativeExpandCollapseHelper.cs" />
-    <Compile Include="Interaction\NativePatterns\NativeGridHelper.cs" />
-    <Compile Include="Interaction\NativePatterns\NativeInvokeHelper.cs" />
-    <Compile Include="Interaction\NativePatterns\NativeRangeValueHelper.cs" />
-    <Compile Include="Interaction\NativePatterns\NativeScrollHelper.cs" />
-    <Compile Include="Interaction\NativePatterns\NativeSelectionHelper.cs" />
-    <Compile Include="Interaction\NativePatterns\NativeSelectionItemHelper.cs" />
-    <Compile Include="Interaction\NativePatterns\NativeTableHelper.cs" />
-    <Compile Include="Interaction\NativePatterns\NativeToggleHelper.cs" />
-    <Compile Include="Interaction\NativePatterns\NativeValueHelper.cs" />
-    <Compile Include="Interaction\UIAPatterns\GridItemPatternHelper.cs" />
-    <Compile Include="Interaction\UIAPatterns\ItemContainerPatternHelper.cs" />
-    <Compile Include="Interaction\UIAPatterns\MultipleViewPatternHelper.cs" />
-    <Compile Include="Interaction\UIAPatterns\TableItemPatternHelper.cs" />
+    <Compile Include="Bridge\ExpandCollapseBridge.cs" />
+    <Compile Include="Bridge\GridBridge.cs" />
+    <Compile Include="Bridge\GridItemBridge.cs" />
+    <Compile Include="Bridge\MenuBridge.cs" />
+    <Compile Include="Bridge\NativePatterns\SendMessageOverloads.cs" />
+    <Compile Include="Bridge\SelectionItemBridge.cs" />
+    <Compile Include="Bridge\TableBridge.cs" />
+    <Compile Include="Bridge\NativePatterns\NativeDockHelper.cs" />
+    <Compile Include="Bridge\NativePatterns\NativeExpandCollapseHelper.cs" />
+    <Compile Include="Bridge\NativePatterns\NativeGridHelper.cs" />
+    <Compile Include="Bridge\NativePatterns\NativeInvokeHelper.cs" />
+    <Compile Include="Bridge\NativePatterns\NativeRangeValueHelper.cs" />
+    <Compile Include="Bridge\NativePatterns\NativeScrollHelper.cs" />
+    <Compile Include="Bridge\NativePatterns\NativeSelectionHelper.cs" />
+    <Compile Include="Bridge\NativePatterns\NativeSelectionItemHelper.cs" />
+    <Compile Include="Bridge\NativePatterns\NativeTableHelper.cs" />
+    <Compile Include="Bridge\NativePatterns\NativeToggleHelper.cs" />
+    <Compile Include="Bridge\NativePatterns\NativeValueHelper.cs" />
+    <Compile Include="Bridge\TableItemBridge.cs" />
+    <Compile Include="Bridge\UIAPatterns\GridItemPatternHelper.cs" />
+    <Compile Include="Bridge\UIAPatterns\ItemContainerPatternHelper.cs" />
+    <Compile Include="Bridge\UIAPatterns\MultipleViewPatternHelper.cs" />
+    <Compile Include="Bridge\UIAPatterns\TableItemPatternHelper.cs" />
     <Compile Include="Logging\ProdLoggerInputParameters.cs" />
     <Compile Include="Logging\LoggingConfiguration.cs" />
     <Compile Include="Logging\ProdLoggerParameters.cs" />
-    <Compile Include="Interaction\Bridge\InvokeBridge.cs" />
-    <Compile Include="Interaction\Bridge\RangeValueBridge.cs" />
-    <Compile Include="Interaction\Bridge\SelectionBridge.cs" />
-    <Compile Include="Interaction\Bridge\SingleSelectListBridge.cs" />
-    <Compile Include="Interaction\Bridge\ToggleBridge.cs" />
-    <Compile Include="Interaction\Bridge\WindowBridge.cs" />
-    <Compile Include="Interaction\UIAPatterns\SelectionItemPatternHelper.cs" />
+    <Compile Include="Bridge\InvokeBridge.cs" />
+    <None Include="Bridge\RangeValueBridge.cs" />
+    <Compile Include="Bridge\SelectionBridge.cs" />
+    <Compile Include="Bridge\ToggleBridge.cs" />
+    <Compile Include="Bridge\WindowBridge.cs" />
+    <Compile Include="Bridge\UIAPatterns\SelectionItemPatternHelper.cs" />
     <Compile Include="Logging\LogController.cs" />
-    <Compile Include="Interaction\Bridge\MultipleSelectListBridge.cs" />
-    <Compile Include="Interaction\Bridge\ValueBridge.cs" />
+    <Compile Include="Bridge\ValueBridge.cs" />
     <Compile Include="Utility\MessageConstants\ComboBoxConstants.cs" />
     <Compile Include="Utility\MessageConstants\InternalStructs.cs" />
     <Compile Include="Utility\MessageConstants\ListBoxConstants.cs" />
@@ -171,11 +172,11 @@
     <Compile Include="Utility\MessageConstants\WindowConstants.cs" />
     <Compile Include="Utility\NativeMethods.cs" />
     <Compile Include="Verification\AutomationEventVerifier.cs" />
-    <Compile Include="Interaction\UIAPatterns\DockPatternHelper.cs" />
-    <Compile Include="Interaction\UIAPatterns\GridPatternHelper.cs" />
-    <Compile Include="Interaction\UIAPatterns\ScrollPatternHelper.cs" />
-    <Compile Include="Interaction\UIAPatterns\SelectionPatternHelper.cs" />
-    <Compile Include="Interaction\UIAPatterns\TextPatternHelper.cs" />
+    <Compile Include="Bridge\UIAPatterns\DockPatternHelper.cs" />
+    <Compile Include="Bridge\UIAPatterns\GridPatternHelper.cs" />
+    <Compile Include="Bridge\UIAPatterns\ScrollPatternHelper.cs" />
+    <Compile Include="Bridge\UIAPatterns\SelectionPatternHelper.cs" />
+    <Compile Include="Bridge\UIAPatterns\TextPatternHelper.cs" />
     <Compile Include="Verification\EventListener.cs" />
     <Compile Include="Verification\EventRegistrationMessage.cs" />
     <Compile Include="Exceptions\ProdVerificationException.cs" />
@@ -184,16 +185,16 @@
     <Compile Include="Logging\ProdLogger.cs" />
     <Compile Include="Logging\ProdLoggingAttribute.cs" />
     <Compile Include="Logging\ILogTarget.cs" />
-    <Compile Include="Interaction\UIAPatterns\ExpandCollapseHelper.cs" />
-    <Compile Include="Interaction\UIAPatterns\CommonUIAPatternHelpers.cs" />
-    <Compile Include="Interaction\UIAPatterns\RangeValuePatternHelper.cs" />
-    <Compile Include="Interaction\UIAPatterns\TablePatternHelper.cs" />
-    <Compile Include="Interaction\UIAPatterns\TransformPatternHelper.cs" />
-    <Compile Include="Interaction\UIAPatterns\WindowPatternHelper.cs" />
+    <Compile Include="Bridge\UIAPatterns\ExpandCollapseHelper.cs" />
+    <Compile Include="Bridge\UIAPatterns\CommonUIAPatternHelpers.cs" />
+    <Compile Include="Bridge\UIAPatterns\RangeValuePatternHelper.cs" />
+    <Compile Include="Bridge\UIAPatterns\TablePatternHelper.cs" />
+    <Compile Include="Bridge\UIAPatterns\TransformPatternHelper.cs" />
+    <Compile Include="Bridge\UIAPatterns\WindowPatternHelper.cs" />
     <Compile Include="Utility\ControlTree.cs" />
-    <Compile Include="Interaction\UIAPatterns\InvokePatternHelper.cs" />
-    <Compile Include="Interaction\UIAPatterns\TogglePatternHelper.cs" />
-    <Compile Include="Interaction\UIAPatterns\ValuePatternHelper.cs" />
+    <Compile Include="Bridge\UIAPatterns\InvokePatternHelper.cs" />
+    <Compile Include="Bridge\UIAPatterns\TogglePatternHelper.cs" />
+    <Compile Include="Bridge\UIAPatterns\ValuePatternHelper.cs" />
     <Compile Include="Utility\InternalUtilities.cs" />
     <Compile Include="Exceptions\ProdOperationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -227,7 +228,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildAction="Build" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_IncrementBeforeBuild="False" />
+      <UserProperties BuildVersion_IncrementBeforeBuild="False" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_BuildAction="Build" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

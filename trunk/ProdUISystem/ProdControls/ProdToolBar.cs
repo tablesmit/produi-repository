@@ -13,7 +13,7 @@ using System;
 
 //TODO: Not Implemented
 
-namespace ProdUI.Controls.Windows
+namespace ProdControls
 {
     /// <summary>
     /// Identifies a toolbar, such as the control that contains a set of command buttons in an application window

@@ -1,18 +1,17 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Automation;
-using ProdUI.Exceptions;
-using ProdUI.Interaction.Bridge;
+using ProdUI.Adapters;
+using ProdUI.Interaction;
 using ProdUI.Logging;
 
-namespace ProdUI.Controls.Windows
+namespace ProdControls
 {
     /// <summary>
     /// Methods to work with ListBox controls using the UI Automation framework
     /// </summary>
-    public sealed class ProdList : BaseProdControl, ISingleSelectList, IMultipleSelectionList
+    public sealed class ProdList : BaseProdControl, SelectionAdapter
     {
         #region Constructors
 
@@ -60,7 +59,7 @@ namespace ProdUI.Controls.Windows
         /// </value>
         public bool CanSelectMultiple
         {
-            get { return this.CanSelectMultipleBridge(this); }
+            get { return true; }
         }
 
         /// <summary>
@@ -102,18 +101,18 @@ namespace ProdUI.Controls.Windows
             set { this.SetSelectedIndexesBridge(this, value); }
         }
 
-        /// <summary>
-        /// Gets or sets the selected items.
-        /// </summary>
-        /// <value>
-        /// The selected items.
-        /// </value>
-        [ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
-        public Collection<string> SelectedItems
-        {
-            get { return this.GetSelectedItemsBridge(this); }
-            set { this.SetSelectedItemsBridge(this, value); }
-        }
+        ///// <summary>
+        ///// Gets or sets the selected items.
+        ///// </summary>
+        ///// <value>
+        ///// The selected items.
+        ///// </value>
+        //[ProdLogging(LoggingLevels.Prod, VerbositySupport = LoggingVerbosity.Maximum)]
+        //public Collection<string> SelectedItems
+        //{
+        //    get { return this.GetSelectedItemsBridge(this); }
+        //    set { this.SetSelectedItemsBridge(this, value); }
+        //}
 
         /// <summary>
         /// Gets the number of items in the List control
@@ -204,5 +203,21 @@ namespace ProdUI.Controls.Windows
             this.SelectAllBridge(this);
         }
 
+
+
+        public bool IsSelectionRequired
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public AutomationElementCollection ListItems
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public AutomationElement[] SelectedItems
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

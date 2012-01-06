@@ -5,7 +5,7 @@ using System.Windows.Automation;
 using ProdUI.Exceptions;
 using ProdUI.Utility;
 
-namespace ProdUI.Interaction
+namespace ProdUI.Adapters
 {
     /// <summary>
     ///     Provides a base for all ProdUI elements

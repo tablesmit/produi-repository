@@ -5,14 +5,12 @@ namespace ProdUI.Adapters
     public interface DockAdapter
     {
         /// <summary>
-        /// Gets the dock position.
+        /// Gets or sets the dock position within a docking container.
         /// </summary>
-        DockPosition DockPosition { get; }
+        /// <value>
+        /// The dock position.
+        /// </value>
+        DockPosition DockPosition { get; set; }
 
-        /// <summary>
-        /// Docks the control within a docking container.
-        /// </summary>
-        /// <param name="dockPosition">The dock position.</param>
-        void SetDockPosition(DockPosition dockPosition);
     }
 }

@@ -2,9 +2,9 @@
 using System.Windows.Automation;
 
 
-namespace ProdUI.Interaction.Bridge
+namespace ProdUI.Adapters
 {
-    internal interface SelectionAdapter
+    public interface SelectionAdapter
     {
         /// <summary>
         /// Gets a value that specifies whether the container allows more than one child element to be selected concurrently.

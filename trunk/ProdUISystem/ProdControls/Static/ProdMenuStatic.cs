@@ -1,13 +1,11 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Automation;
 using ProdUI.Exceptions;
-using ProdUI.Interaction.UIAPatterns;
-using System.Collections.ObjectModel;
 
-namespace ProdUI.Controls.Static
+namespace ProdControls.Static
 {
     public static partial class Prod
     {

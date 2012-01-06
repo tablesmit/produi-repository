@@ -1,7 +1,7 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System.Windows.Automation;
 
-namespace ProdUI.Interaction.Bridge
+namespace ProdUI.Adapters
 {
     public interface ToggleAdapter
     {
@@ -9,10 +9,9 @@ namespace ProdUI.Interaction.Bridge
         /// Gets or sets the ToggleState of the control.
         /// </summary>
         /// <value>
-        /// The ToggleState to set.
+        /// The <see cref="ToggleState"/> to set.
         /// </value>
         ToggleState ToggleState { get; set; }
-
 
         /// <summary>
         /// Toggles this control to the next ToggleState
