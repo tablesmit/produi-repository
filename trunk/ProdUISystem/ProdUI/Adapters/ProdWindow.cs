@@ -1,6 +1,7 @@
 ﻿// License Rider: I really don't care how you use this code, or if you give credit. Just don't blame me for any damage you do
 using System;
 using System.Windows.Automation;
+using ProdUI.Bridge;
 using ProdUI.Exceptions;
 using ProdUI.Logging;
 using ProdUI.Utility;
@@ -88,7 +89,6 @@ namespace ProdUI.Adapters
 
         #endregion Constructors
 
-
         /// <summary>
         /// Gets whether the current window is modal or not
         /// </summary>
@@ -144,8 +144,6 @@ namespace ProdUI.Adapters
         {
             get { return this.GetWindowStateBridge(this); }
         }
-
-
 
         /// <summary>
         /// Register to make a window the active window.

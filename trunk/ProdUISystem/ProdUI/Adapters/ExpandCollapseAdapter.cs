@@ -1,6 +1,4 @@
-﻿using System.Windows.Automation;
-
-namespace ProdUI.Adapters
+﻿namespace ProdUI.Adapters
 {
     /// <summary>
     /// Represents controls that visually expand to display content and collapse to hide content.
@@ -25,6 +23,6 @@ namespace ProdUI.Adapters
         /// <value>
         /// The state of the control.
         /// </value>
-        ExpandCollapseState ExpandCollapseState { get; }
+        System.Windows.Automation.ExpandCollapseState ExpandCollapseState { get; }
     }
 }

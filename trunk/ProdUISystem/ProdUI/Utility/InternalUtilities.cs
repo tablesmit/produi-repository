@@ -11,8 +11,9 @@ using System.Text;
 using System.Threading;
 using System.Windows.Automation;
 using System.Windows.Forms;
+using ProdUI.Adapters;
+using ProdUI.Bridge.NativePatterns;
 using ProdUI.Exceptions;
-using ProdUI.Interaction;
 
 namespace ProdUI.Utility
 {
@@ -377,6 +378,19 @@ namespace ProdUI.Utility
             finalAccel += ")";
 
             return finalAccel;
+        }
+
+        internal static RECT RectangleToRECT(Rectangle rectangle)
+        {
+            RECT r = new RECT
+            {
+                Left = rectangle.Left,
+                Bottom = rectangle.Bottom,
+                Right = rectangle.Right,
+                Top = rectangle.Top
+            };
+
+            return r;
         }
 
         #endregion Conversion Methods

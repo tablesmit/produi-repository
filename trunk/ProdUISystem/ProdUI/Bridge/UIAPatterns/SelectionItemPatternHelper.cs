@@ -8,30 +8,10 @@ namespace ProdUI.Bridge.UIAPatterns
     /// </summary>
     internal static class SelectionItemPatternHelper
     {
-        #region Search Conditions
-
-        /// <summary>
-        /// Determines if element is a content element
-        /// </summary>
-        private static readonly PropertyCondition ConditionContent = new PropertyCondition(AutomationElement.IsContentElementProperty, true);
-
-        /// <summary>
-        /// Used to determine items that are NOT selected
-        /// </summary>
-        private static readonly PropertyCondition ConditionNotSelected = new PropertyCondition(SelectionItemPattern.IsSelectedProperty, false);
-
-        /// <summary>
-        /// Used to determine selected items
-        /// </summary>
-        private static readonly PropertyCondition ConditionIsSelected = new PropertyCondition(SelectionItemPattern.IsSelectedProperty, true);
-
-        #endregion Search Conditions
-
         /// <summary>
         /// Adds to selection in a multi-select list.
         /// </summary>
         /// <param name="control">The UI Automation element</param>
-        /// <param name="index">The index.</param>
         internal static void AddToSelection(AutomationElement control)
         {
             SelectionItemPattern pattern = (SelectionItemPattern)CommonUIAPatternHelpers.CheckPatternSupport(SelectionItemPattern.Pattern, control);
@@ -71,13 +51,6 @@ namespace ProdUI.Bridge.UIAPatterns
             return pattern.Current.IsSelected;
         }
 
-
-
-
-
-
-
-
         /* Extended methods */
 
         /// <summary>
@@ -90,7 +63,7 @@ namespace ProdUI.Bridge.UIAPatterns
         /// </returns>
         internal static int FindIndexByItem(AutomationElement control, string matchString)
         {
-            AutomationElementCollection elementCollection = GetListItems(control);
+            AutomationElementCollection elementCollection = SelectionPatternHelper.GetListItems(control);
 
             for (int i = 0; i < elementCollection.Count; i++)
             {
@@ -113,7 +86,7 @@ namespace ProdUI.Bridge.UIAPatterns
         /// </returns>
         internal static AutomationElement FindItemByIndex(AutomationElement control, int index)
         {
-            AutomationElementCollection elementCollection = GetListItems(control);
+            AutomationElementCollection elementCollection = SelectionPatternHelper.GetListItems(control);
             return elementCollection[index];
         }
 
@@ -133,6 +106,5 @@ namespace ProdUI.Bridge.UIAPatterns
 
             return firstMatch;
         }
-
     }
 }

@@ -45,9 +45,9 @@ namespace ProdUI.Bridge.UIAPatterns
         /// <returns>
         ///   <see cref="ExpandCollapseState"/>
         /// </returns>
-        internal static ExpandCollapseState ExpandCollapseState(AutomationElement control)
+        internal static System.Windows.Automation.ExpandCollapseState ExpandCollapseState(AutomationElement control)
         {
-            return (ExpandCollapseState)control.GetCurrentPropertyValue(ExpandCollapsePattern.ExpandCollapseStateProperty);
+            return (System.Windows.Automation.ExpandCollapseState)control.GetCurrentPropertyValue(ExpandCollapsePattern.ExpandCollapseStateProperty);
         }
     }
 }
