@@ -42,30 +42,6 @@
     <Reference Include="UIAutomationTypes" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Native\MessageConstants\ComboBoxConstants.cs" />
-    <Compile Include="Native\MessageConstants\InternalStructs.cs" />
-    <Compile Include="Native\MessageConstants\ListBoxConstants.cs" />
-    <Compile Include="Native\MessageConstants\MessageConstants.cs" />
-    <Compile Include="Native\MessageConstants\MouseConstants.cs" />
-    <Compile Include="Native\MessageConstants\SpinnerConstants.cs" />
-    <Compile Include="Native\MessageConstants\SystemConstants.cs" />
-    <Compile Include="Native\MessageConstants\TabControlConstants.cs" />
-    <Compile Include="Native\MessageConstants\TrackbarConstants.cs" />
-    <Compile Include="Native\MessageConstants\TreeViewConstants.cs" />
-    <Compile Include="Native\MessageConstants\WindowConstants.cs" />
-    <Compile Include="Native\NativeMethods.cs" />
-    <Compile Include="Native\NativeTextProds.cs" />
-    <Compile Include="Native\ProdCheckBoxNative.cs" />
-    <Compile Include="Native\ProdComboBoxNative.cs" />
-    <Compile Include="Native\ProdEditNative.cs" />
-    <Compile Include="Native\ProdListBoxNative.cs" />
-    <Compile Include="Native\ProdRadioButtonNative.cs" />
-    <Compile Include="Native\ProdSliderNative.cs" />
-    <Compile Include="Native\ProdSpinnerNative.cs" />
-    <Compile Include="Native\ProdTabNative.cs" />
-    <Compile Include="Native\ProdTreeViewNative.cs" />
-    <Compile Include="Native\ProdWindowNative.cs" />
-    <Compile Include="Native\SendMessageOverloads.cs" />
     <Compile Include="ProdButton.cs" />
     <Compile Include="ProdCalendar.cs" />
     <Compile Include="ProdCheckBox.cs" />

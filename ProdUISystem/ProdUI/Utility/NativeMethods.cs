@@ -2,6 +2,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using ProdUI.Bridge.NativePatterns;
 
 namespace ProdUI.Utility
 {

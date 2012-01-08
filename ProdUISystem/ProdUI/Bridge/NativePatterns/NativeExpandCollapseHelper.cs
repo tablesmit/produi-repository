@@ -1,85 +1,118 @@
-﻿
-using System;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows.Automation;
+using ExpandCollapseState;
 using ProdUI.Adapters;
+
 namespace ProdUI.Bridge.NativePatterns
 {
     internal class NativeExpandCollapseHelper
     {
-        const int TVFIRST = 0x1100;
+        #region SendMessage
 
         /// <summary>
-        /// The TVM_EXPAND message expands or collapses the list of child items associated with the specified parent item, if any
-        /// wParam = Action flag "TreeViewExpandArgs"
-        /// lParam = NativeWindowHandle to the parent item to expand or collapse
+        /// Sends a message to the message window and waits until the WndProc method has processed the message.
         /// </summary>
-        int TVMEXPAND = TVFIRST + 2;
+        /// <param name="windowHandle">A handle to the window whose window procedure will receive the message.</param>
+        /// <param name="msg">CB_SHOWDROPDOWN</param>
+        /// <param name="wParam">A BOOL that specifies whether the drop-down list box is to be shown or hidden. A value of TRUE shows the list box; a value of FALSE hides it.</param>
+        /// <param name="lParam">Not used.</param>
+        /// <returns>
+        /// TRUE
+        /// </returns>
+        /// <remarks>
+        /// An application sends a CB_SHOWDROPDOWN message to show or hide the list box of a combo box
+        /// </remarks>
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool SendMessage(IntPtr windowHandle, [MarshalAs(UnmanagedType.SysInt)] int msg, [MarshalAs(UnmanagedType.Bool)] bool wParam, [MarshalAs(UnmanagedType.SysInt)] int lParam);
 
         /// <summary>
-        ///wParam - Handle to the item. 
-        ///lParam - Mask used to specify the states to query for. It is equivalent to the stateMask member of TVITEMEX.
+        /// Sends a message to the message window and waits until the WndProc method has processed the message.
         /// </summary>
-        int TVMGETITEMSTATE = TVFIRST + 39;
+        /// <param name="windowHandle">A handle to the window whose window procedure will receive the message.</param>
+        /// <param name="msg">CB_GETDROPPEDSTATE</param>
+        /// <param name="wParam"> Not used; must be zero.</param>
+        /// <param name="lParam"> Not used; must be zero.</param>
+        /// <returns>
+        /// If the list box is visible, the return value is TRUE; otherwise, it is FALSE
+        /// </returns>
+        /// <remarks>
+        /// Determines whether the list box of a combo box is dropped down
+        /// </remarks>
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool SendMessage(IntPtr windowHandle, [MarshalAs(UnmanagedType.SysInt)] int msg, [MarshalAs(UnmanagedType.SysInt)]int wParam, [MarshalAs(UnmanagedType.SysInt)] int lParam);
 
-
+        #endregion SendMessage
 
         /// <summary>
-        /// Expands the specified h WND.
+        /// Expands the specified control.
         /// </summary>
-        /// <param name="hWnd">The handle to the parent window.</param>
-        /// <param name="itemHandle">The item handle.</param>
-        internal void Expand(BaseProdControl control)
+        /// <param name="hWnd">The control handle to the application window.</param>
+        /// <param name="control">The control that supports ExpandCollapse.</param>
+        internal void Expand(IntPtr hWnd, BaseProdControl control)
         {
-            NativeMethods.SendMessage(control.,TVMEXPAND,(int)TreeViewExpandArg.TVE_EXPAND,(int)itemHandle);
+            int controlHandle = control.UIAElement.Current.NativeWindowHandle;
+
+            if (control.UIAElement.Current.ControlType == ControlType.Tree)
+            {
+                SendMessage(hWnd, (int)TreeViewMessages.TVM_EXPAND, (int)TreeViewExpandArgs.TVE_EXPAND, controlHandle);
+                return;
+            }
+
+            if (control.UIAElement.Current.ControlType == ControlType.ComboBox)
+            {
+                SendMessage(hWnd, (int)ComboBoxMessages.CB_SHOWDROPDOWN, true, 0);
+                return;
+            }
         }
 
-        internal bool Collapse(IntPtr hWnd)
+        /// <summary>
+        /// Collapses the specified control.
+        /// </summary>
+        /// <param name="hWnd">The control handle to the application window.</param>
+        /// <param name="control">The control that supports ExpandCollapse.</param>
+        internal void Collapse(IntPtr hWnd, BaseProdControl control)
         {
-            NativeMethods.SendMessage(hWnd,TVMEXPAND,(int)TreeViewExpandArg.TVE_COLLAPSE,(int)itemHandle);
+            int controlHandle = control.UIAElement.Current.NativeWindowHandle;
+
+            if (control.UIAElement.Current.ControlType == ControlType.Tree)
+            {
+                SendMessage(hWnd, (int)TreeViewMessages.TVM_EXPAND, (int)TreeViewExpandArgs.TVE_COLLAPSE, controlHandle);
+                return;
+            }
+            if (control.UIAElement.Current.ControlType == ControlType.ComboBox)
+            {
+                SendMessage(hWnd, (int)ComboBoxMessages.CB_SHOWDROPDOWN, false, 0);
+                return;
+            }
         }
 
-        internal ExpandCollapseState ExaPandCollapseState(IntPtr hWnd)
+        /// <summary>
+        /// Gets the ExpandCollapseState of the selected element.
+        /// </summary>
+        /// <param name="hWnd">The control handle to the application window.</param>
+        /// <param name="control">The control that supports ExpandCollapse.</param>
+        /// <returns>returns a <see cref="System.Windows.Automation.ExpandCollapseState"/> or null if operation fails</returns>
+        internal System.Windows.Automation.ExpandCollapseState? ExpandCollapseState(IntPtr hWnd, BaseProdControl control)
         {
+            int controlHandle = control.UIAElement.Current.NativeWindowHandle;
+
+            if (control.UIAElement.Current.ControlType == ControlType.Tree)
+            {
+                uint mask = NativeMethods.SendMessage(hWnd, (int)TreeViewMessages.TVM_GETITEMSTATE, controlHandle, (uint)TreeViewItemStates.TVIS_EXPANDED);
+                if (((uint)TreeViewItemStates.TVIS_EXPANDED & mask) == (uint)TreeViewItemStates.TVIS_EXPANDED) return System.Windows.Automation.ExpandCollapseState.Expanded;
+                return System.Windows.Automation.ExpandCollapseState.Collapsed;
+            }
+            if (control.UIAElement.Current.ControlType == ControlType.ComboBox)
+            {
+                bool retVal = SendMessage(hWnd, (int)ComboBoxMessages.CB_GETDROPPEDSTATE, 0, 0);
+
+                if (retVal) return System.Windows.Automation.ExpandCollapseState.Expanded;
+                return System.Windows.Automation.ExpandCollapseState.Collapsed;
+            }
+            return null;
         }
-
     }
-
-     /// <summary>
-    ///     Action flag used in conjunction with TVM_EXPAND Message
-    /// </summary>
-    private enum TreeViewExpandArg
-    {
-        /// <summary>
-        /// Collapses the list
-        /// </summary>
-        TVE_COLLAPSE = 0x0001,
-        /// <summary>
-        /// Expands the list
-        /// </summary>
-        TVE_EXPAND = 0x0002,
-        /// <summary>
-        /// Collapses the list if it is expanded or expands it if it is collapsed
-        /// </summary>
-        TVE_TOGGLE = 0x0003,
-        /// <summary>
-        /// Partially expands the list. In this state the child items are visible and the parent item's plus sign (+),
-        /// indicating that it can be expanded, is displayed. This flag must be used in combination with the TVE_EXPAND flag
-        /// </summary>
-        TVE_EXPANDPARTIAL = 0x4000,
-        /// <summary>
-        /// Collapses the list and removes the child items. The TVIS_EXPANDEDONCE state flag is reset. This flag must be used with the TVE_COLLAPSE flag
-        /// </summary>
-        TVE_COLLAPSERESET = 0x8000
-    }
-
-    [Flags]
-    private enum TreeViewItemStates
-    {
-        TVIS_EXPANDED      =     0x0020,
-        TVIS_EXPANDEDONCE    =  0x0040,
-        TVIS_EXPANDPARTIAL   =   0x0080
-    }
-}
-
-
 }

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Windows.Automation;
+using ProdUI.Adapters;
+
+/* Note: Might not be worth it to implement for native */
 
 namespace ProdUI.Bridge.NativePatterns
 {
-    class NativeDockHelper
+    internal class NativeDockHelper
     {
         internal void GetDockPosition(BaseProdControl control)
         {
@@ -15,8 +18,9 @@ namespace ProdUI.Bridge.NativePatterns
                     if (type == ControlType.Pane)
                         if (type == ControlType.ToolBar)
                             if (type == ControlType.TreeItem)
-                                if (type == ControlType.Window) ;
-
+                                if (type == ControlType.Window)
+                                {
+                                }
         }
 
         internal void SetDockPosition(BaseProdControl control, DockPosition dockPosition)
@@ -29,7 +33,9 @@ namespace ProdUI.Bridge.NativePatterns
                     if (type == ControlType.Pane)
                         if (type == ControlType.ToolBar)
                             if (type == ControlType.TreeItem)
-                                if (type == ControlType.Window) ;
+                                if (type == ControlType.Window)
+                                {
+                                }
         }
     }
 }
